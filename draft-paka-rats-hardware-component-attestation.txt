@@ -4,7 +4,7 @@
 
 Remote ATtestation ProcedureS                                 A. Poulain
 Internet-Draft                                                 Secure-IC
-Intended status: Informational                             13 March 2026
+Intended status: Standards Track                           13 March 2026
 Expires: 14 September 2026
 
 
@@ -68,10 +68,13 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Conventions and Definitions
+   2.  Terminology
+     2.1.  Requirements Notation
    3.  Security Considerations
    4.  IANA Considerations
-   5.  Normative References
+   5.  References
+     5.1.  Normative References
+     5.2.  Informative References
    Acknowledgments
    Author's Address
 
@@ -79,7 +82,11 @@ Table of Contents
 
    TODO Introduction
 
-2.  Conventions and Definitions
+2.  Terminology
+
+   The terminology defined in [RFC9334] is reused.
+
+2.1.  Requirements Notation
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -91,11 +98,30 @@ Table of Contents
 
    TODO Security
 
+                            +----------------+
+                            |                |
+                            |                |
+                            |                |
+                            |                |
+                            |                |
+                            |    Evidence    |
+                            |                |
+                            |                |
+                            |                |
+                            |                |
+                            |                |
+                            |                |
+                            +----------------+
+
+                     Figure 1: Basic Figure for Testing
+
 4.  IANA Considerations
 
    This document has no IANA actions.
 
-5.  Normative References
+5.  References
+
+5.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -105,6 +131,13 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+5.2.  Informative References
+
+   [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
+              W. Pan, "Remote ATtestation procedureS (RATS)
+              Architecture", RFC 9334, DOI 10.17487/RFC9334, January
+              2023, <https://www.rfc-editor.org/rfc/rfc9334>.
 
 Acknowledgments
 
