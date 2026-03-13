@@ -74,7 +74,7 @@ TODO Security
 
 
 ~~~~ aasvg
-{::include diagrams/basic-figure.txt}
+{::include diagrams/basic-figure.asciio}
 ~~~~
 {: #basicfigure artwork-align="center" title="Basic Figure for Testing"}
 
