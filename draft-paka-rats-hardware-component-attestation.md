@@ -1,13 +1,13 @@
 ---
 title: "Attestation of Hardware Components"
 abbrev: "HW-attest"
-category: info
+category: std
 
 stand_alone: yes
 smart_quotes: no
 pi: [toc, sortrefs, symrefs]
 
-# ipr: trust200902 # ? todo research that
+# ipr: trust200902 # ? todo: check with legal team
 
 docname: draft-paka-rats-hardware-component-attestation-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
@@ -44,6 +44,7 @@ author:
 normative:
 
 informative:
+  RFC9334:
 
 ...
 
@@ -58,8 +59,11 @@ TODO Abstract
 
 TODO Introduction
 
+# Terminology
 
-# Conventions and Definitions
+The terminology defined in {{RFC9334}} is reused.
+
+## Requirements Notation
 
 {::boilerplate bcp14-tagged}
 
@@ -67,6 +71,13 @@ TODO Introduction
 # Security Considerations
 
 TODO Security
+
+
+~~~~ aasvg
+{::include diagrams/basic-figure.txt}
+~~~~
+{: #basicfigure artwork-align="center" title="Basic Figure for Testing"}
+
 
 
 # IANA Considerations
