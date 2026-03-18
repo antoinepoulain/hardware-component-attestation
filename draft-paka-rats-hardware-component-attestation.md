@@ -30,21 +30,26 @@ venue:
   latest: "https://antoinepoulain.github.io/hardware-component-attestation/draft-paka-rats-hardware-component-attestation.html"
 
 author:
-#  -
-#     fullname: "antoinepoulain"
-#     organization: Your Organization Here
-#     email: "antoinepoulain7511@gmail.com"
-
   - ins: A. Poulain
     name: Antoine Poulain
     org: Secure-IC
-    email: antoinepoulain7511@gmail.com
-  # add Abdellah
+    email: antoine.poulain@secure-ic.com
+  - ins: A. Kaci
+    name: Abdellah Kaci
+    org: Secure-IC
+    email: abdellah.kaci@secure-ic.com
 
 normative:
+  RFC9334:
+  RFC9711:
 
 informative:
-  RFC9334:
+  ISO5891:
+    target: "https://www.iso.org/fr/standard/81806.html"
+    title: "ISO/IEC TR 5891:2024, Information security, cybersecurity and privacy protection — Hardware monitoring technology for hardware security assessment"
+    date: 2024-04
+    author:
+       org: "International Standards Organization"
 
 ...
 
@@ -72,11 +77,15 @@ The terminology defined in {{RFC9334}} is reused.
 
 TODO Security
 
+~~~~ aasvg
+{::include diagrams/abstract-measurement-circuitry.asciio}
+~~~~
+{: #abstract_meas_circuit artwork-align="center" title="Abstract Measurement Circuitry"}
 
 ~~~~ aasvg
 {::include diagrams/basic-figure.asciio}
 ~~~~
-{: #basicfigure artwork-align="center" title="Basic Figure for Testing"}
+{: #basic_figure artwork-align="center" title="Basic Figure for Testing"}
 
 
 

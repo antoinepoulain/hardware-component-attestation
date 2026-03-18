@@ -1,0 +1,9 @@
++-------------+    Trigger    +-------------------------+
+|             |  Measurement  |    +--------------+     |
+|             +--------------->    |              |     |
+|  Attesting  |               |    |   Target HW  |     |
+| Environment |               |    |   Component  |     |
+|             |               |    +--------------+     |
+|             <---------------+  Measurement Circuitry  |
++-------------+    Export     +-------------------------+
+                 Measurement                             
