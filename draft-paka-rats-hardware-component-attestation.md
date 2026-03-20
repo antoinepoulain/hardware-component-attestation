@@ -74,11 +74,21 @@ To address these limitations, this document defines a data model and provides gu
 
 # Terminology
 
-The terminology defined in {{RFC9334}} is reused throughout this document.
-
 ## Requirements Notation
 
 {::boilerplate bcp14-tagged}
+
+## Definitions
+
+The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from other RATS specifications are refined here to fit the context presented in this document.
+
+(definitons in the scope of this document)
+
+Measurement: term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.
+
+Measurement Circuitry:
+
+
 
 # Scope and Limitations
 
@@ -99,19 +109,17 @@ Gaining control of the hardware of a system is particularly interesting for an a
 # Attester Model
 The RATS architecture presented in {{RFC9334}} introduces two types of environments in an Attester. The Attesting Environment (AE) is in charge of collecting claims about a Target Environment (TE). The Attesting Environment is then responsible for embedding those claims in an Evidence Conceptual Message.
 
-This document focuses on claims used to represent the state of a target hardware component. Said claims can be related to physical properties (electromagnetic or thermal signature, timing values, power consumption, ...), results of integrated self-tests or collected traces.
+This document focuses on claims used to represent the state of a target hardware component. Said claims can be related to physical properties (electromagnetic or thermal signature, timing values, power consumption, etc.), results of integrated self-tests or collected traces.
 
 ## Abstract Representation
 
-Mechanisms for collecting measurements of hardware components may be highly dependent on the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering the measurement mechanism as black boxes with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected.
+Mechanisms for collecting measurements of hardware components may highly depend of the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering a measurement mechanism as a black boxe with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected while promoting interoperability with different real world implementations.
 
 The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.
 
-
-
-
-
 ### Coupled Measurement Circuitry
+
+
 As shown in {{coupled_meas_circuit}}, a part of the Attesting Environment is located on the Target Component.
 
 ~~~~ aasvg
@@ -136,12 +144,14 @@ TODO this implies that a TE can have multiple measurmeent fields (I think alread
 
 Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to trigger and collect the
 
-Measurement computation is triggered by something (boot, external request, watchdog, ...)
+Measurement computation is triggered by something (boot, external request, watchdog)
 
 
 Boot
 
 Runtime
+
+measurement may be stored (securely) until it is written by Attesting Environment in Evidence.
 
 Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).
 
@@ -177,7 +187,7 @@ The following subsections are mainly focused on security considerations regardin
 
 ## Root of Trust Components
 
-Some components are essential for attestation, if these are tampered with, there is no way to build meaningful Evidence (storage of attestation key, signature component, etc...). These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.
+Some components are essential for attestation, if these are tampered with, there is no way to build meaningful Evidence (storage of attestation key, signature component, etc.). These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.
 
 These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security system itself !).
 
@@ -199,7 +209,7 @@ Physical attacks target the hardware of the system. They imply physical access t
 
 Passive physical attacks are used by attackers to leak information through analysis of system physical properties. Passive attacks, by definition, do not modify behavior of the system and therefore cannot alter the correct functioning of the attestation flow.
 
-Ex: Side channel analysis of physical properties (EM emissions, power consumption, timing, temperature, probing ...)
+Ex: Side channel analysis of physical properties (EM emissions, power consumption, timing, temperature, probing, etc.)
 
 The danger with passive attacks resides in the extraction of sensitive assets and particularly attestation key used to sign Evidence, which can be used for impersonation and Evidence forgery. This is already tackled in {{Section 12.1.1 of RFC9334}}.
 
@@ -213,7 +223,7 @@ Ex: Glitching, fault injections to induce malicious behavior. May tamper with th
 
 Ex: Memory tampering attacks to modify stored measurements.
 
-Some techniques to mitigate physical attacks are usage of a TPM or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc... Note that some of these mitigations cannot directly prevent attacks but can be used for detection.
+Some techniques to mitigate physical attacks are usage of a TPM or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.
 
 ### Supply Chain Attacks
 
