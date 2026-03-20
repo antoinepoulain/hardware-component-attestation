@@ -82,10 +82,11 @@ To address these limitations, this document defines a data model and provides gu
 
 The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from other RATS specifications are refined here to fit the context presented in this document.
 
-+ Measurement: term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.
++ Measurement: Term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.
 
 + Measurement Circuitry: can be hardware logic (really a circuit) or software logic e.g., FIPS KAT
 
++ Target Hardware Component: Hardware component from which claims are to be collected by an Attesting Environment.
 
 
 # Scope and Limitations
@@ -110,20 +111,39 @@ The RATS architecture presented in {{RFC9334}} introduces two types of environme
 
 This document focuses on claims used to represent the state of a target hardware component. Said claims can be related to physical properties (electromagnetic or thermal signature, timing values, power consumption, etc.), results of integrated self-tests or collected traces.
 
+The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents a mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.
+
 ## Abstract Representation
 
 Mechanisms for collecting measurements of hardware components may highly depend of the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering a measurement mechanism as a black boxe with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected while promoting interoperability with different real world implementations.
 
-The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents a mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.
+This document uses the following abstract objects:
+
++ Measurement circuitry:
+
+Black box used to represent logic capable of computing measurement of a target. The measurement circuitry is part of the Attesting Environment.
+
++ Trigger interface
+
+To start the computation of a measurement, the measurement circuitry must be triggered. The trigger can follow an external request, a watchdog or any event set to trigger a measurement. The measurement circuitry receives a signal to start the computation of a measurement through the "trigger" interface.
+
++ Export interface
+
+The "export" interface allows a measurement to be exported from the measurement circuitry to a controlled memory region in the trust boundary of the Attesting Environment.
+
++ Data collection channel
+
+The measurement mechanism needs to have physical access on the property that it is in charge of measuring. The flow of data exchanged between the measurement circuitry and the targe hardware component is represented by the "data collection" channel. This channel is not accessible by the Attesting Environment.
+
+## Integration Models
 
 ### Coupled Measurement Circuitry
 
-
 As shown in {{coupled_meas_circuit}}, a part of the Attesting Environment is located on the Target Component.
 
-The measurement circuitry is part of the target hardware component. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is only logical. The target hardware component and the measurement circuitry are part of the same die. This has an impact on the trust model (see {{supply-chain-attacks}}).
+In this integration model, the measurement circuitry is part of the target hardware component. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is only logical. The target hardware component and the measurement circuitry are part of the same die. This has an impact on the trust model (see {{supply-chain-attacks}}).
 
-~~~~ aasvg
+~~~~ aasbbvg
 {::include diagrams/coupled-measurement-circuitry.asciio}
 ~~~~
 {: #coupled_meas_circuit artwork-align="center" title="Abstract Representation of Coupled Measurement Circuitry"}
@@ -134,7 +154,7 @@ Ex:
 
 Another Attester layout is to have
 
-The measurement circuitry is not part of the target hardware component, it is external. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement circuitry can come from different foundries.
+In this integration model, the measurement circuitry is not part of the target hardware component, it is external. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement circuitry can come from different foundries.
 
 TODO really not part of the RTL ? if not, are there other examples
 Ex: Sensors added on top of hardware component
