@@ -99,17 +99,51 @@ Gaining control of the hardware of a system is particularly interesting for an a
 # Attester Model
 The RATS architecture presented in {{RFC9334}} introduces two types of environments in an Attester. The Attesting Environment (AE) is in charge of collecting claims about a Target Environment (TE). The Attesting Environment is then responsible for embedding those claims in an Evidence Conceptual Message.
 
-This document focuses on claims used to represent the state of a target hardware component. Such claims can be related to physical properties such electromagnetic or thermal signature, timing values, power consumption, results on stimulation, result of interagted self-tests, etc...
+This document focuses on claims used to represent the state of a target hardware component. Said claims can be related to physical properties (electromagnetic or thermal signature, timing values, power consumption, ...), results of integrated self-tests or collected traces.
 
 ## Abstract Representation
-Mapping to AE and TE
 
-An AE may collect on multiple TE
+Mechanisms for collecting measurements of hardware components may be highly dependent on the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering the measurement mechanism as black boxes with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected.
+
+The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.
+
+
+
+
+
+### Coupled Measurement Circuitry
+As shown in {{coupled_meas_circuit}}, a part of the Attesting Environment is located on the Target Component.
 
 ~~~~ aasvg
-{::include diagrams/abstract-measurement-circuitry.asciio}
+{::include diagrams/coupled-measurement-circuitry.asciio}
 ~~~~
-{: #abstract_meas_circuit artwork-align="center" title="Abstract Measurement Circuitry"}
+{: #coupled_meas_circuit artwork-align="center" title="Abstract Representation of Coupled Measurement Circuitry"}
+
+### External Measurement Circuitry
+Another Attester layout is to have
+
+Ex: Sensors added on top of hardware component
+
+----------
+
+composite attester, can be many attesting env (and many target envs of course)
+An AE may collect on multiple TE
+
+Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
+TODO this implies that a TE can have multiple measurmeent fields (I think already supported in RATS)
+
+## Measurement Collection Flow
+
+Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to trigger and collect the
+
+Measurement computation is triggered by something (boot, external request, watchdog, ...)
+
+
+Boot
+
+Runtime
+
+Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).
 
 ## Practical Examples
 This section is for informational purposes only.
@@ -122,7 +156,7 @@ This section introduces standard claims to be included in RATS Conceptual Messag
 ## Endorsement and Reference Values
 
 CDDL
-Possible formats
+Possible formats (CoRIM with CoMID, other ?)
 
 ## Evidence
 
@@ -133,7 +167,7 @@ CDDL
 ~~~
 {: #cddlexample title="Example of CDDL"}
 
-Possible formats
+Possible formats (EAT, DICE X.509, custom ?)
 
 # Security Considerations
 
@@ -188,7 +222,7 @@ TODO: need IANA actions for claims defined in this document ?
 
 # Collected CDDL
 
-This appendix contains all the CDDL definitions included in this specification.
+This appendix contains all the CDDL definitions included in this document.
 
 ~~~ cddl
 {::include-fold cddl/collected.cddl}
