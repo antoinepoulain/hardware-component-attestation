@@ -175,7 +175,15 @@ The security considerations of RATS architecture apply ({{Section 12 of RFC9334}
 
 The following subsections are mainly focused on security considerations regarding the Attester.
 
-## Software Attacks
+## Root of Trust Components
+
+Some components are essential for attestation, if these are tampered with, there is no way to build meaningful Evidence (storage of attestation key, signature component, etc...). These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.
+
+These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security system itself !).
+
+## Threat Model
+
+### Software Attacks
 
 There exist software attacks that can have a direct impact on hardware components’ behavior. These are ideally mitigated by good and secure development practices but in case they happen, these attacks can be detected by monitoring physical properties of the component (such as power consumption, thermal and electromagnetic signatures, timing).
 
@@ -183,11 +191,11 @@ Ex: Software-induced Denial-of-Service (DoS).
 
 Ex: Manipulation of privileged power control interface.
 
-## Physical Attacks
+### Physical Attacks
 
 Physical attacks target the hardware of the system. They imply physical access to the system during its mission mode or while it is in the supply chain.
 
-### Passive Attacks
+#### Passive Attacks
 
 Passive physical attacks are used by attackers to leak information through analysis of system physical properties. Passive attacks, by definition, do not modify behavior of the system and therefore cannot alter the correct functioning of the attestation flow.
 
@@ -195,7 +203,7 @@ Ex: Side channel analysis of physical properties (EM emissions, power consumptio
 
 The danger with passive attacks resides in the extraction of sensitive assets and particularly attestation key used to sign Evidence, which can be used for impersonation and Evidence forgery. This is already tackled in {{Section 12.1.1 of RFC9334}}.
 
-### Active Attacks
+#### Active Attacks
 
 Active physical attacks are the main problem since they allow an attacker (or a “natural” physical event) to tamper with the integrity of assets and execution flows of the system. These may therefore modify measurements in transit or at rest, inject arbitrary data in Evidence or bypass sensitive operations.
 
@@ -207,7 +215,7 @@ Ex: Memory tampering attacks to modify stored measurements.
 
 Some techniques to mitigate physical attacks are usage of a TPM or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc... Note that some of these mitigations cannot directly prevent attacks but can be used for detection.
 
-## Supply Chain Attacks
+### Supply Chain Attacks
 
 Each stage of the supply chain introduces a new opportunity for an attacker to tamper with the produced system.
 
