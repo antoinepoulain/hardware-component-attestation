@@ -62,7 +62,7 @@ TODO Abstract
 
 # Introduction
 
-Hardware (HW) components form the foundation upon which all computations rely. Therefore, the correctness and integrity of software execution depend on the proper functioning of the underlying hardware, which can be considered a root of trust for computation.
+Hardware components form the foundation upon which all computations rely. Therefore, the correctness and integrity of software execution depend on the proper functioning of the underlying hardware, which can be considered a root of trust for computation.
 
 Modern systems increasingly adopt disaggregated architectures, such as chiplet-based designs and large-scale heterogeneous platforms. These systems integrate hardware components from multiple sources, introducing new attack surfaces.
 
@@ -84,10 +84,27 @@ The terminology defined in {{RFC9334}} is reused throughout this document.
 
 TODO
 
+# Use Cases
+
+The solution presented in this document aims at mitigating two threats on hardware.
+
++ Defective hardware components
+
+Malfunction of hardware components may be caused by environment and/or aging. Detection of such malfunctions is critical when relying on systems evolving in hazardous environments such as high pressure, extreme temperatures, contact with water or chemical substances or space radiations.
+
++ Attacks on hardware components
+
+Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access on the system (particularly relevant for embedded systems).
+
 # Attester Model
+The RATS architecture presented in {{RFC9334}} introduces two types of environments in an Attester. The Attesting Environment (AE) is in charge of collecting claims about a Target Environment (TE). The Attesting Environment is then responsible for embedding those claims in an Evidence Conceptual Message.
+
+This document focuses on claims used to represent the state of a target hardware component. Such claims can be related to physical properties such electromagnetic or thermal signature, timing values, power consumption, results on stimulation, result of interagted self-tests, etc...
 
 ## Abstract Representation
 Mapping to AE and TE
+
+An AE may collect on multiple TE
 
 ~~~~ aasvg
 {::include diagrams/abstract-measurement-circuitry.asciio}
@@ -104,8 +121,19 @@ This section introduces standard claims to be included in RATS Conceptual Messag
 
 ## Endorsement and Reference Values
 
+CDDL
+Possible formats
+
 ## Evidence
 
+CDDL
+
+~~~ cddl
+{::include cddl/cddl-example.cddl}
+~~~
+{: #cddlexample title="Example of CDDL"}
+
+Possible formats
 
 # Security Considerations
 
@@ -156,8 +184,16 @@ Supply chains attacks may lead to the injection of Trojans. Once a Trojan has be
 This document has no IANA actions.
 TODO: need IANA actions for claims defined in this document ?
 
-
 --- back
+
+# Collected CDDL
+
+This appendix contains all the CDDL definitions included in this specification.
+
+~~~ cddl
+{::include-fold cddl/collected.cddl}
+~~~
+
 
 # Acknowledgments
 {:numbered="false"}

@@ -1,0 +1,7 @@
+bytes-b64u = text .b64u bytes
+bytes8 = bytes .size 8
+bytes8-b64u = text .b64u bytes8
+mc-cbor = bytes .cbor measured-component
+mc-json = text .json measured-component
+$measurements-body-cbor /= mc-cbor / mc-json
+$measurements-body-json /= mc-json / text .b64u mc-cbor

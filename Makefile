@@ -1,4 +1,5 @@
 LIBDIR := lib
+CDDL_DIR := cddl
 -include $(LIBDIR)/main.mk
 
 $(LIBDIR)/main.mk:
@@ -13,3 +14,14 @@ else
 	    https://github.com/martinthomson/i-d-template $(LIBDIR)
 endif
 endif
+
+cddl:
+	$(MAKE) -C $(CDDL_DIR)
+
+cddl-check:
+	$(MAKE) -C $(CDDL_DIR) check-schema
+
+cddl-clean:
+	$(MAKE) -C $(CDDL_DIR) clean
+
+.PHONY: cddl cddl-check cddl-clean
