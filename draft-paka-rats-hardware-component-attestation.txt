@@ -71,31 +71,33 @@ Table of Contents
    2.  Terminology
      2.1.  Requirements Notation
    3.  Scope and Limitations
-   4.  Attester Model
-     4.1.  Abstract Representation
-     4.2.  Practical Examples
-   5.  Inclusion in Conceptual Messages
-     5.1.  Endorsement and Reference Values
-     5.2.  Evidence
-   6.  Security Considerations
-     6.1.  Software Attacks
-     6.2.  Physical Attacks
-       6.2.1.  Passive Attacks
-       6.2.2.  Active Attacks
-     6.3.  Supply Chain Attacks
-   7.  IANA Considerations
-   8.  References
-     8.1.  Normative References
-     8.2.  Informative References
+   4.  Use Cases
+   5.  Attester Model
+     5.1.  Abstract Representation
+     5.2.  Practical Examples
+   6.  Inclusion in Conceptual Messages
+     6.1.  Endorsement and Reference Values
+     6.2.  Evidence
+   7.  Security Considerations
+     7.1.  Software Attacks
+     7.2.  Physical Attacks
+       7.2.1.  Passive Attacks
+       7.2.2.  Active Attacks
+     7.3.  Supply Chain Attacks
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
+   Appendix A.  Collected CDDL
    Acknowledgments
    Authors' Addresses
 
 1.  Introduction
 
-   Hardware (HW) components form the foundation upon which all
-   computations rely.  Therefore, the correctness and integrity of
-   software execution depend on the proper functioning of the underlying
-   hardware, which can be considered a root of trust for computation.
+   Hardware components form the foundation upon which all computations
+   rely.  Therefore, the correctness and integrity of software execution
+   depend on the proper functioning of the underlying hardware, which
+   can be considered a root of trust for computation.
 
    Modern systems increasingly adopt disaggregated architectures, such
    as chiplet-based designs and large-scale heterogeneous platforms.
@@ -146,11 +148,46 @@ Table of Contents
 
    TODO
 
-4.  Attester Model
+4.  Use Cases
 
-4.1.  Abstract Representation
+   The solution presented in this document aims at mitigating two
+   threats on hardware.
+
+   *  Defective hardware components
+
+   Malfunction of hardware components may be caused by environment and/
+   or aging.  Detection of such malfunctions is critical when relying on
+   systems evolving in hazardous environments such as high pressure,
+   extreme temperatures, contact with water or chemical substances or
+   space radiations.
+
+   *  Attacks on hardware components
+
+   Gaining control of the hardware of a system is particularly
+   interesting for an attacker as it allows to tamper with the correct
+   functioning of the system at a priviledged level.  Such control can
+   be obtained by abusing software mechanisms or by having physical
+   access on the system (particularly relevant for embedded systems).
+
+5.  Attester Model
+
+   The RATS architecture presented in [RFC9334] introduces two types of
+   environments in an Attester.  The Attesting Environment (AE) is in
+   charge of collecting claims about a Target Environment (TE).  The
+   Attesting Environment is then responsible for embedding those claims
+   in an Evidence Conceptual Message.
+
+   This document focuses on claims used to represent the state of a
+   target hardware component.  Such claims can be related to physical
+   properties such electromagnetic or thermal signature, timing values,
+   power consumption, results on stimulation, result of interagted self-
+   tests, etc...
+
+5.1.  Abstract Representation
 
    Mapping to AE and TE
+
+   An AE may collect on multiple TE
 
          +-------------+    Trigger    +-------------------------+
          |             |  Measurement  |    +--------------+     |
@@ -164,22 +201,34 @@ Table of Contents
 
                   Figure 1: Abstract Measurement Circuitry
 
-4.2.  Practical Examples
+5.2.  Practical Examples
 
    This section is for informational purposes only.
 
    Mapping to BIST and Traces
 
-5.  Inclusion in Conceptual Messages
+6.  Inclusion in Conceptual Messages
 
    This section introduces standard claims to be included in RATS
    Conceptual Messages.
 
-5.1.  Endorsement and Reference Values
+6.1.  Endorsement and Reference Values
 
-5.2.  Evidence
+   CDDL Possible formats
 
-6.  Security Considerations
+6.2.  Evidence
+
+   CDDL
+
+   bytes-b64u = text .b64u bytes
+   bytes8 = bytes .size 8
+   bytes8-b64u = text .b64u bytes8
+
+                         Figure 2: Example of CDDL
+
+   Possible formats
+
+7.  Security Considerations
 
    The security considerations of RATS architecture apply (Section 12 of
    [RFC9334]).  This section also mentions protection against physical
@@ -191,7 +240,7 @@ Table of Contents
    The following subsections are mainly focused on security
    considerations regarding the Attester.
 
-6.1.  Software Attacks
+7.1.  Software Attacks
 
    There exist software attacks that can have a direct impact on
    hardware components’ behavior.  These are ideally mitigated by good
@@ -204,13 +253,13 @@ Table of Contents
 
    Ex: Manipulation of privileged power control interface.
 
-6.2.  Physical Attacks
+7.2.  Physical Attacks
 
    Physical attacks target the hardware of the system.  They imply
    physical access to the system during its mission mode or while it is
    in the supply chain.
 
-6.2.1.  Passive Attacks
+7.2.1.  Passive Attacks
 
    Passive physical attacks are used by attackers to leak information
    through analysis of system physical properties.  Passive attacks, by
@@ -225,7 +274,7 @@ Table of Contents
    Evidence, which can be used for impersonation and Evidence forgery.
    This is already tackled in Section 12.1.1 of [RFC9334].
 
-6.2.2.  Active Attacks
+7.2.2.  Active Attacks
 
    Active physical attacks are the main problem since they allow an
    attacker (or a “natural” physical event) to tamper with the integrity
@@ -250,7 +299,7 @@ Table of Contents
    etc... Note that some of these mitigations cannot directly prevent
    attacks but can be used for detection.
 
-6.3.  Supply Chain Attacks
+7.3.  Supply Chain Attacks
 
    Each stage of the supply chain introduces a new opportunity for an
    attacker to tamper with the produced system.
@@ -266,14 +315,14 @@ Table of Contents
    integrated by the foundry that introduced the Trojan, then it cannot
    be trusted.
 
-7.  IANA Considerations
+8.  IANA Considerations
 
    This document has no IANA actions.  TODO: need IANA actions for
    claims defined in this document ?
 
-8.  References
+9.  References
 
-8.1.  Normative References
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -294,13 +343,26 @@ Table of Contents
               DOI 10.17487/RFC9711, April 2025,
               <https://www.rfc-editor.org/rfc/rfc9711>.
 
-8.2.  Informative References
+9.2.  Informative References
 
    [ISO5891]  International Standards Organization, "ISO/IEC TR
               5891:2024, Information security, cybersecurity and privacy
               protection — Hardware monitoring technology for hardware
               security assessment", April 2024,
               <https://www.iso.org/fr/standard/81806.html>.
+
+Appendix A.  Collected CDDL
+
+   This appendix contains all the CDDL definitions included in this
+   specification.
+
+   bytes-b64u = text .b64u bytes
+   bytes8 = bytes .size 8
+   bytes8-b64u = text .b64u bytes8
+   mc-cbor = bytes .cbor measured-component
+   mc-json = text .json measured-component
+   $measurements-body-cbor /= mc-cbor / mc-json
+   $measurements-body-json /= mc-json / text .b64u mc-cbor
 
 Acknowledgments
 
