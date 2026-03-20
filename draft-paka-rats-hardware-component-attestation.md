@@ -84,7 +84,7 @@ The terminology defined in {{RFC9334}} is reused throughout this document. Some 
 
 + Measurement: Term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.
 
-+ Measurement Circuitry: can be hardware logic (really a circuit) or software logic e.g., FIPS KAT
++ Measurement Circuitry: can be hardware logic (really a circuit) or software logic e.g., FIPS KAT. Software logic used to trigger a measurement is not considered measurement circuitry but rather the Attesting Environment end-point of the trigger interface. See {{abstract-representation}} for details on the trigger interface.
 
 + Target Hardware Component: Hardware component from which claims are to be collected by an Attesting Environment.
 
@@ -113,7 +113,7 @@ This document focuses on claims used to represent the state of a target hardware
 
 The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents a mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.
 
-## Abstract Representation
+## Abstract Representation {#abstract-representation}
 
 Mechanisms for collecting measurements of hardware components may highly depend of the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering a measurement mechanism as a black boxe with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected while promoting interoperability with different real world implementations.
 
@@ -127,6 +127,8 @@ Black box used to represent logic capable of computing measurement of a target. 
 
 To start the computation of a measurement, the measurement circuitry must be triggered. The trigger can follow an external request, a watchdog or any event set to trigger a measurement. The measurement circuitry receives a signal to start the computation of a measurement through the "trigger" interface.
 
+Note: This interface may not be used in case of continuous monitoring.
+
 + Export interface
 
 The "export" interface allows a measurement to be exported from the measurement circuitry to a controlled memory region in the trust boundary of the Attesting Environment.
@@ -137,18 +139,20 @@ The measurement mechanism needs to have physical access on the property that it 
 
 ## Integration Models
 
+The following subsections present possible layouts for integrating measurement circuitry between the Attesting Environment and the target hardware component.
+
 ### Coupled Measurement Circuitry
 
 As shown in {{coupled_meas_circuit}}, a part of the Attesting Environment is located on the Target Component.
 
-In this integration model, the measurement circuitry is part of the target hardware component. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is only logical. The target hardware component and the measurement circuitry are part of the same die. This has an impact on the trust model (see {{supply-chain-attacks}}).
+In this integration model, the measurement circuitry is part of the target hardware component. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is only logical. The target hardware component and the measurement circuitry are part of the same die. Due to the proximity between the measurement circuitry and the target hardware component, the data collection channel is not represented.
 
 ~~~~ aasbbvg
 {::include diagrams/coupled-measurement-circuitry.asciio}
 ~~~~
 {: #coupled_meas_circuit artwork-align="center" title="Abstract Representation of Coupled Measurement Circuitry"}
 
-Ex:
+Note: The measurement circuitry and target hardware component sharing the same die has an impact on the trust model (see {{supply-chain-attacks}}).
 
 ### External Measurement Circuitry
 
@@ -172,7 +176,7 @@ composite attester, can be many attesting env (and many target envs of course)
 An AE may collect on multiple TE
 
 Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
-TODO this implies that a TE can have multiple measurmeent fields (I think already supported in RATS)
+TODO this implies that a TE can have multiple measurement fields in claim and reference values (I think already supported in RATS)
 
 ## Measurement Journey
 
@@ -186,22 +190,21 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 
 1. trigger blabla
 
-    Measurement computation is triggered by something (boot, external request, watchdog)
+    Measurement computation is triggered by something (boot, external request, watchdog) or continuous.
 
     Boot
 
     Runtime
 
-
-1. compute
-
-    blabla
-
-1. collect
+1. compute measurement
 
     blabla
 
-1. store
+1. export measurement
+
+    blabla
+
+1. \[optional\] store
 
     measurement may be stored (securely) until it is written by Attesting Environment in Evidence.
 
