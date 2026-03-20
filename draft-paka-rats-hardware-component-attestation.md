@@ -113,7 +113,7 @@ This document focuses on claims used to represent the state of a target hardware
 
 Mechanisms for collecting measurements of hardware components may highly depend of the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering a measurement mechanism as a black boxe with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected while promoting interoperability with different real world implementations.
 
-The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.
+The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents a mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.
 
 ### Coupled Measurement Circuitry
 
@@ -142,7 +142,9 @@ Ex: Sensors added on top of hardware component
 ~~~~
 {: #external_meas_circuit artwork-align="center" title="Abstract Representation of External Measurement Circuitry"}
 
-----------
+
+
+
 
 composite attester, can be many attesting env (and many target envs of course)
 An AE may collect on multiple TE
@@ -154,34 +156,40 @@ TODO this implies that a TE can have multiple measurmeent fields (I think alread
 
 TODO should this section be moved before Coupled and External Measurement Circuitry ?
 
-Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. DUring the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).
+Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).
 
-Below are the identified steps of the journey of a measurement at the hardware level:
+Below are the identified steps of the journey of a measurement at the hardware level.
 
 TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.
 
-+ trigger blabla
+1. trigger blabla
 
-Measurement computation is triggered by something (boot, external request, watchdog)
+    Measurement computation is triggered by something (boot, external request, watchdog)
 
-Boot
+    Boot
 
-Runtime
+    Runtime
 
 
-+ compute blabla
+1. compute
 
-+ collect
+    blabla
 
-+ store
+1. collect
 
-measurement may be stored (securely) until it is written by Attesting Environment in Evidence.
+    blabla
+  
+1. store
 
-+ include in Evidence
+    measurement may be stored (securely) until it is written by Attesting Environment in Evidence.
 
-+ sign Evidence
+1. include in Evidence
 
-Once stored in signed Evidence, the measurement is considered safe. This is because the cryptographic signature of the Evidence ensures integrity protection.
+    blabla
+
+1. sign Evidence
+
+    Once stored in signed Evidence, the measurement is considered safe. This is because the cryptographic signature of the Evidence ensures integrity protection.
 
 
 
