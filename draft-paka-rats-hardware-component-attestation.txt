@@ -210,7 +210,7 @@ Table of Contents
 
    The goal of this section is to propose standard interfaces to trigger
    the computation of the measurement and to collect the computed
-   measurement.  Also, this section presents mapping of Attesting
+   measurement.  Also, this section presents a mapping of Attesting
    Environments and Target Environments in different integration models
    for these measurement mechanisms.
 
@@ -270,7 +270,6 @@ Table of Contents
 
     Figure 2: Abstract Representation of External Measurement Circuitry
 
-
    composite attester, can be many attesting env (and many target envs
    of course) An AE may collect on multiple TE
 
@@ -289,42 +288,48 @@ Table of Contents
    Environment possesses a way to start the computation of the
    measurement (trigger), to securely retrieve the measurement
    (collection) and to securely embed the measurement in Evidence.
-   DUring the completion of all these steps, the attacker has many
+   During the completion of all these steps, the attacker has many
    opportunities to tamper with the integrity of the measurement or the
    execution logic (hardware or software).
 
    Below are the identified steps of the journey of a measurement at the
-   hardware level:
+   hardware level.
 
    TODO at each step describe attacker opportunity (attacker may be
    phsycial event) goal is to include in Evidence a measurement that is
    trusted.
 
-   *  trigger blabla
+   1.  trigger blabla
 
-   Measurement computation is triggered by something (boot, external
-   request, watchdog)
+       Measurement computation is triggered by something (boot, external
+       request, watchdog)
 
-   Boot
+       Boot
 
-   Runtime
+       Runtime
 
-   *  compute blabla
+   2.  compute
 
-   *  collect
+       blabla
 
-   *  store
+   3.  collect
 
-   measurement may be stored (securely) until it is written by Attesting
-   Environment in Evidence.
+       blabla
 
-   *  include in Evidence
+   4.  store
 
-   *  sign Evidence
+       measurement may be stored (securely) until it is written by
+       Attesting Environment in Evidence.
 
-   Once stored in signed Evidence, the measurement is considered safe.
-   This is because the cryptographic signature of the Evidence ensures
-   integrity protection.
+   5.  include in Evidence
+
+       blabla
+
+   6.  sign Evidence
+
+       Once stored in signed Evidence, the measurement is considered
+       safe.  This is because the cryptographic signature of the
+       Evidence ensures integrity protection.
 
    Interactions models between the Attester system and external entities
    such as the Verifier are already presented in other documents (TODO

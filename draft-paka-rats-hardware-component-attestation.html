@@ -1342,7 +1342,7 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-abstract-representation" class="section-name selfRef">Abstract Representation</a>
         </h3>
 <p id="section-5.1-1">Mechanisms for collecting measurements of hardware components may highly depend of the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering a measurement mechanism as a black boxe with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected while promoting interoperability with different real world implementations.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents a mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <div id="coupled-measurement-circuitry">
 <section id="section-5.1.1">
           <h4 id="name-coupled-measurement-circuit">
@@ -1457,11 +1457,10 @@ Ex: Sensors added on top of hardware component<a href="#section-5.1.2-3" class="
 <a href="#name-abstract-representation-of-e" class="selfRef">Abstract Representation of External Measurement Circuitry</a>
             </figcaption></figure>
 </div>
-<p id="section-5.1.2-5"></p>
-<p id="section-5.1.2-6">composite attester, can be many attesting env (and many target envs of course)
-An AE may collect on multiple TE<a href="#section-5.1.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-7">Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
-TODO this implies that a TE can have multiple measurmeent fields (I think already supported in RATS)<a href="#section-5.1.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-5">composite attester, can be many attesting env (and many target envs of course)
+An AE may collect on multiple TE<a href="#section-5.1.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-6">Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
+TODO this implies that a TE can have multiple measurmeent fields (I think already supported in RATS)<a href="#section-5.1.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1472,39 +1471,46 @@ TODO this implies that a TE can have multiple measurmeent fields (I think alread
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-measurement-journey" class="section-name selfRef">Measurement Journey</a>
         </h3>
 <p id="section-5.2-1">TODO should this section be moved before Coupled and External Measurement Circuitry ?<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. DUring the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">Below are the identified steps of the journey of a measurement at the hardware level:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Below are the identified steps of the journey of a measurement at the hardware level.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2-4">TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2-5.1">
+<ol start="1" type="1" class="normal type-1" id="section-5.2-5">
+<li id="section-5.2-5.1">
             <p id="section-5.2-5.1.1">trigger blabla<a href="#section-5.2-5.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.2-5.1.2">
+Measurement computation is triggered by something (boot, external request, watchdog)<a href="#section-5.2-5.1.2" class="pilcrow">¶</a></p>
+<p id="section-5.2-5.1.3">
+Boot<a href="#section-5.2-5.1.3" class="pilcrow">¶</a></p>
+<p id="section-5.2-5.1.4">
+Runtime<a href="#section-5.2-5.1.4" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-<p id="section-5.2-6">Measurement computation is triggered by something (boot, external request, watchdog)<a href="#section-5.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.2-7">Boot<a href="#section-5.2-7" class="pilcrow">¶</a></p>
-<p id="section-5.2-8">Runtime<a href="#section-5.2-8" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2-9.1">
-            <p id="section-5.2-9.1.1">compute blabla<a href="#section-5.2-9.1.1" class="pilcrow">¶</a></p>
+          <li id="section-5.2-5.2">
+            <p id="section-5.2-5.2.1">compute<a href="#section-5.2-5.2.1" class="pilcrow">¶</a></p>
+<p id="section-5.2-5.2.2">
+blabla<a href="#section-5.2-5.2.2" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-9.2">
-            <p id="section-5.2-9.2.1">collect<a href="#section-5.2-9.2.1" class="pilcrow">¶</a></p>
+          <li id="section-5.2-5.3">
+            <p id="section-5.2-5.3.1">collect<a href="#section-5.2-5.3.1" class="pilcrow">¶</a></p>
+<p id="section-5.2-5.3.2">
+blabla<a href="#section-5.2-5.3.2" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-9.3">
-            <p id="section-5.2-9.3.1">store<a href="#section-5.2-9.3.1" class="pilcrow">¶</a></p>
+          <li id="section-5.2-5.4">
+            <p id="section-5.2-5.4.1">store<a href="#section-5.2-5.4.1" class="pilcrow">¶</a></p>
+<p id="section-5.2-5.4.2">
+measurement may be stored (securely) until it is written by Attesting Environment in Evidence.<a href="#section-5.2-5.4.2" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-<p id="section-5.2-10">measurement may be stored (securely) until it is written by Attesting Environment in Evidence.<a href="#section-5.2-10" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2-11.1">
-            <p id="section-5.2-11.1.1">include in Evidence<a href="#section-5.2-11.1.1" class="pilcrow">¶</a></p>
+          <li id="section-5.2-5.5">
+            <p id="section-5.2-5.5.1">include in Evidence<a href="#section-5.2-5.5.1" class="pilcrow">¶</a></p>
+<p id="section-5.2-5.5.2">
+blabla<a href="#section-5.2-5.5.2" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-11.2">
-            <p id="section-5.2-11.2.1">sign Evidence<a href="#section-5.2-11.2.1" class="pilcrow">¶</a></p>
+          <li id="section-5.2-5.6">
+            <p id="section-5.2-5.6.1">sign Evidence<a href="#section-5.2-5.6.1" class="pilcrow">¶</a></p>
+<p id="section-5.2-5.6.2">
+Once stored in signed Evidence, the measurement is considered safe. This is because the cryptographic signature of the Evidence ensures integrity protection.<a href="#section-5.2-5.6.2" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-<p id="section-5.2-12">Once stored in signed Evidence, the measurement is considered safe. This is because the cryptographic signature of the Evidence ensures integrity protection.<a href="#section-5.2-12" class="pilcrow">¶</a></p>
-<p id="section-5.2-13">Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).<a href="#section-5.2-13" class="pilcrow">¶</a></p>
+        </ol>
+<p id="section-5.2-6">Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).<a href="#section-5.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="practical-examples">
