@@ -105,6 +105,7 @@ Malfunction of hardware components may be caused by environment and/or aging. De
 Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access on the system (particularly relevant for embedded systems).
 
 # Attester Model
+
 The RATS architecture presented in {{RFC9334}} introduces two types of environments in an Attester. The Attesting Environment (AE) is in charge of collecting claims about a Target Environment (TE). The Attesting Environment is then responsible for embedding those claims in an Evidence Conceptual Message.
 
 This document focuses on claims used to represent the state of a target hardware component. Said claims can be related to physical properties (electromagnetic or thermal signature, timing values, power consumption, etc.), results of integrated self-tests or collected traces.
@@ -130,6 +131,7 @@ The measurement circuitry is part of the target hardware component. The separati
 Ex:
 
 ### External Measurement Circuitry
+
 Another Attester layout is to have
 
 The measurement circuitry is not part of the target hardware component, it is external. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement circuitry can come from different foundries.
@@ -196,11 +198,13 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).
 
 ## Practical Examples
+
 This section is for informational purposes only.
 
 Mapping to BIST, KAT,   and Traces
 
 # Inclusion in Conceptual Messages
+
 This section introduces standard claims to be included in RATS Conceptual Messages.
 
 ## Endorsement and Reference Values
@@ -274,7 +278,7 @@ Supply chains attacks may lead to the injection of Trojans. Once a Trojan has be
 # IANA Considerations
 
 This document has no IANA actions.
-TODO: need IANA actions for claims defined in this document ?
+TODO need IANA actions for claims defined in this document ?
 
 --- back
 
@@ -285,7 +289,6 @@ This appendix contains all the CDDL definitions included in this document.
 <!-- ~~~ cddl
 {::include-fold cddl/collected.cddl}
 ~~~ -->
-
 
 # Acknowledgments
 {:numbered="false"}
