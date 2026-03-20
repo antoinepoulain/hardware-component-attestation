@@ -70,6 +70,7 @@ Table of Contents
    1.  Introduction
    2.  Terminology
      2.1.  Requirements Notation
+     2.2.  Definitions
    3.  Scope and Limitations
    4.  Use Cases
    5.  Attester Model
@@ -136,9 +137,6 @@ Table of Contents
 
 2.  Terminology
 
-   The terminology defined in [RFC9334] is reused throughout this
-   document.
-
 2.1.  Requirements Notation
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -146,6 +144,20 @@ Table of Contents
    "OPTIONAL" in this document are to be interpreted as described in
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
+
+2.2.  Definitions
+
+   The terminology defined in [RFC9334] is reused throughout this
+   document.  Some of the definitions from other RATS specifications are
+   refined here to fit the context presented in this document.
+
+   (definitons in the scope of this document)
+
+   Measurement: term introduced by RATS (quote document). here it can
+   mean a representation (a value, an encoding, etc.) of a physical
+   property, the result of a test etc.
+
+   Measurement Circuitry:
 
 3.  Scope and Limitations
 
@@ -183,18 +195,19 @@ Table of Contents
    This document focuses on claims used to represent the state of a
    target hardware component.  Said claims can be related to physical
    properties (electromagnetic or thermal signature, timing values,
-   power consumption, ...), results of integrated self-tests or
+   power consumption, etc.), results of integrated self-tests or
    collected traces.
 
 5.1.  Abstract Representation
 
-   Mechanisms for collecting measurements of hardware components may be
-   highly dependent on the type of hardware component and on the desired
+   Mechanisms for collecting measurements of hardware components may
+   highly depend of the type of hardware component and on the desired
    type of measurement.  Therefore, this document proposes an abstract
-   representation of such mechanisms.  Considering the measurement
-   mechanism as black boxes with common interfaces, allows the content
+   representation of such mechanisms.  Considering a measurement
+   mechanism as a black boxe with common interfaces, allows the content
    of this document to remain agnostic of the underlying mechanism and
-   of the type of measurement collected.
+   of the type of measurement collected while promoting interoperability
+   with different real world implementations.
 
    The goal of this section is to propose standard interfaces to trigger
    the computation of the measurement and to collect the computed
@@ -241,11 +254,14 @@ Table of Contents
    Environment possesses a way to trigger and collect the
 
    Measurement computation is triggered by something (boot, external
-   request, watchdog, ...)
+   request, watchdog)
 
    Boot
 
    Runtime
+
+   measurement may be stored (securely) until it is written by Attesting
+   Environment in Evidence.
 
    Interactions models between the Attester system and external entities
    such as the Verifier are already presented in other documents (TODO
@@ -294,7 +310,7 @@ Table of Contents
 
    Some components are essential for attestation, if these are tampered
    with, there is no way to build meaningful Evidence (storage of
-   attestation key, signature component, etc...).  These are considered
+   attestation key, signature component, etc.).  These are considered
    the Root of Trust (RoT) for attestation because their correct
    functioning cannot be proved through attestation.
 
@@ -331,7 +347,7 @@ Table of Contents
    alter the correct functioning of the attestation flow.
 
    Ex: Side channel analysis of physical properties (EM emissions, power
-   consumption, timing, temperature, probing ...)
+   consumption, timing, temperature, probing, etc.)
 
    The danger with passive attacks resides in the extraction of
    sensitive assets and particularly attestation key used to sign
@@ -360,7 +376,7 @@ Table of Contents
    Some techniques to mitigate physical attacks are usage of a TPM or
    secure element for storage and correct execution of protected logic,
    bus protections, redundancy, sensors, active meshes, nose injection,
-   etc... Note that some of these mitigations cannot directly prevent
+   etc.  Note that some of these mitigations cannot directly prevent
    attacks but can be used for detection.
 
 7.2.3.  Supply Chain Attacks

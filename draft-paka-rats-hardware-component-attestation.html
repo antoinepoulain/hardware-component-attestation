@@ -1157,10 +1157,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
                 <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-requirements-notation" class="internal xref">Requirements Notation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
+                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-definitions" class="internal xref">Definitions</a></p>
 </li>
             </ul>
 </li>
@@ -1269,7 +1272,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-terminology">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
       </h2>
-<p id="section-2-1">The terminology defined in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> is reused throughout this document.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <div id="requirements-notation">
 <section id="section-2.1">
         <h3 id="name-requirements-notation">
@@ -1279,6 +1281,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="definitions">
+<section id="section-2.2">
+        <h3 id="name-definitions">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-definitions" class="section-name selfRef">Definitions</a>
+        </h3>
+<p id="section-2.2-1">The terminology defined in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> is reused throughout this document. Some of the definitions from other RATS specifications are refined here to fit the context presented in this document.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2">(definitons in the scope of this document)<a href="#section-2.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.2-3">Measurement: term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
+<p id="section-2.2-4">Measurement Circuitry:<a href="#section-2.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1317,13 +1330,13 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-attester-model" class="section-name selfRef">Attester Model</a>
       </h2>
 <p id="section-5-1">The RATS architecture presented in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> introduces two types of environments in an Attester. The Attesting Environment (AE) is in charge of collecting claims about a Target Environment (TE). The Attesting Environment is then responsible for embedding those claims in an Evidence Conceptual Message.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">This document focuses on claims used to represent the state of a target hardware component. Said claims can be related to physical properties (electromagnetic or thermal signature, timing values, power consumption, ...), results of integrated self-tests or collected traces.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-2">This document focuses on claims used to represent the state of a target hardware component. Said claims can be related to physical properties (electromagnetic or thermal signature, timing values, power consumption, etc.), results of integrated self-tests or collected traces.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <div id="abstract-representation">
 <section id="section-5.1">
         <h3 id="name-abstract-representation">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-abstract-representation" class="section-name selfRef">Abstract Representation</a>
         </h3>
-<p id="section-5.1-1">Mechanisms for collecting measurements of hardware components may be highly dependent on the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering the measurement mechanism as black boxes with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">Mechanisms for collecting measurements of hardware components may highly depend of the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering a measurement mechanism as a black boxe with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected while promoting interoperability with different real world implementations.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <div id="coupled-measurement-circuitry">
 <section id="section-5.1.1">
@@ -1397,10 +1410,11 @@ TODO this implies that a TE can have multiple measurmeent fields (I think alread
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-measurement-collection-flow" class="section-name selfRef">Measurement Collection Flow</a>
         </h3>
 <p id="section-5.2-1">Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to trigger and collect the<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Measurement computation is triggered by something (boot, external request, watchdog, ...)<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Measurement computation is triggered by something (boot, external request, watchdog)<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2-3">Boot<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2-4">Runtime<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2-5">measurement may be stored (securely) until it is written by Attesting Environment in Evidence.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2-6">Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).<a href="#section-5.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="practical-examples">
@@ -1465,7 +1479,7 @@ bytes8-b64u = text .b64u bytes8
         <h3 id="name-root-of-trust-components">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-root-of-trust-components" class="section-name selfRef">Root of Trust Components</a>
         </h3>
-<p id="section-7.1-1">Some components are essential for attestation, if these are tampered with, there is no way to build meaningful Evidence (storage of attestation key, signature component, etc...). These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">Some components are essential for attestation, if these are tampered with, there is no way to build meaningful Evidence (storage of attestation key, signature component, etc.). These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1-2">These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security system itself !).<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1496,7 +1510,7 @@ bytes8-b64u = text .b64u bytes8
 <a href="#section-7.2.2.1" class="section-number selfRef">7.2.2.1. </a><a href="#name-passive-attacks" class="section-name selfRef">Passive Attacks</a>
             </h5>
 <p id="section-7.2.2.1-1">Passive physical attacks are used by attackers to leak information through analysis of system physical properties. Passive attacks, by definition, do not modify behavior of the system and therefore cannot alter the correct functioning of the attestation flow.<a href="#section-7.2.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.2.2.1-2">Ex: Side channel analysis of physical properties (EM emissions, power consumption, timing, temperature, probing ...)<a href="#section-7.2.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.2.2.1-2">Ex: Side channel analysis of physical properties (EM emissions, power consumption, timing, temperature, probing, etc.)<a href="#section-7.2.2.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.2.2.1-3">The danger with passive attacks resides in the extraction of sensitive assets and particularly attestation key used to sign Evidence, which can be used for impersonation and Evidence forgery. This is already tackled in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-12.1.1" class="relref">Section 12.1.1</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>.<a href="#section-7.2.2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1509,7 +1523,7 @@ bytes8-b64u = text .b64u bytes8
 <p id="section-7.2.2.2-2">Ex: Attacks on bus (Active man-in-the-middle (MITM), injection, probing) or anywhere measurements are in transit before being integrated in a structure that cannot be tampered or spoofed (signed Evidence).<a href="#section-7.2.2.2-2" class="pilcrow">¶</a></p>
 <p id="section-7.2.2.2-3">Ex: Glitching, fault injections to induce malicious behavior. May tamper with the target hardware component itself or the measurement circuitry or the logic used to build Evidence.<a href="#section-7.2.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-7.2.2.2-4">Ex: Memory tampering attacks to modify stored measurements.<a href="#section-7.2.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-7.2.2.2-5">Some techniques to mitigate physical attacks are usage of a TPM or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc... Note that some of these mitigations cannot directly prevent attacks but can be used for detection.<a href="#section-7.2.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-7.2.2.2-5">Some techniques to mitigate physical attacks are usage of a TPM or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.<a href="#section-7.2.2.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
