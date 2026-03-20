@@ -1,9 +1,10 @@
-+-------------+    Trigger    +-------------------------+
-|             |  Measurement  |    +--------------+     |
-|             +--------------->    |              |     |
-|  Attesting  |               |    |   Target HW  |     |
-| Environment |               |    |   Component  |     |
-|             |               |    +--------------+     |
+                              +-------------------------+
++-------------+    Trigger    |    +---------------+    |
+|             |  Measurement  |    |               |    |
+|             +--------------->    |   Target HW   |    |
+|  Attesting  |               |    |   Component   |    |
+| Environment |               |    |      (TE)     |    |
+|             |               |    +---------------+    |
 |             <---------------+  Measurement Circuitry  |
-+-------------+    Export     +-------------------------+
-                 Measurement                             
++-------------+    Export     |           (AE)          |
+                 Measurement  +-------------------------+

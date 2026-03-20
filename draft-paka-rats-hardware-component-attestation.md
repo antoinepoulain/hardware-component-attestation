@@ -82,11 +82,9 @@ To address these limitations, this document defines a data model and provides gu
 
 The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from other RATS specifications are refined here to fit the context presented in this document.
 
-(definitons in the scope of this document)
++ Measurement: term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.
 
-Measurement: term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.
-
-Measurement Circuitry:
++ Measurement Circuitry: can be hardware logic (really a circuit) or software logic e.g., FIPS KAT
 
 
 
@@ -127,10 +125,17 @@ As shown in {{coupled_meas_circuit}}, a part of the Attesting Environment is loc
 ~~~~
 {: #coupled_meas_circuit artwork-align="center" title="Abstract Representation of Coupled Measurement Circuitry"}
 
+Ex:
+
 ### External Measurement Circuitry
 Another Attester layout is to have
 
 Ex: Sensors added on top of hardware component
+
+~~~~ aasvg
+{::include diagrams/external-measurement-circuitry.asciio}
+~~~~
+{: #external_meas_circuit artwork-align="center" title="Abstract Representation of External Measurement Circuitry"}
 
 ----------
 
@@ -140,25 +145,47 @@ An AE may collect on multiple TE
 Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
 TODO this implies that a TE can have multiple measurmeent fields (I think already supported in RATS)
 
-## Measurement Collection Flow
+## Measurement Journey
 
-Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to trigger and collect the
+TODO should this section be moved before Coupled and External Measurement Circuitry ?
+
+Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. DUring the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).
+
+Below are the identified steps of the journey of a measurement at the hardware level:
+
+TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.
+
++ trigger blabla
 
 Measurement computation is triggered by something (boot, external request, watchdog)
-
 
 Boot
 
 Runtime
 
+
++ compute blabla
+
++ collect
+
++ store
+
 measurement may be stored (securely) until it is written by Attesting Environment in Evidence.
+
++ include in Evidence
+
++ sign Evidence
+
+Once stored in signed Evidence, the measurement is considered safe. This is because the cryptographic signature of the Evidence ensures integrity protection.
+
+
 
 Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).
 
 ## Practical Examples
 This section is for informational purposes only.
 
-Mapping to BIST and Traces
+Mapping to BIST, KAT,   and Traces
 
 # Inclusion in Conceptual Messages
 This section introduces standard claims to be included in RATS Conceptual Messages.

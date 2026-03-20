@@ -1,0 +1,14 @@
+                    Trigger                                 
++-------------+   Measurement  +-----------------------+    
+|             +---------------->                       |    
+|             |                | Measurement Circuitry |    
+|             <----------------+          (AE)         |    
+|             |     Export     +-----------^-----------+    
+|  Attesting  |   Measurement              |                
+| Environment |                            | data collection
+|             |                            |                
+|             |                    +-------v-------+        
+|             |                    |   Target HW   |        
+|             |                    |   Component   |        
++-------------+                    |      (TE)     |        
+                                   +---------------+        
