@@ -219,6 +219,12 @@ Table of Contents
    As shown in Figure 1, a part of the Attesting Environment is located
    on the Target Component.
 
+   The measurement circuitry is part of the target hardware component.
+   The separation between measurement circuitry (part of the Attesting
+   Environment) and the Target Environment is only logical.  The target
+   hardware component and the measurement circuitry are part of the same
+   die.  This has an impact on the trust model (see Section 7.2.3).
+
                                        +-------------------------+
          +-------------+    Trigger    |    +---------------+    |
          |             |  Measurement  |    |               |    |
@@ -238,6 +244,13 @@ Table of Contents
 
    Another Attester layout is to have
 
+   The measurement circuitry is not part of the target hardware
+   component, it is external.  The separation between measurement
+   circuitry (part of the Attesting Environment) and the Target
+   Environment is physical.  The target hardware component and
+   measurement circuitry can come from different foundries.
+
+   TODO really not part of the RTL ? if not, are there other examples
    Ex: Sensors added on top of hardware component
 
                            Trigger
@@ -335,12 +348,6 @@ Table of Contents
 6.2.  Evidence
 
    CDDL
-
-   bytes-b64u = text .b64u bytes
-   bytes8 = bytes .size 8
-   bytes8-b64u = text .b64u bytes8
-
-                         Figure 3: Example of CDDL
 
    Possible formats (EAT, DICE X.509, custom ?)
 
@@ -485,14 +492,6 @@ Appendix A.  Collected CDDL
 
    This appendix contains all the CDDL definitions included in this
    document.
-
-   bytes-b64u = text .b64u bytes
-   bytes8 = bytes .size 8
-   bytes8-b64u = text .b64u bytes8
-   mc-cbor = bytes .cbor measured-component
-   mc-json = text .json measured-component
-   $measurements-body-cbor /= mc-cbor / mc-json
-   $measurements-body-json /= mc-json / text .b64u mc-cbor
 
 Acknowledgments
 
