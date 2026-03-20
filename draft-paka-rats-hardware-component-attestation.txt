@@ -157,7 +157,10 @@ Table of Contents
       property, the result of a test etc.
 
    *  Measurement Circuitry: can be hardware logic (really a circuit) or
-      software logic e.g., FIPS KAT
+      software logic e.g., FIPS KAT.  Software logic used to trigger a
+      measurement is not considered measurement circuitry but rather the
+      Attesting Environment end-point of the trigger interface.  See
+      Section 5.1 for details on the trigger interface.
 
    *  Target Hardware Component: Hardware component from which claims
       are to be collected by an Attesting Environment.
@@ -234,6 +237,9 @@ Table of Contents
    circuitry receives a signal to start the computation of a measurement
    through the "trigger" interface.
 
+   Note: This interface may not be used in case of continuous
+   monitoring.
+
    *  Export interface
 
    The "export" interface allows a measurement to be exported from the
@@ -250,6 +256,10 @@ Table of Contents
 
 5.2.  Integration Models
 
+   The following subsections present possible layouts for integrating
+   measurement circuitry between the Attesting Environment and the
+   target hardware component.
+
 5.2.1.  Coupled Measurement Circuitry
 
    As shown in Figure 1, a part of the Attesting Environment is located
@@ -259,8 +269,9 @@ Table of Contents
    target hardware component.  The separation between measurement
    circuitry (part of the Attesting Environment) and the Target
    Environment is only logical.  The target hardware component and the
-   measurement circuitry are part of the same die.  This has an impact
-   on the trust model (see Section 7.2.3).
+   measurement circuitry are part of the same die.  Due to the proximity
+   between the measurement circuitry and the target hardware component,
+   the data collection channel is not represented.
 
                                        +-------------------------+
          +-------------+    Trigger    |    +---------------+    |
@@ -275,7 +286,8 @@ Table of Contents
 
      Figure 1: Abstract Representation of Coupled Measurement Circuitry
 
-   Ex:
+   Note: The measurement circuitry and target hardware component sharing
+   the same die has an impact on the trust model (see Section 7.2.3).
 
 5.2.2.  External Measurement Circuitry
 
@@ -313,7 +325,8 @@ Table of Contents
    Of course, both coupled and external measurement circuitries can be
    found in the same system and possibly, they can be used to measure a
    single Target Envrionment.  TODO this implies that a TE can have
-   multiple measurmeent fields (I think already supported in RATS)
+   multiple measurement fields in claim and reference values (I think
+   already supported in RATS)
 
 5.3.  Measurement Journey
 
@@ -339,21 +352,21 @@ Table of Contents
    1.  trigger blabla
 
        Measurement computation is triggered by something (boot, external
-       request, watchdog)
+       request, watchdog) or continuous.
 
        Boot
 
        Runtime
 
-   2.  compute
+   2.  compute measurement
 
        blabla
 
-   3.  collect
+   3.  export measurement
 
        blabla
 
-   4.  store
+   4.  [optional] store
 
        measurement may be stored (securely) until it is written by
        Attesting Environment in Evidence.
