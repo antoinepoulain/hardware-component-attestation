@@ -459,8 +459,8 @@ Table of Contents
 
 8.  IANA Considerations
 
-   This document has no IANA actions.  TODO: need IANA actions for
-   claims defined in this document ?
+   This document has no IANA actions.  TODO need IANA actions for claims
+   defined in this document ?
 
 9.  References
 
