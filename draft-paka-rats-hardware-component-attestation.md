@@ -120,6 +120,8 @@ The goal of this section is to propose standard interfaces to trigger the comput
 
 As shown in {{coupled_meas_circuit}}, a part of the Attesting Environment is located on the Target Component.
 
+The measurement circuitry is part of the target hardware component. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is only logical. The target hardware component and the measurement circuitry are part of the same die. This has an impact on the trust model (see {{supply-chain-attacks}}).
+
 ~~~~ aasvg
 {::include diagrams/coupled-measurement-circuitry.asciio}
 ~~~~
@@ -130,6 +132,9 @@ Ex:
 ### External Measurement Circuitry
 Another Attester layout is to have
 
+The measurement circuitry is not part of the target hardware component, it is external. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement circuitry can come from different foundries.
+
+TODO really not part of the RTL ? if not, are there other examples
 Ex: Sensors added on top of hardware component
 
 ~~~~ aasvg
@@ -199,10 +204,10 @@ Possible formats (CoRIM with CoMID, other ?)
 
 CDDL
 
-~~~ cddl
+<!-- ~~~ cddl
 {::include cddl/cddl-example.cddl}
 ~~~
-{: #cddlexample title="Example of CDDL"}
+{: #cddlexample title="Example of CDDL"} -->
 
 Possible formats (EAT, DICE X.509, custom ?)
 
@@ -252,7 +257,7 @@ Ex: Memory tampering attacks to modify stored measurements.
 
 Some techniques to mitigate physical attacks are usage of a TPM or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.
 
-### Supply Chain Attacks
+### Supply Chain Attacks {#supply-chain-attacks}
 
 Each stage of the supply chain introduces a new opportunity for an attacker to tamper with the produced system.
 
@@ -269,9 +274,9 @@ TODO: need IANA actions for claims defined in this document ?
 
 This appendix contains all the CDDL definitions included in this document.
 
-~~~ cddl
+<!-- ~~~ cddl
 {::include-fold cddl/collected.cddl}
-~~~
+~~~ -->
 
 
 # Acknowledgments
