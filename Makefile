@@ -18,10 +18,7 @@ endif
 cddl:
 	$(MAKE) -C $(CDDL_DIR)
 
-cddl-check:
-	$(MAKE) -C $(CDDL_DIR) check-schema
-
 cddl-clean:
 	$(MAKE) -C $(CDDL_DIR) clean
 
-.PHONY: cddl cddl-check cddl-clean
+.PHONY: cddl cddl-clean
