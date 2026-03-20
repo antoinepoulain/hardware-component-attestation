@@ -1188,7 +1188,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-measurement-collection-flow" class="internal xref">Measurement Collection Flow</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-measurement-journey" class="internal xref">Measurement Journey</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-practical-examples" class="internal xref">Practical Examples</a></p>
@@ -1289,9 +1289,14 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-definitions" class="section-name selfRef">Definitions</a>
         </h3>
 <p id="section-2.2-1">The terminology defined in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> is reused throughout this document. Some of the definitions from other RATS specifications are refined here to fit the context presented in this document.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2-2">(definitons in the scope of this document)<a href="#section-2.2-2" class="pilcrow">¶</a></p>
-<p id="section-2.2-3">Measurement: term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
-<p id="section-2.2-4">Measurement Circuitry:<a href="#section-2.2-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2.2-2.1">
+            <p id="section-2.2-2.1.1">Measurement: term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-2.2-2.2">
+            <p id="section-2.2-2.2.1">Measurement Circuitry: can be hardware logic (really a circuit) or software logic e.g., FIPS KAT<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 </section>
@@ -1348,36 +1353,38 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <figure id="figure-1">
             <div id="section-5.1.1-2.1">
               <div class="alignCenter art-svg artwork" id="section-5.1.1-2.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="176" width="464" viewBox="0 0 464 176" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                  <path d="M 8,32 L 8,144" fill="none" stroke="black"></path>
-                  <path d="M 120,32 L 120,112" fill="none" stroke="black"></path>
-                  <path d="M 248,32 L 248,48" fill="none" stroke="black"></path>
-                  <path d="M 248,80 L 248,144" fill="none" stroke="black"></path>
-                  <path d="M 288,48 L 288,112" fill="none" stroke="black"></path>
-                  <path d="M 408,48 L 408,112" fill="none" stroke="black"></path>
-                  <path d="M 456,32 L 456,144" fill="none" stroke="black"></path>
-                  <path d="M 8,32 L 120,32" fill="none" stroke="black"></path>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="192" width="464" viewBox="0 0 464 192" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                  <path d="M 8,48 L 8,160" fill="none" stroke="black"></path>
+                  <path d="M 120,48 L 120,128" fill="none" stroke="black"></path>
+                  <path d="M 248,32 L 248,64" fill="none" stroke="black"></path>
+                  <path d="M 248,96 L 248,176" fill="none" stroke="black"></path>
+                  <path d="M 288,48 L 288,128" fill="none" stroke="black"></path>
+                  <path d="M 416,48 L 416,128" fill="none" stroke="black"></path>
+                  <path d="M 456,32 L 456,176" fill="none" stroke="black"></path>
                   <path d="M 248,32 L 456,32" fill="none" stroke="black"></path>
-                  <path d="M 288,48 L 408,48" fill="none" stroke="black"></path>
-                  <path d="M 120,64 L 248,64" fill="none" stroke="black"></path>
-                  <path d="M 288,112 L 408,112" fill="none" stroke="black"></path>
-                  <path d="M 120,128 L 248,128" fill="none" stroke="black"></path>
-                  <path d="M 8,144 L 120,144" fill="none" stroke="black"></path>
-                  <path d="M 248,144 L 456,144" fill="none" stroke="black"></path>
-                  <polygon class="arrowhead" points="256,64 244,58.4 244,69.6" fill="black" transform="rotate(0,248,64)"></polygon>
-                  <polygon class="arrowhead" points="128,128 116,122.4 116,133.6" fill="black" transform="rotate(180,120,128)"></polygon>
+                  <path d="M 8,48 L 120,48" fill="none" stroke="black"></path>
+                  <path d="M 288,48 L 416,48" fill="none" stroke="black"></path>
+                  <path d="M 120,80 L 248,80" fill="none" stroke="black"></path>
+                  <path d="M 288,128 L 416,128" fill="none" stroke="black"></path>
+                  <path d="M 120,144 L 248,144" fill="none" stroke="black"></path>
+                  <path d="M 8,160 L 120,160" fill="none" stroke="black"></path>
+                  <path d="M 248,176 L 456,176" fill="none" stroke="black"></path>
+                  <polygon class="arrowhead" points="256,80 244,74.4 244,85.6" fill="black" transform="rotate(0,248,80)"></polygon>
+                  <polygon class="arrowhead" points="128,144 116,138.4 116,149.6" fill="black" transform="rotate(180,120,144)"></polygon>
                   <g class="text">
-                    <text x="184" y="36">Trigger</text>
-                    <text x="184" y="52">Measurement</text>
-                    <text x="64" y="84">Attesting</text>
+                    <text x="184" y="52">Trigger</text>
+                    <text x="184" y="68">Measurement</text>
                     <text x="340" y="84">Target</text>
                     <text x="380" y="84">HW</text>
-                    <text x="64" y="100">Environment</text>
+                    <text x="64" y="100">Attesting</text>
                     <text x="352" y="100">Component</text>
-                    <text x="312" y="132">Measurement</text>
-                    <text x="400" y="132">Circuitry</text>
-                    <text x="180" y="148">Export</text>
-                    <text x="184" y="164">Measurement</text>
+                    <text x="64" y="116">Environment</text>
+                    <text x="356" y="116">(TE)</text>
+                    <text x="312" y="148">Measurement</text>
+                    <text x="400" y="148">Circuitry</text>
+                    <text x="180" y="164">Export</text>
+                    <text x="356" y="164">(AE)</text>
+                    <text x="184" y="180">Measurement</text>
                   </g>
                 </svg><a href="#section-5.1.1-2.1.1" class="pilcrow">¶</a>
 </div>
@@ -1386,6 +1393,7 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <a href="#name-abstract-representation-of-" class="selfRef">Abstract Representation of Coupled Measurement Circuitry</a>
             </figcaption></figure>
 </div>
+<p id="section-5.1.1-3">Ex:<a href="#section-5.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="external-measurement-circuitry">
@@ -1395,26 +1403,105 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
           </h4>
 <p id="section-5.1.2-1">Another Attester layout is to have<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.1.2-2">Ex: Sensors added on top of hardware component<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-3"></p>
-<p id="section-5.1.2-4">composite attester, can be many attesting env (and many target envs of course)
-An AE may collect on multiple TE<a href="#section-5.1.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-5">Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
-TODO this implies that a TE can have multiple measurmeent fields (I think already supported in RATS)<a href="#section-5.1.2-5" class="pilcrow">¶</a></p>
+<span id="name-abstract-representation-of-e"></span><div id="external_meas_circuit">
+<figure id="figure-2">
+            <div id="section-5.1.2-3.1">
+              <div class="alignCenter art-svg artwork" id="section-5.1.2-3.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="256" width="488" viewBox="0 0 488 256" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                  <path d="M 8,48 L 8,224" fill="none" stroke="black"></path>
+                  <path d="M 120,48 L 120,80" fill="none" stroke="black"></path>
+                  <path d="M 120,112 L 120,224" fill="none" stroke="black"></path>
+                  <path d="M 256,80 L 256,112" fill="none" stroke="black"></path>
+                  <path d="M 288,176 L 288,240" fill="none" stroke="black"></path>
+                  <path d="M 352,112 L 352,176" fill="none" stroke="black"></path>
+                  <path d="M 416,176 L 416,240" fill="none" stroke="black"></path>
+                  <path d="M 448,48 L 448,112" fill="none" stroke="black"></path>
+                  <path d="M 8,48 L 120,48" fill="none" stroke="black"></path>
+                  <path d="M 256,48 L 448,48" fill="none" stroke="black"></path>
+                  <path d="M 120,64 L 256,64" fill="none" stroke="black"></path>
+                  <path d="M 120,96 L 256,96" fill="none" stroke="black"></path>
+                  <path d="M 256,112 L 344,112" fill="none" stroke="black"></path>
+                  <path d="M 360,112 L 448,112" fill="none" stroke="black"></path>
+                  <path d="M 288,176 L 344,176" fill="none" stroke="black"></path>
+                  <path d="M 360,176 L 416,176" fill="none" stroke="black"></path>
+                  <path d="M 8,224 L 120,224" fill="none" stroke="black"></path>
+                  <path d="M 288,240 L 416,240" fill="none" stroke="black"></path>
+                  <polygon class="arrowhead" points="360,176 348,170.4 348,181.6" fill="black" transform="rotate(90,352,176)"></polygon>
+                  <polygon class="arrowhead" points="360,112 348,106.4 348,117.6" fill="black" transform="rotate(270,352,112)"></polygon>
+                  <polygon class="arrowhead" points="264,64 252,58.4 252,69.6" fill="black" transform="rotate(0,256,64)"></polygon>
+                  <polygon class="arrowhead" points="128,96 116,90.4 116,101.6" fill="black" transform="rotate(180,120,96)"></polygon>
+                  <g class="text">
+                    <text x="192" y="36">Trigger</text>
+                    <text x="192" y="52">Measurement</text>
+                    <text x="312" y="84">Measurement</text>
+                    <text x="400" y="84">Circuitry</text>
+                    <text x="356" y="100">(AE)</text>
+                    <text x="188" y="116">Export</text>
+                    <text x="64" y="132">Attesting</text>
+                    <text x="192" y="132">Measurement</text>
+                    <text x="64" y="148">Environment</text>
+                    <text x="380" y="148">data</text>
+                    <text x="444" y="148">collection</text>
+                    <text x="340" y="196">Target</text>
+                    <text x="380" y="196">HW</text>
+                    <text x="352" y="212">Component</text>
+                    <text x="356" y="228">(TE)</text>
+                  </g>
+                </svg><a href="#section-5.1.2-3.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-abstract-representation-of-e" class="selfRef">Abstract Representation of External Measurement Circuitry</a>
+            </figcaption></figure>
+</div>
+<p id="section-5.1.2-4"></p>
+<p id="section-5.1.2-5">composite attester, can be many attesting env (and many target envs of course)
+An AE may collect on multiple TE<a href="#section-5.1.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-6">Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
+TODO this implies that a TE can have multiple measurmeent fields (I think already supported in RATS)<a href="#section-5.1.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-<div id="measurement-collection-flow">
+<div id="measurement-journey">
 <section id="section-5.2">
-        <h3 id="name-measurement-collection-flow">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-measurement-collection-flow" class="section-name selfRef">Measurement Collection Flow</a>
+        <h3 id="name-measurement-journey">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-measurement-journey" class="section-name selfRef">Measurement Journey</a>
         </h3>
-<p id="section-5.2-1">Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to trigger and collect the<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Measurement computation is triggered by something (boot, external request, watchdog)<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">Boot<a href="#section-5.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2-4">Runtime<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">measurement may be stored (securely) until it is written by Attesting Environment in Evidence.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
-<p id="section-5.2-6">Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">TODO should this section be moved before Coupled and External Measurement Circuitry ?<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. DUring the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Below are the identified steps of the journey of a measurement at the hardware level:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-5.1">
+            <p id="section-5.2-5.1.1">trigger blabla<a href="#section-5.2-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-6">Measurement computation is triggered by something (boot, external request, watchdog)<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.2-7">Boot<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.2-8">Runtime<a href="#section-5.2-8" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-9.1">
+            <p id="section-5.2-9.1.1">compute blabla<a href="#section-5.2-9.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-9.2">
+            <p id="section-5.2-9.2.1">collect<a href="#section-5.2-9.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-9.3">
+            <p id="section-5.2-9.3.1">store<a href="#section-5.2-9.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-10">measurement may be stored (securely) until it is written by Attesting Environment in Evidence.<a href="#section-5.2-10" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-11.1">
+            <p id="section-5.2-11.1.1">include in Evidence<a href="#section-5.2-11.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-11.2">
+            <p id="section-5.2-11.2.1">sign Evidence<a href="#section-5.2-11.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-12">Once stored in signed Evidence, the measurement is considered safe. This is because the cryptographic signature of the Evidence ensures integrity protection.<a href="#section-5.2-12" class="pilcrow">¶</a></p>
+<p id="section-5.2-13">Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).<a href="#section-5.2-13" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="practical-examples">
@@ -1423,7 +1510,7 @@ TODO this implies that a TE can have multiple measurmeent fields (I think alread
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-practical-examples" class="section-name selfRef">Practical Examples</a>
         </h3>
 <p id="section-5.3-1">This section is for informational purposes only.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">Mapping to BIST and Traces<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">Mapping to BIST, KAT,   and Traces<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1450,7 +1537,7 @@ Possible formats (CoRIM with CoMID, other ?)<a href="#section-6.1-1" class="pilc
         </h3>
 <p id="section-6.2-1">CDDL<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <span id="name-example-of-cddl"></span><div id="cddlexample">
-<figure id="figure-2">
+<figure id="figure-3">
           <div class="lang-cddl sourcecode" id="section-6.2-2.1">
 <pre>
 bytes-b64u = text .b64u bytes
@@ -1458,7 +1545,7 @@ bytes8 = bytes .size 8
 bytes8-b64u = text .b64u bytes8
 </pre>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-example-of-cddl" class="selfRef">Example of CDDL</a>
           </figcaption></figure>
 </div>

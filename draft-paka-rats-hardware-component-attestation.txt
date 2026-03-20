@@ -77,7 +77,7 @@ Table of Contents
      5.1.  Abstract Representation
        5.1.1.  Coupled Measurement Circuitry
        5.1.2.  External Measurement Circuitry
-     5.2.  Measurement Collection Flow
+     5.2.  Measurement Journey
      5.3.  Practical Examples
    6.  Inclusion in Conceptual Messages
      6.1.  Endorsement and Reference Values
@@ -151,13 +151,12 @@ Table of Contents
    document.  Some of the definitions from other RATS specifications are
    refined here to fit the context presented in this document.
 
-   (definitons in the scope of this document)
+   *  Measurement: term introduced by RATS (quote document). here it can
+      mean a representation (a value, an encoding, etc.) of a physical
+      property, the result of a test etc.
 
-   Measurement: term introduced by RATS (quote document). here it can
-   mean a representation (a value, an encoding, etc.) of a physical
-   property, the result of a test etc.
-
-   Measurement Circuitry:
+   *  Measurement Circuitry: can be hardware logic (really a circuit) or
+      software logic e.g., FIPS KAT
 
 3.  Scope and Limitations
 
@@ -220,23 +219,43 @@ Table of Contents
    As shown in Figure 1, a part of the Attesting Environment is located
    on the Target Component.
 
-         +-------------+    Trigger    +-------------------------+
-         |             |  Measurement  |    +--------------+     |
-         |             +--------------->    |              |     |
-         |  Attesting  |               |    |   Target HW  |     |
-         | Environment |               |    |   Component  |     |
-         |             |               |    +--------------+     |
+                                       +-------------------------+
+         +-------------+    Trigger    |    +---------------+    |
+         |             |  Measurement  |    |               |    |
+         |             +--------------->    |   Target HW   |    |
+         |  Attesting  |               |    |   Component   |    |
+         | Environment |               |    |      (TE)     |    |
+         |             |               |    +---------------+    |
          |             <---------------+  Measurement Circuitry  |
-         +-------------+    Export     +-------------------------+
-                          Measurement
+         +-------------+    Export     |           (AE)          |
+                          Measurement  +-------------------------+
 
      Figure 1: Abstract Representation of Coupled Measurement Circuitry
+
+   Ex:
 
 5.1.2.  External Measurement Circuitry
 
    Another Attester layout is to have
 
    Ex: Sensors added on top of hardware component
+
+                           Trigger
+       +-------------+   Measurement  +-----------------------+
+       |             +---------------->                       |
+       |             |                | Measurement Circuitry |
+       |             <----------------+          (AE)         |
+       |             |     Export     +-----------^-----------+
+       |  Attesting  |   Measurement              |
+       | Environment |                            | data collection
+       |             |                            |
+       |             |                    +-------v-------+
+       |             |                    |   Target HW   |
+       |             |                    |   Component   |
+       +-------------+                    |      (TE)     |
+                                          +---------------+
+
+    Figure 2: Abstract Representation of External Measurement Circuitry
 
 
    composite attester, can be many attesting env (and many target envs
@@ -247,11 +266,28 @@ Table of Contents
    single Target Envrionment.  TODO this implies that a TE can have
    multiple measurmeent fields (I think already supported in RATS)
 
-5.2.  Measurement Collection Flow
+5.2.  Measurement Journey
+
+   TODO should this section be moved before Coupled and External
+   Measurement Circuitry ?
 
    Measurements of hardware components must be included in the Evidence
    to be sent to a Verifier.  This implies that the Attesting
-   Environment possesses a way to trigger and collect the
+   Environment possesses a way to start the computation of the
+   measurement (trigger), to securely retrieve the measurement
+   (collection) and to securely embed the measurement in Evidence.
+   DUring the completion of all these steps, the attacker has many
+   opportunities to tamper with the integrity of the measurement or the
+   execution logic (hardware or software).
+
+   Below are the identified steps of the journey of a measurement at the
+   hardware level:
+
+   TODO at each step describe attacker opportunity (attacker may be
+   phsycial event) goal is to include in Evidence a measurement that is
+   trusted.
+
+   *  trigger blabla
 
    Measurement computation is triggered by something (boot, external
    request, watchdog)
@@ -260,8 +296,22 @@ Table of Contents
 
    Runtime
 
+   *  compute blabla
+
+   *  collect
+
+   *  store
+
    measurement may be stored (securely) until it is written by Attesting
    Environment in Evidence.
+
+   *  include in Evidence
+
+   *  sign Evidence
+
+   Once stored in signed Evidence, the measurement is considered safe.
+   This is because the cryptographic signature of the Evidence ensures
+   integrity protection.
 
    Interactions models between the Attester system and external entities
    such as the Verifier are already presented in other documents (TODO
@@ -271,7 +321,7 @@ Table of Contents
 
    This section is for informational purposes only.
 
-   Mapping to BIST and Traces
+   Mapping to BIST, KAT, and Traces
 
 6.  Inclusion in Conceptual Messages
 
@@ -290,7 +340,7 @@ Table of Contents
    bytes8 = bytes .size 8
    bytes8-b64u = text .b64u bytes8
 
-                         Figure 2: Example of CDDL
+                         Figure 3: Example of CDDL
 
    Possible formats (EAT, DICE X.509, custom ?)
 
