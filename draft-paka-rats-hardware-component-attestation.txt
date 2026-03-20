@@ -82,11 +82,11 @@ Table of Contents
      6.1.  Endorsement and Reference Values
      6.2.  Evidence
    7.  Security Considerations
-     7.1.  Software Attacks
-     7.2.  Physical Attacks
-       7.2.1.  Passive Attacks
-       7.2.2.  Active Attacks
-     7.3.  Supply Chain Attacks
+     7.1.  Root of Trust Components
+     7.2.  Threat Model
+       7.2.1.  Software Attacks
+       7.2.2.  Physical Attacks
+       7.2.3.  Supply Chain Attacks
    8.  IANA Considerations
    9.  References
      9.1.  Normative References
@@ -290,7 +290,21 @@ Table of Contents
    The following subsections are mainly focused on security
    considerations regarding the Attester.
 
-7.1.  Software Attacks
+7.1.  Root of Trust Components
+
+   Some components are essential for attestation, if these are tampered
+   with, there is no way to build meaningful Evidence (storage of
+   attestation key, signature component, etc...).  These are considered
+   the Root of Trust (RoT) for attestation because their correct
+   functioning cannot be proved through attestation.
+
+   These are to be put in contrast with other components that are not
+   critical for attestation (altough they can be critical for the
+   security system itself !).
+
+7.2.  Threat Model
+
+7.2.1.  Software Attacks
 
    There exist software attacks that can have a direct impact on
    hardware components’ behavior.  These are ideally mitigated by good
@@ -303,13 +317,13 @@ Table of Contents
 
    Ex: Manipulation of privileged power control interface.
 
-7.2.  Physical Attacks
+7.2.2.  Physical Attacks
 
    Physical attacks target the hardware of the system.  They imply
    physical access to the system during its mission mode or while it is
    in the supply chain.
 
-7.2.1.  Passive Attacks
+7.2.2.1.  Passive Attacks
 
    Passive physical attacks are used by attackers to leak information
    through analysis of system physical properties.  Passive attacks, by
@@ -324,7 +338,7 @@ Table of Contents
    Evidence, which can be used for impersonation and Evidence forgery.
    This is already tackled in Section 12.1.1 of [RFC9334].
 
-7.2.2.  Active Attacks
+7.2.2.2.  Active Attacks
 
    Active physical attacks are the main problem since they allow an
    attacker (or a “natural” physical event) to tamper with the integrity
@@ -349,7 +363,7 @@ Table of Contents
    etc... Note that some of these mitigations cannot directly prevent
    attacks but can be used for detection.
 
-7.3.  Supply Chain Attacks
+7.2.3.  Supply Chain Attacks
 
    Each stage of the supply chain introduces a new opportunity for an
    attacker to tamper with the produced system.
