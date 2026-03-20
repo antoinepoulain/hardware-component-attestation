@@ -178,7 +178,7 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 1. collect
 
     blabla
-  
+
 1. store
 
     measurement may be stored (securely) until it is written by Attesting Environment in Evidence.
