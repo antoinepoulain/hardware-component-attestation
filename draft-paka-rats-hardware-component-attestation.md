@@ -86,8 +86,7 @@ The terminology defined in {{RFC9334}} is reused throughout this document. Some 
 
 + Measurement Circuitry: can be hardware logic (really a circuit) or software logic e.g., FIPS KAT. Software logic used to trigger a measurement is not considered measurement circuitry but rather the Attesting Environment end-point of the trigger interface. See {{abstract-representation}} for details on the trigger interface.
 
-+ Target Hardware Component: Hardware component from which claims are to be collected by an Attesting Environment.
-
++ Target Hardware Component: A hardware component which is a Target Envrionment for an Attesting Environment.
 
 # Scope and Limitations
 
@@ -121,7 +120,7 @@ This document uses the following abstract objects:
 
 + Measurement circuitry:
 
-Black box used to represent logic capable of computing measurement of a target. The measurement circuitry is part of the Attesting Environment.
+Black box used to represent logic capable of computing measurements of a target. The measurement circuitry is part of the Attesting Environment.
 
 + Trigger interface
 
@@ -135,15 +134,13 @@ The "export" interface allows a measurement to be exported from the measurement 
 
 + Data collection channel
 
-The measurement mechanism needs to have physical access on the property that it is in charge of measuring. The flow of data exchanged between the measurement circuitry and the targe hardware component is represented by the "data collection" channel. This channel is not accessible by the Attesting Environment.
+The measurement mechanism needs to have physical access on the property that it is in charge of measuring. The flow of data exchanged between the measurement circuitry and the target hardware component is represented by the "data collection" channel. This channel is not accessible by the Attesting Environment.
 
 ## Integration Models
 
 The following subsections present possible layouts for integrating measurement circuitry between the Attesting Environment and the target hardware component.
 
 ### Coupled Measurement Circuitry
-
-As shown in {{coupled_meas_circuit}}, a part of the Attesting Environment is located on the Target Component.
 
 In this integration model, the measurement circuitry is part of the target hardware component. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is only logical. The target hardware component and the measurement circuitry are part of the same die. Due to the proximity between the measurement circuitry and the target hardware component, the data collection channel is not represented.
 
@@ -152,7 +149,7 @@ In this integration model, the measurement circuitry is part of the target hardw
 ~~~~
 {: #coupled_meas_circuit artwork-align="center" title="Abstract Representation of Coupled Measurement Circuitry"}
 
-Note: The measurement circuitry and target hardware component sharing the same die has an impact on the trust model (see {{supply-chain-attacks}}).
+Note: As shown in {{coupled_meas_circuit}}, the measurement circuitry and target hardware component share the same die. This may have an impact on the trust model (see {{supply-chain-attacks}}).
 
 ### External Measurement Circuitry
 
@@ -206,13 +203,21 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 
 1. \[optional\] store
 
-    measurement may be stored (securely) until it is written by Attesting Environment in Evidence.
+    It is possible that the measurement will not be directly included in Evidence but instead stored until it is effectively included in Evidence by the Attesting Environment.
+
+    The measurement must be securely stored in the boundary of the Attesting Environment. An attacker must not be able of tampering with the measurement while it is at rest.
 
 1. include in Evidence
 
-    blabla
+    The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.
+
+    Note: At that point the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.
 
 1. sign Evidence
+
+    The signature opearation must be carried securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.
+
+    For instance, if the signature operation is offloaded to a remote hardware component and Evidence content must transit on a bus to reach this component, the bus must be protected.
 
     Once stored in signed Evidence, the measurement is considered safe. This is because the cryptographic signature of the Evidence ensures integrity protection.
 
