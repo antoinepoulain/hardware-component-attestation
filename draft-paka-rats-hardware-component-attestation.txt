@@ -5,7 +5,7 @@
 Remote ATtestation ProcedureS                                 A. Poulain
 Internet-Draft                                                   A. Kaci
 Intended status: Standards Track                               Secure-IC
-Expires: 21 September 2026                                 20 March 2026
+Expires: 22 September 2026                                 21 March 2026
 
 
                    Attestation of Hardware Components
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 September 2026.
+   This Internet-Draft will expire on 22 September 2026.
 
 Copyright Notice
 
@@ -162,8 +162,8 @@ Table of Contents
       Attesting Environment end-point of the trigger interface.  See
       Section 5.1 for details on the trigger interface.
 
-   *  Target Hardware Component: Hardware component from which claims
-      are to be collected by an Attesting Environment.
+   *  Target Hardware Component: A hardware component which is a Target
+      Envrionment for an Attesting Environment.
 
 3.  Scope and Limitations
 
@@ -225,8 +225,8 @@ Table of Contents
 
    *  Measurement circuitry:
 
-   Black box used to represent logic capable of computing measurement of
-   a target.  The measurement circuitry is part of the Attesting
+   Black box used to represent logic capable of computing measurements
+   of a target.  The measurement circuitry is part of the Attesting
    Environment.
 
    *  Trigger interface
@@ -250,7 +250,7 @@ Table of Contents
 
    The measurement mechanism needs to have physical access on the
    property that it is in charge of measuring.  The flow of data
-   exchanged between the measurement circuitry and the targe hardware
+   exchanged between the measurement circuitry and the target hardware
    component is represented by the "data collection" channel.  This
    channel is not accessible by the Attesting Environment.
 
@@ -261,9 +261,6 @@ Table of Contents
    target hardware component.
 
 5.2.1.  Coupled Measurement Circuitry
-
-   As shown in Figure 1, a part of the Attesting Environment is located
-   on the Target Component.
 
    In this integration model, the measurement circuitry is part of the
    target hardware component.  The separation between measurement
@@ -286,8 +283,9 @@ Table of Contents
 
      Figure 1: Abstract Representation of Coupled Measurement Circuitry
 
-   Note: The measurement circuitry and target hardware component sharing
-   the same die has an impact on the trust model (see Section 7.2.3).
+   Note: As shown in Figure 1, the measurement circuitry and target
+   hardware component share the same die.  This may have an impact on
+   the trust model (see Section 7.2.3).
 
 5.2.2.  External Measurement Circuitry
 
@@ -368,14 +366,34 @@ Table of Contents
 
    4.  [optional] store
 
-       measurement may be stored (securely) until it is written by
-       Attesting Environment in Evidence.
+       It is possible that the measurement will not be directly included
+       in Evidence but instead stored until it is effectively included
+       in Evidence by the Attesting Environment.
+
+       The measurement must be securely stored in the boundary of the
+       Attesting Environment.  An attacker must not be able of tampering
+       with the measurement while it is at rest.
 
    5.  include in Evidence
 
-       blabla
+       The Attesting Environment is responsible for including the
+       measurement data in Evidence.  This operation must be carried out
+       securely.  An attacker must not be able to tamper with this
+       logic.
+
+       Note: At that point the Evidence is not signed yet and could
+       still be tampered by an attacker, possibly without being
+       detected.
 
    6.  sign Evidence
+
+       The signature opearation must be carried securely.  An attacker
+       must not be able of modifying the content of the Evidence or
+       forging signature for compromised data.
+
+       For instance, if the signature operation is offloaded to a remote
+       hardware component and Evidence content must transit on a bus to
+       reach this component, the bus must be protected.
 
        Once stored in signed Evidence, the measurement is considered
        safe.  This is because the cryptographic signature of the
