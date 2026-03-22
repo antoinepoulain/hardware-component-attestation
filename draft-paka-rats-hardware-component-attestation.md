@@ -118,7 +118,7 @@ Mechanisms for collecting measurements of hardware components may highly depend 
 
 This document uses the following abstract objects:
 
-+ Measurement circuitry:
++ Measurement circuitry
 
 Black box used to represent logic capable of computing measurements of a target. The measurement circuitry is part of the Attesting Environment.
 
@@ -153,8 +153,6 @@ Note: As shown in {{coupled_meas_circuit}}, the measurement circuitry and target
 
 ### External Measurement Circuitry
 
-Another Attester layout is to have
-
 In this integration model, the measurement circuitry is not part of the target hardware component, it is external. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement circuitry can come from different foundries.
 
 TODO really not part of the RTL ? if not, are there other examples
@@ -187,7 +185,7 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 
 1. trigger blabla
 
-    Measurement computation is triggered by something (boot, external request, watchdog) or continuous.
+    Measurement computation is triggered by something (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the trigger interface.
 
     Boot
 
@@ -195,11 +193,11 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 
 1. compute measurement
 
-    blabla
+    The measurement of the target hardware component is computed by the measurement circuitry.
 
 1. export measurement
 
-    blabla
+    Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transists from the measurement circuitry to the Attesting Environment through the export interface.
 
 1. \[optional\] store
 
