@@ -211,15 +211,15 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 
     The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.
 
-    Note: At that point the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.
+    Note: At that point, the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.
 
 1. sign Evidence
 
-    The signature opearation must be carried securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.
+    The signature opearation must be carried out securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.
 
     For instance, if the signature operation is offloaded to a remote hardware component and Evidence content must transit on a bus to reach this component, the bus must be protected.
 
-    Once stored in signed Evidence, the measurement is considered safe. This is because the cryptographic signature of the Evidence ensures integrity protection.
+    Once stored in signed Evidence, the measurement is considered safe from unauthorized modification. This is because the cryptographic signature of the Evidence ensures integrity protection.
 
 
 
