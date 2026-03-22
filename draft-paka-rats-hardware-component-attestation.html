@@ -1409,7 +1409,9 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <a href="#name-abstract-representation-of-" class="selfRef">Abstract Representation of Coupled Measurement Circuitry</a>
             </figcaption></figure>
 </div>
-<p id="section-5.2.1-3">Note: As shown in <a href="#coupled_meas_circuit" class="auto internal xref">Figure 1</a>, the measurement circuitry and target hardware component share the same die. This may have an impact on the trust model (see <a href="#supply-chain-attacks" class="auto internal xref">Section 7.2.3</a>).<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-3">TODO detail
+Ex: Different types of BIST, KAT<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-4">Note: As shown in <a href="#coupled_meas_circuit" class="auto internal xref">Figure 1</a>, the measurement circuitry and target hardware component share the same die. This may have an impact on the trust model (see <a href="#supply-chain-attacks" class="auto internal xref">Section 7.2.3</a>).<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="external-measurement-circuitry">
@@ -1418,12 +1420,10 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-external-measurement-circui" class="section-name selfRef">External Measurement Circuitry</a>
           </h4>
 <p id="section-5.2.2-1">In this integration model, the measurement circuitry is not part of the target hardware component, it is external. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement circuitry can come from different foundries.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-2">TODO really not part of the RTL ? if not, are there other examples
-Ex: Sensors added on top of hardware component<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
 <span id="name-abstract-representation-of-e"></span><div id="external_meas_circuit">
 <figure id="figure-2">
-            <div id="section-5.2.2-3.1">
-              <div class="alignCenter art-svg artwork" id="section-5.2.2-3.1.1">
+            <div id="section-5.2.2-2.1">
+              <div class="alignCenter art-svg artwork" id="section-5.2.2-2.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="256" width="488" viewBox="0 0 488 256" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                   <path d="M 8,48 L 8,224" fill="none" stroke="black"></path>
                   <path d="M 120,48 L 120,80" fill="none" stroke="black"></path>
@@ -1464,13 +1464,15 @@ Ex: Sensors added on top of hardware component<a href="#section-5.2.2-2" class="
                     <text x="352" y="212">Component</text>
                     <text x="356" y="228">(TE)</text>
                   </g>
-                </svg><a href="#section-5.2.2-3.1.1" class="pilcrow">¶</a>
+                </svg><a href="#section-5.2.2-2.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-abstract-representation-of-e" class="selfRef">Abstract Representation of External Measurement Circuitry</a>
             </figcaption></figure>
 </div>
+<p id="section-5.2.2-3">TODO detail
+Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC)<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2.2-4">composite attester, can be many attesting env (and many target envs of course)
 An AE may collect on multiple TE<a href="#section-5.2.2-4" class="pilcrow">¶</a></p>
 <p id="section-5.2.2-5">Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
@@ -1490,13 +1492,9 @@ TODO this implies that a TE can have multiple measurement fields in claim and re
 <p id="section-5.3-4">TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.3-5">
 <li id="section-5.3-5.1">
-            <p id="section-5.3-5.1.1">trigger blabla<a href="#section-5.3-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-5.1.1">trigger computation<a href="#section-5.3-5.1.1" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.1.2">
 Measurement computation is triggered by something (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the trigger interface.<a href="#section-5.3-5.1.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.1.3">
-Boot<a href="#section-5.3-5.1.3" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.1.4">
-Runtime<a href="#section-5.3-5.1.4" class="pilcrow">¶</a></p>
 </li>
           <li id="section-5.3-5.2">
             <p id="section-5.3-5.2.1">compute measurement<a href="#section-5.3-5.2.1" class="pilcrow">¶</a></p>
@@ -1509,7 +1507,7 @@ The measurement of the target hardware component is computed by the measurement 
 Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transists from the measurement circuitry to the Attesting Environment through the export interface.<a href="#section-5.3-5.3.2" class="pilcrow">¶</a></p>
 </li>
           <li id="section-5.3-5.4">
-            <p id="section-5.3-5.4.1">[optional] store<a href="#section-5.3-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-5.4.1">[optional] store measurement<a href="#section-5.3-5.4.1" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.4.2">
 It is possible that the measurement will not be directly included in Evidence but instead stored until it is effectively included in Evidence by the Attesting Environment.<a href="#section-5.3-5.4.2" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.4.3">
@@ -1541,7 +1539,8 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-practical-examples" class="section-name selfRef">Practical Examples</a>
         </h3>
 <p id="section-5.4-1">This section is for informational purposes only.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2">Mapping to BIST, KAT,   and Traces<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">Some may be only usable at Boot times, other could be usable during runtime.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">Mapping to BIST, KAT, Sensors and Traces<a href="#section-5.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1557,8 +1556,9 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
         <h3 id="name-endorsement-and-reference-v">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-endorsement-and-reference-v" class="section-name selfRef">Endorsement and Reference Values</a>
         </h3>
-<p id="section-6.1-1">CDDL
-Possible formats (CoRIM with CoMID, other ?)<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">CDDL<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">TODO Endorsement and Reference Values formats are not mandated by RFC9334 ? Custom is possible ?<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">Possible standard formats (CoRIM with CoMID)<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="evidence">
@@ -1567,7 +1567,8 @@ Possible formats (CoRIM with CoMID, other ?)<a href="#section-6.1-1" class="pilc
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-evidence" class="section-name selfRef">Evidence</a>
         </h3>
 <p id="section-6.2-1">CDDL<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">Possible formats (EAT, DICE X.509, custom ?)<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">TODO Evidence format is not mandated by RFC9334 ? Custom is possible ?<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">Possible standard formats (EAT, DICE X.509)<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

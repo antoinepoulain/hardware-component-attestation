@@ -283,6 +283,8 @@ Table of Contents
 
      Figure 1: Abstract Representation of Coupled Measurement Circuitry
 
+   TODO detail Ex: Different types of BIST, KAT
+
    Note: As shown in Figure 1, the measurement circuitry and target
    hardware component share the same die.  This may have an impact on
    the trust model (see Section 7.2.3).
@@ -294,9 +296,6 @@ Table of Contents
    between measurement circuitry (part of the Attesting Environment) and
    the Target Environment is physical.  The target hardware component
    and measurement circuitry can come from different foundries.
-
-   TODO really not part of the RTL ? if not, are there other examples
-   Ex: Sensors added on top of hardware component
 
                            Trigger
        +-------------+   Measurement  +-----------------------+
@@ -314,6 +313,9 @@ Table of Contents
                                           +---------------+
 
     Figure 2: Abstract Representation of External Measurement Circuitry
+
+   TODO detail Ex: Sensors added on top of hardware component, Power
+   Management IC (PMIC), Baseboard Management Controller (BMC)
 
    composite attester, can be many attesting env (and many target envs
    of course) An AE may collect on multiple TE
@@ -345,16 +347,12 @@ Table of Contents
    phsycial event) goal is to include in Evidence a measurement that is
    trusted.
 
-   1.  trigger blabla
+   1.  trigger computation
 
        Measurement computation is triggered by something (boot, external
        request, watchdog) or continuous.  The Attesting Environment is
        able to trigger the computation of the measurement through the
        trigger interface.
-
-       Boot
-
-       Runtime
 
    2.  compute measurement
 
@@ -368,7 +366,7 @@ Table of Contents
        measurement transists from the measurement circuitry to the
        Attesting Environment through the export interface.
 
-   4.  [optional] store
+   4.  [optional] store measurement
 
        It is possible that the measurement will not be directly included
        in Evidence but instead stored until it is effectively included
@@ -412,7 +410,10 @@ Table of Contents
 
    This section is for informational purposes only.
 
-   Mapping to BIST, KAT, and Traces
+   Some may be only usable at Boot times, other could be usable during
+   runtime.
+
+   Mapping to BIST, KAT, Sensors and Traces
 
 6.  Inclusion in Conceptual Messages
 
@@ -421,13 +422,21 @@ Table of Contents
 
 6.1.  Endorsement and Reference Values
 
-   CDDL Possible formats (CoRIM with CoMID, other ?)
+   CDDL
+
+   TODO Endorsement and Reference Values formats are not mandated by
+   RFC9334 ? Custom is possible ?
+
+   Possible standard formats (CoRIM with CoMID)
 
 6.2.  Evidence
 
    CDDL
 
-   Possible formats (EAT, DICE X.509, custom ?)
+   TODO Evidence format is not mandated by RFC9334 ? Custom is possible
+   ?
+
+   Possible standard formats (EAT, DICE X.509)
 
 7.  Security Considerations
 
