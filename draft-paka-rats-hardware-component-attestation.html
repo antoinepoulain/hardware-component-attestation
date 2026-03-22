@@ -1352,7 +1352,7 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <p id="section-5.1-2">This document uses the following abstract objects:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.1-3.1">
-            <p id="section-5.1-3.1.1">Measurement circuitry:<a href="#section-5.1-3.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-3.1.1">Measurement circuitry<a href="#section-5.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-5.1-4">Black box used to represent logic capable of computing measurements of a target. The measurement circuitry is part of the Attesting Environment.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
@@ -1417,14 +1417,13 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
           <h4 id="name-external-measurement-circui">
 <a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-external-measurement-circui" class="section-name selfRef">External Measurement Circuitry</a>
           </h4>
-<p id="section-5.2.2-1">Another Attester layout is to have<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-2">In this integration model, the measurement circuitry is not part of the target hardware component, it is external. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement circuitry can come from different foundries.<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-3">TODO really not part of the RTL ? if not, are there other examples
-Ex: Sensors added on top of hardware component<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-1">In this integration model, the measurement circuitry is not part of the target hardware component, it is external. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement circuitry can come from different foundries.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-2">TODO really not part of the RTL ? if not, are there other examples
+Ex: Sensors added on top of hardware component<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
 <span id="name-abstract-representation-of-e"></span><div id="external_meas_circuit">
 <figure id="figure-2">
-            <div id="section-5.2.2-4.1">
-              <div class="alignCenter art-svg artwork" id="section-5.2.2-4.1.1">
+            <div id="section-5.2.2-3.1">
+              <div class="alignCenter art-svg artwork" id="section-5.2.2-3.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="256" width="488" viewBox="0 0 488 256" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                   <path d="M 8,48 L 8,224" fill="none" stroke="black"></path>
                   <path d="M 120,48 L 120,80" fill="none" stroke="black"></path>
@@ -1465,17 +1464,17 @@ Ex: Sensors added on top of hardware component<a href="#section-5.2.2-3" class="
                     <text x="352" y="212">Component</text>
                     <text x="356" y="228">(TE)</text>
                   </g>
-                </svg><a href="#section-5.2.2-4.1.1" class="pilcrow">¶</a>
+                </svg><a href="#section-5.2.2-3.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-abstract-representation-of-e" class="selfRef">Abstract Representation of External Measurement Circuitry</a>
             </figcaption></figure>
 </div>
-<p id="section-5.2.2-5">composite attester, can be many attesting env (and many target envs of course)
-An AE may collect on multiple TE<a href="#section-5.2.2-5" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-6">Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
-TODO this implies that a TE can have multiple measurement fields in claim and reference values (I think already supported in RATS)<a href="#section-5.2.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-4">composite attester, can be many attesting env (and many target envs of course)
+An AE may collect on multiple TE<a href="#section-5.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-5">Of course, both coupled and external measurement circuitries can be found in the same system and possibly, they can be used to measure a single Target Envrionment.
+TODO this implies that a TE can have multiple measurement fields in claim and reference values (I think already supported in RATS)<a href="#section-5.2.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1493,7 +1492,7 @@ TODO this implies that a TE can have multiple measurement fields in claim and re
 <li id="section-5.3-5.1">
             <p id="section-5.3-5.1.1">trigger blabla<a href="#section-5.3-5.1.1" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.1.2">
-Measurement computation is triggered by something (boot, external request, watchdog) or continuous.<a href="#section-5.3-5.1.2" class="pilcrow">¶</a></p>
+Measurement computation is triggered by something (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the trigger interface.<a href="#section-5.3-5.1.2" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.1.3">
 Boot<a href="#section-5.3-5.1.3" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.1.4">
@@ -1502,12 +1501,12 @@ Runtime<a href="#section-5.3-5.1.4" class="pilcrow">¶</a></p>
           <li id="section-5.3-5.2">
             <p id="section-5.3-5.2.1">compute measurement<a href="#section-5.3-5.2.1" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.2.2">
-blabla<a href="#section-5.3-5.2.2" class="pilcrow">¶</a></p>
+The measurement of the target hardware component is computed by the measurement circuitry.<a href="#section-5.3-5.2.2" class="pilcrow">¶</a></p>
 </li>
           <li id="section-5.3-5.3">
             <p id="section-5.3-5.3.1">export measurement<a href="#section-5.3-5.3.1" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.3.2">
-blabla<a href="#section-5.3-5.3.2" class="pilcrow">¶</a></p>
+Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transists from the measurement circuitry to the Attesting Environment through the export interface.<a href="#section-5.3-5.3.2" class="pilcrow">¶</a></p>
 </li>
           <li id="section-5.3-5.4">
             <p id="section-5.3-5.4.1">[optional] store<a href="#section-5.3-5.4.1" class="pilcrow">¶</a></p>

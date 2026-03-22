@@ -223,7 +223,7 @@ Table of Contents
 
    This document uses the following abstract objects:
 
-   *  Measurement circuitry:
+   *  Measurement circuitry
 
    Black box used to represent logic capable of computing measurements
    of a target.  The measurement circuitry is part of the Attesting
@@ -289,8 +289,6 @@ Table of Contents
 
 5.2.2.  External Measurement Circuitry
 
-   Another Attester layout is to have
-
    In this integration model, the measurement circuitry is not part of
    the target hardware component, it is external.  The separation
    between measurement circuitry (part of the Attesting Environment) and
@@ -350,7 +348,9 @@ Table of Contents
    1.  trigger blabla
 
        Measurement computation is triggered by something (boot, external
-       request, watchdog) or continuous.
+       request, watchdog) or continuous.  The Attesting Environment is
+       able to trigger the computation of the measurement through the
+       trigger interface.
 
        Boot
 
@@ -358,11 +358,15 @@ Table of Contents
 
    2.  compute measurement
 
-       blabla
+       The measurement of the target hardware component is computed by
+       the measurement circuitry.
 
    3.  export measurement
 
-       blabla
+       Once the measurement has been computed, it must be exported in
+       order to be accessible by the Attesting Environment.  The
+       measurement transists from the measurement circuitry to the
+       Attesting Environment through the export interface.
 
    4.  [optional] store
 
