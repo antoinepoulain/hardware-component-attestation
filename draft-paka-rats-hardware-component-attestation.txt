@@ -5,7 +5,7 @@
 Remote ATtestation ProcedureS                                 A. Poulain
 Internet-Draft                                                   A. Kaci
 Intended status: Standards Track                               Secure-IC
-Expires: 22 September 2026                                 21 March 2026
+Expires: 23 September 2026                                 22 March 2026
 
 
                    Attestation of Hardware Components
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 September 2026.
+   This Internet-Draft will expire on 23 September 2026.
 
 Copyright Notice
 
@@ -381,23 +381,24 @@ Table of Contents
        securely.  An attacker must not be able to tamper with this
        logic.
 
-       Note: At that point the Evidence is not signed yet and could
+       Note: At that point, the Evidence is not signed yet and could
        still be tampered by an attacker, possibly without being
        detected.
 
    6.  sign Evidence
 
-       The signature opearation must be carried securely.  An attacker
-       must not be able of modifying the content of the Evidence or
-       forging signature for compromised data.
+       The signature opearation must be carried out securely.  An
+       attacker must not be able of modifying the content of the
+       Evidence or forging signature for compromised data.
 
        For instance, if the signature operation is offloaded to a remote
        hardware component and Evidence content must transit on a bus to
        reach this component, the bus must be protected.
 
        Once stored in signed Evidence, the measurement is considered
-       safe.  This is because the cryptographic signature of the
-       Evidence ensures integrity protection.
+       safe from unauthorized modification.  This is because the
+       cryptographic signature of the Evidence ensures integrity
+       protection.
 
    Interactions models between the Attester system and external entities
    such as the Verifier are already presented in other documents (TODO

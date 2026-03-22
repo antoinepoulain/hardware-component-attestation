@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Poulain &amp; Kaci</td>
-<td class="center">Expires 22 September 2026</td>
+<td class="center">Expires 23 September 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-paka-rats-hardware-component-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-03-21" class="published">21 March 2026</time>
+<time datetime="2026-03-22" class="published">22 March 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-09-22">22 September 2026</time></dd>
+<dd class="expires"><time datetime="2026-09-23">23 September 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1124,7 +1124,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1521,16 +1521,16 @@ The measurement must be securely stored in the boundary of the Attesting Environ
 <p id="section-5.3-5.5.2">
 The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.<a href="#section-5.3-5.5.2" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.5.3">
-Note: At that point the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.<a href="#section-5.3-5.5.3" class="pilcrow">¶</a></p>
+Note: At that point, the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.<a href="#section-5.3-5.5.3" class="pilcrow">¶</a></p>
 </li>
           <li id="section-5.3-5.6">
             <p id="section-5.3-5.6.1">sign Evidence<a href="#section-5.3-5.6.1" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.6.2">
-The signature opearation must be carried securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.<a href="#section-5.3-5.6.2" class="pilcrow">¶</a></p>
+The signature opearation must be carried out securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.<a href="#section-5.3-5.6.2" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.6.3">
 For instance, if the signature operation is offloaded to a remote hardware component and Evidence content must transit on a bus to reach this component, the bus must be protected.<a href="#section-5.3-5.6.3" class="pilcrow">¶</a></p>
 <p id="section-5.3-5.6.4">
-Once stored in signed Evidence, the measurement is considered safe. This is because the cryptographic signature of the Evidence ensures integrity protection.<a href="#section-5.3-5.6.4" class="pilcrow">¶</a></p>
+Once stored in signed Evidence, the measurement is considered safe from unauthorized modification. This is because the cryptographic signature of the Evidence ensures integrity protection.<a href="#section-5.3-5.6.4" class="pilcrow">¶</a></p>
 </li>
         </ol>
 <p id="section-5.3-6">Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).<a href="#section-5.3-6" class="pilcrow">¶</a></p>
