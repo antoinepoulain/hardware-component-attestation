@@ -149,21 +149,22 @@ In this integration model, the measurement circuitry is part of the target hardw
 ~~~~
 {: #coupled_meas_circuit artwork-align="center" title="Abstract Representation of Coupled Measurement Circuitry"}
 
+TODO detail
+Ex: Different types of BIST, KAT
+
 Note: As shown in {{coupled_meas_circuit}}, the measurement circuitry and target hardware component share the same die. This may have an impact on the trust model (see {{supply-chain-attacks}}).
 
 ### External Measurement Circuitry
 
 In this integration model, the measurement circuitry is not part of the target hardware component, it is external. The separation between measurement circuitry (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement circuitry can come from different foundries.
 
-TODO really not part of the RTL ? if not, are there other examples
-Ex: Sensors added on top of hardware component
-
 ~~~~ aasvg
 {::include diagrams/external-measurement-circuitry.asciio}
 ~~~~
 {: #external_meas_circuit artwork-align="center" title="Abstract Representation of External Measurement Circuitry"}
 
-
+TODO detail
+Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC)
 
 
 
@@ -183,13 +184,9 @@ Below are the identified steps of the journey of a measurement at the hardware l
 
 TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.
 
-1. trigger blabla
+1. trigger computation
 
     Measurement computation is triggered by something (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the trigger interface.
-
-    Boot
-
-    Runtime
 
 1. compute measurement
 
@@ -199,7 +196,7 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 
     Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transists from the measurement circuitry to the Attesting Environment through the export interface.
 
-1. \[optional\] store
+1. \[optional\] store measurement
 
     It is possible that the measurement will not be directly included in Evidence but instead stored until it is effectively included in Evidence by the Attesting Environment.
 
@@ -227,7 +224,9 @@ Interactions models between the Attester system and external entities such as th
 
 This section is for informational purposes only.
 
-Mapping to BIST, KAT,   and Traces
+Some may be only usable at Boot times, other could be usable during runtime.
+
+Mapping to BIST, KAT, Sensors and Traces
 
 # Inclusion in Conceptual Messages
 
@@ -236,7 +235,10 @@ This section introduces standard claims to be included in RATS Conceptual Messag
 ## Endorsement and Reference Values
 
 CDDL
-Possible formats (CoRIM with CoMID, other ?)
+
+TODO Endorsement and Reference Values formats are not mandated by RFC9334 ? Custom is possible ?
+
+Possible standard formats (CoRIM with CoMID)
 
 ## Evidence
 
@@ -247,7 +249,9 @@ CDDL
 ~~~
 {: #cddlexample title="Example of CDDL"} -->
 
-Possible formats (EAT, DICE X.509, custom ?)
+TODO Evidence format is not mandated by RFC9334 ? Custom is possible ?
+
+Possible standard formats (EAT, DICE X.509)
 
 # Security Considerations
 
