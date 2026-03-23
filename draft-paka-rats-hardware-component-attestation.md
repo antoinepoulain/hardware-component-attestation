@@ -10,7 +10,7 @@ pi: [toc, sortrefs, symrefs]
 # ipr: trust200902 # ? todo: check with legal team
 
 docname: draft-paka-rats-hardware-component-attestation-latest
-submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
+submissiontype: IETF
 number:
 date:
 consensus: true
@@ -43,6 +43,7 @@ normative:
   RFC9334:
   RFC9711:
   I-D.ietf-rats-eat-measured-component: eat-mc
+  I-D.ietf-rats-corim: rats-corim
 
 informative:
   ISO5891:
@@ -233,15 +234,30 @@ Mapping to BIST, KAT, Sensors and Traces
 
 # Inclusion in Conceptual Messages
 
-This section introduces standard claims to be included in RATS Conceptual Messages.
+This section introduces standard claims to be included in RATS Conceptual Messages. Conceptual Messages are defined in {{Section 8 of RFC9334}}.
 
-## Endorsement and Reference Values
+## Endorsement
 
 CDDL
 
-TODO Endorsement and Reference Values formats are not mandated by RFC9334 ? Custom is possible ?
+TODO Endorsement format is not mandated by RFC9334 ? Custom is possible ?
 
-Possible standard formats (CoRIM with CoMID)
+Possible standard formats (CoRIM with CoMID), endorsed-triples
+
+## Reference Value
+
+Reference Values must be computed in a secure environment. 
+
+TODO Reference Values format is not mandated by RFC9334 ? Custom is possible ?
+
+Possible standard formats (CoRIM with CoMID), reference-triples
+
+TODO one CoMID tag per hardware component ?
+
+Reference Values used to verify measurements of hardware components can be included in a CoRIM instance. The CoRIM is defined in {{-rats-corim}}.
+
+
+Reference Values can be written inside a CoMID Reference Value triple (see {{Section 5.1.5 of -rats-corim}}).
 
 ## Evidence
 
@@ -255,9 +271,15 @@ The current version of this document proposes several possible approaches for in
 
 #### Using EAT Measured Component Claim
 
-To promote interoperability, it is possible for some measurements to be represented in an EAT Measured Component. The EAT Measured Component is defined in {{-eat-mc}}.
+To promote interoperability, it is possible for some measurements to be represented in an already existing EAT Measured Component. The EAT Measured Component is defined in {{-eat-mc}}.
 
-For instance, a custom measurement structure can be used to hold hardware component measurement in the "measurement" field of the "measure-component" structure from {{-eat-mc}}. Also, the flag field can be used to extend the measured-component base type with profile-defined semantics. 
+For instance, a custom measurement structure can be used to hold hardware component measurement in the "measurement" field of the "measure-component" structure from {{-eat-mc}}. Also, the flag field can be used to extend the measured-component base type with profile-defined semantics.
+
+#### Using EAT Measurement Result Claim
+
+To promote interoperability, it is possible for some measurements to be represented in an already existing EAT Measurement Result. The EAT Measurement Result is defined in {{Section 4.2.17 of RFC9711}}.
+
+This claim could be well-suited for measurements with on-device comparisons with reference values. For instance, self-tests (e.g., BIST, KAT) verify that the computed measurement corresponds to an expected value and output results such as "success" or "failure". In that case, a Measurement Result claim can be used.
 
 #### Using Hardware Component Claims
 
