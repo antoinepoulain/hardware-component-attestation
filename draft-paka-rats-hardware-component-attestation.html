@@ -1668,7 +1668,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
           <h4 id="name-x509-claims">
 <a href="#section-6.3.2" class="section-number selfRef">6.3.2. </a><a href="#name-x509-claims" class="section-name selfRef">X.509 Claims</a>
           </h4>
-<p id="section-6.3.2-1"><span><a href="https://rfc-editor.org/rfc/rfc9711#appendix-C.3" class="relref">Appendix C.3</a> of [<a href="#RFC9711" class="cite xref">RFC9711</a>]</span> describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims defined in <a href="#eat-claims" class="auto internal xref">Section 6.3.1</a>.<a href="#section-6.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.3.2-1"><span><a href="https://rfc-editor.org/rfc/rfc9711#appendix-C.3" class="relref">Appendix C.3</a> of [<a href="#RFC9711" class="cite xref">RFC9711</a>]</span> describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in <a href="#eat-claims" class="auto internal xref">Section 6.3.1</a>.<a href="#section-6.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.3.2-2">TODO Particular case for DICE X.509 certificates (DiceTcbInfo)<a href="#section-6.3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1681,15 +1681,15 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
       <h2 id="name-security-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">The security considerations of RATS architecture apply (<span><a href="https://rfc-editor.org/rfc/rfc9334#section-12" class="relref">Section 12</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromissions. Aging and action of environment on the system are also considered threats.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">The security considerations of RATS architecture apply (<span><a href="https://rfc-editor.org/rfc/rfc9334#section-12" class="relref">Section 12</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromission. Aging and action of environment on the system are also considered threats.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">The following subsections are mainly focused on security considerations regarding the Attester.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <div id="root-of-trust-components">
 <section id="section-7.1">
         <h3 id="name-root-of-trust-components">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-root-of-trust-components" class="section-name selfRef">Root of Trust Components</a>
         </h3>
-<p id="section-7.1-1">Some components are essential for attestation, if these are tampered with, there is no way to build meaningful Evidence (storage of attestation key, signature component, etc.). These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security system itself !).<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">Some components are essential for attestation (storage of attestation key, signature component, etc.), if these are tampered with, there is no way to build trustworthy Evidence. These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security of the system itself !).<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="invasive-access">
@@ -1697,7 +1697,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
         <h3 id="name-invasive-access">
 <a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-invasive-access" class="section-name selfRef">Invasive Access</a>
         </h3>
-<p id="section-7.2-1">Internal measurement circuitry must not allow an attacker to access protected assets. For instance, access to protected assets can happen when using internal debug mechanisms (e.g., TAP controllers) for computing measurements.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-1">Internal measurement circuitry must not allow an attacker to access protected assets. For instance, access to protected assets can happen when computing measurements by using internal debug mechanisms (e.g., TAP controllers).<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="measurement-soundness">
@@ -1759,7 +1759,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
 <a href="#section-7.4.3" class="section-number selfRef">7.4.3. </a><a href="#name-supply-chain-attacks" class="section-name selfRef">Supply Chain Attacks</a>
           </h4>
 <p id="section-7.4.3-1">Each stage of the supply chain introduces a new opportunity for an attacker to tamper with the produced system.<a href="#section-7.4.3-1" class="pilcrow">¶</a></p>
-<p id="section-7.4.3-2">Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity will be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the measurement circuitry is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.<a href="#section-7.4.3-2" class="pilcrow">¶</a></p>
+<p id="section-7.4.3-2">Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity may be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the measurement circuitry is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.<a href="#section-7.4.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
