@@ -236,7 +236,9 @@ Mapping to BIST, KAT, Sensors and Traces
 
 This section introduces standard claims to be included in RATS Conceptual Messages. Conceptual Messages are defined in {{Section 8 of RFC9334}}.
 
-## Endorsement
+Endorsements and Reference Values used to verify measurements of hardware components can be included in a CoRIM instance (see {{endorsements}} and {{reference-values}}). The CoRIM is defined in {{-rats-corim}}.
+
+## Endorsement {#endorsements}
 
 CDDL
 
@@ -244,9 +246,17 @@ TODO Endorsement format is not mandated by RFC9334 ? Custom is possible ?
 
 Possible standard formats (CoRIM with CoMID), endorsed-triples
 
-## Reference Value
+Endorsements can be written inside a CoMID Endorsed Values triple of a CoRIM (see {{Section 5.1.6 of -rats-corim}}). The Endorsed Values triple holds one or more measurement-map that are used to write the Endorsements.
 
-Reference Values must be computed in a secure environment. 
+TODO use case for endorsements in the scope of this document
+
+## Reference Value {#reference-values}
+
+Reference Values must be computed in a secure environment.
+
+The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission mode. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a different measurement does not necessarily mean bad behavior. If such parameters cannot be foreseen, it is possible to include additional data in the Reference Values to give details on the
+context in which the measurement has been computed.
+(kind of conditional Reference Values)
 
 TODO Reference Values format is not mandated by RFC9334 ? Custom is possible ?
 
@@ -254,10 +264,9 @@ Possible standard formats (CoRIM with CoMID), reference-triples
 
 TODO one CoMID tag per hardware component ?
 
-Reference Values used to verify measurements of hardware components can be included in a CoRIM instance. The CoRIM is defined in {{-rats-corim}}.
+Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see {{Section 5.1.5 of -rats-corim}}). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.
 
-
-Reference Values can be written inside a CoMID Reference Value triple (see {{Section 5.1.5 of -rats-corim}}).
+Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range and can correspond to a class, a group or an instance of the target hardware component.
 
 ## Evidence
 
@@ -320,7 +329,7 @@ There exist software attacks that can have a direct impact on hardware component
 
 Ex: Software-induced Denial-of-Service (DoS).
 
-Ex: Manipulation of privileged power control interface.
+Ex: Manipulation of priviledged power control interface.
 
 ### Physical Attacks
 
