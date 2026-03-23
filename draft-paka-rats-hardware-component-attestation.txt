@@ -88,11 +88,12 @@ Table of Contents
        6.3.2.  X.509 Claims
    7.  Security Considerations
      7.1.  Root of Trust Components
-     7.2.  Measurement Soundness
-     7.3.  Threat Model
-       7.3.1.  Software Attacks
-       7.3.2.  Physical Attacks
-       7.3.3.  Supply Chain Attacks
+     7.2.  Invasive Access
+     7.3.  Measurement Soundness
+     7.4.  Threat Model
+       7.4.1.  Software Attacks
+       7.4.2.  Physical Attacks
+       7.4.3.  Supply Chain Attacks
    8.  Privacy Considerations
    9.  IANA Considerations
    10. References
@@ -162,10 +163,10 @@ Table of Contents
       property, the result of a test etc.
 
    *  Measurement Circuitry: can be hardware logic (really a circuit) or
-      software logic.  Software logic used to trigger a measurement is
-      not considered measurement circuitry but rather the Attesting
-      Environment end-point of the trigger interface.  See Section 5.1
-      for details on the trigger interface.
+      software logic (e.g., FIPS KAT).  Software logic used to trigger a
+      measurement is not considered measurement circuitry but rather the
+      Attesting Environment end-point of the trigger interface.  See
+      Section 5.1 for details on the trigger interface.
 
    *  Target Hardware Component: A hardware component which is a Target
       Environment for an Attesting Environment.
@@ -292,7 +293,7 @@ Table of Contents
 
    Note: As shown in Figure 1, the measurement circuitry and target
    hardware component share the same die.  This may have an impact on
-   the trust model (see Section 7.3.3).
+   the trust model (see Section 7.4.3).
 
 5.2.2.  External Measurement Circuitry
 
@@ -326,10 +327,10 @@ Table of Contents
    of course) An AE may collect on multiple TE
 
    Of course, both coupled and external measurement circuitries can be
-   found in the same system and possibly, they can be used to measure a
-   single Target Envrionment.  TODO this implies that a TE can have
-   multiple measurement fields in claim and reference values (I think
-   already supported in RATS)
+   found in the same system and possibly, a combination of coupled and
+   external can be used to measure a single Target Envrionment.  TODO
+   this implies that a TE can have multiple measurement fields in claim
+   and reference values (already supported in RATS)
 
 5.3.  Measurement Journey
 
@@ -368,7 +369,7 @@ Table of Contents
 
        Once the measurement has been computed, it must be exported in
        order to be accessible by the Attesting Environment.  The
-       measurement transists from the measurement circuitry to the
+       measurement transits from the measurement circuitry to the
        Attesting Environment through the export interface.
 
    4.  [optional] store measurement
@@ -394,7 +395,7 @@ Table of Contents
 
    6.  sign Evidence
 
-       The signature opearation must be carried out securely.  An
+       The signature operation must be carried out securely.  An
        attacker must not be able of modifying the content of the
        Evidence or forging signature for compromised data.
 
@@ -418,7 +419,7 @@ Table of Contents
    TODO maybe this section should be after claims defintion that way,
    there could also be claim examples
 
-   Some may be only usable at Boot times, other could be usable during
+   Some may be only usable at Boot time, other could be usable during
    runtime.
 
    Mapping to BIST, KAT, Sensors and Traces
@@ -436,12 +437,8 @@ Table of Contents
 
 6.1.  Endorsement
 
-   CDDL
-
    TODO Endorsement format is not mandated by RFC9334 ? Custom is
    possible ?
-
-   Possible standard formats (CoRIM with CoMID), endorsed-triples
 
    Endorsements can be written inside a CoMID Endorsed Values triple of
    a CoRIM (see Section 5.1.6 of [I-D.ietf-rats-corim]).  The Endorsed
@@ -456,18 +453,22 @@ Table of Contents
 
    The Reference Value computed must correspond to the value that will
    be outputted in the expected environment of the system once in
-   mission mode.  For instance, a measurement might be dependent of the
+   mission.  For instance, a measurement might be dependent of the
    environmental conditions surrounding the system.  This must be taken
-   into account as a different measurement does not necessarily mean bad
-   behavior.  If such parameters cannot be foreseen, it is possible to
-   include additional data in the Reference Values to give details on
-   the context in which the measurement has been computed. (kind of
-   conditional Reference Values)
+   into account as a measurement different from the Reference Value does
+   not necessarily mean bad behavior.  If such context-dependent
+   parameters cannot be foreseen, it is possible to include additional
+   data in Evidence to give details about the context in which the
+   measurement has been computed.  The Verifier will then use these
+   additionnal data to select the Reference Value that should be used in
+   the context described by the additional data. (kind of conditional
+   Reference Values).  This implies that attacker cannot modify these
+   additional data otherwise, an attacker would be able to fool a
+   Verifier into choosing Reference Values that don't ocrrespond to the
+   actual context of the system.
 
    TODO Reference Values format is not mandated by RFC9334 ? Custom is
    possible ?
-
-   Possible standard formats (CoRIM with CoMID), reference-triples
 
    TODO one CoMID tag per hardware component ?
 
@@ -485,15 +486,13 @@ Table of Contents
    TODO Evidence format is not mandated by RFC9334 ? Custom is possible
    ?
 
-   Possible standard formats (EAT, X.509)
-
-6.3.1.  EAT Claims
-
    The current version of this document proposes several possible
    approaches for including hardware component measurements in Evidence.
    For now, these options are present as brainstorming, to explore the
    different possibilities and may be removed in future versions of this
    document.
+
+6.3.1.  EAT Claims
 
 6.3.1.1.  Using EAT Measured Component Claim
 
@@ -504,7 +503,7 @@ Table of Contents
 
    For instance, a custom measurement structure can be used to hold
    hardware component measurement in the "measurement" field of the
-   "measure-component" structure from
+   "measured-component" structure from
    [I-D.ietf-rats-eat-measured-component].  Also, the flag field can be
    used to extend the measured-component base type with profile-defined
    semantics.
@@ -551,9 +550,9 @@ Table of Contents
 
 6.3.2.  X.509 Claims
 
-   Appendix C.3 of [RFC9711] desribes methods to encode EAT claims in an
-   X.509 certificate.  These methods can be used for the claims defined
-   in Section 6.3.1.
+   Appendix C.3 of [RFC9711] describes methods to encode EAT claims in
+   an X.509 certificate.  These methods can be used for the claims
+   defined in Section 6.3.1.
 
    TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
 
@@ -581,16 +580,23 @@ Table of Contents
    critical for attestation (altough they can be critical for the
    security system itself !).
 
-7.2.  Measurement Soundness
+7.2.  Invasive Access
+
+   Internal measurement circuitry must not allow an attacker to access
+   protected assets.  For instance, access to protected assets can
+   happen when using internal debug mechanisms (e.g., TAP controllers)
+   for computing measurements.
+
+7.3.  Measurement Soundness
 
    It is possible that some measurement mechanisms may not be fully
    deterministic or may fail on rare occurences or raise false
    positives.  These considerations must be taken into account and
    mitigated to a sufficient level by the designer.
 
-7.3.  Threat Model
+7.4.  Threat Model
 
-7.3.1.  Software Attacks
+7.4.1.  Software Attacks
 
    There exist software attacks that can have a direct impact on
    hardware components’ behavior.  These are ideally mitigated by good
@@ -603,13 +609,13 @@ Table of Contents
 
    Ex: Manipulation of priviledged power control interface.
 
-7.3.2.  Physical Attacks
+7.4.2.  Physical Attacks
 
    Physical attacks target the hardware of the system.  They imply
    physical access to the system during its mission mode or while it is
    in the supply chain.
 
-7.3.2.1.  Passive Attacks
+7.4.2.1.  Passive Attacks
 
    Passive physical attacks are used by attackers to leak information
    through analysis of system physical properties.  Passive attacks, by
@@ -624,7 +630,7 @@ Table of Contents
    Evidence, which can be used for impersonation and Evidence forgery.
    This is already tackled in Section 12.1.1 of [RFC9334].
 
-7.3.2.2.  Active Attacks
+7.4.2.2.  Active Attacks
 
    Active physical attacks are the main problem since they allow an
    attacker (or a “natural” physical event) to tamper with the integrity
@@ -649,7 +655,7 @@ Table of Contents
    etc.  Note that some of these mitigations cannot directly prevent
    attacks but can be used for detection.
 
-7.3.3.  Supply Chain Attacks
+7.4.3.  Supply Chain Attacks
 
    Each stage of the supply chain introduces a new opportunity for an
    attacker to tamper with the produced system.
