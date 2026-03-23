@@ -1,0 +1,751 @@
+
+
+
+
+Remote ATtestation ProcedureS                                 A. Poulain
+Internet-Draft                                                   A. Kaci
+Intended status: Standards Track                               Secure-IC
+Expires: 24 September 2026                                 23 March 2026
+
+
+                   Attestation of Hardware Components
+         draft-paka-rats-hardware-component-attestation-latest
+
+Abstract
+
+   TODO Abstract
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://antoinepoulain.github.io/hardware-component-attestation/
+   draft-paka-rats-hardware-component-attestation.html.  Status
+   information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-paka-rats-hardware-component-
+   attestation/.
+
+   Discussion of this document takes place on the Remote ATtestation
+   ProcedureS Working Group mailing list (mailto:rats@ietf.org), which
+   is archived at https://mailarchive.ietf.org/arch/browse/rats/.
+   Subscribe at https://www.ietf.org/mailman/listinfo/rats/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/antoinepoulain/hardware-component-attestation.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 24 September 2026.
+
+Copyright Notice
+
+   Copyright (c) 2026 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Terminology
+     2.1.  Requirements Notation
+     2.2.  Definitions
+   3.  Scope and Limitations
+   4.  Use Cases
+   5.  Attester Model
+     5.1.  Abstract Representation
+     5.2.  Integration Models
+       5.2.1.  Coupled Measurement Circuitry
+       5.2.2.  External Measurement Circuitry
+     5.3.  Measurement Journey
+     5.4.  Practical Examples
+   6.  Inclusion in Conceptual Messages
+     6.1.  Endorsement
+     6.2.  Reference Value
+     6.3.  Evidence
+       6.3.1.  EAT Claims
+       6.3.2.  X.509 Claims
+   7.  Security Considerations
+     7.1.  Root of Trust Components
+     7.2.  Invasive Access
+     7.3.  Measurement Soundness
+     7.4.  Threat Model
+       7.4.1.  Software Attacks
+       7.4.2.  Physical Attacks
+       7.4.3.  Supply Chain Attacks
+   8.  Privacy Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
+   Appendix A.  Collected CDDL
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   Hardware components form the foundation upon which all computations
+   rely.  Therefore, the correctness and integrity of software execution
+   depend on the proper functioning of the underlying hardware, which
+   can be considered a root of trust for computation.
+
+   Modern systems increasingly adopt disaggregated architectures, such
+   as chiplet-based designs and large-scale heterogeneous platforms.
+   These systems integrate hardware components from multiple sources,
+   introducing new attack surfaces.
+
+   At the same time, zero trust principles encourage reducing reliance
+   on static trust anchors in favor of evidence reflecting the actual
+   runtime state of components.  However, current attestation mechanisms
+   for hardware components primarily rely on manufacturer-issued
+   endorsements, which capture properties established prior to
+   deployment but provide limited visibility into runtime hardware
+   behavior.
+
+   This document considers a threat model in which hardware components
+   may be affected not only by adversarial actions, but also by physical
+   phenomena such as environmental variations, aging, and natural
+   degradation.  These aspects are particularly important in systems
+   with strong safety requirements.
+
+   To address these limitations, this document defines a data model and
+   provides guidelines for including hardware component measurements in
+   attestation Evidence, as described in the RATS architecture
+   [RFC9334].  By incorporating runtime hardware measurements,
+   attestation can provide improved visibility into the integrity and
+   reliability of systems.  This document also outlines a security model
+   for such measurements and provides examples of existing technologies
+   that can be leveraged to obtain them.  These examples are
+   informational only and do not mandate specific implementations.
+   Instead, this document remains agnostic to the underlying measurement
+   mechanisms and focuses on defining abstract interfaces and a data
+   model for obtaining and representing such measurements.
+
+2.  Terminology
+
+2.1.  Requirements Notation
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+2.2.  Definitions
+
+   The terminology defined in [RFC9334] is reused throughout this
+   document.  Some of the definitions from RATS specifications are
+   refined here to fit the context presented in this document.
+
+   *  Measurement: Term introduced by RATS (quote document). here it can
+      mean a representation (a value, an encoding, etc.) of a physical
+      property, the result of a test etc.
+
+   *  Measurement Circuitry: can be hardware logic (really a circuit) or
+      software logic (e.g., FIPS KAT).  Software logic used to trigger a
+      measurement is not considered measurement circuitry but rather the
+      Attesting Environment end-point of the trigger interface.  See
+      Section 5.1 for details on the trigger interface.
+
+   *  Target Hardware Component: A hardware component which is a Target
+      Environment for an Attesting Environment.
+
+3.  Scope and Limitations
+
+   TODO
+
+4.  Use Cases
+
+   The solution presented in this document aims at mitigating two
+   threats on hardware.
+
+   *  Defective hardware components
+
+   Malfunction of hardware components may be caused by environment and/
+   or aging.  Detection of such malfunctions is critical when relying on
+   systems evolving in hazardous environments such as high pressure,
+   extreme temperatures, contact with water or chemical substances or
+   space radiations.
+
+   *  Attacks on hardware components
+
+   Gaining control of the hardware of a system is particularly
+   interesting for an attacker as it allows to tamper with the correct
+   functioning of the system at a priviledged level.  Such control can
+   be obtained by abusing software mechanisms or by having physical
+   access on the system (particularly relevant for embedded systems).
+
+5.  Attester Model
+
+   The RATS architecture presented in [RFC9334] introduces two types of
+   environments in an Attester.  The Attesting Environment (AE) is in
+   charge of collecting claims about a Target Environment (TE).  The
+   Attesting Environment is then responsible for embedding those claims
+   in an Evidence Conceptual Message.
+
+   This document focuses on claims used to represent the state of a
+   target hardware component.  Said claims can be related to physical
+   properties (electromagnetic or thermal signature, timing values,
+   power consumption, etc.), results of integrated self-tests or
+   collected traces.
+
+   The goal of this section is to propose standard interfaces to trigger
+   the computation of the measurement and to collect the computed
+   measurement.  Also, this section presents a mapping of Attesting
+   Environments and Target Environments in different integration models
+   for these measurement mechanisms.
+
+5.1.  Abstract Representation
+
+   Mechanisms for collecting measurements of hardware components may
+   highly depend of the type of hardware component and on the desired
+   type of measurement.  Therefore, this document proposes an abstract
+   representation of such mechanisms.  Considering a measurement
+   mechanism as a black boxe with common interfaces, allows the content
+   of this document to remain agnostic of the underlying mechanism and
+   of the type of measurement collected while promoting interoperability
+   with different real world implementations.
+
+   This document uses the following abstract objects:
+
+   *  Measurement circuitry
+
+   Black box used to represent logic capable of computing measurements
+   of a target.  The measurement circuitry is part of the Attesting
+   Environment.
+
+   *  Trigger interface
+
+   To start the computation of a measurement, the measurement circuitry
+   must be triggered.  The trigger can follow an external request, a
+   watchdog or any event set to trigger a measurement.  The measurement
+   circuitry receives a signal to start the computation of a measurement
+   through the "trigger" interface.
+
+   Note: This interface may not be used in case of continuous
+   monitoring.
+
+   *  Export interface
+
+   The "export" interface allows a measurement to be exported from the
+   measurement circuitry to a controlled memory region in the trust
+   boundary of the Attesting Environment.
+
+   *  Data collection channel
+
+   The measurement mechanism needs to have physical access on the
+   property that it is in charge of measuring.  The flow of data
+   exchanged between the measurement circuitry and the target hardware
+   component is represented by the "data collection" channel.  This
+   channel is not accessible by the Attesting Environment.
+
+5.2.  Integration Models
+
+   The following subsections present possible layouts for integrating
+   measurement circuitry between the Attesting Environment and the
+   target hardware component.
+
+5.2.1.  Coupled Measurement Circuitry
+
+   In this integration model, the measurement circuitry is part of the
+   target hardware component.  The separation between measurement
+   circuitry (part of the Attesting Environment) and the Target
+   Environment is only logical.  The target hardware component and the
+   measurement circuitry are part of the same die.  Due to the proximity
+   between the measurement circuitry and the target hardware component,
+   the data collection channel is not represented.
+
+                                       +-------------------------+
+         +-------------+    Trigger    |    +---------------+    |
+         |             |  Measurement  |    |               |    |
+         |             +--------------->    |   Target HW   |    |
+         |  Attesting  |               |    |   Component   |    |
+         | Environment |               |    |      (TE)     |    |
+         |             |               |    +---------------+    |
+         |             <---------------+  Measurement Circuitry  |
+         +-------------+    Export     |           (AE)          |
+                          Measurement  +-------------------------+
+
+     Figure 1: Abstract Representation of Coupled Measurement Circuitry
+
+   TODO detail Ex: Different types of BIST, KAT
+
+   Note: As shown in Figure 1, the measurement circuitry and target
+   hardware component share the same die.  This may have an impact on
+   the trust model (see Section 7.4.3).
+
+5.2.2.  External Measurement Circuitry
+
+   In this integration model, the measurement circuitry is not part of
+   the target hardware component, it is external.  The separation
+   between measurement circuitry (part of the Attesting Environment) and
+   the Target Environment is physical.  The target hardware component
+   and measurement circuitry can come from different foundries.
+
+                           Trigger
+       +-------------+   Measurement  +-----------------------+
+       |             +---------------->                       |
+       |             |                | Measurement Circuitry |
+       |             <----------------+          (AE)         |
+       |             |     Export     +-----------^-----------+
+       |  Attesting  |   Measurement              |
+       | Environment |                            | data collection
+       |             |                            |
+       |             |                    +-------v-------+
+       |             |                    |   Target HW   |
+       |             |                    |   Component   |
+       +-------------+                    |      (TE)     |
+                                          +---------------+
+
+    Figure 2: Abstract Representation of External Measurement Circuitry
+
+   TODO detail Ex: Sensors added on top of hardware component, Power
+   Management IC (PMIC), Baseboard Management Controller (BMC)
+
+   composite attester, can be many attesting env (and many target envs
+   of course) An AE may collect on multiple TE
+
+   Of course, both coupled and external measurement circuitries can be
+   found in the same system and possibly, a combination of coupled and
+   external can be used to measure a single Target Envrionment.  TODO
+   this implies that a TE can have multiple measurement fields in claim
+   and reference values (already supported in RATS)
+
+5.3.  Measurement Journey
+
+   TODO should this section be moved before Coupled and External
+   Measurement Circuitry ?
+
+   Measurements of hardware components must be included in the Evidence
+   to be sent to a Verifier.  This implies that the Attesting
+   Environment possesses a way to start the computation of the
+   measurement (trigger), to securely retrieve the measurement
+   (collection) and to securely embed the measurement in Evidence.
+   During the completion of all these steps, the attacker has many
+   opportunities to tamper with the integrity of the measurement or the
+   execution logic (hardware or software).
+
+   Below are the identified steps of the journey of a measurement at the
+   hardware level.
+
+   TODO at each step describe attacker opportunity (attacker may be
+   phsycial event) goal is to include in Evidence a measurement that is
+   trusted.
+
+   1.  trigger computation
+
+       Measurement computation is triggered by something (boot, external
+       request, watchdog) or continuous.  The Attesting Environment is
+       able to trigger the computation of the measurement through the
+       trigger interface.
+
+   2.  compute measurement
+
+       The measurement of the target hardware component is computed by
+       the measurement circuitry.
+
+   3.  export measurement
+
+       Once the measurement has been computed, it must be exported in
+       order to be accessible by the Attesting Environment.  The
+       measurement transits from the measurement circuitry to the
+       Attesting Environment through the export interface.
+
+   4.  [optional] store measurement
+
+       It is possible that the measurement will not be directly included
+       in Evidence but instead stored until it is effectively included
+       in Evidence by the Attesting Environment.
+
+       The measurement must be securely stored in the boundary of the
+       Attesting Environment.  An attacker must not be able of tampering
+       with the measurement while it is at rest.
+
+   5.  include in Evidence
+
+       The Attesting Environment is responsible for including the
+       measurement data in Evidence.  This operation must be carried out
+       securely.  An attacker must not be able to tamper with this
+       logic.
+
+       Note: At that point, the Evidence is not signed yet and could
+       still be tampered by an attacker, possibly without being
+       detected.
+
+   6.  sign Evidence
+
+       The signature operation must be carried out securely.  An
+       attacker must not be able of modifying the content of the
+       Evidence or forging signature for compromised data.
+
+       For instance, if the signature operation is offloaded to a remote
+       hardware component and Evidence content must transit on a bus to
+       reach this component, the bus must be protected.
+
+       Once stored in signed Evidence, the measurement is considered
+       safe from unauthorized modification.  This is because the
+       cryptographic signature of the Evidence ensures integrity
+       protection.
+
+   Interactions models between the Attester system and external entities
+   such as the Verifier are already presented in other documents (TODO
+   specify which ones).
+
+5.4.  Practical Examples
+
+   This section is for informational purposes only.
+
+   TODO maybe this section should be after claims defintion that way,
+   there could also be claim examples
+
+   Some may be only usable at Boot time, other could be usable during
+   runtime.
+
+   Mapping to BIST, KAT, Sensors and Traces
+
+6.  Inclusion in Conceptual Messages
+
+   This section introduces standard claims to be included in RATS
+   Conceptual Messages.  Conceptual Messages are defined in Section 8 of
+   [RFC9334].
+
+   Endorsements and Reference Values used to verify measurements of
+   hardware components can be included in a CoRIM instance (see
+   Section 6.1 and Section 6.2).  The CoRIM is defined in
+   [I-D.ietf-rats-corim].
+
+6.1.  Endorsement
+
+   TODO Endorsement format is not mandated by RFC9334 ? Custom is
+   possible ?
+
+   Endorsements can be written inside a CoMID Endorsed Values triple of
+   a CoRIM (see Section 5.1.6 of [I-D.ietf-rats-corim]).  The Endorsed
+   Values triple holds one or more measurement-map that are used to
+   write the Endorsements.
+
+   TODO use case for endorsements in the scope of this document
+
+6.2.  Reference Value
+
+   Reference Values must be computed in a secure environment.
+
+   The Reference Value computed must correspond to the value that will
+   be outputted in the expected environment of the system once in
+   mission.  For instance, a measurement might be dependent of the
+   environmental conditions surrounding the system.  This must be taken
+   into account as a measurement different from the Reference Value does
+   not necessarily mean bad behavior.  If such context-dependent
+   parameters cannot be foreseen, it is possible to include additional
+   data in Evidence to give details about the context in which the
+   measurement has been computed.  The Verifier will then use these
+   additionnal data to select the Reference Value that should be used in
+   the context described by the additional data. (kind of conditional
+   Reference Values).  This implies that attacker cannot modify these
+   additional data otherwise, an attacker would be able to fool a
+   Verifier into choosing Reference Values that don't ocrrespond to the
+   actual context of the system.
+
+   TODO Reference Values format is not mandated by RFC9334 ? Custom is
+   possible ?
+
+   TODO one CoMID tag per hardware component ?
+
+   Reference Values can be written inside a CoMID Reference Values
+   triple of a CoRIM (see Section 5.1.5 of [I-D.ietf-rats-corim]).  The
+   Reference Values triple holds one or more measurement-map that are
+   used to write the Reference Values.
+
+   Depending on the type of measurement and target hardware component,
+   the Reference Value can be a value or a range and can correspond to a
+   class, a group or an instance of the target hardware component.
+
+6.3.  Evidence
+
+   TODO Evidence format is not mandated by RFC9334 ? Custom is possible
+   ?
+
+   The current version of this document proposes several possible
+   approaches for including hardware component measurements in Evidence.
+   For now, these options are present as brainstorming, to explore the
+   different possibilities and may be removed in future versions of this
+   document.
+
+6.3.1.  EAT Claims
+
+6.3.1.1.  Using EAT Measured Component Claim
+
+   To promote interoperability, it is possible for some measurements to
+   be represented in an already existing EAT Measured Component.  The
+   EAT Measured Component is defined in
+   [I-D.ietf-rats-eat-measured-component].
+
+   For instance, a custom measurement structure can be used to hold
+   hardware component measurement in the "measurement" field of the
+   "measured-component" structure from
+   [I-D.ietf-rats-eat-measured-component].  Also, the flag field can be
+   used to extend the measured-component base type with profile-defined
+   semantics.
+
+6.3.1.2.  Using EAT Measurement Result Claim
+
+   To promote interoperability, it is possible for some measurements to
+   be represented in an already existing EAT Measurement Result.  The
+   EAT Measurement Result is defined in Section 4.2.17 of [RFC9711].
+
+   This claim could be well-suited for measurements with on-device
+   comparisons with reference values.  For instance, self-tests (e.g.,
+   BIST, KAT) verify that the computed measurement corresponds to an
+   expected value and output results such as "success" or "failure".  In
+   that case, a Measurement Result claim can be used.
+
+6.3.1.3.  Using Hardware Component Claims
+
+   This section proposes new claims related to what is described in this
+   document.
+
+   The CDDL in Figure 3 extends the $measurements-body-cbor and
+   $measurements-body-json EAT sockets to add support for the measured-
+   hw-component to the Measurements claim (Section 4.2.16 of [RFC9711]).
+
+      mhwc-cbor = bytes .cbor measured-hw-component
+      mhhwc-json = text .json measured-hw-component
+
+      ; EAT CBOR (`.feature "cbor"`)
+      $measurements-body-cbor /= mhwc-cbor
+
+      ; EAT JSON (`.feature "json"`)
+      $measurements-body-json /= mhwc-json
+
+      measured-component = {
+         ; TODO
+         ; - need to identify the component
+         ; - put a type of measurement (BIST, KAT, physical prop monitor)
+         ; - measurement value (need to be able to hold
+         ; many types of measurements)
+      }
+
+                Figure 3: Measured Hardware Component Claims
+
+6.3.2.  X.509 Claims
+
+   Appendix C.3 of [RFC9711] describes methods to encode EAT claims in
+   an X.509 certificate.  These methods can be used for the claims
+   defined in Section 6.3.1.
+
+   TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
+
+7.  Security Considerations
+
+   The security considerations of RATS architecture apply (Section 12 of
+   [RFC9334]).  This section also mentions protection against physical
+   attacks.  These attacks are particularly relevant for this draft as
+   collecting claims about hardware components implies a risk of
+   physical compromissions.  Aging and action of environment on the
+   system are also considered threats.
+
+   The following subsections are mainly focused on security
+   considerations regarding the Attester.
+
+7.1.  Root of Trust Components
+
+   Some components are essential for attestation, if these are tampered
+   with, there is no way to build meaningful Evidence (storage of
+   attestation key, signature component, etc.).  These are considered
+   the Root of Trust (RoT) for attestation because their correct
+   functioning cannot be proved through attestation.
+
+   These are to be put in contrast with other components that are not
+   critical for attestation (altough they can be critical for the
+   security system itself !).
+
+7.2.  Invasive Access
+
+   Internal measurement circuitry must not allow an attacker to access
+   protected assets.  For instance, access to protected assets can
+   happen when using internal debug mechanisms (e.g., TAP controllers)
+   for computing measurements.
+
+7.3.  Measurement Soundness
+
+   It is possible that some measurement mechanisms may not be fully
+   deterministic or may fail on rare occurences or raise false
+   positives.  These considerations must be taken into account and
+   mitigated to a sufficient level by the designer.
+
+7.4.  Threat Model
+
+7.4.1.  Software Attacks
+
+   There exist software attacks that can have a direct impact on
+   hardware components’ behavior.  These are ideally mitigated by good
+   and secure development practices but in case they happen, these
+   attacks can be detected by monitoring physical properties of the
+   component (such as power consumption, thermal and electromagnetic
+   signatures, timing).
+
+   Ex: Software-induced Denial-of-Service (DoS).
+
+   Ex: Manipulation of priviledged power control interface.
+
+7.4.2.  Physical Attacks
+
+   Physical attacks target the hardware of the system.  They imply
+   physical access to the system during its mission mode or while it is
+   in the supply chain.
+
+7.4.2.1.  Passive Attacks
+
+   Passive physical attacks are used by attackers to leak information
+   through analysis of system physical properties.  Passive attacks, by
+   definition, do not modify behavior of the system and therefore cannot
+   alter the correct functioning of the attestation flow.
+
+   Ex: Side channel analysis of physical properties (EM emissions, power
+   consumption, timing, temperature, probing, etc.)
+
+   The danger with passive attacks resides in the extraction of
+   sensitive assets and particularly attestation key used to sign
+   Evidence, which can be used for impersonation and Evidence forgery.
+   This is already tackled in Section 12.1.1 of [RFC9334].
+
+7.4.2.2.  Active Attacks
+
+   Active physical attacks are the main problem since they allow an
+   attacker (or a “natural” physical event) to tamper with the integrity
+   of assets and execution flows of the system.  These may therefore
+   modify measurements in transit or at rest, inject arbitrary data in
+   Evidence or bypass sensitive operations.
+
+   Ex: Attacks on bus (Active man-in-the-middle (MITM), injection,
+   probing) or anywhere measurements are in transit before being
+   integrated in a structure that cannot be tampered or spoofed (signed
+   Evidence).
+
+   Ex: Glitching, fault injections to induce malicious behavior.  May
+   tamper with the target hardware component itself or the measurement
+   circuitry or the logic used to build Evidence.
+
+   Ex: Memory tampering attacks to modify stored measurements.
+
+   Some techniques to mitigate physical attacks are usage of a TPM or
+   secure element for storage and correct execution of protected logic,
+   bus protections, redundancy, sensors, active meshes, nose injection,
+   etc.  Note that some of these mitigations cannot directly prevent
+   attacks but can be used for detection.
+
+7.4.3.  Supply Chain Attacks
+
+   Each stage of the supply chain introduces a new opportunity for an
+   attacker to tamper with the produced system.
+
+   Supply chains attacks may lead to the injection of Trojans.  Once a
+   Trojan has been triggered, its activity will be reflected on the
+   physical properties of the component (modified timing, different
+   power consumption).  It is therefore possible, in some cases, to
+   detect an active Trojan by comparing the physical properties of the
+   component when the Trojan is active against the reference physical
+   properties of the component.  Note that, if the measurement circuitry
+   is part of the component itself, which means that it has been
+   integrated by the foundry that introduced the Trojan, then it cannot
+   be trusted.
+
+8.  Privacy Considerations
+
+   TODO for reused claims privacy considerations are probably specified
+   in other documents (refer to them)
+
+   TODO for new claims, some fields may be dangerous for privacy.  Some
+   fields may enable tracking.
+
+9.  IANA Considerations
+
+   This document has no IANA actions.  TODO need IANA actions for claims
+   defined in this document ?
+
+10.  References
+
+10.1.  Normative References
+
+   [I-D.ietf-rats-corim]
+              Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
+              W. Pan, "Concise Reference Integrity Manifest", Work in
+              Progress, Internet-Draft, draft-ietf-rats-corim-10, 2
+              March 2026, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-rats-corim-10>.
+
+   [I-D.ietf-rats-eat-measured-component]
+              Frost, S., Fossati, T., Tschofenig, H., and H. Birkholz,
+              "Entity Attestation Token (EAT) Measured Component", Work
+              in Progress, Internet-Draft, draft-ietf-rats-eat-measured-
+              component-12, 20 February 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
+              eat-measured-component-12>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
+              W. Pan, "Remote ATtestation procedureS (RATS)
+              Architecture", RFC 9334, DOI 10.17487/RFC9334, January
+              2023, <https://www.rfc-editor.org/rfc/rfc9334>.
+
+   [RFC9711]  Lundblade, L., Mandyam, G., O'Donoghue, J., and C.
+              Wallace, "The Entity Attestation Token (EAT)", RFC 9711,
+              DOI 10.17487/RFC9711, April 2025,
+              <https://www.rfc-editor.org/rfc/rfc9711>.
+
+10.2.  Informative References
+
+   [ISO5891]  International Standards Organization, "ISO/IEC TR
+              5891:2024, Information security, cybersecurity and privacy
+              protection — Hardware monitoring technology for hardware
+              security assessment", April 2024,
+              <https://www.iso.org/fr/standard/81806.html>.
+
+Appendix A.  Collected CDDL
+
+   This appendix contains all the CDDL definitions included in this
+   document.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Authors' Addresses
+
+   Antoine Poulain
+   Secure-IC
+   Email: antoine.poulain@secure-ic.com
+
+
+   Abdellah Kaci
+   Secure-IC
+   Email: abdellah.kaci@secure-ic.com
