@@ -88,10 +88,11 @@ Table of Contents
        6.3.2.  X.509 Claims
    7.  Security Considerations
      7.1.  Root of Trust Components
-     7.2.  Threat Model
-       7.2.1.  Software Attacks
-       7.2.2.  Physical Attacks
-       7.2.3.  Supply Chain Attacks
+     7.2.  Measurement Soundness
+     7.3.  Threat Model
+       7.3.1.  Software Attacks
+       7.3.2.  Physical Attacks
+       7.3.3.  Supply Chain Attacks
    8.  Privacy Considerations
    9.  IANA Considerations
    10. References
@@ -291,7 +292,7 @@ Table of Contents
 
    Note: As shown in Figure 1, the measurement circuitry and target
    hardware component share the same die.  This may have an impact on
-   the trust model (see Section 7.2.3).
+   the trust model (see Section 7.3.3).
 
 5.2.2.  External Measurement Circuitry
 
@@ -562,8 +563,8 @@ Table of Contents
    [RFC9334]).  This section also mentions protection against physical
    attacks.  These attacks are particularly relevant for this draft as
    collecting claims about hardware components implies a risk of
-   physical attacks.  Aging and action of environment on the system are
-   also considered threats.
+   physical compromissions.  Aging and action of environment on the
+   system are also considered threats.
 
    The following subsections are mainly focused on security
    considerations regarding the Attester.
@@ -580,9 +581,16 @@ Table of Contents
    critical for attestation (altough they can be critical for the
    security system itself !).
 
-7.2.  Threat Model
+7.2.  Measurement Soundness
 
-7.2.1.  Software Attacks
+   It is possible that some measurement mechanisms may not be fully
+   deterministic or may fail on rare occurences or raise false
+   positives.  These considerations must be taken into account and
+   mitigated to a sufficient level by the designer.
+
+7.3.  Threat Model
+
+7.3.1.  Software Attacks
 
    There exist software attacks that can have a direct impact on
    hardware components’ behavior.  These are ideally mitigated by good
@@ -595,13 +603,13 @@ Table of Contents
 
    Ex: Manipulation of priviledged power control interface.
 
-7.2.2.  Physical Attacks
+7.3.2.  Physical Attacks
 
    Physical attacks target the hardware of the system.  They imply
    physical access to the system during its mission mode or while it is
    in the supply chain.
 
-7.2.2.1.  Passive Attacks
+7.3.2.1.  Passive Attacks
 
    Passive physical attacks are used by attackers to leak information
    through analysis of system physical properties.  Passive attacks, by
@@ -616,7 +624,7 @@ Table of Contents
    Evidence, which can be used for impersonation and Evidence forgery.
    This is already tackled in Section 12.1.1 of [RFC9334].
 
-7.2.2.2.  Active Attacks
+7.3.2.2.  Active Attacks
 
    Active physical attacks are the main problem since they allow an
    attacker (or a “natural” physical event) to tamper with the integrity
@@ -641,7 +649,7 @@ Table of Contents
    etc.  Note that some of these mitigations cannot directly prevent
    attacks but can be used for detection.
 
-7.2.3.  Supply Chain Attacks
+7.3.3.  Supply Chain Attacks
 
    Each stage of the supply chain introduces a new opportunity for an
    attacker to tamper with the produced system.

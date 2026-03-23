@@ -1227,16 +1227,19 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-root-of-trust-components" class="internal xref">Root of Trust Components</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-threat-model" class="internal xref">Threat Model</a></p>
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-measurement-soundness" class="internal xref">Measurement Soundness</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-threat-model" class="internal xref">Threat Model</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2.2.1">
-                    <p id="section-toc.1-1.7.2.2.2.1.1"><a href="#section-7.2.1" class="auto internal xref">7.2.1</a>.  <a href="#name-software-attacks" class="internal xref">Software Attacks</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3.2.1">
+                    <p id="section-toc.1-1.7.2.3.2.1.1"><a href="#section-7.3.1" class="auto internal xref">7.3.1</a>.  <a href="#name-software-attacks" class="internal xref">Software Attacks</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2.2.2">
-                    <p id="section-toc.1-1.7.2.2.2.2.1"><a href="#section-7.2.2" class="auto internal xref">7.2.2</a>.  <a href="#name-physical-attacks" class="internal xref">Physical Attacks</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3.2.2">
+                    <p id="section-toc.1-1.7.2.3.2.2.1"><a href="#section-7.3.2" class="auto internal xref">7.3.2</a>.  <a href="#name-physical-attacks" class="internal xref">Physical Attacks</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2.2.3">
-                    <p id="section-toc.1-1.7.2.2.2.3.1"><a href="#section-7.2.3" class="auto internal xref">7.2.3</a>.  <a href="#name-supply-chain-attacks" class="internal xref">Supply Chain Attacks</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3.2.3">
+                    <p id="section-toc.1-1.7.2.3.2.3.1"><a href="#section-7.3.3" class="auto internal xref">7.3.3</a>.  <a href="#name-supply-chain-attacks" class="internal xref">Supply Chain Attacks</a></p>
 </li>
                 </ul>
 </li>
@@ -1425,7 +1428,7 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 </div>
 <p id="section-5.2.1-3">TODO detail
 Ex: Different types of BIST, KAT<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-4">Note: As shown in <a href="#coupled_meas_circuit" class="auto internal xref">Figure 1</a>, the measurement circuitry and target hardware component share the same die. This may have an impact on the trust model (see <a href="#supply-chain-attacks" class="auto internal xref">Section 7.2.3</a>).<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-4">Note: As shown in <a href="#coupled_meas_circuit" class="auto internal xref">Figure 1</a>, the measurement circuitry and target hardware component share the same die. This may have an impact on the trust model (see <a href="#supply-chain-attacks" class="auto internal xref">Section 7.3.3</a>).<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="external-measurement-circuitry">
@@ -1681,7 +1684,7 @@ context in which the measurement has been computed.
       <h2 id="name-security-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">The security considerations of RATS architecture apply (<span><a href="https://rfc-editor.org/rfc/rfc9334#section-12" class="relref">Section 12</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical attacks. Aging and action of environment on the system are also considered threats.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">The security considerations of RATS architecture apply (<span><a href="https://rfc-editor.org/rfc/rfc9334#section-12" class="relref">Section 12</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromissions. Aging and action of environment on the system are also considered threats.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">The following subsections are mainly focused on security considerations regarding the Attester.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <div id="root-of-trust-components">
 <section id="section-7.1">
@@ -1692,58 +1695,66 @@ context in which the measurement has been computed.
 <p id="section-7.1-2">These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security system itself !).<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="threat-model">
+<div id="measurement-soundness">
 <section id="section-7.2">
+        <h3 id="name-measurement-soundness">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-measurement-soundness" class="section-name selfRef">Measurement Soundness</a>
+        </h3>
+<p id="section-7.2-1">It is possible that some measurement mechanisms may not be fully deterministic or may fail on rare occurences or raise false positives. These considerations must be taken into account and mitigated to a sufficient level by the designer.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="threat-model">
+<section id="section-7.3">
         <h3 id="name-threat-model">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-threat-model" class="section-name selfRef">Threat Model</a>
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-threat-model" class="section-name selfRef">Threat Model</a>
         </h3>
 <div id="software-attacks">
-<section id="section-7.2.1">
+<section id="section-7.3.1">
           <h4 id="name-software-attacks">
-<a href="#section-7.2.1" class="section-number selfRef">7.2.1. </a><a href="#name-software-attacks" class="section-name selfRef">Software Attacks</a>
+<a href="#section-7.3.1" class="section-number selfRef">7.3.1. </a><a href="#name-software-attacks" class="section-name selfRef">Software Attacks</a>
           </h4>
-<p id="section-7.2.1-1">There exist software attacks that can have a direct impact on hardware components’ behavior. These are ideally mitigated by good and secure development practices but in case they happen, these attacks can be detected by monitoring physical properties of the component (such as power consumption, thermal and electromagnetic signatures, timing).<a href="#section-7.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.2.1-2">Ex: Software-induced Denial-of-Service (DoS).<a href="#section-7.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-7.2.1-3">Ex: Manipulation of priviledged power control interface.<a href="#section-7.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-7.3.1-1">There exist software attacks that can have a direct impact on hardware components’ behavior. These are ideally mitigated by good and secure development practices but in case they happen, these attacks can be detected by monitoring physical properties of the component (such as power consumption, thermal and electromagnetic signatures, timing).<a href="#section-7.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.3.1-2">Ex: Software-induced Denial-of-Service (DoS).<a href="#section-7.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.3.1-3">Ex: Manipulation of priviledged power control interface.<a href="#section-7.3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="physical-attacks">
-<section id="section-7.2.2">
+<section id="section-7.3.2">
           <h4 id="name-physical-attacks">
-<a href="#section-7.2.2" class="section-number selfRef">7.2.2. </a><a href="#name-physical-attacks" class="section-name selfRef">Physical Attacks</a>
+<a href="#section-7.3.2" class="section-number selfRef">7.3.2. </a><a href="#name-physical-attacks" class="section-name selfRef">Physical Attacks</a>
           </h4>
-<p id="section-7.2.2-1">Physical attacks target the hardware of the system. They imply physical access to the system during its mission mode or while it is in the supply chain.<a href="#section-7.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.3.2-1">Physical attacks target the hardware of the system. They imply physical access to the system during its mission mode or while it is in the supply chain.<a href="#section-7.3.2-1" class="pilcrow">¶</a></p>
 <div id="passive-attacks">
-<section id="section-7.2.2.1">
+<section id="section-7.3.2.1">
             <h5 id="name-passive-attacks">
-<a href="#section-7.2.2.1" class="section-number selfRef">7.2.2.1. </a><a href="#name-passive-attacks" class="section-name selfRef">Passive Attacks</a>
+<a href="#section-7.3.2.1" class="section-number selfRef">7.3.2.1. </a><a href="#name-passive-attacks" class="section-name selfRef">Passive Attacks</a>
             </h5>
-<p id="section-7.2.2.1-1">Passive physical attacks are used by attackers to leak information through analysis of system physical properties. Passive attacks, by definition, do not modify behavior of the system and therefore cannot alter the correct functioning of the attestation flow.<a href="#section-7.2.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.2.2.1-2">Ex: Side channel analysis of physical properties (EM emissions, power consumption, timing, temperature, probing, etc.)<a href="#section-7.2.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-7.2.2.1-3">The danger with passive attacks resides in the extraction of sensitive assets and particularly attestation key used to sign Evidence, which can be used for impersonation and Evidence forgery. This is already tackled in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-12.1.1" class="relref">Section 12.1.1</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>.<a href="#section-7.2.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-7.3.2.1-1">Passive physical attacks are used by attackers to leak information through analysis of system physical properties. Passive attacks, by definition, do not modify behavior of the system and therefore cannot alter the correct functioning of the attestation flow.<a href="#section-7.3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.3.2.1-2">Ex: Side channel analysis of physical properties (EM emissions, power consumption, timing, temperature, probing, etc.)<a href="#section-7.3.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.3.2.1-3">The danger with passive attacks resides in the extraction of sensitive assets and particularly attestation key used to sign Evidence, which can be used for impersonation and Evidence forgery. This is already tackled in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-12.1.1" class="relref">Section 12.1.1</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>.<a href="#section-7.3.2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="active-attacks">
-<section id="section-7.2.2.2">
+<section id="section-7.3.2.2">
             <h5 id="name-active-attacks">
-<a href="#section-7.2.2.2" class="section-number selfRef">7.2.2.2. </a><a href="#name-active-attacks" class="section-name selfRef">Active Attacks</a>
+<a href="#section-7.3.2.2" class="section-number selfRef">7.3.2.2. </a><a href="#name-active-attacks" class="section-name selfRef">Active Attacks</a>
             </h5>
-<p id="section-7.2.2.2-1">Active physical attacks are the main problem since they allow an attacker (or a “natural” physical event) to tamper with the integrity of assets and execution flows of the system. These may therefore modify measurements in transit or at rest, inject arbitrary data in Evidence or bypass sensitive operations.<a href="#section-7.2.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.2.2.2-2">Ex: Attacks on bus (Active man-in-the-middle (MITM), injection, probing) or anywhere measurements are in transit before being integrated in a structure that cannot be tampered or spoofed (signed Evidence).<a href="#section-7.2.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.2.2.2-3">Ex: Glitching, fault injections to induce malicious behavior. May tamper with the target hardware component itself or the measurement circuitry or the logic used to build Evidence.<a href="#section-7.2.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-7.2.2.2-4">Ex: Memory tampering attacks to modify stored measurements.<a href="#section-7.2.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-7.2.2.2-5">Some techniques to mitigate physical attacks are usage of a TPM or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.<a href="#section-7.2.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-7.3.2.2-1">Active physical attacks are the main problem since they allow an attacker (or a “natural” physical event) to tamper with the integrity of assets and execution flows of the system. These may therefore modify measurements in transit or at rest, inject arbitrary data in Evidence or bypass sensitive operations.<a href="#section-7.3.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.3.2.2-2">Ex: Attacks on bus (Active man-in-the-middle (MITM), injection, probing) or anywhere measurements are in transit before being integrated in a structure that cannot be tampered or spoofed (signed Evidence).<a href="#section-7.3.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.3.2.2-3">Ex: Glitching, fault injections to induce malicious behavior. May tamper with the target hardware component itself or the measurement circuitry or the logic used to build Evidence.<a href="#section-7.3.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-7.3.2.2-4">Ex: Memory tampering attacks to modify stored measurements.<a href="#section-7.3.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-7.3.2.2-5">Some techniques to mitigate physical attacks are usage of a TPM or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.<a href="#section-7.3.2.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="supply-chain-attacks">
-<section id="section-7.2.3">
+<section id="section-7.3.3">
           <h4 id="name-supply-chain-attacks">
-<a href="#section-7.2.3" class="section-number selfRef">7.2.3. </a><a href="#name-supply-chain-attacks" class="section-name selfRef">Supply Chain Attacks</a>
+<a href="#section-7.3.3" class="section-number selfRef">7.3.3. </a><a href="#name-supply-chain-attacks" class="section-name selfRef">Supply Chain Attacks</a>
           </h4>
-<p id="section-7.2.3-1">Each stage of the supply chain introduces a new opportunity for an attacker to tamper with the produced system.<a href="#section-7.2.3-1" class="pilcrow">¶</a></p>
-<p id="section-7.2.3-2">Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity will be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the measurement circuitry is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.<a href="#section-7.2.3-2" class="pilcrow">¶</a></p>
+<p id="section-7.3.3-1">Each stage of the supply chain introduces a new opportunity for an attacker to tamper with the produced system.<a href="#section-7.3.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.3.3-2">Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity will be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the measurement circuitry is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.<a href="#section-7.3.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
