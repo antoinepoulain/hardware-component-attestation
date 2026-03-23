@@ -251,9 +251,13 @@ Possible standard formats (EAT, X.509)
 
 ### EAT Claims {#eat-claims}
 
+The current version of this document proposes several possible approaches for including hardware component measurements in Evidence. For now, these options are present as brainstorming, to explore the different possibilities and may be removed in future versions of this document.
+
 #### Using EAT Measured Component Claim
 
 To promote interoperability, it is possible for some measurements to be represented in an EAT Measured Component. The EAT Measured Component is defined in {{-eat-mc}}.
+
+For instance, a custom measurement structure can be used to hold hardware component measurement in the "measurement" field of the "measure-component" structure from {{-eat-mc}}. Also, the flag field can be used to extend the measured-component base type with profile-defined semantics. 
 
 #### Using Hardware Component Claims
 
@@ -325,6 +329,12 @@ Some techniques to mitigate physical attacks are usage of a TPM or secure elemen
 Each stage of the supply chain introduces a new opportunity for an attacker to tamper with the produced system.
 
 Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity will be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the measurement circuitry is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.
+
+# Privacy Considerations
+
+TODO for reused claims privacy considerations are probably specified in other documents (refer to them)
+
+TODO for new claims, some fields may be dangerous for privacy. Some fields may enable tracking.
 
 # IANA Considerations
 

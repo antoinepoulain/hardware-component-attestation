@@ -8,5 +8,9 @@
    $measurements-body-json /= mhwc-json
 
    measured-component = {
-      ; ????
+      ; TODO
+      ; - need to identify the component
+      ; - put a type of measurement (BIST, KAT, physical prop monitor)
+      ; - measurement value (need to be able to hold
+      ; many types of measurements)
    }
