@@ -311,7 +311,7 @@ TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
 
 # Security Considerations
 
-The security considerations of RATS architecture apply ({{Section 12 of RFC9334}}). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical attacks. Aging and action of environment on the system are also considered threats.
+The security considerations of RATS architecture apply ({{Section 12 of RFC9334}}). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromissions. Aging and action of environment on the system are also considered threats.
 
 The following subsections are mainly focused on security considerations regarding the Attester.
 
@@ -320,6 +320,10 @@ The following subsections are mainly focused on security considerations regardin
 Some components are essential for attestation, if these are tampered with, there is no way to build meaningful Evidence (storage of attestation key, signature component, etc.). These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.
 
 These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security system itself !).
+
+## Measurement Soundness
+
+It is possible that some measurement mechanisms may not be fully deterministic or may fail on rare occurences or raise false positives. These considerations must be taken into account and mitigated to a sufficient level by the designer.
 
 ## Threat Model
 
