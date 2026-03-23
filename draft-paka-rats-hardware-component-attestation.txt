@@ -5,7 +5,7 @@
 Remote ATtestation ProcedureS                                 A. Poulain
 Internet-Draft                                                   A. Kaci
 Intended status: Standards Track                               Secure-IC
-Expires: 23 September 2026                                 22 March 2026
+Expires: 24 September 2026                                 23 March 2026
 
 
                    Attestation of Hardware Components
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 September 2026.
+   This Internet-Draft will expire on 24 September 2026.
 
 Copyright Notice
 
@@ -83,6 +83,8 @@ Table of Contents
    6.  Inclusion in Conceptual Messages
      6.1.  Endorsement and Reference Values
      6.2.  Evidence
+       6.2.1.  EAT Claims
+       6.2.2.  X.509 Claims
    7.  Security Considerations
      7.1.  Root of Trust Components
      7.2.  Threat Model
@@ -149,7 +151,7 @@ Table of Contents
 2.2.  Definitions
 
    The terminology defined in [RFC9334] is reused throughout this
-   document.  Some of the definitions from other RATS specifications are
+   document.  Some of the definitions from RATS specifications are
    refined here to fit the context presented in this document.
 
    *  Measurement: Term introduced by RATS (quote document). here it can
@@ -157,13 +159,13 @@ Table of Contents
       property, the result of a test etc.
 
    *  Measurement Circuitry: can be hardware logic (really a circuit) or
-      software logic e.g., FIPS KAT.  Software logic used to trigger a
-      measurement is not considered measurement circuitry but rather the
-      Attesting Environment end-point of the trigger interface.  See
-      Section 5.1 for details on the trigger interface.
+      software logic.  Software logic used to trigger a measurement is
+      not considered measurement circuitry but rather the Attesting
+      Environment end-point of the trigger interface.  See Section 5.1
+      for details on the trigger interface.
 
    *  Target Hardware Component: A hardware component which is a Target
-      Envrionment for an Attesting Environment.
+      Environment for an Attesting Environment.
 
 3.  Scope and Limitations
 
@@ -410,6 +412,9 @@ Table of Contents
 
    This section is for informational purposes only.
 
+   TODO maybe this section should be after claims defintion that way,
+   there could also be claim examples
+
    Some may be only usable at Boot times, other could be usable during
    runtime.
 
@@ -431,12 +436,50 @@ Table of Contents
 
 6.2.  Evidence
 
-   CDDL
-
    TODO Evidence format is not mandated by RFC9334 ? Custom is possible
    ?
 
-   Possible standard formats (EAT, DICE X.509)
+   Possible standard formats (EAT, X.509)
+
+6.2.1.  EAT Claims
+
+6.2.1.1.  Using EAT Measured Component Claim
+
+   To promote interoperability, it is possible for some measurements to
+   be represented in an EAT Measured Component.  The EAT Measured
+   Component is defined in [I-D.ietf-rats-eat-measured-component].
+
+6.2.1.2.  Using Hardware Component Claims
+
+   This section proposes new claims related to what is described in this
+   document.
+
+   The CDDL in Figure 3 extends the $measurements-body-cbor and
+   $measurements-body-json EAT sockets to add support for the measured-
+   hw-component to the Measurements claim (Section 4.2.16 of [RFC9711]).
+
+      mhwc-cbor = bytes .cbor measured-hw-component
+      mhhwc-json = text .json measured-hw-component
+
+      ; EAT CBOR (`.feature "cbor"`)
+      $measurements-body-cbor /= mhwc-cbor
+
+      ; EAT JSON (`.feature "json"`)
+      $measurements-body-json /= mhwc-json
+
+      measured-component = {
+         ; ????
+      }
+
+                Figure 3: Measured Hardware Component Claims
+
+6.2.2.  X.509 Claims
+
+   Appendix C.3 of [RFC9711] desribes methods to encode EAT claims in an
+   X.509 certificate.  These methods can be used for the claims defined
+   in Section 6.2.1.
+
+   TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
 
 7.  Security Considerations
 
@@ -547,6 +590,14 @@ Table of Contents
 9.  References
 
 9.1.  Normative References
+
+   [I-D.ietf-rats-eat-measured-component]
+              Frost, S., Fossati, T., Tschofenig, H., and H. Birkholz,
+              "Entity Attestation Token (EAT) Measured Component", Work
+              in Progress, Internet-Draft, draft-ietf-rats-eat-measured-
+              component-12, 20 February 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
+              eat-measured-component-12>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
