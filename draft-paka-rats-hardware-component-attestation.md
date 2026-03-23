@@ -295,25 +295,25 @@ The CDDL in {{mhwc_claims}} extends the $measurements-body-cbor and $measurement
 
 ### X.509 Claims
 
-{{Appendix C.3 of RFC9711}} describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims defined in {{eat-claims}}.
+{{Appendix C.3 of RFC9711}} describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in {{eat-claims}}.
 
 TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
 
 # Security Considerations
 
-The security considerations of RATS architecture apply ({{Section 12 of RFC9334}}). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromissions. Aging and action of environment on the system are also considered threats.
+The security considerations of RATS architecture apply ({{Section 12 of RFC9334}}). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromission. Aging and action of environment on the system are also considered threats.
 
 The following subsections are mainly focused on security considerations regarding the Attester.
 
 ## Root of Trust Components
 
-Some components are essential for attestation, if these are tampered with, there is no way to build meaningful Evidence (storage of attestation key, signature component, etc.). These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.
+Some components are essential for attestation (storage of attestation key, signature component, etc.), if these are tampered with, there is no way to build trustworthy Evidence. These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.
 
-These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security system itself !).
+These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security of the system itself !).
 
 ## Invasive Access
 
-Internal measurement circuitry must not allow an attacker to access protected assets. For instance, access to protected assets can happen when using internal debug mechanisms (e.g., TAP controllers) for computing measurements.
+Internal measurement circuitry must not allow an attacker to access protected assets. For instance, access to protected assets can happen when computing measurements by using internal debug mechanisms (e.g., TAP controllers).
 
 ## Measurement Soundness
 
@@ -357,7 +357,7 @@ Some techniques to mitigate physical attacks are usage of a TPM or secure elemen
 
 Each stage of the supply chain introduces a new opportunity for an attacker to tamper with the produced system.
 
-Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity will be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the measurement circuitry is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.
+Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity may be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the measurement circuitry is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.
 
 # Privacy Considerations
 
