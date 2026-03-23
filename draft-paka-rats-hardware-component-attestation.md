@@ -42,6 +42,7 @@ author:
 normative:
   RFC9334:
   RFC9711:
+  I-D.ietf-rats-eat-measured-component: eat-mc
 
 informative:
   ISO5891:
@@ -80,13 +81,13 @@ To address these limitations, this document defines a data model and provides gu
 
 ## Definitions
 
-The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from other RATS specifications are refined here to fit the context presented in this document.
+The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from RATS specifications are refined here to fit the context presented in this document.
 
 + Measurement: Term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.
 
-+ Measurement Circuitry: can be hardware logic (really a circuit) or software logic e.g., FIPS KAT. Software logic used to trigger a measurement is not considered measurement circuitry but rather the Attesting Environment end-point of the trigger interface. See {{abstract-representation}} for details on the trigger interface.
++ Measurement Circuitry: can be hardware logic (really a circuit) or software logic. Software logic used to trigger a measurement is not considered measurement circuitry but rather the Attesting Environment end-point of the trigger interface. See {{abstract-representation}} for details on the trigger interface.
 
-+ Target Hardware Component: A hardware component which is a Target Envrionment for an Attesting Environment.
++ Target Hardware Component: A hardware component which is a Target Environment for an Attesting Environment.
 
 # Scope and Limitations
 
@@ -224,6 +225,8 @@ Interactions models between the Attester system and external entities such as th
 
 This section is for informational purposes only.
 
+TODO maybe this section should be after claims defintion that way, there could also be claim examples
+
 Some may be only usable at Boot times, other could be usable during runtime.
 
 Mapping to BIST, KAT, Sensors and Traces
@@ -242,16 +245,34 @@ Possible standard formats (CoRIM with CoMID)
 
 ## Evidence
 
-CDDL
-
-<!-- ~~~ cddl
-{::include cddl/cddl-example.cddl}
-~~~
-{: #cddlexample title="Example of CDDL"} -->
-
 TODO Evidence format is not mandated by RFC9334 ? Custom is possible ?
 
-Possible standard formats (EAT, DICE X.509)
+Possible standard formats (EAT, X.509)
+
+### EAT Claims {#eat-claims}
+
+#### Using EAT Measured Component Claim
+
+To promote interoperability, it is possible for some measurements to be represented in an EAT Measured Component. The EAT Measured Component is defined in {{-eat-mc}}.
+
+#### Using Hardware Component Claims
+
+This section proposes new claims related to what is described in this document.
+<!-- The following claims are defined according to the guidelines presented in {{Appendix E of RFC9711}}. -->
+
+The CDDL in {{mhwc_claims}} extends the $measurements-body-cbor and $measurements-body-json EAT sockets to add support for the measured-hw-component to the Measurements claim ({{Section 4.2.16 of RFC9711}}).
+
+~~~ cddl
+{::include cddl/mhwc-claims.cddl}
+~~~
+{: #mhwc_claims title="Measured Hardware Component Claims"}
+
+
+### X.509 Claims
+
+{{Appendix C.3 of RFC9711}} desribes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims defined in {{eat-claims}}.
+
+TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
 
 # Security Considerations
 

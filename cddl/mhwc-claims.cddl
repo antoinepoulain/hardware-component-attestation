@@ -1,0 +1,12 @@
+   mhwc-cbor = bytes .cbor measured-hw-component
+   mhhwc-json = text .json measured-hw-component
+
+   ; EAT CBOR (`.feature "cbor"`)
+   $measurements-body-cbor /= mhwc-cbor
+
+   ; EAT JSON (`.feature "json"`)
+   $measurements-body-json /= mhwc-json
+
+   measured-component = {
+      ; ????
+   }
