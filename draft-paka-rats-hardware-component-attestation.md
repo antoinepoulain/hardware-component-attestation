@@ -100,9 +100,9 @@ TODO Add references to sections of this document
 
 The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from RATS specifications are refined here to fit the context presented in this document.
 
-+ Measurement: Term introduced by RATS (quote document). here it can mean a representation (a value, an encoding, etc.) of a physical property, the result of a test etc.
++ Measurement Source: can be a hardware mechanism (a circuit) or software logic (e.g., FIPS KAT). Software logic used to trigger a measurement is not considered a measurement source but rather the Attesting Environment end-point of the trigger interface. See {{abstract-representation}} for details on the trigger interface.
 
-+ Measurement Source: can be a hardware mechanism (really a circuit) or software logic (e.g., FIPS KAT). Software logic used to trigger a measurement is not considered a measurement source but rather the Attesting Environment end-point of the trigger interface. See {{abstract-representation}} for details on the trigger interface.
++ Measurement: Term introduced by RATS (quote document). here it can mean a representation of a physical property (an encoded value), the result of a test etc.
 
 + Target Hardware Component: A hardware component which is a Target Environment for an Attesting Environment.
 
@@ -116,19 +116,19 @@ The solution presented in this document aims at mitigating two threats on hardwa
 
 + Defective hardware components
 
-Malfunction of hardware components may be caused by environment and/or aging. Detection of such malfunctions is critical when relying on systems evolving in hazardous environments such as high pressure, extreme temperatures, contact with water or chemical substances or space radiations.
+Malfunctions of hardware components may be caused by environment and/or aging. Detection of such malfunctions is critical when relying on systems evolving in hazardous environments such as high pressure, extreme temperatures, contact with water or chemical substances or space radiations.
 
 + Attacks on hardware components
 
-Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access to the system (particularly relevant for embedded systems).
+Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access to the system (particularly relevant for embedded systems) and using physical attack techniques.
 
 # Attester Model
 
-The RATS architecture presented in {{RFC9334}} introduces two types of environments in an Attester. The Attesting Environment (AE) is in charge of collecting claims about a Target Environment (TE). The Attesting Environment is then responsible for embedding those claims in an Evidence Conceptual Message.
+The RATS architecture presented in {{RFC9334}} introduces two types of environments in an Attester. The Attesting Environment (AE) and the Target Environment (TE). The Attesting Environment is in charge of collecting claims about a Target Environment. The Attesting Environment is then responsible for embedding those claims in an Evidence Conceptual Message.
 
 This document focuses on claims used to represent the state of a target hardware component. Said claims can be related to physical properties (electromagnetic or thermal signature, timing values, power consumption, etc.), results of integrated self-tests or collected traces.
 
-The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents a mapping of Attesting Environments and Target Environments in different integration models for these measurement mechanisms.
+The goal of this section is to propose standard interfaces to trigger the computation of the measurement and to collect the computed measurement. Also, this section presents a mapping of Attesting Environments and Target Environments in different integration models of measurement mechanisms.
 
 ## Abstract Representation {#abstract-representation}
 
@@ -138,7 +138,7 @@ This document uses the following abstract objects:
 
 + Measurement source
 
-Black box used to represent a mechanism capable of computing measurements of a target. The measurement source is part of the Attesting Environment.
+Black box used to represent a mechanism capable of computing measurements over a target. The measurement source is part of the Attesting Environment.
 
 + Trigger interface
 
@@ -365,7 +365,8 @@ Mapping to BIST, KAT, Sensors and Traces
 Usage of sensors
 External or coupled ?
 Examples of existing technologies
-action of Endorser, RVP and Verifier (prepare behavioral model (ML) in secure environment)
+action of Endorser, RVP (compute refrence values, compute range, prepare behavioral model (ML) in secure environment)
+action Verifier appraise (can Verifier use behavioral model prepared by RVP ?)
 
 
 on-die sensors (integrated in silicon)
@@ -380,10 +381,10 @@ PMIC
 
 ## Detection by Self-Testing
 
-Usage of BIST or KAT
+Usage of BIST or KAT or tamper detection sensors (active mesh, digital sensor)
 External or coupled ?
 Examples of existing technologies
-action of Endorser, RVP and Verifier
+action of Endorser (type of test, its properties etc.., identifier, certif ?), RVP and Verifier
 
 # Security Considerations
 
