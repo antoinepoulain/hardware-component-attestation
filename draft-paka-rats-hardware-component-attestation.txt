@@ -81,7 +81,9 @@ Table of Contents
      5.3.  Measurement Journey
    6.  Inclusion in Conceptual Messages
      6.1.  Endorsement
+       6.1.1.  Concice Reference Integrity Manifest (CoRIM)
      6.2.  Reference Value
+       6.2.1.  Concice Reference Integrity Manifest (CoRIM)
      6.3.  Evidence
        6.3.1.  Entity Attestation Token (EAT)
        6.3.2.  X.509 Certificate
@@ -199,7 +201,7 @@ Table of Contents
    interesting for an attacker as it allows to tamper with the correct
    functioning of the system at a priviledged level.  Such control can
    be obtained by abusing software mechanisms or by having physical
-   access on the system (particularly relevant for embedded systems).
+   access to the system (particularly relevant for embedded systems).
 
 5.  Attester Model
 
@@ -365,26 +367,26 @@ Table of Contents
    phsycial event) goal is to include in Evidence a measurement that is
    trusted.
 
-   1.  trigger computation
+   1.  Trigger computation
 
-       Measurement computation is triggered by something (boot, external
+       Measurement computation is triggered by an event (boot, external
        request, watchdog) or continuous.  The Attesting Environment is
        able to trigger the computation of the measurement through the
        trigger interface.
 
-   2.  compute measurement
+   2.  Compute measurement
 
        The measurement of the target hardware component is computed by
        the measurement source.
 
-   3.  export measurement
+   3.  Export measurement
 
        Once the measurement has been computed, it must be exported in
        order to be accessible by the Attesting Environment.  The
        measurement transits from the measurement source to the Attesting
        Environment through the export interface.
 
-   4.  [optional] store measurement
+   4.  [optional] Store measurement
 
        It is possible that the measurement will not be directly included
        in Evidence but instead stored until it is effectively included
@@ -394,7 +396,7 @@ Table of Contents
        Attesting Environment.  An attacker must not be able of tampering
        with the measurement while it is at rest.
 
-   5.  include in Evidence
+   5.  Include measurment in Evidence
 
        The Attesting Environment is responsible for including the
        measurement data in Evidence.  This operation must be carried out
@@ -405,7 +407,7 @@ Table of Contents
        still be tampered by an attacker, possibly without being
        detected.
 
-   6.  sign Evidence
+   6.  Sign Evidence
 
        The signature operation must be carried out securely.  An
        attacker must not be able of modifying the content of the
@@ -463,16 +465,18 @@ Table of Contents
 
 6.1.  Endorsement
 
-   Endorsements can be written inside a CoMID Endorsed Values triple of
-   a CoRIM (see Section 5.1.6 of [I-D.ietf-rats-corim]).  The Endorsed
-   Values triple holds one or more measurement-map that are used to
-   write the Endorsements.
-
    TODO use case for endorsements in the scope of this document.  Ex:
    endorsmeent for sensor that take measurement: (environment resistance
    (extremely cold and hot temperatures), measurement precision and
    incertitude, etc..), any system-specific characteristics that have an
    impact on how the Evidence appraisal.
+
+6.1.1.  Concice Reference Integrity Manifest (CoRIM)
+
+   Endorsements can be written inside a CoMID Endorsed Values triple of
+   a CoRIM (see Section 5.1.6 of [I-D.ietf-rats-corim]).  The Endorsed
+   Values triple holds one or more measurement-map that are used to
+   write the Endorsements.
 
 6.2.  Reference Value
 
@@ -494,13 +498,6 @@ Table of Contents
    Verifier into choosing Reference Values that don't ocrrespond to the
    actual context of the system.
 
-   TODO one CoMID tag per hardware component ?
-
-   Reference Values can be written inside a CoMID Reference Values
-   triple of a CoRIM (see Section 5.1.5 of [I-D.ietf-rats-corim]).  The
-   Reference Values triple holds one or more measurement-map that are
-   used to write the Reference Values.
-
    Depending on the type of measurement and target hardware component,
    the Reference Value can be a value or a range or a function* of the
    operational context of the system and can correspond to a class, a
@@ -508,6 +505,14 @@ Table of Contents
 
    *even a ML model to detect abnormal physical properties depending on
    operational context of the system.
+
+6.2.1.  Concice Reference Integrity Manifest (CoRIM)
+
+   TODO one CoMID tag per hardware component ? Reference Values can be
+   written inside a CoMID Reference Values triple of a CoRIM (see
+   Section 5.1.5 of [I-D.ietf-rats-corim]).  The Reference Values triple
+   holds one or more measurement-map that are used to write the
+   Reference Values.
 
 6.3.  Evidence
 
@@ -674,12 +679,20 @@ Table of Contents
 7.1.  Monitoring Physical Properties
 
    Usage of sensors External or coupled ? Examples of existing
-   technologies
+   technologies action of Endorser, RVP and Verifier (prepare behavioral
+   model (ML) in secure environment)
+
+   on-die sensors (integrated in silicon) -> coupled measurement source
+   TODO Existing technologies: sensors present in CPUs Security Sensors
+   (tamper detection) light, EM, voltage sensors
+
+   on-board sensors (external components) -> external measurement source
+   PMIC
 
 7.2.  Detection by Self-Testing
 
    Usage of BIST or KAT External or coupled ? Examples of existing
-   technologies
+   technologies action of Endorser, RVP and Verifier
 
 8.  Security Considerations
 
@@ -909,7 +922,9 @@ Appendix A.  Collected CDDL
       $measurements-body-cbor /= mhwc-cbor
 
       ; EAT JSON (`.feature "json"`)
-      $measurements-body-json /= mhwc-json measured-hw-component = {
+      $measurements-body-json /= mhwc-json
+
+      measured-hw-component = {
          ; TODO
          ; - identify the component
          ; - type of measurement (BIST, KAT, physical property)

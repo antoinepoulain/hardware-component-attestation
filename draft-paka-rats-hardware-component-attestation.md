@@ -120,7 +120,7 @@ Malfunction of hardware components may be caused by environment and/or aging. De
 
 + Attacks on hardware components
 
-Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access on the system (particularly relevant for embedded systems).
+Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access to the system (particularly relevant for embedded systems).
 
 # Attester Model
 
@@ -201,31 +201,31 @@ Below are the identified steps of the journey of a measurement at the hardware l
 
 TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.
 
-1. trigger computation
+1. Trigger computation
 
-    Measurement computation is triggered by something (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the trigger interface.
+    Measurement computation is triggered by an event (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the trigger interface.
 
-1. compute measurement
+1. Compute measurement
 
     The measurement of the target hardware component is computed by the measurement source.
 
-1. export measurement
+1. Export measurement
 
     Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transits from the measurement source to the Attesting Environment through the export interface.
 
-1. \[optional\] store measurement
+1. \[optional\] Store measurement
 
     It is possible that the measurement will not be directly included in Evidence but instead stored until it is effectively included in Evidence by the Attesting Environment.
 
     The measurement must be securely stored in the boundary of the Attesting Environment. An attacker must not be able of tampering with the measurement while it is at rest.
 
-1. include in Evidence
+1. Include measurment in Evidence
 
     The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.
 
     Note: At that point, the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.
 
-1. sign Evidence
+1. Sign Evidence
 
     The signature operation must be carried out securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.
 
@@ -248,23 +248,26 @@ To promote interoperability, the following sections showcase how to use the CoRI
 
 ## Endorsement {#endorsements}
 
-Endorsements can be written inside a CoMID Endorsed Values triple of a CoRIM (see {{Section 5.1.6 of -rats-corim}}). The Endorsed Values triple holds one or more measurement-map that are used to write the Endorsements.
-
 TODO use case for endorsements in the scope of this document. Ex: endorsmeent for sensor that take measurement: (environment resistance (extremely cold and hot temperatures), measurement precision and incertitude, etc..), any system-specific characteristics that have an impact on how the Evidence appraisal.
 
-## Reference Value {#reference-values}
+### Concice Reference Integrity Manifest (CoRIM)
+
+Endorsements can be written inside a CoMID Endorsed Values triple of a CoRIM (see {{Section 5.1.6 of -rats-corim}}). The Endorsed Values triple holds one or more measurement-map that are used to write the Endorsements.
+
+## Reference Value
 
 Reference Values must be computed in a secure environment.
 
 The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed. The Verifier will then use these additionnal data to select the Reference Value that should be used in the context described by the additional data. (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't ocrrespond to the actual context of the system.
 
-TODO one CoMID tag per hardware component ?
-
-Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see {{Section 5.1.5 of -rats-corim}}). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.
-
 Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range or a function* of the operational context of the system and can correspond to a class, a group or an instance of target hardware component.
 
 *even a ML model to detect abnormal physical properties depending on operational context of the system.
+
+### Concice Reference Integrity Manifest (CoRIM)
+
+TODO one CoMID tag per hardware component ?
+Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see {{Section 5.1.5 of -rats-corim}}). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.
 
 ## Evidence
 
@@ -362,12 +365,25 @@ Mapping to BIST, KAT, Sensors and Traces
 Usage of sensors
 External or coupled ?
 Examples of existing technologies
+action of Endorser, RVP and Verifier (prepare behavioral model (ML) in secure environment)
+
+
+on-die sensors (integrated in silicon)
+-> coupled measurement source
+TODO Existing technologies: sensors present in CPUs
+Security Sensors (tamper detection)
+light, EM, voltage sensors
+
+on-board sensors (external components)
+-> external measurement source
+PMIC
 
 ## Detection by Self-Testing
 
 Usage of BIST or KAT
 External or coupled ?
 Examples of existing technologies
+action of Endorser, RVP and Verifier
 
 # Security Considerations
 

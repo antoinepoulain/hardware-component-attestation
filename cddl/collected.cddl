@@ -5,7 +5,9 @@
    $measurements-body-cbor /= mhwc-cbor
 
    ; EAT JSON (`.feature "json"`)
-   $measurements-body-json /= mhwc-json measured-hw-component = {
+   $measurements-body-json /= mhwc-json 
+   
+   measured-hw-component = {
       ; TODO
       ; - identify the component
       ; - type of measurement (BIST, KAT, physical property)
