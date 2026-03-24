@@ -1,0 +1,8 @@
+ measured-hw-component = {
+      ; TODO
+      ; - identify the component
+      ; - type of measurement (BIST, KAT, physical property)
+      ; - measurement value (need to be able to hold
+      ; many types of measurements)
+      ; could also be a digest option for optimization
+   }

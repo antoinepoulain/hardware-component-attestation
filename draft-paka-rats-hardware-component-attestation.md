@@ -238,8 +238,6 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 ~~~~
 {: #meas_journey artwork-align="center" title="Measurement Journey"}
 
-Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).
-
 ## Practical Examples
 
 This section is for informational purposes only.
@@ -262,7 +260,7 @@ To promote interoperability, the following sections showcase how to use the CoRI
 
 Endorsements can be written inside a CoMID Endorsed Values triple of a CoRIM (see {{Section 5.1.6 of -rats-corim}}). The Endorsed Values triple holds one or more measurement-map that are used to write the Endorsements.
 
-TODO use case for endorsements in the scope of this document
+TODO use case for endorsements in the scope of this document. Ex: endorsmeent for sensor that take measurement: (environment resistance (extremely cold and hot temperatures), measurement precision and incertitude, etc..), any system-specific characteristics that have an impact on how the Evidence appraisal.
 
 ## Reference Value {#reference-values}
 
@@ -274,7 +272,9 @@ TODO one CoMID tag per hardware component ?
 
 Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see {{Section 5.1.5 of -rats-corim}}). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.
 
-Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range and can correspond to a class, a group or an instance of target hardware component.
+Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range or a function* of the operational context of the system and can correspond to a class, a group or an instance of target hardware component.
+
+*even a ML model to detect abnormal physical properties depending on operational context of the system.
 
 ## Evidence
 
@@ -296,16 +296,44 @@ This claim could be well-suited for measurements with on-device comparisons with
 
 #### Using Hardware Component Claims
 
-This section proposes new claims related to what is described in this document. These are presented in case the already existing claims mentioned above are not sufficent.
+This section proposes a new claim, the "measured hardware component", to represent what is described in this document. This claim is presented in case the already existing claims mentioned above are not sufficent to correctly report measurements of hardware components.
+
+The "measured hardware component" claim is inspired from the "measured component" claim introduced in {{-eat-mc}}. The resemblance is beneficial for comprehension and easier for implementation.
 
 <!-- The following claims are defined according to the guidelines presented in {{Appendix E of RFC9711}}. -->
 
-The CDDL in {{mhwc_claims}} extends the $measurements-body-cbor and $measurements-body-json EAT sockets to add support for the measured-hw-component to the Measurements claim ({{Section 4.2.16 of RFC9711}}).
+##### Information Model
+
+This section presents the information model of a "measured hardware component".
+
+The information elements (IEs) that constitute a "measured hardware component" are described in {{tab-mhwc-info-elems}}.
+
+| IE | Description | Requirement Level |
+|----|-------------|-------------------|
+| Component Name | The name given to the measured hardware component. | REQUIRED |
+| | | |
+{: #tab-mhwc-info-elems title="Measured Hardware Component Information Elements"}
+
+TODO list every field and give details
+TODO is version necessary ? hw components are replaced/updated ?
+
+##### CDDL Definitions
+
+###### Measured Hardware Component Claim {#meas-hw-comp-claim}
+
+~~~ cddl
+{::include cddl/meas-hw-comp.cddl}
+~~~
+{: #meas_hw_comp title="Measured Hardware Component Claim"}
+
+###### Inclusion in EAT Measurement Claim
+
+The CDDL defined in {{meas-hw-comp-claim}} extends the $measurements-body-cbor and $measurements-body-json EAT sockets to add support for the measured-hw-component to the Measurements claim ({{Section 4.2.16 of RFC9711}}).
 
 ~~~ cddl
 {::include cddl/mhwc-claims.cddl}
 ~~~
-{: #mhwc_claims title="Measured Hardware Component Claims"}
+{: #mhwc_claims title="Extension of EAT Measurement Body"}
 
 
 ### X.509 Claims
@@ -384,7 +412,7 @@ The privacy considerations of RATS architecture apply ({{Section 11 of RFC9334}}
 
 TODO for reused claims privacy considerations are probably specified in other documents so refer to them
 
-TODO for new claims, some fields may be dangerous for privacy. Some fields may enable tracking.
+TODO In new claims, some fields may be dangerous for privacy. Some fields may enable tracking.
 
 # IANA Considerations
 
@@ -397,9 +425,9 @@ TODO need IANA actions for claims defined in this document ?
 
 This appendix contains all the CDDL definitions included in this document.
 
-<!-- ~~~ cddl
+~~~ cddl
 {::include-fold cddl/collected.cddl}
-~~~ -->
+~~~
 
 # Acknowledgments
 {:numbered="false"}

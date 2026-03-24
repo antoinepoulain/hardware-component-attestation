@@ -1,7 +1,15 @@
-bytes-b64u = text .b64u bytes
-bytes8 = bytes .size 8
-bytes8-b64u = text .b64u bytes8
-mc-cbor = bytes .cbor measured-component
-mc-json = text .json measured-component
-$measurements-body-cbor /= mc-cbor / mc-json
-$measurements-body-json /= mc-json / text .b64u mc-cbor
+   mhwc-cbor = bytes .cbor measured-hw-component
+   mhhwc-json = text .json measured-hw-component
+
+   ; EAT CBOR (`.feature "cbor"`)
+   $measurements-body-cbor /= mhwc-cbor
+
+   ; EAT JSON (`.feature "json"`)
+   $measurements-body-json /= mhwc-json measured-hw-component = {
+      ; TODO
+      ; - identify the component
+      ; - type of measurement (BIST, KAT, physical property)
+      ; - measurement value (need to be able to hold
+      ; many types of measurements)
+      ; could also be a digest option for optimization
+   }

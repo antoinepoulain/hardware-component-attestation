@@ -442,10 +442,6 @@ Table of Contents
 
                        Figure 3: Measurement Journey
 
-   Interactions models between the Attester system and external entities
-   such as the Verifier are already presented in other documents (TODO
-   specify which ones).
-
 5.4.  Practical Examples
 
    This section is for informational purposes only.
@@ -481,7 +477,11 @@ Table of Contents
    Values triple holds one or more measurement-map that are used to
    write the Endorsements.
 
-   TODO use case for endorsements in the scope of this document
+   TODO use case for endorsements in the scope of this document.  Ex:
+   endorsmeent for sensor that take measurement: (environment resistance
+   (extremely cold and hot temperatures), measurement precision and
+   incertitude, etc..), any system-specific characteristics that have an
+   impact on how the Evidence appraisal.
 
 6.2.  Reference Value
 
@@ -511,8 +511,12 @@ Table of Contents
    used to write the Reference Values.
 
    Depending on the type of measurement and target hardware component,
-   the Reference Value can be a value or a range and can correspond to a
-   class, a group or an instance of target hardware component.
+   the Reference Value can be a value or a range or a function* of the
+   operational context of the system and can correspond to a class, a
+   group or an instance of target hardware component.
+
+   *even a ML model to detect abnormal physical properties depending on
+   operational context of the system.
 
 6.3.  Evidence
 
@@ -550,13 +554,58 @@ Table of Contents
 
 6.3.1.3.  Using Hardware Component Claims
 
-   This section proposes new claims related to what is described in this
-   document.  These are presented in case the already existing claims
-   mentioned above are not sufficent.
+   This section proposes a new claim, the "measured hardware component",
+   to represent what is described in this document.  This claim is
+   presented in case the already existing claims mentioned above are not
+   sufficent to correctly report measurements of hardware components.
 
-   The CDDL in Figure 4 extends the $measurements-body-cbor and
-   $measurements-body-json EAT sockets to add support for the measured-
-   hw-component to the Measurements claim (Section 4.2.16 of [RFC9711]).
+   The "measured hardware component" claim is inspired from the
+   "measured component" claim introduced in
+   [I-D.ietf-rats-eat-measured-component].  The resemblance is
+   beneficial for comprehension and easier for implementation.
+
+6.3.1.3.1.  Information Model
+
+   This section presents the information model of a "measured hardware
+   component".
+
+   The information elements (IEs) that constitute a "measured hardware
+   component" are described in Table 1.
+
+   +================+==============================+===================+
+   | IE             | Description                  | Requirement Level |
+   +================+==============================+===================+
+   | Component      | The name given to the        | REQUIRED          |
+   | Name           | measured hardware component. |                   |
+   +----------------+------------------------------+-------------------+
+   +----------------+------------------------------+-------------------+
+
+         Table 1: Measured Hardware Component Information Elements
+
+   TODO list every field and give details TODO is version necessary ? hw
+   components are replaced/updated ?
+
+6.3.1.3.2.  CDDL Definitions
+
+6.3.1.3.2.1.  Measured Hardware Component Claim
+
+    measured-hw-component = {
+         ; TODO
+         ; - identify the component
+         ; - type of measurement (BIST, KAT, physical property)
+         ; - measurement value (need to be able to hold
+         ; many types of measurements)
+         ; could also be a digest option for optimization
+      }
+
+                Figure 4: Measured Hardware Component Claim
+
+6.3.1.3.2.2.  Inclusion in EAT Measurement Claim
+
+   The CDDL defined in Section 6.3.1.3.2.1 extends the $measurements-
+   body-cbor and $measurements-body-json EAT sockets to add support for
+   the measured-hw-component to the Measurements claim (Section 4.2.16
+   of [RFC9711]).
 
       mhwc-cbor = bytes .cbor measured-hw-component
       mhhwc-json = text .json measured-hw-component
@@ -567,15 +616,7 @@ Table of Contents
       ; EAT JSON (`.feature "json"`)
       $measurements-body-json /= mhwc-json
 
-      measured-component = {
-         ; TODO
-         ; - need to identify the component
-         ; - put a type of measurement (BIST, KAT, physical prop monitor)
-         ; - measurement value (need to be able to hold
-         ; many types of measurements)
-      }
-
-                Figure 4: Measured Hardware Component Claims
+                Figure 5: Extension of EAT Measurement Body
 
 6.3.2.  X.509 Claims
 
@@ -717,7 +758,7 @@ Table of Contents
    TODO for reused claims privacy considerations are probably specified
    in other documents so refer to them
 
-   TODO for new claims, some fields may be dangerous for privacy.  Some
+   TODO In new claims, some fields may be dangerous for privacy.  Some
    fields may enable tracking.
 
 10.  IANA Considerations
@@ -797,6 +838,22 @@ Appendix A.  Collected CDDL
 
    This appendix contains all the CDDL definitions included in this
    document.
+
+      mhwc-cbor = bytes .cbor measured-hw-component
+      mhhwc-json = text .json measured-hw-component
+
+      ; EAT CBOR (`.feature "cbor"`)
+      $measurements-body-cbor /= mhwc-cbor
+
+      ; EAT JSON (`.feature "json"`)
+      $measurements-body-json /= mhwc-json measured-hw-component = {
+         ; TODO
+         ; - identify the component
+         ; - type of measurement (BIST, KAT, physical property)
+         ; - measurement value (need to be able to hold
+         ; many types of measurements)
+         ; could also be a digest option for optimization
+      }
 
 Acknowledgments
 
