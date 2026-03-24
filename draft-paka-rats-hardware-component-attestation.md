@@ -329,7 +329,7 @@ TODO is version necessary ? hw components are replaced/updated ?
 
 | Field Name | Description | Requirement Level |
 |------------|-------------|-------------------|
-| Measurement Type | The type of the measurement.  | REQUIRED |
+| Measurement Type | The type of the measurement. | REQUIRED |
 | Measurement Value | The Value of the measurement. The content of thsi field depends on the Measurement Type. | REQUIRED |
 {: #tab-meas-list-elem-fields title="Content of Each Element of the Measurement List"}
 

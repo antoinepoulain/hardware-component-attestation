@@ -284,7 +284,7 @@ Table of Contents
          |  Attesting  |               |    |   Component   |    |
          | Environment |               |    |      (TE)     |    |
          |             |               |    +---------------+    |
-         |             <---------------+  Measurement Source     |
+         |             <---------------+    Measurement Source   |
          +-------------+    Export     |           (AE)          |
                           Measurement  +-------------------------+
 
@@ -307,7 +307,7 @@ Table of Contents
                            Trigger
        +-------------+   Measurement  +-----------------------+
        |             +---------------->                       |
-       |             |                | Measurement Source    |
+       |             |                |   Measurement Source  |
        |             <----------------+          (AE)         |
        |             |     Export     +-----------^-----------+
        |  Attesting  |   Measurement              |
@@ -332,8 +332,8 @@ Table of Contents
    In addition to that, there may be multiple Attesting Environments.
    That case is discussed in [I-D.richardson-rats-composite-attesters].
 
-   Of course, both coupled and external measurement circuitries can be
-   found in the same system and possibly, a combination of coupled and
+   Of course, both coupled and external measurement sources can be found
+   in the same system and possibly, a combination of coupled and
    external can be used to measure a single Target Envrionment.  TODO
    this implies that a TE can have multiple measurement fields in claim
    and reference values (already supported in RATS standar data models
@@ -421,7 +421,7 @@ Table of Contents
 
     +-------------------------+ Trigger
     |  Attesting Environment  | Measurement +------------------------+
-    |                         +------------->  Measurement Source    |
+    |                         +------------->   Measurement Source   |
     |                         |             |                 |      |
     |                         |             |      Compute    |      |
     | +---------------------+ |             |      Measurement|      |
