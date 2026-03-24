@@ -52,6 +52,12 @@ informative:
     date: 2024-04
     author:
        org: "International Standards Organization"
+  TCG-DICE:
+    target: "https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-r23-final.pdf"
+    title: "DICE Attestation Architecture, Version 1.00, Revision 0.23"
+    date: 2021-03
+    author:
+       org: "Trusted Computing Group"
 
 ...
 
@@ -170,7 +176,7 @@ Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Base
 
 
 
-composite attester, can be many attesting env (and many target envs of course)
+composite attester, can be many attesting env (and many target envs of course),
 An AE may collect on multiple TE
 
 Of course, both coupled and external measurement circuitries can be found in the same system and possibly, a combination of coupled and external can be used to measure a single Target Envrionment.
@@ -226,6 +232,8 @@ Interactions models between the Attester system and external entities such as th
 
 This section is for informational purposes only.
 
+TODO Practical Examples
+
 TODO maybe this section should be after claims defintion that way, there could also be claim examples
 
 Some may be only usable at Boot time, other could be usable during runtime.
@@ -234,13 +242,11 @@ Mapping to BIST, KAT, Sensors and Traces
 
 # Inclusion in Conceptual Messages
 
-This section introduces standard claims to be included in RATS Conceptual Messages. Conceptual Messages are defined in {{Section 8 of RFC9334}}.
+This section introduces standard claims to be included in RATS Conceptual Messages. Conceptual Messages are defined in {{Section 8 of RFC9334}}. The RATS architecture does not mandate the usage of standard data formats for Conceputal Messages but protocols may require specific formats. Nonetheless, RATS proposed CoRIM for Endorsements and Reference Values and EAT for Evidence as standard data models. The CoRIM is defined in {{-rats-corim}} and the EAT is defined in {{RFC9711}}.
 
-Endorsements and Reference Values used to verify measurements of hardware components can be included in a CoRIM instance (see {{endorsements}} and {{reference-values}}). The CoRIM is defined in {{-rats-corim}}.
+To promote interoperability, the following sections showcase how to use the CoRIM and EAT data models in the context of this document.
 
 ## Endorsement {#endorsements}
-
-TODO Endorsement format is not mandated by RFC9334 ? Custom is possible ?
 
 Endorsements can be written inside a CoMID Endorsed Values triple of a CoRIM (see {{Section 5.1.6 of -rats-corim}}). The Endorsed Values triple holds one or more measurement-map that are used to write the Endorsements.
 
@@ -252,37 +258,34 @@ Reference Values must be computed in a secure environment.
 
 The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed. The Verifier will then use these additionnal data to select the Reference Value that should be used in the context described by the additional data. (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't ocrrespond to the actual context of the system.
 
-TODO Reference Values format is not mandated by RFC9334 ? Custom is possible ?
-
 TODO one CoMID tag per hardware component ?
 
 Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see {{Section 5.1.5 of -rats-corim}}). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.
 
-Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range and can correspond to a class, a group or an instance of the target hardware component.
+Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range and can correspond to a class, a group or an instance of target hardware component.
 
 ## Evidence
 
-TODO Evidence format is not mandated by RFC9334 ? Custom is possible ?
-
-The current version of this document proposes several possible approaches for including hardware component measurements in Evidence. For now, these options are present as brainstorming, to explore the different possibilities and may be removed in future versions of this document.
+The current version of this document proposes several approaches for including hardware component measurements in Evidence. For now, these options are present as brainstorming, to explore the different possibilities and may be removed in future versions of this document.
 
 ### EAT Claims {#eat-claims}
 
 #### Using EAT Measured Component Claim
 
-To promote interoperability, it is possible for some measurements to be represented in an already existing EAT Measured Component. The EAT Measured Component is defined in {{-eat-mc}}.
+It is possible for some measurements to be represented in an already existing EAT Measured Component. The EAT Measured Component is defined in {{-eat-mc}}.
 
 For instance, a custom measurement structure can be used to hold hardware component measurement in the "measurement" field of the "measured-component" structure from {{-eat-mc}}. Also, the flag field can be used to extend the measured-component base type with profile-defined semantics.
 
 #### Using EAT Measurement Result Claim
 
-To promote interoperability, it is possible for some measurements to be represented in an already existing EAT Measurement Result. The EAT Measurement Result is defined in {{Section 4.2.17 of RFC9711}}.
+It is possible for some measurements to be represented in an already existing EAT Measurement Result. The EAT Measurement Result is defined in {{Section 4.2.17 of RFC9711}}.
 
 This claim could be well-suited for measurements with on-device comparisons with reference values. For instance, self-tests (e.g., BIST, KAT) verify that the computed measurement corresponds to an expected value and output results such as "success" or "failure". In that case, a Measurement Result claim can be used.
 
 #### Using Hardware Component Claims
 
-This section proposes new claims related to what is described in this document.
+This section proposes new claims related to what is described in this document. These are presented in case the already existing claims mentioned above are not sufficent.
+
 <!-- The following claims are defined according to the guidelines presented in {{Appendix E of RFC9711}}. -->
 
 The CDDL in {{mhwc_claims}} extends the $measurements-body-cbor and $measurements-body-json EAT sockets to add support for the measured-hw-component to the Measurements claim ({{Section 4.2.16 of RFC9711}}).
@@ -296,6 +299,9 @@ The CDDL in {{mhwc_claims}} extends the $measurements-body-cbor and $measurement
 ### X.509 Claims
 
 {{Appendix C.3 of RFC9711}} describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in {{eat-claims}}.
+
+Ex: DICE uses X.509 certificates extension to carry Evidence {{TCG-DICE}}. TLS handshake extended with remote attestation also uses X.509 certificates.
+TODO find ref for TLS with attestation
 
 TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
 

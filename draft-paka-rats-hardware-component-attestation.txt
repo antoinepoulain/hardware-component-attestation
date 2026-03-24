@@ -5,7 +5,7 @@
 Remote ATtestation ProcedureS                                 A. Poulain
 Internet-Draft                                                   A. Kaci
 Intended status: Standards Track                               Secure-IC
-Expires: 24 September 2026                                 23 March 2026
+Expires: 25 September 2026                                 24 March 2026
 
 
                    Attestation of Hardware Components
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 September 2026.
+   This Internet-Draft will expire on 25 September 2026.
 
 Copyright Notice
 
@@ -324,7 +324,7 @@ Table of Contents
    Management IC (PMIC), Baseboard Management Controller (BMC)
 
    composite attester, can be many attesting env (and many target envs
-   of course) An AE may collect on multiple TE
+   of course), An AE may collect on multiple TE
 
    Of course, both coupled and external measurement circuitries can be
    found in the same system and possibly, a combination of coupled and
@@ -416,6 +416,8 @@ Table of Contents
 
    This section is for informational purposes only.
 
+   TODO Practical Examples
+
    TODO maybe this section should be after claims defintion that way,
    there could also be claim examples
 
@@ -428,17 +430,17 @@ Table of Contents
 
    This section introduces standard claims to be included in RATS
    Conceptual Messages.  Conceptual Messages are defined in Section 8 of
-   [RFC9334].
+   [RFC9334].  The RATS architecture does not mandate the usage of
+   standard data formats for Conceputal Messages but protocols may
+   require specific formats.  Nonetheless, RATS proposed CoRIM for
+   Endorsements and Reference Values and EAT for Evidence as standard
+   data models.  The CoRIM is defined in [I-D.ietf-rats-corim] and the
+   EAT is defined in [RFC9711].
 
-   Endorsements and Reference Values used to verify measurements of
-   hardware components can be included in a CoRIM instance (see
-   Section 6.1 and Section 6.2).  The CoRIM is defined in
-   [I-D.ietf-rats-corim].
+   To promote interoperability, the following sections showcase how to
+   use the CoRIM and EAT data models in the context of this document.
 
 6.1.  Endorsement
-
-   TODO Endorsement format is not mandated by RFC9334 ? Custom is
-   possible ?
 
    Endorsements can be written inside a CoMID Endorsed Values triple of
    a CoRIM (see Section 5.1.6 of [I-D.ietf-rats-corim]).  The Endorsed
@@ -467,9 +469,6 @@ Table of Contents
    Verifier into choosing Reference Values that don't ocrrespond to the
    actual context of the system.
 
-   TODO Reference Values format is not mandated by RFC9334 ? Custom is
-   possible ?
-
    TODO one CoMID tag per hardware component ?
 
    Reference Values can be written inside a CoMID Reference Values
@@ -479,27 +478,22 @@ Table of Contents
 
    Depending on the type of measurement and target hardware component,
    the Reference Value can be a value or a range and can correspond to a
-   class, a group or an instance of the target hardware component.
+   class, a group or an instance of target hardware component.
 
 6.3.  Evidence
 
-   TODO Evidence format is not mandated by RFC9334 ? Custom is possible
-   ?
-
-   The current version of this document proposes several possible
-   approaches for including hardware component measurements in Evidence.
-   For now, these options are present as brainstorming, to explore the
-   different possibilities and may be removed in future versions of this
-   document.
+   The current version of this document proposes several approaches for
+   including hardware component measurements in Evidence.  For now,
+   these options are present as brainstorming, to explore the different
+   possibilities and may be removed in future versions of this document.
 
 6.3.1.  EAT Claims
 
 6.3.1.1.  Using EAT Measured Component Claim
 
-   To promote interoperability, it is possible for some measurements to
-   be represented in an already existing EAT Measured Component.  The
-   EAT Measured Component is defined in
-   [I-D.ietf-rats-eat-measured-component].
+   It is possible for some measurements to be represented in an already
+   existing EAT Measured Component.  The EAT Measured Component is
+   defined in [I-D.ietf-rats-eat-measured-component].
 
    For instance, a custom measurement structure can be used to hold
    hardware component measurement in the "measurement" field of the
@@ -510,9 +504,9 @@ Table of Contents
 
 6.3.1.2.  Using EAT Measurement Result Claim
 
-   To promote interoperability, it is possible for some measurements to
-   be represented in an already existing EAT Measurement Result.  The
-   EAT Measurement Result is defined in Section 4.2.17 of [RFC9711].
+   It is possible for some measurements to be represented in an already
+   existing EAT Measurement Result.  The EAT Measurement Result is
+   defined in Section 4.2.17 of [RFC9711].
 
    This claim could be well-suited for measurements with on-device
    comparisons with reference values.  For instance, self-tests (e.g.,
@@ -523,7 +517,8 @@ Table of Contents
 6.3.1.3.  Using Hardware Component Claims
 
    This section proposes new claims related to what is described in this
-   document.
+   document.  These are presented in case the already existing claims
+   mentioned above are not sufficent.
 
    The CDDL in Figure 3 extends the $measurements-body-cbor and
    $measurements-body-json EAT sockets to add support for the measured-
@@ -553,6 +548,10 @@ Table of Contents
    Appendix C.3 of [RFC9711] describes methods to encode EAT claims in
    an X.509 certificate.  These methods can be used for the claims
    presented in Section 6.3.1.
+
+   Ex: DICE uses X.509 certificates extension to carry Evidence
+   [TCG-DICE].  TLS handshake extended with remote attestation also uses
+   X.509 certificates.  TODO find ref for TLS with attestation
 
    TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
 
@@ -729,6 +728,11 @@ Table of Contents
               protection — Hardware monitoring technology for hardware
               security assessment", April 2024,
               <https://www.iso.org/fr/standard/81806.html>.
+
+   [TCG-DICE] Trusted Computing Group, "DICE Attestation Architecture,
+              Version 1.00, Revision 0.23", March 2021,
+              <https://trustedcomputinggroup.org/wp-content/uploads/
+              DICE-Attestation-Architecture-r23-final.pdf>.
 
 Appendix A.  Collected CDDL
 
