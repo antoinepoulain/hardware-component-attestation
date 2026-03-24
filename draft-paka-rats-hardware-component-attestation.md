@@ -88,6 +88,8 @@ This document considers a threat model in which hardware components may be affec
 
 To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence, as described in the RATS architecture {{RFC9334}}. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them. These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces and a data model for obtaining and representing such measurements.
 
+TODO Add references to sections of this document
+
 # Terminology
 
 ## Requirements Notation
@@ -238,18 +240,6 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 ~~~~
 {: #meas_journey artwork-align="center" title="Measurement Journey"}
 
-## Practical Examples
-
-This section is for informational purposes only.
-
-TODO Practical Examples
-
-TODO maybe this section should be after claims defintion that way, there could also be claim examples
-
-Some may be only usable at Boot time, other could be usable during runtime.
-
-Mapping to BIST, KAT, Sensors and Traces
-
 # Inclusion in Conceptual Messages {#conceptual-messages}
 
 This section introduces standard claims to be included in RATS Conceptual Messages. Conceptual Messages are defined in {{Section 8 of RFC9334}}. The RATS architecture does not mandate the usage of standard data formats for Conceputal Messages but protocols may require specific formats. Nonetheless, RATS proposed CoRIM for Endorsements and Reference Values and EAT for Evidence as standard data models. The CoRIM is defined in {{-rats-corim}} and the EAT is defined in {{RFC9711}}.
@@ -280,7 +270,7 @@ Depending on the type of measurement and target hardware component, the Referenc
 
 The current version of this document proposes several approaches for including hardware component measurements in Evidence. For now, these options are present as brainstorming, to explore the different possibilities and may be removed in future versions of this document.
 
-### EAT Claims {#eat-claims}
+### Entity Attestation Token (EAT) {#eat-claims}
 
 #### Using EAT Measured Component Claim
 
@@ -351,11 +341,33 @@ The CDDL defined in {{meas-hw-comp-claim}} extends the $measurements-body-cbor a
 ~~~
 {: #mhwc_claims title="CDDL Extension of EAT Measurement Body"}
 
-### X.509 Claims
+### X.509 Certificate
 
 {{Appendix C.3 of RFC9711}} describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in {{eat-claims}}.
 
 Ex: DICE uses X.509 certificates with a custom extension to carry Evidence {{TCG-DICE}}. TLS and DTLS extended with remote attestation also use X.509 certificates with an attestion extension {{-attested-tls}}.
+
+# Practical Examples
+
+This section is for informational purposes only.
+
+TODO Practical Examples
+
+Some may be only usable at Boot time, other could be usable during runtime.
+
+Mapping to BIST, KAT, Sensors and Traces
+
+## Monitoring Physical Properties
+
+Usage of sensors
+External or coupled ?
+Examples of existing technologies
+
+## Detection by Self-Testing
+
+Usage of BIST or KAT
+External or coupled ?
+Examples of existing technologies
 
 # Security Considerations
 
@@ -373,9 +385,9 @@ Some components are essential for attestation (storage of attestation key, signa
 
 These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security of the system itself !).
 
-# Multiple Attesting Environments
+## Multiple Attesting Environments
 
-In case of multiple Attesting Environments, distribution of freshness and binding of Evidence is discussed in {{-composite-attest}}.
+In case of multiple Attesting Environments, distribution of freshness and binding of Evidence are discussed in {{-composite-attest}}.
 
 ## Invasive Accesses
 

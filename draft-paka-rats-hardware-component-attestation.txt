@@ -79,22 +79,24 @@ Table of Contents
        5.2.1.  Coupled Measurement Source
        5.2.2.  External Measurement Source
      5.3.  Measurement Journey
-     5.4.  Practical Examples
    6.  Inclusion in Conceptual Messages
      6.1.  Endorsement
      6.2.  Reference Value
      6.3.  Evidence
-       6.3.1.  EAT Claims
-       6.3.2.  X.509 Claims
-   7.  Security Considerations
-     7.1.  Root of Trust Components
-   8.  Multiple Attesting Environments
-     8.1.  Invasive Accesses
-     8.2.  Measurement Soundness
-     8.3.  Threat Model
-       8.3.1.  Software Attacks
-       8.3.2.  Physical Attacks
-       8.3.3.  Supply Chain Attacks
+       6.3.1.  Entity Attestation Token (EAT)
+       6.3.2.  X.509 Certificate
+   7.  Practical Examples
+     7.1.  Monitoring Physical Properties
+     7.2.  Detection by Self-Testing
+   8.  Security Considerations
+     8.1.  Root of Trust Components
+     8.2.  Multiple Attesting Environments
+     8.3.  Invasive Accesses
+     8.4.  Measurement Soundness
+     8.5.  Threat Model
+       8.5.1.  Software Attacks
+       8.5.2.  Physical Attacks
+       8.5.3.  Supply Chain Attacks
    9.  Privacy Considerations
    10. IANA Considerations
    11. References
@@ -142,6 +144,8 @@ Table of Contents
    Instead, this document remains agnostic to the underlying measurement
    mechanisms and focuses on defining abstract interfaces and a data
    model for obtaining and representing such measurements.
+
+   TODO Add references to sections of this document
 
 2.  Terminology
 
@@ -294,7 +298,7 @@ Table of Contents
 
    Note: As shown in Figure 1, the measurement source and target
    hardware component share the same die.  This may have an impact on
-   the trust model (see Section 8.3.3).
+   the trust model (see Section 8.5.3).
 
 5.2.2.  External Measurement Source
 
@@ -443,20 +447,6 @@ Table of Contents
 
                        Figure 3: Measurement Journey
 
-5.4.  Practical Examples
-
-   This section is for informational purposes only.
-
-   TODO Practical Examples
-
-   TODO maybe this section should be after claims defintion that way,
-   there could also be claim examples
-
-   Some may be only usable at Boot time, other could be usable during
-   runtime.
-
-   Mapping to BIST, KAT, Sensors and Traces
-
 6.  Inclusion in Conceptual Messages
 
    This section introduces standard claims to be included in RATS
@@ -526,7 +516,7 @@ Table of Contents
    these options are present as brainstorming, to explore the different
    possibilities and may be removed in future versions of this document.
 
-6.3.1.  EAT Claims
+6.3.1.  Entity Attestation Token (EAT)
 
 6.3.1.1.  Using EAT Measured Component Claim
 
@@ -659,7 +649,7 @@ Table of Contents
 
               Figure 5: CDDL Extension of EAT Measurement Body
 
-6.3.2.  X.509 Claims
+6.3.2.  X.509 Certificate
 
    Appendix C.3 of [RFC9711] describes methods to encode EAT claims in
    an X.509 certificate.  These methods can be used for the claims
@@ -670,7 +660,28 @@ Table of Contents
    also use X.509 certificates with an attestion extension
    [I-D.fossati-tls-attestation].
 
-7.  Security Considerations
+7.  Practical Examples
+
+   This section is for informational purposes only.
+
+   TODO Practical Examples
+
+   Some may be only usable at Boot time, other could be usable during
+   runtime.
+
+   Mapping to BIST, KAT, Sensors and Traces
+
+7.1.  Monitoring Physical Properties
+
+   Usage of sensors External or coupled ? Examples of existing
+   technologies
+
+7.2.  Detection by Self-Testing
+
+   Usage of BIST or KAT External or coupled ? Examples of existing
+   technologies
+
+8.  Security Considerations
 
    The security considerations of RATS architecture apply (Section 12 of
    [RFC9334]).  This section also mentions protection against physical
@@ -688,7 +699,7 @@ Table of Contents
    The following subsections are mainly focused on security
    considerations regarding the Attester.
 
-7.1.  Root of Trust Components
+8.1.  Root of Trust Components
 
    Some components are essential for attestation (storage of attestation
    key, signature component, etc.), if these are tampered with, there is
@@ -700,29 +711,29 @@ Table of Contents
    critical for attestation (altough they can be critical for the
    security of the system itself !).
 
-8.  Multiple Attesting Environments
+8.2.  Multiple Attesting Environments
 
    In case of multiple Attesting Environments, distribution of freshness
-   and binding of Evidence is discussed in
+   and binding of Evidence are discussed in
    [I-D.richardson-rats-composite-attesters].
 
-8.1.  Invasive Accesses
+8.3.  Invasive Accesses
 
    The measurement source must not allow an attacker to access protected
    assets.  For instance, access to protected assets can happen when
    computing measurements by using internal debug mechanisms (e.g., TAP
    controllers).
 
-8.2.  Measurement Soundness
+8.4.  Measurement Soundness
 
    It is possible that some measurement mechanisms may not be fully
    deterministic or may fail on rare occurences or raise false
    positives.  These considerations must be taken into account and
    mitigated to a sufficient level by the designer.
 
-8.3.  Threat Model
+8.5.  Threat Model
 
-8.3.1.  Software Attacks
+8.5.1.  Software Attacks
 
    There exist software attacks that can have a direct impact on
    hardware components’ behavior.  These are ideally mitigated by good
@@ -735,13 +746,13 @@ Table of Contents
 
    Ex: Manipulation of priviledged power control interface.
 
-8.3.2.  Physical Attacks
+8.5.2.  Physical Attacks
 
    Physical attacks target the hardware of the system.  They imply
    physical access to the system during its mission mode or while it is
    in the supply chain.
 
-8.3.2.1.  Passive Attacks
+8.5.2.1.  Passive Attacks
 
    Passive physical attacks are used by attackers to leak information
    through analysis of system physical properties.  Passive attacks, by
@@ -756,7 +767,7 @@ Table of Contents
    Evidence, which can be used for impersonation and Evidence forgery.
    This is already tackled in Section 12.1.1 of [RFC9334].
 
-8.3.2.2.  Active Attacks
+8.5.2.2.  Active Attacks
 
    Active physical attacks are the main problem since they allow an
    attacker (or a “natural” physical event) to tamper with the integrity
@@ -781,7 +792,7 @@ Table of Contents
    etc.  Note that some of these mitigations cannot directly prevent
    attacks but can be used for detection.
 
-8.3.3.  Supply Chain Attacks
+8.5.3.  Supply Chain Attacks
 
    Each stage of the supply chain introduces a new opportunity for an
    attacker to tamper with the produced system.
