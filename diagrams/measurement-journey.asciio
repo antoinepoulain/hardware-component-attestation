@@ -1,6 +1,6 @@
 +-------------------------+ Trigger                               
 |  Attesting Environment  | Measurement +------------------------+
-|                         +------------->  Measurement Circuitry |
+|                         +------------->   Measurement Source   |
 |                         |             |                 |      |
 |                         |             |      Compute    |      |
 | +---------------------+ |             |      Measurement|      |

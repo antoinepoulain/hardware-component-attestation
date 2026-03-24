@@ -1,7 +1,7 @@
                     Trigger                                 
 +-------------+   Measurement  +-----------------------+    
 |             +---------------->                       |    
-|             |                | Measurement Circuitry |    
+|             |                |   Measurement Source  |    
 |             <----------------+          (AE)         |    
 |             |     Export     +-----------^-----------+    
 |  Attesting  |   Measurement              |                

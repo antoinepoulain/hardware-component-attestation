@@ -76,8 +76,8 @@ Table of Contents
    5.  Attester Model
      5.1.  Abstract Representation
      5.2.  Integration Models
-       5.2.1.  Coupled Measurement Circuitry
-       5.2.2.  External Measurement Circuitry
+       5.2.1.  Coupled Measurement Source
+       5.2.2.  External Measurement Source
      5.3.  Measurement Journey
      5.4.  Practical Examples
    6.  Inclusion in Conceptual Messages
@@ -163,11 +163,11 @@ Table of Contents
       mean a representation (a value, an encoding, etc.) of a physical
       property, the result of a test etc.
 
-   *  Measurement Circuitry: can be hardware logic (really a circuit) or
-      software logic (e.g., FIPS KAT).  Software logic used to trigger a
-      measurement is not considered measurement circuitry but rather the
-      Attesting Environment end-point of the trigger interface.  See
-      Section 5.1 for details on the trigger interface.
+   *  Measurement Source: can be a hardware mechanism (really a circuit)
+      or software logic (e.g., FIPS KAT).  Software logic used to
+      trigger a measurement is not considered a measurement source but
+      rather the Attesting Environment end-point of the trigger
+      interface.  See Section 5.1 for details on the trigger interface.
 
    *  Target Hardware Component: A hardware component which is a Target
       Environment for an Attesting Environment.
@@ -230,18 +230,18 @@ Table of Contents
 
    This document uses the following abstract objects:
 
-   *  Measurement circuitry
+   *  Measurement source
 
-   Black box used to represent logic capable of computing measurements
-   of a target.  The measurement circuitry is part of the Attesting
-   Environment.
+   Black box used to represent a mechanism capable of computing
+   measurements of a target.  The measurement source is part of the
+   Attesting Environment.
 
    *  Trigger interface
 
-   To start the computation of a measurement, the measurement circuitry
+   To start the computation of a measurement, the measurement source
    must be triggered.  The trigger can follow an external request, a
    watchdog or any event set to trigger a measurement.  The measurement
-   circuitry receives a signal to start the computation of a measurement
+   source receives a signal to start the computation of a measurement
    through the "trigger" interface.
 
    Note: This interface may not be used in case of continuous
@@ -250,32 +250,32 @@ Table of Contents
    *  Export interface
 
    The "export" interface allows a measurement to be exported from the
-   measurement circuitry to a controlled memory region in the trust
+   measurement source to a controlled memory region in the trust
    boundary of the Attesting Environment.
 
    *  Data collection channel
 
    The measurement mechanism needs to have physical access on the
    property that it is in charge of measuring.  The flow of data
-   exchanged between the measurement circuitry and the target hardware
+   exchanged between the measurement source and the target hardware
    component is represented by the "data collection" channel.  This
    channel is not accessible by the Attesting Environment.
 
 5.2.  Integration Models
 
-   The following subsections present possible layouts for integrating
-   measurement circuitry between the Attesting Environment and the
-   target hardware component.
+   The following subsections present possible layouts for integrating a
+   measurement source between the Attesting Environment and the target
+   hardware component.
 
-5.2.1.  Coupled Measurement Circuitry
+5.2.1.  Coupled Measurement Source
 
-   In this integration model, the measurement circuitry is part of the
-   target hardware component.  The separation between measurement
-   circuitry (part of the Attesting Environment) and the Target
-   Environment is only logical.  The target hardware component and the
-   measurement circuitry are part of the same die.  Due to the proximity
-   between the measurement circuitry and the target hardware component,
-   the data collection channel is not represented.
+   In this integration model, the measurement source is part of the
+   target hardware component.  The separation between measurement source
+   (part of the Attesting Environment) and the Target Environment is
+   only logical.  The target hardware component and the measurement
+   source are part of the same die.  Due to the proximity between the
+   measurement source and the target hardware component, the data
+   collection channel is not represented.
 
                                        +-------------------------+
          +-------------+    Trigger    |    +---------------+    |
@@ -284,30 +284,30 @@ Table of Contents
          |  Attesting  |               |    |   Component   |    |
          | Environment |               |    |      (TE)     |    |
          |             |               |    +---------------+    |
-         |             <---------------+  Measurement Circuitry  |
+         |             <---------------+  Measurement Source     |
          +-------------+    Export     |           (AE)          |
                           Measurement  +-------------------------+
 
-     Figure 1: Abstract Representation of Coupled Measurement Circuitry
+      Figure 1: Abstract Representation of Coupled Measurement Source
 
    TODO detail Ex: Different types of BIST, KAT
 
-   Note: As shown in Figure 1, the measurement circuitry and target
+   Note: As shown in Figure 1, the measurement source and target
    hardware component share the same die.  This may have an impact on
    the trust model (see Section 8.3.3).
 
-5.2.2.  External Measurement Circuitry
+5.2.2.  External Measurement Source
 
-   In this integration model, the measurement circuitry is not part of
-   the target hardware component, it is external.  The separation
-   between measurement circuitry (part of the Attesting Environment) and
-   the Target Environment is physical.  The target hardware component
-   and measurement circuitry can come from different foundries.
+   In this integration model, the measurement source is not part of the
+   target hardware component, it is external.  The separation between
+   measurement source (part of the Attesting Environment) and the Target
+   Environment is physical.  The target hardware component and
+   measurement source can come from different foundries.
 
                            Trigger
        +-------------+   Measurement  +-----------------------+
        |             +---------------->                       |
-       |             |                | Measurement Circuitry |
+       |             |                | Measurement Source    |
        |             <----------------+          (AE)         |
        |             |     Export     +-----------^-----------+
        |  Attesting  |   Measurement              |
@@ -319,7 +319,7 @@ Table of Contents
        +-------------+                    |      (TE)     |
                                           +---------------+
 
-    Figure 2: Abstract Representation of External Measurement Circuitry
+      Figure 2: Abstract Representation of External Measurement Source
 
    TODO detail Ex: Sensors added on top of hardware component, Power
    Management IC (PMIC), Baseboard Management Controller (BMC)
@@ -342,7 +342,7 @@ Table of Contents
 5.3.  Measurement Journey
 
    TODO should this section be moved before Coupled and External
-   Measurement Circuitry ?
+   Measurement Source ?
 
    Measurements of hardware components must be included in the Evidence
    to be sent to a Verifier.  This implies that the Attesting
@@ -371,14 +371,14 @@ Table of Contents
    2.  compute measurement
 
        The measurement of the target hardware component is computed by
-       the measurement circuitry.
+       the measurement source.
 
    3.  export measurement
 
        Once the measurement has been computed, it must be exported in
        order to be accessible by the Attesting Environment.  The
-       measurement transits from the measurement circuitry to the
-       Attesting Environment through the export interface.
+       measurement transits from the measurement source to the Attesting
+       Environment through the export interface.
 
    4.  [optional] store measurement
 
@@ -421,7 +421,7 @@ Table of Contents
 
     +-------------------------+ Trigger
     |  Attesting Environment  | Measurement +------------------------+
-    |                         +------------->  Measurement Circuitry |
+    |                         +------------->  Measurement Source    |
     |                         |             |                 |      |
     |                         |             |      Compute    |      |
     | +---------------------+ |             |      Measurement|      |
@@ -629,6 +629,16 @@ Table of Contents
          ; could also be a digest option for optimization
       }
 
+    measured-hw-component = {
+         component-id-label => component-id
+         measurement-list-label => [ + hw-measurement ]
+      }
+
+   hw-measurement = {
+         measurement-type
+         measurement-value
+      }
+
             Figure 4: CDDL of Measured Hardware Component Claim
 
 6.3.1.4.2.2.  Inclusion in EAT Measurement Claim
@@ -698,10 +708,10 @@ Table of Contents
 
 8.1.  Invasive Accesses
 
-   Internal measurement circuitry must not allow an attacker to access
-   protected assets.  For instance, access to protected assets can
-   happen when computing measurements by using internal debug mechanisms
-   (e.g., TAP controllers).
+   The measurement source must not allow an attacker to access protected
+   assets.  For instance, access to protected assets can happen when
+   computing measurements by using internal debug mechanisms (e.g., TAP
+   controllers).
 
 8.2.  Measurement Soundness
 
@@ -761,7 +771,7 @@ Table of Contents
 
    Ex: Glitching, fault injections to induce malicious behavior.  May
    tamper with the target hardware component itself or the measurement
-   circuitry or the logic used to build Evidence.
+   source or the logic used to build Evidence.
 
    Ex: Memory tampering attacks to modify stored measurements.
 
@@ -782,10 +792,9 @@ Table of Contents
    power consumption).  It is therefore possible, in some cases, to
    detect an active Trojan by comparing the physical properties of the
    component when the Trojan is active against the reference physical
-   properties of the component.  Note that, if the measurement circuitry
-   is part of the component itself, which means that it has been
-   integrated by the foundry that introduced the Trojan, then it cannot
-   be trusted.
+   properties of the component.  Note that, if the measurement source is
+   part of the component itself, which means that it has been integrated
+   by the foundry that introduced the Trojan, then it cannot be trusted.
 
 9.  Privacy Considerations
 

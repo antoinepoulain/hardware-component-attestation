@@ -5,6 +5,6 @@
 |  Attesting  |               |    |   Component   |    |
 | Environment |               |    |      (TE)     |    |
 |             |               |    +---------------+    |
-|             <---------------+  Measurement Circuitry  |
+|             <---------------+    Measurement Source   |
 +-------------+    Export     |           (AE)          |
                  Measurement  +-------------------------+
