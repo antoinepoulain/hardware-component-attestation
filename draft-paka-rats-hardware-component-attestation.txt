@@ -88,17 +88,18 @@ Table of Contents
        6.3.2.  X.509 Claims
    7.  Security Considerations
      7.1.  Root of Trust Components
-     7.2.  Invasive Access
-     7.3.  Measurement Soundness
-     7.4.  Threat Model
-       7.4.1.  Software Attacks
-       7.4.2.  Physical Attacks
-       7.4.3.  Supply Chain Attacks
-   8.  Privacy Considerations
-   9.  IANA Considerations
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+   8.  Multiple Attesting Environments
+     8.1.  Invasive Accesses
+     8.2.  Measurement Soundness
+     8.3.  Threat Model
+       8.3.1.  Software Attacks
+       8.3.2.  Physical Attacks
+       8.3.3.  Supply Chain Attacks
+   9.  Privacy Considerations
+   10. IANA Considerations
+   11. References
+     11.1.  Normative References
+     11.2.  Informative References
    Appendix A.  Collected CDDL
    Acknowledgments
    Authors' Addresses
@@ -173,7 +174,7 @@ Table of Contents
 
 3.  Scope and Limitations
 
-   TODO
+   TODO Scope and Limitations
 
 4.  Use Cases
 
@@ -293,7 +294,7 @@ Table of Contents
 
    Note: As shown in Figure 1, the measurement circuitry and target
    hardware component share the same die.  This may have an impact on
-   the trust model (see Section 7.4.3).
+   the trust model (see Section 8.3.3).
 
 5.2.2.  External Measurement Circuitry
 
@@ -323,8 +324,13 @@ Table of Contents
    TODO detail Ex: Sensors added on top of hardware component, Power
    Management IC (PMIC), Baseboard Management Controller (BMC)
 
-   composite attester, can be many attesting env (and many target envs
-   of course), An AE may collect on multiple TE
+   A single Attesting Environment can be responsible for one or more
+   target hardware components.  The Attesting Environment is therefore
+   responsible for building Evidence for all of its target hardware
+   components.
+
+   In addition to that, there may be multiple Attesting Environments.
+   That case is discussed in [I-D.richardson-rats-composite-attesters].
 
    Of course, both coupled and external measurement circuitries can be
    found in the same system and possibly, a combination of coupled and
@@ -408,6 +414,33 @@ Table of Contents
        safe from unauthorized modification.  This is because the
        cryptographic signature of the Evidence ensures integrity
        protection.
+
+   Figure 3 represents the steps of the measurement journey described
+   above.
+
+    +-------------------------+ Trigger
+    |  Attesting Environment  | Measurement +------------------------+
+    |                         +------------->  Measurement Circuitry |
+    |                         |             |                 |      |
+    |                         |             |      Compute    |      |
+    | +---------------------+ |             |      Measurement|      |
+    | | Measurement Storage <-+-------------+    +------------v-+    |
+    | +----------+----------+ | Export      |    |    Target    |    |
+    |            |            | Measurement |    |   Hardware   |    |
+    |            |            |             |    |   Component  |    |
+    | +----------+----------+ |             |    +--------------+    |
+    | | +--------v--------+ | |             +------------------------+
+    | | |     Include     | | |
+    | | |  measurement in | | |
+    | | |     Evidence    | | |
+    | | +-----------------+ | |
+    | |                     | |
+    | |     Sign Evidence   | |
+    | +---------------------+ |
+    |                         |
+    +-------------------------+
+
+                       Figure 3: Measurement Journey
 
    Interactions models between the Attester system and external entities
    such as the Verifier are already presented in other documents (TODO
@@ -521,7 +554,7 @@ Table of Contents
    document.  These are presented in case the already existing claims
    mentioned above are not sufficent.
 
-   The CDDL in Figure 3 extends the $measurements-body-cbor and
+   The CDDL in Figure 4 extends the $measurements-body-cbor and
    $measurements-body-json EAT sockets to add support for the measured-
    hw-component to the Measurements claim (Section 4.2.16 of [RFC9711]).
 
@@ -542,7 +575,7 @@ Table of Contents
          ; many types of measurements)
       }
 
-                Figure 3: Measured Hardware Component Claims
+                Figure 4: Measured Hardware Component Claims
 
 6.3.2.  X.509 Claims
 
@@ -579,23 +612,29 @@ Table of Contents
    critical for attestation (altough they can be critical for the
    security of the system itself !).
 
-7.2.  Invasive Access
+8.  Multiple Attesting Environments
+
+   In case of multiple Attesting Environments, distribution of freshness
+   and binding of Evidence is discussed in
+   [I-D.richardson-rats-composite-attesters].
+
+8.1.  Invasive Accesses
 
    Internal measurement circuitry must not allow an attacker to access
    protected assets.  For instance, access to protected assets can
    happen when computing measurements by using internal debug mechanisms
    (e.g., TAP controllers).
 
-7.3.  Measurement Soundness
+8.2.  Measurement Soundness
 
    It is possible that some measurement mechanisms may not be fully
    deterministic or may fail on rare occurences or raise false
    positives.  These considerations must be taken into account and
    mitigated to a sufficient level by the designer.
 
-7.4.  Threat Model
+8.3.  Threat Model
 
-7.4.1.  Software Attacks
+8.3.1.  Software Attacks
 
    There exist software attacks that can have a direct impact on
    hardware components’ behavior.  These are ideally mitigated by good
@@ -608,13 +647,13 @@ Table of Contents
 
    Ex: Manipulation of priviledged power control interface.
 
-7.4.2.  Physical Attacks
+8.3.2.  Physical Attacks
 
    Physical attacks target the hardware of the system.  They imply
    physical access to the system during its mission mode or while it is
    in the supply chain.
 
-7.4.2.1.  Passive Attacks
+8.3.2.1.  Passive Attacks
 
    Passive physical attacks are used by attackers to leak information
    through analysis of system physical properties.  Passive attacks, by
@@ -629,7 +668,7 @@ Table of Contents
    Evidence, which can be used for impersonation and Evidence forgery.
    This is already tackled in Section 12.1.1 of [RFC9334].
 
-7.4.2.2.  Active Attacks
+8.3.2.2.  Active Attacks
 
    Active physical attacks are the main problem since they allow an
    attacker (or a “natural” physical event) to tamper with the integrity
@@ -654,7 +693,7 @@ Table of Contents
    etc.  Note that some of these mitigations cannot directly prevent
    attacks but can be used for detection.
 
-7.4.3.  Supply Chain Attacks
+8.3.3.  Supply Chain Attacks
 
    Each stage of the supply chain introduces a new opportunity for an
    attacker to tamper with the produced system.
@@ -670,7 +709,7 @@ Table of Contents
    integrated by the foundry that introduced the Trojan, then it cannot
    be trusted.
 
-8.  Privacy Considerations
+9.  Privacy Considerations
 
    The privacy considerations of RATS architecture apply (Section 11 of
    [RFC9334]).
@@ -681,14 +720,14 @@ Table of Contents
    TODO for new claims, some fields may be dangerous for privacy.  Some
    fields may enable tracking.
 
-9.  IANA Considerations
+10.  IANA Considerations
 
    This document has no IANA actions.  TODO need IANA actions for claims
    defined in this document ?
 
-10.  References
+11.  References
 
-10.1.  Normative References
+11.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -704,7 +743,7 @@ Table of Contents
               Architecture", RFC 9334, DOI 10.17487/RFC9334, January
               2023, <https://www.rfc-editor.org/rfc/rfc9334>.
 
-10.2.  Informative References
+11.2.  Informative References
 
    [I-D.fossati-tls-attestation]
               Tschofenig, H., Sheffer, Y., Howard, P., Mihalcea, I.,
@@ -729,6 +768,14 @@ Table of Contents
               component-12, 20 February 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
               eat-measured-component-12>.
+
+   [I-D.richardson-rats-composite-attesters]
+              Richardson, M., Birkholz, H., Deshpande, Y., and T.
+              Fossati, "Taxonomy of Composite Attesters", Work in
+              Progress, Internet-Draft, draft-richardson-rats-composite-
+              attesters-04, 2 March 2026,
+              <https://datatracker.ietf.org/doc/html/draft-richardson-
+              rats-composite-attesters-04>.
 
    [ISO5891]  International Standards Organization, "ISO/IEC TR
               5891:2024, Information security, cybersecurity and privacy

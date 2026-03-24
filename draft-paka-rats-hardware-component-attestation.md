@@ -49,6 +49,10 @@ informative:
 
   I-D.ietf-rats-corim: rats-corim
 
+  I-D.richardson-rats-composite-attesters: composite-attest
+
+  I-D.fossati-tls-attestation: attested-tls
+
   ISO5891:
     target: "https://www.iso.org/fr/standard/81806.html"
     title: "ISO/IEC TR 5891:2024, Information security, cybersecurity and privacy protection — Hardware monitoring technology for hardware security assessment"
@@ -62,8 +66,6 @@ informative:
     date: 2021-03
     author:
        org: "Trusted Computing Group"
-
-  I-D.fossati-tls-attestation: attested-tls
 
 ...
 
@@ -104,7 +106,7 @@ The terminology defined in {{RFC9334}} is reused throughout this document. Some 
 
 # Scope and Limitations
 
-TODO
+TODO Scope and Limitations
 
 # Use Cases
 
@@ -180,10 +182,9 @@ In this integration model, the measurement circuitry is not part of the target h
 TODO detail
 Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC)
 
+A single Attesting Environment can be responsible for one or more target hardware components. The Attesting Environment is therefore responsible for building Evidence for all of its target hardware components.
 
-
-composite attester, can be many attesting env (and many target envs of course),
-An AE may collect on multiple TE
+In addition to that, there may be multiple Attesting Environments. That case is discussed in {{-composite-attest}}.
 
 Of course, both coupled and external measurement circuitries can be found in the same system and possibly, a combination of coupled and external can be used to measure a single Target Envrionment.
 TODO this implies that a TE can have multiple measurement fields in claim and reference values (already supported in RATS)
@@ -230,7 +231,12 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 
     Once stored in signed Evidence, the measurement is considered safe from unauthorized modification. This is because the cryptographic signature of the Evidence ensures integrity protection.
 
+{{meas_journey}} represents the steps of the measurement journey described above.
 
+~~~~ aasvg
+{::include diagrams/measurement-journey.asciio}
+~~~~
+{: #meas_journey artwork-align="center" title="Measurement Journey"}
 
 Interactions models between the Attester system and external entities such as the Verifier are already presented in other documents (TODO specify which ones).
 
@@ -246,7 +252,7 @@ Some may be only usable at Boot time, other could be usable during runtime.
 
 Mapping to BIST, KAT, Sensors and Traces
 
-# Inclusion in Conceptual Messages
+# Inclusion in Conceptual Messages {#conceptual-messages}
 
 This section introduces standard claims to be included in RATS Conceptual Messages. Conceptual Messages are defined in {{Section 8 of RFC9334}}. The RATS architecture does not mandate the usage of standard data formats for Conceputal Messages but protocols may require specific formats. Nonetheless, RATS proposed CoRIM for Endorsements and Reference Values and EAT for Evidence as standard data models. The CoRIM is defined in {{-rats-corim}} and the EAT is defined in {{RFC9711}}.
 
@@ -320,7 +326,11 @@ Some components are essential for attestation (storage of attestation key, signa
 
 These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security of the system itself !).
 
-## Invasive Access
+# Multiple Attesting Environments
+
+In case of multiple Attesting Environments, distribution of freshness and binding of Evidence is discussed in {{-composite-attest}}.
+
+## Invasive Accesses
 
 Internal measurement circuitry must not allow an attacker to access protected assets. For instance, access to protected assets can happen when computing measurements by using internal debug mechanisms (e.g., TAP controllers).
 
