@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Poulain &amp; Kaci</td>
-<td class="center">Expires 24 September 2026</td>
+<td class="center">Expires 25 September 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-paka-rats-hardware-component-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-03-23" class="published">23 March 2026</time>
+<time datetime="2026-03-24" class="published">24 March 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-09-24">24 September 2026</time></dd>
+<dd class="expires"><time datetime="2026-09-25">25 September 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1124,7 +1124,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1493,7 +1493,7 @@ Ex: Different types of BIST, KAT<a href="#section-5.2.1-3" class="pilcrow">¶</a
 </div>
 <p id="section-5.2.2-3">TODO detail
 Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC)<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-4">composite attester, can be many attesting env (and many target envs of course)
+<p id="section-5.2.2-4">composite attester, can be many attesting env (and many target envs of course),
 An AE may collect on multiple TE<a href="#section-5.2.2-4" class="pilcrow">¶</a></p>
 <p id="section-5.2.2-5">Of course, both coupled and external measurement circuitries can be found in the same system and possibly, a combination of coupled and external can be used to measure a single Target Envrionment.
 TODO this implies that a TE can have multiple measurement fields in claim and reference values (already supported in RATS)<a href="#section-5.2.2-5" class="pilcrow">¶</a></p>
@@ -1559,9 +1559,10 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-practical-examples" class="section-name selfRef">Practical Examples</a>
         </h3>
 <p id="section-5.4-1">This section is for informational purposes only.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2">TODO maybe this section should be after claims defintion that way, there could also be claim examples<a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<p id="section-5.4-3">Some may be only usable at Boot time, other could be usable during runtime.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
-<p id="section-5.4-4">Mapping to BIST, KAT, Sensors and Traces<a href="#section-5.4-4" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">TODO Practical Examples<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">TODO maybe this section should be after claims defintion that way, there could also be claim examples<a href="#section-5.4-3" class="pilcrow">¶</a></p>
+<p id="section-5.4-4">Some may be only usable at Boot time, other could be usable during runtime.<a href="#section-5.4-4" class="pilcrow">¶</a></p>
+<p id="section-5.4-5">Mapping to BIST, KAT, Sensors and Traces<a href="#section-5.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1571,16 +1572,15 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
       <h2 id="name-inclusion-in-conceptual-mes">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-inclusion-in-conceptual-mes" class="section-name selfRef">Inclusion in Conceptual Messages</a>
       </h2>
-<p id="section-6-1">This section introduces standard claims to be included in RATS Conceptual Messages. Conceptual Messages are defined in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-8" class="relref">Section 8</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">Endorsements and Reference Values used to verify measurements of hardware components can be included in a CoRIM instance (see <a href="#endorsements" class="auto internal xref">Section 6.1</a> and <a href="#reference-values" class="auto internal xref">Section 6.2</a>). The CoRIM is defined in <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-1">This section introduces standard claims to be included in RATS Conceptual Messages. Conceptual Messages are defined in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-8" class="relref">Section 8</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>. The RATS architecture does not mandate the usage of standard data formats for Conceputal Messages but protocols may require specific formats. Nonetheless, RATS proposed CoRIM for Endorsements and Reference Values and EAT for Evidence as standard data models. The CoRIM is defined in <span>[<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span> and the EAT is defined in <span>[<a href="#RFC9711" class="cite xref">RFC9711</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">To promote interoperability, the following sections showcase how to use the CoRIM and EAT data models in the context of this document.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <div id="endorsements">
 <section id="section-6.1">
         <h3 id="name-endorsement">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-endorsement" class="section-name selfRef">Endorsement</a>
         </h3>
-<p id="section-6.1-1">TODO Endorsement format is not mandated by RFC9334 ? Custom is possible ?<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">Endorsements can be written inside a CoMID Endorsed Values triple of a CoRIM (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-5.1.6" class="relref">Section 5.1.6</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>). The Endorsed Values triple holds one or more measurement-map that are used to write the Endorsements.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
-<p id="section-6.1-3">TODO use case for endorsements in the scope of this document<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">Endorsements can be written inside a CoMID Endorsed Values triple of a CoRIM (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-5.1.6" class="relref">Section 5.1.6</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>). The Endorsed Values triple holds one or more measurement-map that are used to write the Endorsements.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">TODO use case for endorsements in the scope of this document<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="reference-values">
@@ -1590,10 +1590,9 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
         </h3>
 <p id="section-6.2-1">Reference Values must be computed in a secure environment.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed. The Verifier will then use these additionnal data to select the Reference Value that should be used in the context described by the additional data. (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't ocrrespond to the actual context of the system.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">TODO Reference Values format is not mandated by RFC9334 ? Custom is possible ?<a href="#section-6.2-3" class="pilcrow">¶</a></p>
-<p id="section-6.2-4">TODO one CoMID tag per hardware component ?<a href="#section-6.2-4" class="pilcrow">¶</a></p>
-<p id="section-6.2-5">Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-5.1.5" class="relref">Section 5.1.5</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
-<p id="section-6.2-6">Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range and can correspond to a class, a group or an instance of the target hardware component.<a href="#section-6.2-6" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">TODO one CoMID tag per hardware component ?<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-4">Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-5.1.5" class="relref">Section 5.1.5</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
+<p id="section-6.2-5">Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range and can correspond to a class, a group or an instance of target hardware component.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="evidence">
@@ -1601,8 +1600,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
         <h3 id="name-evidence">
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-evidence" class="section-name selfRef">Evidence</a>
         </h3>
-<p id="section-6.3-1">TODO Evidence format is not mandated by RFC9334 ? Custom is possible ?<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.3-2">The current version of this document proposes several possible approaches for including hardware component measurements in Evidence. For now, these options are present as brainstorming, to explore the different possibilities and may be removed in future versions of this document.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-1">The current version of this document proposes several approaches for including hardware component measurements in Evidence. For now, these options are present as brainstorming, to explore the different possibilities and may be removed in future versions of this document.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <div id="eat-claims">
 <section id="section-6.3.1">
           <h4 id="name-eat-claims">
@@ -1613,7 +1611,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
             <h5 id="name-using-eat-measured-componen">
 <a href="#section-6.3.1.1" class="section-number selfRef">6.3.1.1. </a><a href="#name-using-eat-measured-componen" class="section-name selfRef">Using EAT Measured Component Claim</a>
             </h5>
-<p id="section-6.3.1.1-1">To promote interoperability, it is possible for some measurements to be represented in an already existing EAT Measured Component. The EAT Measured Component is defined in <span>[<a href="#I-D.ietf-rats-eat-measured-component" class="cite xref">I-D.ietf-rats-eat-measured-component</a>]</span>.<a href="#section-6.3.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.3.1.1-1">It is possible for some measurements to be represented in an already existing EAT Measured Component. The EAT Measured Component is defined in <span>[<a href="#I-D.ietf-rats-eat-measured-component" class="cite xref">I-D.ietf-rats-eat-measured-component</a>]</span>.<a href="#section-6.3.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.3.1.1-2">For instance, a custom measurement structure can be used to hold hardware component measurement in the "measurement" field of the "measured-component" structure from <span>[<a href="#I-D.ietf-rats-eat-measured-component" class="cite xref">I-D.ietf-rats-eat-measured-component</a>]</span>. Also, the flag field can be used to extend the measured-component base type with profile-defined semantics.<a href="#section-6.3.1.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1622,7 +1620,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
             <h5 id="name-using-eat-measurement-resul">
 <a href="#section-6.3.1.2" class="section-number selfRef">6.3.1.2. </a><a href="#name-using-eat-measurement-resul" class="section-name selfRef">Using EAT Measurement Result Claim</a>
             </h5>
-<p id="section-6.3.1.2-1">To promote interoperability, it is possible for some measurements to be represented in an already existing EAT Measurement Result. The EAT Measurement Result is defined in <span><a href="https://rfc-editor.org/rfc/rfc9711#section-4.2.17" class="relref">Section 4.2.17</a> of [<a href="#RFC9711" class="cite xref">RFC9711</a>]</span>.<a href="#section-6.3.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.3.1.2-1">It is possible for some measurements to be represented in an already existing EAT Measurement Result. The EAT Measurement Result is defined in <span><a href="https://rfc-editor.org/rfc/rfc9711#section-4.2.17" class="relref">Section 4.2.17</a> of [<a href="#RFC9711" class="cite xref">RFC9711</a>]</span>.<a href="#section-6.3.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.3.1.2-2">This claim could be well-suited for measurements with on-device comparisons with reference values. For instance, self-tests (e.g., BIST, KAT) verify that the computed measurement corresponds to an expected value and output results such as "success" or "failure". In that case, a Measurement Result claim can be used.<a href="#section-6.3.1.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1631,7 +1629,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
             <h5 id="name-using-hardware-component-cl">
 <a href="#section-6.3.1.3" class="section-number selfRef">6.3.1.3. </a><a href="#name-using-hardware-component-cl" class="section-name selfRef">Using Hardware Component Claims</a>
             </h5>
-<p id="section-6.3.1.3-1">This section proposes new claims related to what is described in this document.<a href="#section-6.3.1.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3.1.3-1">This section proposes new claims related to what is described in this document. These are presented in case the already existing claims mentioned above are not sufficent.<a href="#section-6.3.1.3-1" class="pilcrow">¶</a></p>
 <p id="section-6.3.1.3-2">The CDDL in <a href="#mhwc_claims" class="auto internal xref">Figure 3</a> extends the $measurements-body-cbor and $measurements-body-json EAT sockets to add support for the measured-hw-component to the Measurements claim (<span><a href="https://rfc-editor.org/rfc/rfc9711#section-4.2.16" class="relref">Section 4.2.16</a> of [<a href="#RFC9711" class="cite xref">RFC9711</a>]</span>).<a href="#section-6.3.1.3-2" class="pilcrow">¶</a></p>
 <span id="name-measured-hardware-component"></span><div id="mhwc_claims">
 <figure id="figure-3">
@@ -1669,7 +1667,9 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
 <a href="#section-6.3.2" class="section-number selfRef">6.3.2. </a><a href="#name-x509-claims" class="section-name selfRef">X.509 Claims</a>
           </h4>
 <p id="section-6.3.2-1"><span><a href="https://rfc-editor.org/rfc/rfc9711#appendix-C.3" class="relref">Appendix C.3</a> of [<a href="#RFC9711" class="cite xref">RFC9711</a>]</span> describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in <a href="#eat-claims" class="auto internal xref">Section 6.3.1</a>.<a href="#section-6.3.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.3.2-2">TODO Particular case for DICE X.509 certificates (DiceTcbInfo)<a href="#section-6.3.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.3.2-2">Ex: DICE uses X.509 certificates extension to carry Evidence <span>[<a href="#TCG-DICE" class="cite xref">TCG-DICE</a>]</span>. TLS handshake extended with remote attestation also uses X.509 certificates.
+TODO find ref for TLS with attestation<a href="#section-6.3.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.3.2-3">TODO Particular case for DICE X.509 certificates (DiceTcbInfo)<a href="#section-6.3.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1829,8 +1829,12 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-9-
         </h3>
 <dl class="references">
 <dt id="ISO5891">[ISO5891]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">International Standards Organization</span>, <span class="refTitle">"ISO/IEC TR 5891:2024, Information security, cybersecurity and privacy protection — Hardware monitoring technology for hardware security assessment"</span>, <time datetime="2024-04" class="refDate">April 2024</time>, <span>&lt;<a href="https://www.iso.org/fr/standard/81806.html">https://www.iso.org/fr/standard/81806.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TCG-DICE">[TCG-DICE]</dt>
+      <dd>
+<span class="refAuthor">Trusted Computing Group</span>, <span class="refTitle">"DICE Attestation Architecture, Version 1.00, Revision 0.23"</span>, <time datetime="2021-03" class="refDate">March 2021</time>, <span>&lt;<a href="https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-r23-final.pdf">https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-r23-final.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
