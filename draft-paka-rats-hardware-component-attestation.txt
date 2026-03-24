@@ -336,7 +336,8 @@ Table of Contents
    found in the same system and possibly, a combination of coupled and
    external can be used to measure a single Target Envrionment.  TODO
    this implies that a TE can have multiple measurement fields in claim
-   and reference values (already supported in RATS)
+   and reference values (already supported in RATS standar data models
+   ?)
 
 5.3.  Measurement Journey
 
@@ -552,7 +553,15 @@ Table of Contents
    expected value and output results such as "success" or "failure".  In
    that case, a Measurement Result claim can be used.
 
-6.3.1.3.  Using Hardware Component Claims
+6.3.1.3.  Using EAT Submodule Claim
+
+   TODO it seems EAT Submodule can be used to embed hardware components
+   claims (maybe only more complete subsystems not simple hardware
+   components).  Research if it could be extended to include
+   measurements.  Can be used espcially if the sumodule does not have
+   its own Attesting Environment (Section 4.2.18 of [RFC9711]).
+
+6.3.1.4.  Using Hardware Component Claims
 
    This section proposes a new claim, the "measured hardware component",
    to represent what is described in this document.  This claim is
@@ -561,10 +570,9 @@ Table of Contents
 
    The "measured hardware component" claim is inspired from the
    "measured component" claim introduced in
-   [I-D.ietf-rats-eat-measured-component].  The resemblance is
-   beneficial for comprehension and easier for implementation.
+   [I-D.ietf-rats-eat-measured-component].
 
-6.3.1.3.1.  Information Model
+6.3.1.4.1.  Information Model
 
    This section presents the information model of a "measured hardware
    component".
@@ -572,22 +580,45 @@ Table of Contents
    The information elements (IEs) that constitute a "measured hardware
    component" are described in Table 1.
 
-   +================+==============================+===================+
-   | IE             | Description                  | Requirement Level |
-   +================+==============================+===================+
-   | Component      | The name given to the        | REQUIRED          |
-   | Name           | measured hardware component. |                   |
-   +----------------+------------------------------+-------------------+
-   +----------------+------------------------------+-------------------+
+   +=============+=======================================+=============+
+   | IE          | Description                           | Requirement |
+   |             |                                       | Level       |
+   +=============+=======================================+=============+
+   | Component   | The name given to the target          | REQUIRED    |
+   | Name        | hardware component.                   |             |
+   +-------------+---------------------------------------+-------------+
+   | Measurement | List of measurements for the          | REQUIRED    |
+   | List        | target hardware component.            |             |
+   |             | Each element of the list is           |             |
+   |             | composed of a Measurement Type        |             |
+   |             | and of a Measurement Value.           |             |
+   +-------------+---------------------------------------+-------------+
 
          Table 1: Measured Hardware Component Information Elements
 
-   TODO list every field and give details TODO is version necessary ? hw
-   components are replaced/updated ?
+   TODO is version necessary ? hw components are replaced/updated ?
 
-6.3.1.3.2.  CDDL Definitions
+6.3.1.4.1.1.  Component Name
 
-6.3.1.3.2.1.  Measured Hardware Component Claim
+6.3.1.4.1.2.  Measurement List
+
+     +=============+==================================+=============+
+     | Field Name  | Description                      | Requirement |
+     |             |                                  | Level       |
+     +=============+==================================+=============+
+     | Measurement | The type of the measurement.     | REQUIRED    |
+     | Type        |                                  |             |
+     +-------------+----------------------------------+-------------+
+     | Measurement | The Value of the measurement.    | REQUIRED    |
+     | Value       | The content of thsi field        |             |
+     |             | depends on the Measurement Type. |             |
+     +-------------+----------------------------------+-------------+
+
+         Table 2: Content of Each Element of the Measurement List
+
+6.3.1.4.2.  CDDL Definitions
+
+6.3.1.4.2.1.  Measured Hardware Component Claim
 
     measured-hw-component = {
          ; TODO
@@ -598,11 +629,11 @@ Table of Contents
          ; could also be a digest option for optimization
       }
 
-                Figure 4: Measured Hardware Component Claim
+            Figure 4: CDDL of Measured Hardware Component Claim
 
-6.3.1.3.2.2.  Inclusion in EAT Measurement Claim
+6.3.1.4.2.2.  Inclusion in EAT Measurement Claim
 
-   The CDDL defined in Section 6.3.1.3.2.1 extends the $measurements-
+   The CDDL defined in Section 6.3.1.4.2.1 extends the $measurements-
    body-cbor and $measurements-body-json EAT sockets to add support for
    the measured-hw-component to the Measurements claim (Section 4.2.16
    of [RFC9711]).
@@ -616,7 +647,7 @@ Table of Contents
       ; EAT JSON (`.feature "json"`)
       $measurements-body-json /= mhwc-json
 
-                Figure 5: Extension of EAT Measurement Body
+              Figure 5: CDDL Extension of EAT Measurement Body
 
 6.3.2.  X.509 Claims
 
@@ -637,6 +668,12 @@ Table of Contents
    collecting claims about hardware components implies a risk of
    physical compromission.  Aging and action of environment on the
    system are also considered threats.
+
+   TODO The security considerations of EAT Measured Component apply
+   (Section 5 of [I-D.ietf-rats-eat-measured-component]) when using EAT
+   Measured Component claim or Measured Hardware Component Claim.
+
+   TODO security considerations of CoRIM when using CORIM ?
 
    The following subsections are mainly focused on security
    considerations regarding the Attester.
@@ -754,6 +791,12 @@ Table of Contents
 
    The privacy considerations of RATS architecture apply (Section 11 of
    [RFC9334]).
+
+   TODO The privacy considerations of EAT Measured Component apply
+   (Section 6 of [I-D.ietf-rats-eat-measured-component]) when using EAT
+   Measured Component claim or Measured Hardware Component Claim.
+
+   TODO privacy considerations of CoRIM when using CORIM ?
 
    TODO for reused claims privacy considerations are probably specified
    in other documents so refer to them

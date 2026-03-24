@@ -187,7 +187,7 @@ A single Attesting Environment can be responsible for one or more target hardwar
 In addition to that, there may be multiple Attesting Environments. That case is discussed in {{-composite-attest}}.
 
 Of course, both coupled and external measurement circuitries can be found in the same system and possibly, a combination of coupled and external can be used to measure a single Target Envrionment.
-TODO this implies that a TE can have multiple measurement fields in claim and reference values (already supported in RATS)
+TODO this implies that a TE can have multiple measurement fields in claim and reference values (already supported in RATS standar data models ?)
 
 ## Measurement Journey
 
@@ -294,11 +294,17 @@ It is possible for some measurements to be represented in an already existing EA
 
 This claim could be well-suited for measurements with on-device comparisons with reference values. For instance, self-tests (e.g., BIST, KAT) verify that the computed measurement corresponds to an expected value and output results such as "success" or "failure". In that case, a Measurement Result claim can be used.
 
+#### Using EAT Submodule Claim
+
+TODO it seems EAT Submodule can be used to embed hardware components claims (maybe only more complete subsystems not simple hardware components). Research if it could be extended to include measurements. Can be used espcially if the sumodule does not have its own Attesting Environment ({{Section 4.2.18 of RFC9711}}).
+
 #### Using Hardware Component Claims
 
 This section proposes a new claim, the "measured hardware component", to represent what is described in this document. This claim is presented in case the already existing claims mentioned above are not sufficent to correctly report measurements of hardware components.
 
-The "measured hardware component" claim is inspired from the "measured component" claim introduced in {{-eat-mc}}. The resemblance is beneficial for comprehension and easier for implementation.
+The "measured hardware component" claim is inspired from the "measured component" claim introduced in {{-eat-mc}}.
+
+<!-- The resemblance is beneficial for comprehension and makes implementation easier. -->
 
 <!-- The following claims are defined according to the guidelines presented in {{Appendix E of RFC9711}}. -->
 
@@ -310,12 +316,22 @@ The information elements (IEs) that constitute a "measured hardware component" a
 
 | IE | Description | Requirement Level |
 |----|-------------|-------------------|
-| Component Name | The name given to the measured hardware component. | REQUIRED |
-| | | |
+| Component Name | The name given to the target hardware component. | REQUIRED |
+| Measurement List| List of measurements for the target hardware component. Each element of the list is composed of a Measurement Type and of a Measurement Value. | REQUIRED |
 {: #tab-mhwc-info-elems title="Measured Hardware Component Information Elements"}
 
-TODO list every field and give details
+
 TODO is version necessary ? hw components are replaced/updated ?
+
+###### Component Name
+
+###### Measurement List
+
+| Field Name | Description | Requirement Level |
+|------------|-------------|-------------------|
+| Measurement Type | The type of the measurement.  | REQUIRED |
+| Measurement Value | The Value of the measurement. The content of thsi field depends on the Measurement Type. | REQUIRED |
+{: #tab-meas-list-elem-fields title="Content of Each Element of the Measurement List"}
 
 ##### CDDL Definitions
 
@@ -324,7 +340,7 @@ TODO is version necessary ? hw components are replaced/updated ?
 ~~~ cddl
 {::include cddl/meas-hw-comp.cddl}
 ~~~
-{: #meas_hw_comp title="Measured Hardware Component Claim"}
+{: #meas_hw_comp title="CDDL of Measured Hardware Component Claim"}
 
 ###### Inclusion in EAT Measurement Claim
 
@@ -333,8 +349,7 @@ The CDDL defined in {{meas-hw-comp-claim}} extends the $measurements-body-cbor a
 ~~~ cddl
 {::include cddl/mhwc-claims.cddl}
 ~~~
-{: #mhwc_claims title="Extension of EAT Measurement Body"}
-
+{: #mhwc_claims title="CDDL Extension of EAT Measurement Body"}
 
 ### X.509 Claims
 
@@ -345,6 +360,10 @@ Ex: DICE uses X.509 certificates with a custom extension to carry Evidence {{TCG
 # Security Considerations
 
 The security considerations of RATS architecture apply ({{Section 12 of RFC9334}}). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromission. Aging and action of environment on the system are also considered threats.
+
+TODO The security considerations of EAT Measured Component apply ({{Section 5 of -eat-mc}}) when using EAT Measured Component claim or Measured Hardware Component Claim.
+
+TODO security considerations of CoRIM when using CORIM ?
 
 The following subsections are mainly focused on security considerations regarding the Attester.
 
@@ -409,6 +428,10 @@ Supply chains attacks may lead to the injection of Trojans. Once a Trojan has be
 # Privacy Considerations
 
 The privacy considerations of RATS architecture apply ({{Section 11 of RFC9334}}).
+
+TODO The privacy considerations of EAT Measured Component apply ({{Section 6 of -eat-mc}}) when using EAT Measured Component claim or Measured Hardware Component Claim.
+
+TODO privacy considerations of CoRIM when using CORIM ?
 
 TODO for reused claims privacy considerations are probably specified in other documents so refer to them
 
