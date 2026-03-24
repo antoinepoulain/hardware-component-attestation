@@ -347,7 +347,8 @@ Table of Contents
    execution logic (hardware or software).
 
    Below are the identified steps of the journey of a measurement at the
-   hardware level.
+   hardware level.  These are important as this document implies a
+   security model in which the attacker can tamper with hardware.
 
    TODO at each step describe attacker opportunity (attacker may be
    phsycial event) goal is to include in Evidence a measurement that is
@@ -549,11 +550,10 @@ Table of Contents
    an X.509 certificate.  These methods can be used for the claims
    presented in Section 6.3.1.
 
-   Ex: DICE uses X.509 certificates extension to carry Evidence
-   [TCG-DICE].  TLS handshake extended with remote attestation also uses
-   X.509 certificates.  TODO find ref for TLS with attestation
-
-   TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
+   Ex: DICE uses X.509 certificates with a custom extension to carry
+   Evidence [TCG-DICE].  TLS and DTLS extended with remote attestation
+   also use X.509 certificates with an attestion extension
+   [I-D.fossati-tls-attestation].
 
 7.  Security Considerations
 
@@ -672,8 +672,11 @@ Table of Contents
 
 8.  Privacy Considerations
 
+   The privacy considerations of RATS architecture apply (Section 11 of
+   [RFC9334]).
+
    TODO for reused claims privacy considerations are probably specified
-   in other documents (refer to them)
+   in other documents so refer to them
 
    TODO for new claims, some fields may be dangerous for privacy.  Some
    fields may enable tracking.
@@ -686,6 +689,31 @@ Table of Contents
 10.  References
 
 10.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
+              W. Pan, "Remote ATtestation procedureS (RATS)
+              Architecture", RFC 9334, DOI 10.17487/RFC9334, January
+              2023, <https://www.rfc-editor.org/rfc/rfc9334>.
+
+10.2.  Informative References
+
+   [I-D.fossati-tls-attestation]
+              Tschofenig, H., Sheffer, Y., Howard, P., Mihalcea, I.,
+              Deshpande, Y., Niemi, A., and T. Fossati, "Using
+              Attestation in Transport Layer Security (TLS) and Datagram
+              Transport Layer Security (DTLS)", Work in Progress,
+              Internet-Draft, draft-fossati-tls-attestation-09, 30 April
+              2025, <https://datatracker.ietf.org/doc/html/draft-
+              fossati-tls-attestation-09>.
 
    [I-D.ietf-rats-corim]
               Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
@@ -702,32 +730,16 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
               eat-measured-component-12>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/rfc/rfc2119>.
-
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
-
-   [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
-              W. Pan, "Remote ATtestation procedureS (RATS)
-              Architecture", RFC 9334, DOI 10.17487/RFC9334, January
-              2023, <https://www.rfc-editor.org/rfc/rfc9334>.
-
-   [RFC9711]  Lundblade, L., Mandyam, G., O'Donoghue, J., and C.
-              Wallace, "The Entity Attestation Token (EAT)", RFC 9711,
-              DOI 10.17487/RFC9711, April 2025,
-              <https://www.rfc-editor.org/rfc/rfc9711>.
-
-10.2.  Informative References
-
    [ISO5891]  International Standards Organization, "ISO/IEC TR
               5891:2024, Information security, cybersecurity and privacy
               protection — Hardware monitoring technology for hardware
               security assessment", April 2024,
               <https://www.iso.org/fr/standard/81806.html>.
+
+   [RFC9711]  Lundblade, L., Mandyam, G., O'Donoghue, J., and C.
+              Wallace, "The Entity Attestation Token (EAT)", RFC 9711,
+              DOI 10.17487/RFC9711, April 2025,
+              <https://www.rfc-editor.org/rfc/rfc9711>.
 
    [TCG-DICE] Trusted Computing Group, "DICE Attestation Architecture,
               Version 1.00, Revision 0.23", March 2021,

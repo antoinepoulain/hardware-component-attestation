@@ -41,23 +41,29 @@ author:
 
 normative:
   RFC9334:
-  RFC9711:
-  I-D.ietf-rats-eat-measured-component: eat-mc
-  I-D.ietf-rats-corim: rats-corim
 
 informative:
+  RFC9711:
+
+  I-D.ietf-rats-eat-measured-component: eat-mc
+
+  I-D.ietf-rats-corim: rats-corim
+
   ISO5891:
     target: "https://www.iso.org/fr/standard/81806.html"
     title: "ISO/IEC TR 5891:2024, Information security, cybersecurity and privacy protection — Hardware monitoring technology for hardware security assessment"
     date: 2024-04
     author:
        org: "International Standards Organization"
+
   TCG-DICE:
     target: "https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-r23-final.pdf"
     title: "DICE Attestation Architecture, Version 1.00, Revision 0.23"
     date: 2021-03
     author:
        org: "Trusted Computing Group"
+
+  I-D.fossati-tls-attestation: attested-tls
 
 ...
 
@@ -188,7 +194,7 @@ TODO should this section be moved before Coupled and External Measurement Circui
 
 Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).
 
-Below are the identified steps of the journey of a measurement at the hardware level.
+Below are the identified steps of the journey of a measurement at the hardware level. These are important as this document implies a security model in which the attacker can tamper with hardware.
 
 TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.
 
@@ -300,10 +306,7 @@ The CDDL in {{mhwc_claims}} extends the $measurements-body-cbor and $measurement
 
 {{Appendix C.3 of RFC9711}} describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in {{eat-claims}}.
 
-Ex: DICE uses X.509 certificates extension to carry Evidence {{TCG-DICE}}. TLS handshake extended with remote attestation also uses X.509 certificates.
-TODO find ref for TLS with attestation
-
-TODO Particular case for DICE X.509 certificates (DiceTcbInfo)
+Ex: DICE uses X.509 certificates with a custom extension to carry Evidence {{TCG-DICE}}. TLS and DTLS extended with remote attestation also use X.509 certificates with an attestion extension {{-attested-tls}}.
 
 # Security Considerations
 
@@ -367,7 +370,9 @@ Supply chains attacks may lead to the injection of Trojans. Once a Trojan has be
 
 # Privacy Considerations
 
-TODO for reused claims privacy considerations are probably specified in other documents (refer to them)
+The privacy considerations of RATS architecture apply ({{Section 11 of RFC9334}}).
+
+TODO for reused claims privacy considerations are probably specified in other documents so refer to them
 
 TODO for new claims, some fields may be dangerous for privacy. Some fields may enable tracking.
 
