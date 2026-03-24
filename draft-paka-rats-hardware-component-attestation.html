@@ -1508,7 +1508,7 @@ TODO this implies that a TE can have multiple measurement fields in claim and re
         </h3>
 <p id="section-5.3-1">TODO should this section be moved before Coupled and External Measurement Circuitry ?<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3-2">Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).<a href="#section-5.3-2" class="pilcrow">¶</a></p>
-<p id="section-5.3-3">Below are the identified steps of the journey of a measurement at the hardware level.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.3-3">Below are the identified steps of the journey of a measurement at the hardware level. These are important as this document implies a security model in which the attacker can tamper with hardware.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
 <p id="section-5.3-4">TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.3-5">
 <li id="section-5.3-5.1">
@@ -1667,9 +1667,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
 <a href="#section-6.3.2" class="section-number selfRef">6.3.2. </a><a href="#name-x509-claims" class="section-name selfRef">X.509 Claims</a>
           </h4>
 <p id="section-6.3.2-1"><span><a href="https://rfc-editor.org/rfc/rfc9711#appendix-C.3" class="relref">Appendix C.3</a> of [<a href="#RFC9711" class="cite xref">RFC9711</a>]</span> describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in <a href="#eat-claims" class="auto internal xref">Section 6.3.1</a>.<a href="#section-6.3.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.3.2-2">Ex: DICE uses X.509 certificates extension to carry Evidence <span>[<a href="#TCG-DICE" class="cite xref">TCG-DICE</a>]</span>. TLS handshake extended with remote attestation also uses X.509 certificates.
-TODO find ref for TLS with attestation<a href="#section-6.3.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.3.2-3">TODO Particular case for DICE X.509 certificates (DiceTcbInfo)<a href="#section-6.3.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.3.2-2">Ex: DICE uses X.509 certificates with a custom extension to carry Evidence <span>[<a href="#TCG-DICE" class="cite xref">TCG-DICE</a>]</span>. TLS and DTLS extended with remote attestation also use X.509 certificates with an attestion extension <span>[<a href="#I-D.fossati-tls-attestation" class="cite xref">I-D.fossati-tls-attestation</a>]</span>.<a href="#section-6.3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1771,8 +1769,9 @@ TODO find ref for TLS with attestation<a href="#section-6.3.2-2" class="pilcrow"
       <h2 id="name-privacy-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
-<p id="section-8-1">TODO for reused claims privacy considerations are probably specified in other documents (refer to them)<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">TODO for new claims, some fields may be dangerous for privacy. Some fields may enable tracking.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-1">The privacy considerations of RATS architecture apply (<span><a href="https://rfc-editor.org/rfc/rfc9334#section-11" class="relref">Section 11</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>).<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">TODO for reused claims privacy considerations are probably specified in other documents so refer to them<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">TODO for new claims, some fields may be dangerous for privacy. Some fields may enable tracking.<a href="#section-8-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1795,14 +1794,6 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-9-
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.ietf-rats-corim">[I-D.ietf-rats-corim]</dt>
-        <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Deshpande, Y.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Concise Reference Integrity Manifest"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-corim-10</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10">https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.ietf-rats-eat-measured-component">[I-D.ietf-rats-eat-measured-component]</dt>
-        <dd>
-<span class="refAuthor">Frost, S.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Entity Attestation Token (EAT) Measured Component"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-eat-measured-component-12</span>, <time datetime="2026-02-20" class="refDate">20 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12">https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
@@ -1812,12 +1803,8 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-9-
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9334">[RFC9334]</dt>
-        <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote ATtestation procedureS (RATS) Architecture"</span>, <span class="seriesInfo">RFC 9334</span>, <span class="seriesInfo">DOI 10.17487/RFC9334</span>, <time datetime="2023-01" class="refDate">January 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9334">https://www.rfc-editor.org/rfc/rfc9334</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9711">[RFC9711]</dt>
       <dd>
-<span class="refAuthor">Lundblade, L.</span>, <span class="refAuthor">Mandyam, G.</span>, <span class="refAuthor">O'Donoghue, J.</span>, and <span class="refAuthor">C. Wallace</span>, <span class="refTitle">"The Entity Attestation Token (EAT)"</span>, <span class="seriesInfo">RFC 9711</span>, <span class="seriesInfo">DOI 10.17487/RFC9711</span>, <time datetime="2025-04" class="refDate">April 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9711">https://www.rfc-editor.org/rfc/rfc9711</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote ATtestation procedureS (RATS) Architecture"</span>, <span class="seriesInfo">RFC 9334</span>, <span class="seriesInfo">DOI 10.17487/RFC9334</span>, <time datetime="2023-01" class="refDate">January 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9334">https://www.rfc-editor.org/rfc/rfc9334</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1828,9 +1815,25 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-9-
 <a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.fossati-tls-attestation">[I-D.fossati-tls-attestation]</dt>
+        <dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Howard, P.</span>, <span class="refAuthor">Mihalcea, I.</span>, <span class="refAuthor">Deshpande, Y.</span>, <span class="refAuthor">Niemi, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Using Attestation in Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-fossati-tls-attestation-09</span>, <time datetime="2025-04-30" class="refDate">30 April 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-fossati-tls-attestation-09">https://datatracker.ietf.org/doc/html/draft-fossati-tls-attestation-09</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-rats-corim">[I-D.ietf-rats-corim]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Deshpande, Y.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Concise Reference Integrity Manifest"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-corim-10</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10">https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-rats-eat-measured-component">[I-D.ietf-rats-eat-measured-component]</dt>
+        <dd>
+<span class="refAuthor">Frost, S.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Entity Attestation Token (EAT) Measured Component"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-eat-measured-component-12</span>, <time datetime="2026-02-20" class="refDate">20 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12">https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="ISO5891">[ISO5891]</dt>
         <dd>
 <span class="refAuthor">International Standards Organization</span>, <span class="refTitle">"ISO/IEC TR 5891:2024, Information security, cybersecurity and privacy protection — Hardware monitoring technology for hardware security assessment"</span>, <time datetime="2024-04" class="refDate">April 2024</time>, <span>&lt;<a href="https://www.iso.org/fr/standard/81806.html">https://www.iso.org/fr/standard/81806.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9711">[RFC9711]</dt>
+        <dd>
+<span class="refAuthor">Lundblade, L.</span>, <span class="refAuthor">Mandyam, G.</span>, <span class="refAuthor">O'Donoghue, J.</span>, and <span class="refAuthor">C. Wallace</span>, <span class="refTitle">"The Entity Attestation Token (EAT)"</span>, <span class="seriesInfo">RFC 9711</span>, <span class="seriesInfo">DOI 10.17487/RFC9711</span>, <time datetime="2025-04" class="refDate">April 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9711">https://www.rfc-editor.org/rfc/rfc9711</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="TCG-DICE">[TCG-DICE]</dt>
       <dd>
