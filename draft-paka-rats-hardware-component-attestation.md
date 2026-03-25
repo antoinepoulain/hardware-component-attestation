@@ -101,6 +101,7 @@ TODO Add references to sections of this document
 The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from RATS specifications are refined here to fit the context presented in this document.
 
 + Measurement Source: can be a hardware mechanism (a circuit) or software logic (e.g., FIPS KAT). Software logic used to trigger a measurement is not considered a measurement source but rather the Attesting Environment end-point of the trigger interface. See {{abstract-representation}} for details on the trigger interface.
+TODO rename Measurement Unit
 
 + Measurement: Term introduced by RATS (quote document). here it can mean a representation of a physical property (an encoded value), the result of a test etc.
 
@@ -122,6 +123,8 @@ Malfunctions of hardware components may be caused by environment and/or aging. D
 
 Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access to the system (particularly relevant for embedded systems) and using physical attack techniques.
 
+TODO small summary on why this is important for security and safety
+
 # Attester Model
 
 The RATS architecture presented in {{RFC9334}} introduces two types of environments in an Attester. The Attesting Environment (AE) and the Target Environment (TE). The Attesting Environment is in charge of collecting claims about a Target Environment. The Attesting Environment is then responsible for embedding those claims in an Evidence Conceptual Message.
@@ -132,7 +135,7 @@ The goal of this section is to propose standard interfaces to trigger the comput
 
 ## Abstract Representation {#abstract-representation}
 
-Mechanisms for collecting measurements of hardware components may highly depend of the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering a measurement mechanism as a black boxe with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected while promoting interoperability with different real world implementations.
+Mechanisms for collecting measurements of hardware components may highly depend of the type of hardware component and on the desired type of measurement. Therefore, this document proposes an abstract representation of such mechanisms. Considering a measurement mechanism as a black box with common interfaces, allows the content of this document to remain agnostic of the underlying mechanism and of the type of measurement collected while promoting interoperability with different real world implementations.
 
 This document uses the following abstract objects:
 
@@ -144,7 +147,7 @@ Black box used to represent a mechanism capable of computing measurements over a
 
 To start the computation of a measurement, the measurement source must be triggered. The trigger can follow an external request, a watchdog or any event set to trigger a measurement. The measurement source receives a signal to start the computation of a measurement through the "trigger" interface.
 
-Note: This interface may not be used in case of continuous monitoring.
+This interface is optionnal. For instance, it may not be used in case of continous monitoring.
 
 + Export interface
 
@@ -157,6 +160,9 @@ The measurement mechanism needs to have physical access on the property that it 
 ## Integration Models
 
 The following subsections present possible layouts for integrating a measurement source between the Attesting Environment and the target hardware component.
+
+TODO add MU in AE
+TODO the measurement unit is in Attesting Environment ?
 
 ### Coupled Measurement Source
 
@@ -199,7 +205,7 @@ Measurements of hardware components must be included in the Evidence to be sent 
 
 Below are the identified steps of the journey of a measurement at the hardware level. These are important as this document implies a security model in which the attacker can tamper with hardware.
 
-TODO at each step describe attacker opportunity (attacker may be phsycial event) goal is to include in Evidence a measurement that is trusted.
+TODO at each step describe attacker opportunity (attacker may be phsycial event i.e., not malicious) goal is to include in Evidence a measurement that is trusted.
 
 1. Trigger computation
 
@@ -212,6 +218,8 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event)
 1. Export measurement
 
     Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transits from the measurement source to the Attesting Environment through the export interface.
+
+    TODO measurement in transit can be tampered etc.
 
 1. \[optional\] Store measurement
 
@@ -313,18 +321,16 @@ The information elements (IEs) that constitute a "measured hardware component" a
 | Measurement List| List of measurements for the target hardware component. Each element of the list is composed of a Measurement Type and of a Measurement Value. | REQUIRED |
 {: #tab-mhwc-info-elems title="Measured Hardware Component Information Elements"}
 
-
-TODO is version necessary ? hw components are replaced/updated ?
-
 ###### Component Name
 
 ###### Measurement List
 
 | Field Name | Description | Requirement Level |
 |------------|-------------|-------------------|
+| Measurement Unit | Identifier for the Measurement Unit used to obtain the measurement | REQUIRED |
 | Measurement Type | The type of the measurement. | REQUIRED |
-| Measurement Value | The Value of the measurement. The content of thsi field depends on the Measurement Type. | REQUIRED |
-{: #tab-meas-list-elem-fields title="Content of Each Element of the Measurement List"}
+| Measurement Value | The Value of the measurement. The content of this field depends on the Measurement Type. | REQUIRED |
+{: #tab-meas-list-elem-fields title="Content of Elements of the Measurement List"}
 
 ##### CDDL Definitions
 

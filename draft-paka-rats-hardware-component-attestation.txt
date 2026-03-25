@@ -5,7 +5,7 @@
 Remote ATtestation ProcedureS                                 A. Poulain
 Internet-Draft                                                   A. Kaci
 Intended status: Standards Track                               Secure-IC
-Expires: 25 September 2026                                 24 March 2026
+Expires: 26 September 2026                                 25 March 2026
 
 
                    Attestation of Hardware Components
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 September 2026.
+   This Internet-Draft will expire on 26 September 2026.
 
 Copyright Notice
 
@@ -169,7 +169,8 @@ Table of Contents
       software logic (e.g., FIPS KAT).  Software logic used to trigger a
       measurement is not considered a measurement source but rather the
       Attesting Environment end-point of the trigger interface.  See
-      Section 5.1 for details on the trigger interface.
+      Section 5.1 for details on the trigger interface.  TODO rename
+      Measurement Unit
 
    *  Measurement: Term introduced by RATS (quote document). here it can
       mean a representation of a physical property (an encoded value),
@@ -204,6 +205,8 @@ Table of Contents
    access to the system (particularly relevant for embedded systems) and
    using physical attack techniques.
 
+   TODO small summary on why this is important for security and safety
+
 5.  Attester Model
 
    The RATS architecture presented in [RFC9334] introduces two types of
@@ -231,7 +234,7 @@ Table of Contents
    highly depend of the type of hardware component and on the desired
    type of measurement.  Therefore, this document proposes an abstract
    representation of such mechanisms.  Considering a measurement
-   mechanism as a black boxe with common interfaces, allows the content
+   mechanism as a black box with common interfaces, allows the content
    of this document to remain agnostic of the underlying mechanism and
    of the type of measurement collected while promoting interoperability
    with different real world implementations.
@@ -252,8 +255,8 @@ Table of Contents
    source receives a signal to start the computation of a measurement
    through the "trigger" interface.
 
-   Note: This interface may not be used in case of continuous
-   monitoring.
+   This interface is optionnal.  For instance, it may not be used in
+   case of continous monitoring.
 
    *  Export interface
 
@@ -274,6 +277,9 @@ Table of Contents
    The following subsections present possible layouts for integrating a
    measurement source between the Attesting Environment and the target
    hardware component.
+
+   TODO add MU in AE TODO the measurement unit is in Attesting
+   Environment ?
 
 5.2.1.  Coupled Measurement Source
 
@@ -366,8 +372,8 @@ Table of Contents
    security model in which the attacker can tamper with hardware.
 
    TODO at each step describe attacker opportunity (attacker may be
-   phsycial event) goal is to include in Evidence a measurement that is
-   trusted.
+   phsycial event i.e., not malicious) goal is to include in Evidence a
+   measurement that is trusted.
 
    1.  Trigger computation
 
@@ -387,6 +393,8 @@ Table of Contents
        order to be accessible by the Attesting Environment.  The
        measurement transits from the measurement source to the Attesting
        Environment through the export interface.
+
+       TODO measurement in transit can be tampered etc.
 
    4.  [optional] Store measurement
 
@@ -593,25 +601,26 @@ Table of Contents
 
          Table 1: Measured Hardware Component Information Elements
 
-   TODO is version necessary ? hw components are replaced/updated ?
-
 6.3.1.4.1.1.  Component Name
 
 6.3.1.4.1.2.  Measurement List
 
-     +=============+==================================+=============+
-     | Field Name  | Description                      | Requirement |
-     |             |                                  | Level       |
-     +=============+==================================+=============+
-     | Measurement | The type of the measurement.     | REQUIRED    |
-     | Type        |                                  |             |
-     +-------------+----------------------------------+-------------+
-     | Measurement | The Value of the measurement.    | REQUIRED    |
-     | Value       | The content of thsi field        |             |
-     |             | depends on the Measurement Type. |             |
-     +-------------+----------------------------------+-------------+
+    +=============+=====================================+=============+
+    | Field Name  | Description                         | Requirement |
+    |             |                                     | Level       |
+    +=============+=====================================+=============+
+    | Measurement | Identifier for the Measurement Unit | REQUIRED    |
+    | Unit        | used to obtain the measurement      |             |
+    +-------------+-------------------------------------+-------------+
+    | Measurement | The type of the measurement.        | REQUIRED    |
+    | Type        |                                     |             |
+    +-------------+-------------------------------------+-------------+
+    | Measurement | The Value of the measurement.  The  | REQUIRED    |
+    | Value       | content of this field depends on    |             |
+    |             | the Measurement Type.               |             |
+    +-------------+-------------------------------------+-------------+
 
-         Table 2: Content of Each Element of the Measurement List
+            Table 2: Content of Elements of the Measurement List
 
 6.3.1.4.2.  CDDL Definitions
 
@@ -632,9 +641,19 @@ Table of Contents
       }
 
    hw-measurement = {
-         measurement-type
-         measurement-value
+         measurement-unit-id-label
+         measurement-type        ;a choice
+         measurement-value-label ; depends of type
       }
+
+   measurement-unit-id-label = {
+      ; structure really needed ? could be simply an id or text
+      ; used to refer to a MU
+   }
+
+   measurement-value-label = {
+      ; structure that depends of type
+   }
 
             Figure 4: CDDL of Measured Hardware Component Claim
 
