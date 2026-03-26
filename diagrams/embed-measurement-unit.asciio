@@ -5,6 +5,6 @@
 |  Attesting  |               |    |   Component   |    |
 | Environment |               |    |      (TE)     |    |
 |             |               |    +---------------+    |
-|             <---------------+    Measurement Source   |
+|             <---------------+     Measurement Unit    |
 +-------------+    Export     |           (AE)          |
                  Measurement  +-------------------------+

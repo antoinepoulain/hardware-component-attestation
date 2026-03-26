@@ -1,0 +1,14 @@
+                    Trigger                             
++-------------+   Measurement  +------------------+     
+|             +---------------->                  |     
+|             |                | Measurement Unit |     
+|             <----------------+       (AE)       |     
+|             |     Export     +---------^--------+     
+|  Attesting  |   Measurement            |              
+| Environment |                          | Data Exchange
+|             |                          |              
+|             |                  +-------v-------+      
+|             |                  |   Target HW   |      
+|             |                  |   Component   |      
++-------------+                  |      (TE)     |      
+                                 +---------------+      

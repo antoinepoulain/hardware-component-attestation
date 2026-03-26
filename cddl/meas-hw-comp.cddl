@@ -13,15 +13,10 @@
    }
 
 hw-measurement = {
-      measurement-unit-id-label
+      measurement-unit-id => tstr
       measurement-type        ;a choice
       measurement-value-label ; depends of type
    }
-
-measurement-unit-id-label = {
-   ; structure really needed ? could be simply an id or text
-   ; used to refer to a MU
-}
 
 measurement-value-label = {
    ; structure that depends of type

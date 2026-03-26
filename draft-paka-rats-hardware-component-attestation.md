@@ -100,7 +100,7 @@ TODO Add references to sections of this document
 
 The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from RATS specifications are refined here to fit the context presented in this document.
 
-+ Measurement Source: can be a hardware mechanism (a circuit) or software logic (e.g., FIPS KAT). Software logic used to trigger a measurement is not considered a measurement source but rather the Attesting Environment end-point of the trigger interface. See {{abstract-representation}} for details on the trigger interface.
++ Measurement Unit: can be a hardware mechanism (a circuit) or software logic (e.g., FIPS KAT). Software logic used to trigger a measurement is not considered a Measurement Unit but rather the Attesting Environment end-point of the Trigger interface. See {{abstract-representation}} for details on the Trigger interface.
 TODO rename Measurement Unit
 
 + Measurement: Term introduced by RATS (quote document). here it can mean a representation of a physical property (an encoded value), the result of a test etc.
@@ -139,67 +139,87 @@ Mechanisms for collecting measurements of hardware components may highly depend 
 
 This document uses the following abstract objects:
 
-+ Measurement source
++ Measurement Unit
 
-Black box used to represent a mechanism capable of computing measurements over a target. The measurement source is part of the Attesting Environment.
+Black box used to represent a mechanism capable of computing measurements over a target. The Measurement Unit is part of the Attesting Environment.
 
 + Trigger interface
 
-To start the computation of a measurement, the measurement source must be triggered. The trigger can follow an external request, a watchdog or any event set to trigger a measurement. The measurement source receives a signal to start the computation of a measurement through the "trigger" interface.
+To start the computation of a measurement, the Measurement Unit must be triggered. The trigger can follow an external request, a watchdog or any event set to trigger a measurement. The Measurement Unit receives a signal to start the computation of a measurement through the "Trigger" interface.
 
 This interface is optionnal. For instance, it may not be used in case of continous monitoring.
 
 + Export interface
 
-The "export" interface allows a measurement to be exported from the measurement source to a controlled memory region in the trust boundary of the Attesting Environment.
+The "Export" interface allows a measurement to be exported from the Measurement Unit to a controlled memory region in the trust boundary of the Attesting Environment.
 
-+ Data collection channel
++ Data Exchange channel
 
-The measurement mechanism needs to have physical access on the property that it is in charge of measuring. The flow of data exchanged between the measurement source and the target hardware component is represented by the "data collection" channel. This channel is not accessible by the Attesting Environment.
+The measurement mechanism needs to have physical access on the property that it is in charge of measuring. The flow of data exchanged between the Measurement Unit and the target hardware component is represented by the "Data Exchange" channel. This channel is not accessible by the Attesting Environment.
 
 ## Integration Models
 
-The following subsections present possible layouts for integrating a measurement source between the Attesting Environment and the target hardware component.
+The following subsections present possible layouts for integrating a Measurement Unit between the Attesting Environment and the target hardware component.
 
 TODO add MU in AE
 TODO the measurement unit is in Attesting Environment ?
 
-### Coupled Measurement Source
+### Embedded Measurement Unit
 
-In this integration model, the measurement source is part of the target hardware component. The separation between measurement source (part of the Attesting Environment) and the Target Environment is only logical. The target hardware component and the measurement source are part of the same die. Due to the proximity between the measurement source and the target hardware component, the data collection channel is not represented.
+In this integration model, the Measurement Unit is part of the target hardware component. The separation between Measurement Unit (part of the Attesting Environment) and the Target Environment is only logical. The target hardware component and the Measurement Unit are part of the same die. Due to the proximity between the Measurement Unit and the target hardware component, the Data Exchange channel is not represented.
 
 ~~~~ aasbbvg
-{::include diagrams/coupled-measurement-source.asciio}
+{::include diagrams/embed-measurement-unit.asciio}
 ~~~~
-{: #coupled_meas_source artwork-align="center" title="Abstract Representation of Coupled Measurement Source"}
+{: #embed_meas_unit artwork-align="center" title="Abstract Representation of Embedded Measurement Unit"}
 
-TODO detail
 Ex: Different types of BIST, KAT
 
-Note: As shown in {{coupled_meas_source}}, the measurement source and target hardware component share the same die. This may have an impact on the trust model (see {{supply-chain-attacks}}).
+Note: As shown in {{embed_meas_unit}}, the Measurement Unit and target hardware component share the same die. This may have an impact on the trust model (see {{supply-chain-attacks}}).
 
-### External Measurement Source
+### External Measurement Unit
 
-In this integration model, the measurement source is not part of the target hardware component, it is external. The separation between measurement source (part of the Attesting Environment) and the Target Environment is physical. The target hardware component and measurement source can come from different foundries.
+In the following integration models, the Measurement Unit is external to the target hardware component.
+
+#### Discrete Component
+
+The Measurement Unit is a discrete component external to the target hardware component and to the Attesting Environment.
 
 ~~~~ aasvg
-{::include diagrams/external-measurement-source.asciio}
+{::include diagrams/discrete-measurement-unit.asciio}
 ~~~~
-{: #external_meas_source artwork-align="center" title="Abstract Representation of External Measurement Source"}
+{: #discrete_meas_unit artwork-align="center" title="Abstract Representation of Discrete Measurement Unit"}
 
-TODO detail
 Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC)
+
+In this integration model, the target hardware component and Measurement Unit can come from different sources (e.g., foundries). That can be leveraged to draw trust boundaries between the AE, TE and Measurement Unit.
+Using a discret component implies the existence of physical communication channels between the AE, TE and Measurement Unit on which data such as measurement will transit. This introduces attack vectors. Refer to {{seccons}}.
+
+#### Integrated in Attesting Environment
+
+The Measurement Unit is physically integrated in the Attesting Environment. It can take the form of hardware circuitry or be a software component. As the Measurement Unit is integrated in the Attesting Environment, the Trigger and Export interfaces are not represented in {{integrated_meas_unit}}.
+
+~~~~ aasvg
+{::include diagrams/external-integrated-measurement-unit.asciio}
+~~~~
+{: #integrated_meas_unit artwork-align="center" title="Abstract Representation of Measurement Unit Integrated in AE"}
+
+Ex: Software logic (e.g., FIPS KAT)
+
+Note: This integration model can be limiting in terms of what it is possible to measure.
+
+
 
 A single Attesting Environment can be responsible for one or more target hardware components. The Attesting Environment is therefore responsible for building Evidence for all of its target hardware components.
 
 In addition to that, there may be multiple Attesting Environments. That case is discussed in {{-composite-attest}}.
 
-Of course, both coupled and external measurement sources can be found in the same system and possibly, a combination of coupled and external can be used to measure a single Target Envrionment.
+Of course, both embedded and external Measurement Units can be found in the same system and possibly, a combination of embedded and external can be used to measure a single Target Envrionment.
 TODO this implies that a TE can have multiple measurement fields in claim and reference values (already supported in RATS standar data models ?)
 
 ## Measurement Journey
 
-TODO should this section be moved before Coupled and External Measurement Source ?
+TODO should this section be moved before Embedded and External Measurement Unit ?
 
 Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).
 
@@ -209,15 +229,15 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event 
 
 1. Trigger computation
 
-    Measurement computation is triggered by an event (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the trigger interface.
+    Measurement computation is triggered by an event (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the Trigger interface.
 
 1. Compute measurement
 
-    The measurement of the target hardware component is computed by the measurement source.
+    The measurement of the target hardware component is computed by the Measurement Unit.
 
 1. Export measurement
 
-    Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transits from the measurement source to the Attesting Environment through the export interface.
+    Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transits from the Measurement Unit to the Attesting Environment through the export interface.
 
     TODO measurement in transit can be tampered etc.
 
@@ -297,7 +317,7 @@ This claim could be well-suited for measurements with on-device comparisons with
 
 #### Using EAT Submodule Claim
 
-TODO it seems EAT Submodule can be used to embed hardware components claims (maybe only more complete subsystems not simple hardware components). Research if it could be extended to include measurements. Can be used espcially if the sumodule does not have its own Attesting Environment ({{Section 4.2.18 of RFC9711}}).
+TODO it seems EAT Submodule can be used to embed hardware components claims (maybe only more complete subsystems not simple hardware components). Research if it could be extended to include measurements. Especially relevant if the submodule does not have its own Attesting Environment ({{Section 4.2.18 of RFC9711}}).
 
 #### Using Hardware Component Claims
 
@@ -369,30 +389,30 @@ Mapping to BIST, KAT, Sensors and Traces
 ## Monitoring Physical Properties
 
 Usage of sensors
-External or coupled ?
+External or Embedded ?
 Examples of existing technologies
 action of Endorser, RVP (compute refrence values, compute range, prepare behavioral model (ML) in secure environment)
 action Verifier appraise (can Verifier use behavioral model prepared by RVP ?)
 
 
 on-die sensors (integrated in silicon)
--> coupled measurement source
+-> Embedded Measurement Unit
 TODO Existing technologies: sensors present in CPUs
 Security Sensors (tamper detection)
 light, EM, voltage sensors
 
 on-board sensors (external components)
--> external measurement source
+-> external Measurement Unit
 PMIC
 
 ## Detection by Self-Testing
 
 Usage of BIST or KAT or tamper detection sensors (active mesh, digital sensor)
-External or coupled ?
+External or Embedded ?
 Examples of existing technologies
 action of Endorser (type of test, its properties etc.., identifier, certif ?), RVP and Verifier
 
-# Security Considerations
+# Security Considerations {#seccons}
 
 The security considerations of RATS architecture apply ({{Section 12 of RFC9334}}). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromission. Aging and action of environment on the system are also considered threats.
 
@@ -414,7 +434,7 @@ In case of multiple Attesting Environments, distribution of freshness and bindin
 
 ## Invasive Accesses
 
-The measurement source must not allow an attacker to access protected assets. For instance, access to protected assets can happen when computing measurements by using internal debug mechanisms (e.g., TAP controllers).
+The Measurement Unit must not allow an attacker to access protected assets. For instance, access to protected assets can happen when computing measurements by using internal debug mechanisms (e.g., TAP controllers).
 
 ## Measurement Soundness
 
@@ -448,7 +468,7 @@ Active physical attacks are the main problem since they allow an attacker (or a 
 
 Ex: Attacks on bus (Active man-in-the-middle (MITM), injection, probing) or anywhere measurements are in transit before being integrated in a structure that cannot be tampered or spoofed (signed Evidence).
 
-Ex: Glitching, fault injections to induce malicious behavior. May tamper with the target hardware component itself or the measurement source or the logic used to build Evidence.
+Ex: Glitching, fault injections to induce malicious behavior. May tamper with the target hardware component itself or the Measurement Unit or the logic used to build Evidence.
 
 Ex: Memory tampering attacks to modify stored measurements.
 
@@ -458,7 +478,7 @@ Some techniques to mitigate physical attacks are usage of a TPM or secure elemen
 
 Each stage of the supply chain introduces a new opportunity for an attacker to tamper with the produced system.
 
-Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity may be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the measurement source is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.
+Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity may be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the Measurement Unit is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.
 
 # Privacy Considerations
 
