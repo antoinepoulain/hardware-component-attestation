@@ -304,16 +304,16 @@ Table of Contents
    Unit and the target hardware component, the Data Exchange channel is
    not represented.
 
-                                       +-------------------------+
-         +-------------+    Trigger    |    +---------------+    |
-         |             |  Measurement  |    |               |    |
-         |             +--------------->    |   Target HW   |    |
-         |  Attesting  |               |    |   Component   |    |
-         | Environment |               |    |      (TE)     |    |
-         |             |               |    +---------------+    |
-         |             <---------------+     Measurement Unit    |
-         +-------------+    Export     |           (AE)          |
-                          Measurement  +-------------------------+
+                                 +-------------------------+
+   +-------------+    Trigger    |    +---------------+    |
+   |             |  Measurement  |    |               |    |
+   |             +--------------->    |   Target HW   |    |
+   |  Attesting  |               |    |   Component   |    |
+   | Environment |               |    |      (TE)     |    |
+   |             |               |    +---------------+    |
+   |             <---------------+     Measurement Unit    |
+   +-------------+    Export     |           (AE)          |
+                    Measurement  +-------------------------+
 
        Figure 1: Abstract Representation of Embedded Measurement Unit
 
@@ -334,20 +334,20 @@ Table of Contents
    The Measurement Unit is a discrete component external to the target
    hardware component and to the Attesting Environment.
 
-                             Trigger
-         +-------------+   Measurement  +------------------+
-         |             +---------------->                  |
-         |             |                | Measurement Unit |
-         |             <----------------+       (AE)       |
-         |             |     Export     +---------^--------+
-         |  Attesting  |   Measurement            |
-         | Environment |                          | Data Exchange
-         |             |                          |
-         |             |                  +-------v-------+
-         |             |                  |   Target HW   |
-         |             |                  |   Component   |
-         +-------------+                  |      (TE)     |
-                                          +---------------+
+                       Trigger
+   +-------------+   Measurement  +------------------+
+   |             +---------------->                  |
+   |             |                | Measurement Unit |
+   |             <----------------+       (AE)       |
+   |             |     Export     +---------^--------+
+   |  Attesting  |   Measurement            |
+   | Environment |                          | Data Exchange
+   |             |                          |
+   |             |                  +-------v-------+
+   |             |                  |   Target HW   |
+   |             |                  |   Component   |
+   +-------------+                  |      (TE)     |
+                                    +---------------+
 
        Figure 2: Abstract Representation of Discrete Measurement Unit
 
@@ -370,16 +370,16 @@ Table of Contents
    Attesting Environment, the Trigger and Export interfaces are not
    represented in Figure 3.
 
-             +-------------------+
-             |     Attesting     |
-             |    Environment    |
-             |                   |
-             |  +-------------+  |   Data   +---------------+
-             |  | Measurement |  | Exchange |   Target HW   |
-             |  |    Unit     <--+---------->   Component   |
-             |  +-------------+  |          |      (TE)     |
-             |                   |          +---------------+
-             +-------------------+
+   +-------------------+
+   |     Attesting     |
+   |    Environment    |
+   |                   |
+   |  +-------------+  |   Data   +---------------+
+   |  | Measurement |  | Exchange |   Target HW   |
+   |  |    Unit     <--+---------->   Component   |
+   |  +-------------+  |          |      (TE)     |
+   |                   |          +---------------+
+   +-------------------+
 
       Figure 3: Abstract Representation of Measurement Unit Integrated
                                    in AE
@@ -497,30 +497,30 @@ Table of Contents
    Figure 4 represents the steps of the measurement journey described
    above.
 
-    +-------------------------+ Trigger
-    |  Attesting Environment  | Measurement +------------------------+
-    |                         +------------->    Measurement Unit    |
-    |                         |             |                 |      |
-    | +---------------------+ |             |      Compute    |      |
-    | |      [Optional]     | |             |      Measurement|      |
-    | | Measurement Storage <-+-------------+    +------------v-+    |
-    | +----------+----------+ | Export      |    |    Target    |    |
-    |            |            | Measurement |    |   Hardware   |    |
-    | +----------v----------+ |             |    |   Component  |    |
-    | |[Optional] Processing| |             |    +--------------+    |
-    | +----------+----------+ |             +------------------------+
-    |            |            |
-    | +----------+----------+ |
-    | | +--------v--------+ | |
-    | | |     Include     | | |
-    | | |  measurement in | | |
-    | | |     Evidence    | | |
-    | | +-----------------+ | |
-    | |                     | |
-    | |     Sign Evidence   | |
-    | +---------------------+ |
-    |                         |
-    +-------------------------+
+   +-------------------------+ Trigger
+   |  Attesting Environment  | Measurement +------------------------+
+   |                         +------------->    Measurement Unit    |
+   |                         |             |                 |      |
+   | +---------------------+ |             |      Compute    |      |
+   | |      [Optional]     | |             |      Measurement|      |
+   | | Measurement Storage <-+-------------+    +------------v-+    |
+   | +----------+----------+ | Export      |    |    Target    |    |
+   |            |            | Measurement |    |   Hardware   |    |
+   | +----------v----------+ |             |    |   Component  |    |
+   | |[Optional] Processing| |             |    +--------------+    |
+   | +----------+----------+ |             +------------------------+
+   |            |            |
+   | +----------+----------+ |
+   | | +--------v--------+ | |
+   | | |     Include     | | |
+   | | |  measurement in | | |
+   | | |     Evidence    | | |
+   | | +-----------------+ | |
+   | |                     | |
+   | |     Sign Evidence   | |
+   | +---------------------+ |
+   |                         |
+   +-------------------------+
 
                        Figure 4: Measurement Journey
 

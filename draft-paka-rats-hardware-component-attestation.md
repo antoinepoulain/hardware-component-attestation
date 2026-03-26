@@ -178,7 +178,8 @@ In this integration model, the Measurement Unit is part of the target hardware c
 ~~~~ aasbbvg
 {::include diagrams/embed-measurement-unit.asciio}
 ~~~~
-{: #embed_meas_unit artwork-align="center" title="Abstract Representation of Embedded Measurement Unit"}
+{: #embed_meas_unit title="Abstract Representation of Embedded Measurement Unit"}
+<!-- {: #embed_meas_unit artwork-align="center" title="Abstract Representation of Embedded Measurement Unit"} -->
 
 Ex: Different types of BIST, KAT
 
@@ -195,7 +196,8 @@ The Measurement Unit is a discrete component external to the target hardware com
 ~~~~ aasvg
 {::include diagrams/discrete-measurement-unit.asciio}
 ~~~~
-{: #discrete_meas_unit artwork-align="center" title="Abstract Representation of Discrete Measurement Unit"}
+{: #discrete_meas_unit title="Abstract Representation of Discrete Measurement Unit"}
+<!-- {: #discrete_meas_unit artwork-align="center" title="Abstract Representation of Discrete Measurement Unit"} -->
 
 Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC)
 
@@ -209,7 +211,8 @@ The Measurement Unit is physically integrated in the Attesting Environment. It c
 ~~~~ aasvg
 {::include diagrams/external-integrated-measurement-unit.asciio}
 ~~~~
-{: #integrated_meas_unit artwork-align="center" title="Abstract Representation of Measurement Unit Integrated in AE"}
+{: #integrated_meas_unit title="Abstract Representation of Measurement Unit Integrated in AE"}
+<!-- {: #integrated_meas_unit artwork-align="center" title="Abstract Representation of Measurement Unit Integrated in AE"} -->
 
 Ex: Software logic (e.g., FIPS KAT)
 
@@ -279,7 +282,8 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event 
 ~~~~ aasvg
 {::include diagrams/measurement-journey.asciio}
 ~~~~
-{: #meas_journey artwork-align="center" title="Measurement Journey"}
+{: #meas_journey title="Measurement Journey"}
+<!-- {: #meas_journey artwork-align="center" title="Measurement Journey"} -->
 
 # Inclusion in Conceptual Messages {#conceptual-messages}
 
