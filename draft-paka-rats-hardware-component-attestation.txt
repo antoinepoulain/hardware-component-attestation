@@ -87,23 +87,26 @@ Table of Contents
      6.3.  Evidence
        6.3.1.  Entity Attestation Token (EAT)
        6.3.2.  X.509 Certificate
-   7.  Practical Examples
-     7.1.  Monitoring Physical Properties
-     7.2.  Detection by Self-Testing
-   8.  Security Considerations
-     8.1.  Root of Trust Components
-     8.2.  Multiple Attesting Environments
-     8.3.  Invasive Accesses
-     8.4.  Measurement Soundness
-     8.5.  Threat Model
-       8.5.1.  Software Attacks
-       8.5.2.  Physical Attacks
-       8.5.3.  Supply Chain Attacks
-   9.  Privacy Considerations
-   10. IANA Considerations
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   7.  CDDL Definitions
+     7.1.  Measured Hardware Component Claim
+     7.2.  Inclusion in EAT Measurement Claim
+   8.  Practical Examples
+     8.1.  Monitoring Physical Properties
+     8.2.  Detection by Self-Testing
+   9.  Security Considerations
+     9.1.  Root of Trust Components
+     9.2.  Multiple Attesting Environments
+     9.3.  Invasive Accesses
+     9.4.  Measurement Soundness
+     9.5.  Threat Model
+       9.5.1.  Software Attacks
+       9.5.2.  Physical Attacks
+       9.5.3.  Supply Chain Attacks
+   10. Privacy Considerations
+   11. IANA Considerations
+   12. References
+     12.1.  Normative References
+     12.2.  Informative References
    Appendix A.  Collected CDDL
    Acknowledgments
    Authors' Addresses
@@ -308,7 +311,7 @@ Table of Contents
 
    Note: As shown in Figure 1, the Measurement Unit and target hardware
    component share the same die.  This may have an impact on the trust
-   model (see Section 8.5.3).
+   model (see Section 9.5.3).
 
 5.2.2.  External Measurement Unit
 
@@ -346,7 +349,7 @@ Table of Contents
    Measurement Unit.  Using a discret component implies the existence of
    physical communication channels between the AE, TE and Measurement
    Unit on which data such as measurement will transit.  This introduces
-   attack vectors.  Refer to Section 8.
+   attack vectors.  Refer to Section 9.
 
 5.2.2.2.  Integrated in Attesting Environment
 
@@ -629,6 +632,10 @@ Table of Contents
    | Component   | The name given to the target          | REQUIRED    |
    | Name        | hardware component.                   |             |
    +-------------+---------------------------------------+-------------+
+   | Operational | Additional information on the         | OPTIONAL    |
+   | Context     | operational context of the            |             |
+   |             | component.                            |             |
+   +-------------+---------------------------------------+-------------+
    | Measurement | List of measurements for the          | REQUIRED    |
    | List        | target hardware component.            |             |
    |             | Each element of the list is           |             |
@@ -640,72 +647,64 @@ Table of Contents
 
 6.3.1.4.1.1.  Component Name
 
-6.3.1.4.1.2.  Measurement List
+6.3.1.4.1.2.  Operational Context
 
-    +=============+=====================================+=============+
-    | Field Name  | Description                         | Requirement |
-    |             |                                     | Level       |
-    +=============+=====================================+=============+
-    | Measurement | Identifier for the Measurement Unit | REQUIRED    |
-    | Unit        | used to obtain the measurement      |             |
-    +-------------+-------------------------------------+-------------+
-    | Measurement | The type of the measurement.        | REQUIRED    |
-    | Type        |                                     |             |
-    +-------------+-------------------------------------+-------------+
-    | Measurement | The Value of the measurement.  The  | REQUIRED    |
-    | Value       | content of this field depends on    |             |
-    |             | the Measurement Type.               |             |
-    +-------------+-------------------------------------+-------------+
+   Additional information on the operational context of the component.
+   These can be used by the Verifier to appraise measurements.
 
-            Table 2: Content of Elements of the Measurement List
+   For instance, the measurement may be subject to variations depending
+   on environmental context such as temperature.  A measurement value
+   might acceptable when computed in extreme cold but not if computed at
+   room temperature.  The Verifier must therefore be aware of the
+   temperature surrounding the component to decide if the measurement
+   corresponds to good behavior or not.  The Verifier will therefore
+   base its appraisal on the environmental context reported in
+   Operational Context.
 
-6.3.1.4.2.  CDDL Definitions
+6.3.1.4.1.3.  Measurement List
 
-6.3.1.4.2.1.  Measured Hardware Component Claim
+   +=================+==================================+=============+
+   | Field Name      | Description                      | Requirement |
+   |                 |                                  | Level       |
+   +=================+==================================+=============+
+   | Measurement     | Identifier for the Measurement   | REQUIRED    |
+   | Unit Identifier | Unit used to obtain the          |             |
+   |                 | measurement                      |             |
+   +-----------------+----------------------------------+-------------+
+   | Measurement     | The type of the measurement.     | REQUIRED    |
+   | Type            |                                  |             |
+   +-----------------+----------------------------------+-------------+
+   | Measurement     | The Value of the measurement.    | REQUIRED    |
+   | Value           | The content of this field        |             |
+   |                 | depends on the Measurement Type. |             |
+   +-----------------+----------------------------------+-------------+
 
-    measured-hw-component = {
-         ; TODO
-         ; - identify the component
-         ; - type of measurement (BIST, KAT, physical property)
-         ; - measurement value (need to be able to hold
-         ; many types of measurements)
-         ; could also be a digest option for optimization
-      }
+           Table 2: Content of Elements of the Measurement List
 
-    measured-hw-component = {
-         component-id-label => component-id
-         measurement-list-label => [ + hw-measurement ]
-      }
+   *  Measurement Unit Identifier:
 
-   hw-measurement = {
-         measurement-unit-id => tstr
-         measurement-type        ;a choice
-         measurement-value-label ; depends of type
-      }
+   Identifier for the Measurement Unit used to compute the measurement.
 
-   measurement-value-label = {
-      ; structure that depends of type
-   }
+   For instance there may be multiple sensors used to measure a single
+   propertie of the target hadrware component. in that case, the
+   Measurement Unit Identifier allows to identify the Measurement Unit
+   that was used.
 
-            Figure 5: CDDL of Measured Hardware Component Claim
+   *  Measurement Type:
 
-6.3.1.4.2.2.  Inclusion in EAT Measurement Claim
+   Specifier for the type of the measurement.
 
-   The CDDL defined in Section 6.3.1.4.2.1 extends the $measurements-
-   body-cbor and $measurements-body-json EAT sockets to add support for
-   the measured-hw-component to the Measurements claim (Section 4.2.16
-   of [RFC9711]).
+   For example, the type can be used to specify if the measurement is
+   the result of a self-test or the sampling of a physical property.
 
-      mhwc-cbor = bytes .cbor measured-hw-component
-      mhhwc-json = text .json measured-hw-component
+   *  Measurement Value:
 
-      ; EAT CBOR (`.feature "cbor"`)
-      $measurements-body-cbor /= mhwc-cbor
+   The structure that holds the actual measurement.  The structure of
+   the Measurement Value depends on the Measurement Type.
 
-      ; EAT JSON (`.feature "json"`)
-      $measurements-body-json /= mhwc-json
-
-              Figure 6: CDDL Extension of EAT Measurement Body
+   TODO additional structures could be defined in a profile.  Simply,
+   the Measurement Value could be raw bytes that the Verifier would
+   understand (based on a profile).
 
 6.3.2.  X.509 Certificate
 
@@ -718,7 +717,60 @@ Table of Contents
    also use X.509 certificates with an attestion extension
    [I-D.fossati-tls-attestation].
 
-7.  Practical Examples
+7.  CDDL Definitions
+
+   This sections presents CDDL definitions for the Measured Hardware
+   Component claim to be included in EAT Measurement claim.
+
+7.1.  Measured Hardware Component Claim
+
+   measured-hw-component = {
+         component-id-label => component-id
+         ? operational-ctx-label => operational-ctx
+         measurement-list-label => [ + hw-measurement ]
+      }
+
+   operational-ctx = {
+      ; structure for operational context
+   }
+
+   hw-measurement = {
+         measurement-unit-id => tstr
+         measurement-type => measurement-type         ; a choice
+         measurement-value-label => measurement-value ; depends of type
+      }
+
+   measurement-type =
+      mt-self-test /
+      mt-phys-prop /
+      mt-other ; profile
+
+   measurement-value = ; structure that depends of type
+      mv-self-test /
+      mv-phys-prop /
+      mv-other ; profile
+
+            Figure 5: CDDL of Measured Hardware Component Claim
+
+7.2.  Inclusion in EAT Measurement Claim
+
+   The CDDL defined in Section 7.1 extends the $measurements-body-cbor
+   and $measurements-body-json EAT sockets to add support for the
+   measured-hw-component to the Measurements claim (Section 4.2.16 of
+   [RFC9711]).
+
+   mhwc-cbor = bytes .cbor measured-hw-component
+   mhhwc-json = text .json measured-hw-component
+
+   ; EAT CBOR (`.feature "cbor"`)
+   $measurements-body-cbor /= mhwc-cbor
+
+   ; EAT JSON (`.feature "json"`)
+   $measurements-body-json /= mhwc-json
+
+              Figure 6: CDDL Extension of EAT Measurement Body
+
+8.  Practical Examples
 
    This section is for informational purposes only.
 
@@ -729,7 +781,7 @@ Table of Contents
 
    Mapping to BIST, KAT, Sensors and Traces
 
-7.1.  Monitoring Physical Properties
+8.1.  Monitoring Physical Properties
 
    Usage of sensors External or Embedded ? Examples of existing
    technologies action of Endorser, RVP (compute refrence values,
@@ -744,14 +796,14 @@ Table of Contents
    on-board sensors (external components) -> external Measurement Unit
    PMIC
 
-7.2.  Detection by Self-Testing
+8.2.  Detection by Self-Testing
 
    Usage of BIST or KAT or tamper detection sensors (active mesh,
    digital sensor) External or Embedded ? Examples of existing
    technologies action of Endorser (type of test, its properties etc..,
    identifier, certif ?), RVP and Verifier
 
-8.  Security Considerations
+9.  Security Considerations
 
    The security considerations of RATS architecture apply (Section 12 of
    [RFC9334]).  This section also mentions protection against physical
@@ -769,7 +821,7 @@ Table of Contents
    The following subsections are mainly focused on security
    considerations regarding the Attester.
 
-8.1.  Root of Trust Components
+9.1.  Root of Trust Components
 
    Some components are essential for attestation (storage of attestation
    key, signature component, etc.), if these are tampered with, there is
@@ -781,29 +833,29 @@ Table of Contents
    critical for attestation (altough they can be critical for the
    security of the system itself !).
 
-8.2.  Multiple Attesting Environments
+9.2.  Multiple Attesting Environments
 
    In case of multiple Attesting Environments, distribution of freshness
    and binding of Evidence are discussed in
    [I-D.richardson-rats-composite-attesters].
 
-8.3.  Invasive Accesses
+9.3.  Invasive Accesses
 
    The Measurement Unit must not allow an attacker to access protected
    assets.  For instance, access to protected assets can happen when
    computing measurements by using internal debug mechanisms (e.g., TAP
    controllers).
 
-8.4.  Measurement Soundness
+9.4.  Measurement Soundness
 
    It is possible that some measurement mechanisms may not be fully
    deterministic or may fail on rare occurences or raise false
    positives.  These considerations must be taken into account and
    mitigated to a sufficient level by the designer.
 
-8.5.  Threat Model
+9.5.  Threat Model
 
-8.5.1.  Software Attacks
+9.5.1.  Software Attacks
 
    There exist software attacks that can have a direct impact on
    hardware components’ behavior.  These are ideally mitigated by good
@@ -816,13 +868,13 @@ Table of Contents
 
    Ex: Manipulation of priviledged power control interface.
 
-8.5.2.  Physical Attacks
+9.5.2.  Physical Attacks
 
    Physical attacks target the hardware of the system.  They imply
    physical access to the system during its mission mode or while it is
    in the supply chain.
 
-8.5.2.1.  Passive Attacks
+9.5.2.1.  Passive Attacks
 
    Passive physical attacks are used by attackers to leak information
    through analysis of system physical properties.  Passive attacks, by
@@ -837,7 +889,7 @@ Table of Contents
    Evidence, which can be used for impersonation and Evidence forgery.
    This is already tackled in Section 12.1.1 of [RFC9334].
 
-8.5.2.2.  Active Attacks
+9.5.2.2.  Active Attacks
 
    Active physical attacks are the main problem since they allow an
    attacker (or a “natural” physical event) to tamper with the integrity
@@ -862,7 +914,7 @@ Table of Contents
    etc.  Note that some of these mitigations cannot directly prevent
    attacks but can be used for detection.
 
-8.5.3.  Supply Chain Attacks
+9.5.3.  Supply Chain Attacks
 
    Each stage of the supply chain introduces a new opportunity for an
    attacker to tamper with the produced system.
@@ -877,7 +929,7 @@ Table of Contents
    part of the component itself, which means that it has been integrated
    by the foundry that introduced the Trojan, then it cannot be trusted.
 
-9.  Privacy Considerations
+10.  Privacy Considerations
 
    The privacy considerations of RATS architecture apply (Section 11 of
    [RFC9334]).
@@ -894,14 +946,14 @@ Table of Contents
    TODO In new claims, some fields may be dangerous for privacy.  Some
    fields may enable tracking.
 
-10.  IANA Considerations
+11.  IANA Considerations
 
    This document has no IANA actions.  TODO need IANA actions for claims
    defined in this document ?
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -917,7 +969,7 @@ Table of Contents
               Architecture", RFC 9334, DOI 10.17487/RFC9334, January
               2023, <https://www.rfc-editor.org/rfc/rfc9334>.
 
-11.2.  Informative References
+12.2.  Informative References
 
    [I-D.fossati-tls-attestation]
               Tschofenig, H., Sheffer, Y., Howard, P., Mihalcea, I.,
@@ -972,23 +1024,29 @@ Appendix A.  Collected CDDL
    This appendix contains all the CDDL definitions included in this
    document.
 
-      mhwc-cbor = bytes .cbor measured-hw-component
-      mhhwc-json = text .json measured-hw-component
+   mhwc-cbor = bytes .cbor measured-hw-component
+   mhhwc-json = text .json measured-hw-component
 
-      ; EAT CBOR (`.feature "cbor"`)
-      $measurements-body-cbor /= mhwc-cbor
+   ; EAT CBOR (`.feature "cbor"`)
+   $measurements-body-cbor /= mhwc-cbor
 
-      ; EAT JSON (`.feature "json"`)
-      $measurements-body-json /= mhwc-json
+   ; EAT JSON (`.feature "json"`)
+   $measurements-body-json /= mhwc-json
 
-      measured-hw-component = {
-         ; TODO
-         ; - identify the component
-         ; - type of measurement (BIST, KAT, physical property)
-         ; - measurement value (need to be able to hold
-         ; many types of measurements)
-         ; could also be a digest option for optimization
+   measured-hw-component = {
+         component-id-label => component-id
+         measurement-list-label => [ + hw-measurement ]
       }
+
+   hw-measurement = {
+         measurement-unit-id => tstr
+         measurement-type        ;a choice
+         measurement-value-label ; depends of type
+      }
+
+   measurement-value-label = {
+      ; structure that depends of type
+   }
 
 Acknowledgments
 

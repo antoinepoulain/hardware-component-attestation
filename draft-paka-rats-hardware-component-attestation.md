@@ -338,30 +338,63 @@ The information elements (IEs) that constitute a "measured hardware component" a
 | IE | Description | Requirement Level |
 |----|-------------|-------------------|
 | Component Name | The name given to the target hardware component. | REQUIRED |
+| Operational Context | Additional information on the operational context of the component. | OPTIONAL |
 | Measurement List| List of measurements for the target hardware component. Each element of the list is composed of a Measurement Type and of a Measurement Value. | REQUIRED |
 {: #tab-mhwc-info-elems title="Measured Hardware Component Information Elements"}
 
 ###### Component Name
 
+###### Operational Context
+
+Additional information on the operational context of the component. These can be used by the Verifier to appraise measurements.
+
+For instance, the measurement may be subject to variations depending on environmental context such as temperature. A measurement value might acceptable when computed in extreme cold but not if computed at room temperature. The Verifier must therefore be aware of the temperature surrounding the component to decide if the measurement corresponds to good behavior or not. The Verifier will therefore base its appraisal on the environmental context reported in Operational Context.
+
 ###### Measurement List
 
 | Field Name | Description | Requirement Level |
 |------------|-------------|-------------------|
-| Measurement Unit | Identifier for the Measurement Unit used to obtain the measurement | REQUIRED |
+| Measurement Unit Identifier | Identifier for the Measurement Unit used to obtain the measurement | REQUIRED |
 | Measurement Type | The type of the measurement. | REQUIRED |
 | Measurement Value | The Value of the measurement. The content of this field depends on the Measurement Type. | REQUIRED |
 {: #tab-meas-list-elem-fields title="Content of Elements of the Measurement List"}
 
-##### CDDL Definitions
+* Measurement Unit Identifier:
 
-###### Measured Hardware Component Claim {#meas-hw-comp-claim}
+Identifier for the Measurement Unit used to compute the measurement.
+
+For instance there may be multiple sensors used to measure a single propertie of the target hadrware component. in that case, the Measurement Unit Identifier allows to identify the Measurement Unit that was used.
+
+* Measurement Type:
+
+Specifier for the type of the measurement.
+
+For example, the type can be used to specify if the measurement is the result of a self-test or the sampling of a physical property.
+
+* Measurement Value:
+
+The structure that holds the actual measurement. The structure of the Measurement Value depends on the Measurement Type.
+
+TODO additional structures could be defined in a profile. Simply, the Measurement Value could be raw bytes that the Verifier would understand (based on a profile).
+
+### X.509 Certificate
+
+{{Appendix C.3 of RFC9711}} describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in {{eat-claims}}.
+
+Ex: DICE uses X.509 certificates with a custom extension to carry Evidence {{TCG-DICE}}. TLS and DTLS extended with remote attestation also use X.509 certificates with an attestion extension {{-attested-tls}}.
+
+# CDDL Definitions
+
+This sections presents CDDL definitions for the Measured Hardware Component claim to be included in EAT Measurement claim.
+
+## Measured Hardware Component Claim {#meas-hw-comp-claim}
 
 ~~~ cddl
 {::include cddl/meas-hw-comp.cddl}
 ~~~
 {: #meas_hw_comp title="CDDL of Measured Hardware Component Claim"}
 
-###### Inclusion in EAT Measurement Claim
+## Inclusion in EAT Measurement Claim
 
 The CDDL defined in {{meas-hw-comp-claim}} extends the $measurements-body-cbor and $measurements-body-json EAT sockets to add support for the measured-hw-component to the Measurements claim ({{Section 4.2.16 of RFC9711}}).
 
@@ -369,12 +402,6 @@ The CDDL defined in {{meas-hw-comp-claim}} extends the $measurements-body-cbor a
 {::include cddl/mhwc-claims.cddl}
 ~~~
 {: #mhwc_claims title="CDDL Extension of EAT Measurement Body"}
-
-### X.509 Certificate
-
-{{Appendix C.3 of RFC9711}} describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in {{eat-claims}}.
-
-Ex: DICE uses X.509 certificates with a custom extension to carry Evidence {{TCG-DICE}}. TLS and DTLS extended with remote attestation also use X.509 certificates with an attestion extension {{-attested-tls}}.
 
 # Practical Examples
 

@@ -1,24 +1,26 @@
- measured-hw-component = {
-      ; TODO
-      ; - identify the component
-      ; - type of measurement (BIST, KAT, physical property)
-      ; - measurement value (need to be able to hold
-      ; many types of measurements)
-      ; could also be a digest option for optimization
-   }
-
- measured-hw-component = {
+measured-hw-component = {
       component-id-label => component-id
+      ? operational-ctx-label => operational-ctx
       measurement-list-label => [ + hw-measurement ]
    }
 
+operational-ctx = {
+   ; structure for operational context
+}
+
 hw-measurement = {
       measurement-unit-id => tstr
-      measurement-type        ;a choice
-      measurement-value-label ; depends of type
+      measurement-type => measurement-type         ; a choice
+      measurement-value-label => measurement-value ; depends of type
    }
 
-measurement-value-label = {
-   ; structure that depends of type
-}
+measurement-type =
+   mt-self-test /
+   mt-phys-prop /
+   mt-other ; profile
+
+measurement-value = ; structure that depends of type
+   mv-self-test /
+   mv-phys-prop /
+   mv-other ; profile
 

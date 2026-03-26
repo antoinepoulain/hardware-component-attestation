@@ -1,17 +1,24 @@
-   mhwc-cbor = bytes .cbor measured-hw-component
-   mhhwc-json = text .json measured-hw-component
+mhwc-cbor = bytes .cbor measured-hw-component
+mhhwc-json = text .json measured-hw-component
 
-   ; EAT CBOR (`.feature "cbor"`)
-   $measurements-body-cbor /= mhwc-cbor
+; EAT CBOR (`.feature "cbor"`)
+$measurements-body-cbor /= mhwc-cbor
 
-   ; EAT JSON (`.feature "json"`)
-   $measurements-body-json /= mhwc-json 
-   
-   measured-hw-component = {
-      ; TODO
-      ; - identify the component
-      ; - type of measurement (BIST, KAT, physical property)
-      ; - measurement value (need to be able to hold
-      ; many types of measurements)
-      ; could also be a digest option for optimization
+; EAT JSON (`.feature "json"`)
+$measurements-body-json /= mhwc-json
+
+measured-hw-component = {
+      component-id-label => component-id
+      measurement-list-label => [ + hw-measurement ]
    }
+
+hw-measurement = {
+      measurement-unit-id => tstr
+      measurement-type        ;a choice
+      measurement-value-label ; depends of type
+   }
+
+measurement-value-label = {
+   ; structure that depends of type
+}
+
