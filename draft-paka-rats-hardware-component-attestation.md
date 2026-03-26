@@ -67,6 +67,13 @@ informative:
     author:
        org: "Trusted Computing Group"
 
+  NIST-SP-800-90B:
+    target: "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/nist.sp.800-90b.pdf"
+    title: "Recommendation for the Entropy Sources Used for Random Bit Generation"
+    date: 2018-01
+    author:
+       org: "National Institute of Standards and Technology"
+
 ...
 
 --- abstract
@@ -164,7 +171,7 @@ The following subsections present possible layouts for integrating a Measurement
 TODO add MU in AE
 TODO the measurement unit is in Attesting Environment ?
 
-### Embedded Measurement Unit
+### Embedded Measurement Unit {#embedded-mu}
 
 In this integration model, the Measurement Unit is part of the target hardware component. The separation between Measurement Unit (part of the Attesting Environment) and the Target Environment is only logical. The target hardware component and the Measurement Unit are part of the same die. Due to the proximity between the Measurement Unit and the target hardware component, the Data Exchange channel is not represented.
 
@@ -175,13 +182,13 @@ In this integration model, the Measurement Unit is part of the target hardware c
 
 Ex: Different types of BIST, KAT
 
-Note: As shown in {{embed_meas_unit}}, the Measurement Unit and target hardware component share the same die. This may have an impact on the trust model (see {{supply-chain-attacks}}).
+Note: As shown in {{embed_meas_unit}}, the Measurement Unit and target hardware component share the same die. Therefore, they are in the same physical security perimeter. This may have an impact on the trust model (see {{supply-chain-attacks}}).
 
 ### External Measurement Unit
 
 In the following integration models, the Measurement Unit is external to the target hardware component.
 
-#### Discrete Component
+#### Discrete Component {#discrete-mu}
 
 The Measurement Unit is a discrete component external to the target hardware component and to the Attesting Environment.
 
@@ -195,7 +202,7 @@ Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Base
 In this integration model, the target hardware component and Measurement Unit can come from different sources (e.g., foundries). That can be leveraged to draw trust boundaries between the AE, TE and Measurement Unit.
 Using a discret component implies the existence of physical communication channels between the AE, TE and Measurement Unit on which data such as measurement will transit. This introduces attack vectors. Refer to {{seccons}}.
 
-#### Integrated in Attesting Environment
+#### Integrated in Attesting Environment {#integrated-mu}
 
 The Measurement Unit is physically integrated in the Attesting Environment. It can take the form of hardware circuitry or be a software component. As the Measurement Unit is integrated in the Attesting Environment, the Trigger and Export interfaces are not represented in {{integrated_meas_unit}}.
 
@@ -309,7 +316,7 @@ It is possible for some measurements to be represented in an already existing EA
 
 For instance, a custom measurement structure can be used to hold hardware component measurement in the "measurement" field of the "measured-component" structure from {{-eat-mc}}. Also, the flag field can be used to extend the measured-component base type with profile-defined semantics.
 
-#### Using EAT Measurement Result Claim
+#### Using EAT Measurement Result Claim {#measres}
 
 It is possible for some measurements to be represented in an already existing EAT Measurement Result. The EAT Measurement Result is defined in {{Section 4.2.17 of RFC9711}}.
 
@@ -319,9 +326,9 @@ This claim could be well-suited for measurements with on-device comparisons with
 
 TODO it seems EAT Submodule can be used to embed hardware components claims (maybe only more complete subsystems not simple hardware components). Research if it could be extended to include measurements. Especially relevant if the submodule does not have its own Attesting Environment ({{Section 4.2.18 of RFC9711}}).
 
-#### Using Hardware Component Claims
+#### Using Measured Hardware Component Claims {#mhwc}
 
-This section proposes a new claim, the "measured hardware component", to represent what is described in this document. This claim is presented in case the already existing claims mentioned above are not sufficent to correctly report measurements of hardware components.
+This section proposes a new claim, the "Measured Hardware Component", to represent what is described in this document. This claim is presented in case the already existing claims mentioned above are not sufficent to correctly report measurements of hardware components.
 
 The "measured hardware component" claim is inspired from the "measured component" claim introduced in {{-eat-mc}}.
 
@@ -457,14 +464,102 @@ light, EM, voltage sensors
 
 on-board sensors (external components)
 -> external Measurement Unit
-PMIC
+
+### Using a Discrete Component Sensor
+
+In this scenario, the Measurement Unit is implemented as a discrete external sensor, such as a temperature sensor or a Power Monitoring Integrated Circuit (PMIC). The Target Environment is the hardware component under observation, for example a CPU. This corresponds to the integration model described in {{discrete-mu}}.
+
+The Measurement Unit observes physical properties of the Target Environment through a physical coupling, such as thermal conduction or electrical interaction (which in the model, corresponds to the Data Exchange channel), and exports digitized measurements to the Attesting Environment through the Export interface.
+
+The Attesting Environment collects these measurements and includes them in Evidence, along with, if possible, contextual information describing the operational conditions under which the measurements were obtained.
+
+In this model, the Measurement Unit is external to the Target Environment and may originate from a different manufacturer. As a result, the trustworthiness of the measurements depends on the integrity and characteristics of the sensor, which can be established through Endorsements describing its properties such as precision, calibration, and operating conditions (refer to {{endorsements}}).
+
+During appraisal, the Verifier evaluates the measurements against Reference Values that may depend on the operational context. These Reference Values may be expressed as fixed ranges, condition-dependent functions, or behavioral models. The Verifier could use advanced models, including statistical or machine learning-based approaches, to detect anomalies (but such models owuld be part of the Appraisal Policy for Evidence and are not encoded in Evidence).
+
+Note: compared to embedded Measurement Units, this model introduces additional attack surfaces, including sensor spoofing, manipulation of communication channels, and environmental interference. These risks must be considered in the system design and threat model (see {{seccons}}).
+
+### Using an Embedded Sensor
+
+In this scenario, the Measurement Unit is implemented as an on-die sensor integrated within the target hardware component. This corresponds to the embedded Measurement Unit model described {{embedded-mu}}.
+
+The Measurement Unit observes physical properties of the Target Environment, such as temperature, voltage, or timing behavior, through direct internal coupling. Measurements are computed and made available to the Attesting Environment through internal interfaces, such as memory-mapped registers, without traversing external communication channels.
+
+The Attesting Environment collects these measurements and includes them in Evidence, optionally along with operational context information to support appraisal.
+
+As the Measurement Unit is physically integrated within the Target Environment, both share the same trust domain and physical security perimeter. The integrity of the Measurement Unit is typically established through Endorsements rather than through runtime measurement.
+
+During appraisal, the Verifier evaluates the measurements against Reference Values that may depend on the operational context. As with other physical measurements, these Reference Values may be expressed as ranges, condition-dependent functions, or behavioral models.
+
+Note: Compared to external sensors, this model reduces the attack surface by eliminating external communication channels and increasing the binding between the measurement and the component. However, it also reduces independence, as both the Target Environment and the Measurement Unit may be affected by the same faults or compromises. For instance, refer to {{supply-chain-attacks}}.
 
 ## Detection by Self-Testing
 
+This section provides practical examples that demonstrate how self-tests can be leveraged to measure a hardware component.
+
+TODO
 Usage of BIST or KAT or tamper detection sensors (active mesh, digital sensor)
 External or Embedded ?
 Examples of existing technologies
 action of Endorser (type of test, its properties etc.., identifier, certif ?), RVP and Verifier
+
+### Using Built-In-Self-Tests (BIST)
+
+In this scenario, the Measurement Unit is implemented as Built-In Self-Test (BIST) circuitry integrated within the Target Environment, for example within a memory subsystem or a cryptographic accelerator. This corresponding to the embedded Measurement Unit integration model described in {{embedded-mu}}.
+
+The BIST logic executes predefined test patterns and compares the observed behavior of the component against expected results, producing a pass/fail outcome or a diagnostic signature. These tests may be executed at boot time or periodically during runtime.
+
+The Attesting Environment collects the BIST results and includes them in Evidence as measurements associated with the corresponding target hardware component structured according to a Measurement Result or a Measured Hardware Component claim defined respectively in {{measres}} and {{mhwc}}.
+
+During appraisal, the Verifier compares the reported test results against Reference Values, typically expecting a successful outcome. Unlike measurements of physical properties, BIST results are deterministic and do not require contextual interpretation. In such case, the operational context is not used.
+
+Note: This model provides strong assurance of functional correctness of the target hardware component and complements physical measurements by detecting faults that may not be observable through sensors.
+
+### TRNG Entropy Evaluation by an Embedded Measurement Unit
+
+In this scenario, the Target Environment is the TRNG hardware component, whose entropy source constitutes the subject of the measurement. The Measurement Unit is implemented as on-die hardware logic tightly coupled to the TRNG, corresponding to the embedded Measurement Unit integration model described in {{embedded-mu}}.
+
+The Measurement Unit continuously or periodically evaluates the entropy source by executing health tests and entropy estimators (Section 4 of {{NIST-SP-800-90B}}). Measurements are obtained through a Data Exchange channel, without traversing any software-accessible bus, and are exported directly to the Attesting Environment via the Export interface.
+
+The Attesting Environment is the system ROM, which collects the measurement outputs and embeds them into Evidence (EAT, X.509 certificate). The Evidence includes multiple measurements for the TRNG component, such as health test results and minimum entropy values, structured according to the Measurement Result or Measured Hardware Component claim defined respectively in {{measres}} and {{mhwc}}.
+
+During appraisal, the Verifier validates the signature using the manufacturer’s endorsement chain, then evaluates the measurements against Reference Values. Health test results are expected to indicate a passing state, and entropy values are compared against policy-defined thresholds.
+
+Note: In this integration model, the Measurement Unit and Target Environment share the same physical security perimeter. As a result, the integrity of the Measurement Unit is not independently verified at runtime but is instead covered by manufacturer endorsements.
+
+### TRNG Entropy Evaluation by a Software Measurement Unit
+
+In this scenario, the Target Environment is the TRNG, while the Measurement Unit is implemented as a software component executing within the Attesting Environment. This corresponds to the integration model described in {{integrated-mu}}.
+
+The Measurement Unit obtains raw samples from the TRNG via a software interface and computes entropy-related measurements. As the Measurement Unit operates in software, its integrity must be established before its output can be trusted. This falls in the category of classical software measurements already specified by RATS documents.
+
+The Evidence includes the entropy measurements produced by the software Measurement Unit.
+
+During appraisal, the Verifier first evaluates the integrity of the Measurement Unit by comparing the reported digest against reference values obtained from a CoRIM. Only if the Measurement Unit is recognized as intact does the Verifier proceed to evaluate the entropy measurements.
+
+This model introduces a dependency between the trustworthiness of the Measurement Unit and the validity of the measurements it produces. This dependency is always present but the trustworthiness of the MU is not always quantifiable (e.g., the MU cannot be measured), see {{rot-comp}}.
+
+### TRNG Entropy Cross-Validation by Dual Measurement Units
+
+This scenario is a mix of the two previous ones. The Target Environment is the TRNG, while two Measurement Units operate concurrently: a hardware Measurement Unit embedded in the component and a software Measurement Unit integrated within the Attesting Environment. This corresponds to a combination of the integration models described in {{embedded-mu}} and {{integrated-mu}}.
+
+Each Measurement Unit independently computes entropy-related measurements based on the same underlying noise source. The Attesting Environment collects both sets of measurements, associates them with their respective Measurement Unit identifiers, and aggregates them into a single Evidence structure.
+
+This model enables cross-validation of measurements and allows the detection of silent failures affecting either one of the Measurement Units. A significant divergence between the two measurements may indicate faults, degradation, or inconsistencies in the measurement process, even when individual measurements satisfy their respective thresholds.
+
+The Evidence, in this case, contains multiple measurements for the same target hardware component, originating from distinct Measurement Units.
+
+## Detection of Active Tampering  
+
+In this generic scenario, the Measurement Unit consists of tamper detection circuitry, such as an active mesh, voltage glitch detector, or light sensor, integrated within the hardware component.
+
+These mechanisms do not produce measurements of physical properties but instead generate event-driven signals indicating potential tampering or fault conditions. Such signals may be triggered by physical intrusion, abnormal voltage or clock conditions, or environmental disturbances.
+
+The Attesting Environment collects the status of these detectors and includes them in Evidence as security-relevant events or status indicators.
+
+During appraisal, the Verifier interprets these signals according to a Appraisal Policy, typically treating any indication of tampering as a critical failure condition. Unlike other measurements, the absence of an alert does not guarantee the absence of an attack, but the presence of an alert provides strong evidence of compromise.
+
+These mechanisms complement other measurement types by providing direct detection of active physical attacks and environmental anomalies.
 
 # Security Considerations {#seccons}
 
@@ -476,9 +571,9 @@ TODO security considerations of CoRIM when using CORIM ?
 
 The following subsections are mainly focused on security considerations regarding the Attester.
 
-## Root of Trust Components
+## Root of Trust Components {#rot-comp}
 
-Some components are essential for attestation (storage of attestation key, signature component, etc.), if these are tampered with, there is no way to build trustworthy Evidence. These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.
+Some components are essential for attestation (storage of attestation key, hardware Measurement Unit, etc.), if these are tampered with, there is no way to build trustworthy Evidence. These are considered the Root of Trust (RoT) for attestation because their correct functioning cannot be proved through attestation.
 
 These are to be put in contrast with other components that are not critical for attestation (altough they can be critical for the security of the system itself !).
 
@@ -489,10 +584,6 @@ In case of multiple Attesting Environments, distribution of freshness and bindin
 ## Invasive Accesses
 
 The Measurement Unit must not allow an attacker to access protected assets. For instance, access to protected assets can happen when computing measurements by using internal debug mechanisms (e.g., TAP controllers).
-
-## Measurement Soundness
-
-It is possible that some measurement mechanisms may not be fully deterministic or may fail on rare occurences or raise false positives. These considerations must be taken into account and mitigated to a sufficient level by the designer.
 
 ## Threat Model
 
@@ -545,6 +636,14 @@ TODO privacy considerations of CoRIM when using CORIM ?
 TODO for reused claims privacy considerations are probably specified in other documents so refer to them
 
 TODO In new claims, some fields may be dangerous for privacy. Some fields may enable tracking.
+
+# Operational Considerations
+
+It is possible that some measurement mechanisms may not be fully deterministic or may fail on rare occurences or raise false positives.
+
+It is also possible that aging or environmental context affect sensors.
+
+These considerations must be taken into account and mitigated to an acceptable level by the designer.
 
 # IANA Considerations
 
