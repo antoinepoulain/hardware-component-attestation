@@ -304,16 +304,16 @@ Table of Contents
    Unit and the target hardware component, the Data Exchange channel is
    not represented.
 
-                                 +-------------------------+
-   +-------------+    Trigger    |    +---------------+    |
-   |             |  Measurement  |    |               |    |
-   |             +--------------->    |   Target HW   |    |
-   |  Attesting  |               |    |   Component   |    |
-   | Environment |               |    |      (TE)     |    |
-   |             |               |    +---------------+    |
-   |             <---------------+     Measurement Unit    |
-   +-------------+    Export     |           (AE)          |
-                    Measurement  +-------------------------+
+                                       +-------------------------+
+         +-------------+    Trigger    |    +---------------+    |
+         |             |  Measurement  |    |               |    |
+         |             +--------------->    |   Target HW   |    |
+         |  Attesting  |               |    |   Component   |    |
+         | Environment |               |    |      (TE)     |    |
+         |             |               |    +---------------+    |
+         |             <---------------+     Measurement Unit    |
+         +-------------+    Export     |           (AE)          |
+                          Measurement  +-------------------------+
 
        Figure 1: Abstract Representation of Embedded Measurement Unit
 
@@ -349,7 +349,7 @@ Table of Contents
    +-------------+                  |      (TE)     |
                                     +---------------+
 
-       Figure 2: Abstract Representation of Discrete Measurement Unit
+                                  Figure 2
 
    Ex: Sensors added on top of hardware component, Power Management IC
    (PMIC), Baseboard Management Controller (BMC)
@@ -381,8 +381,7 @@ Table of Contents
    |                   |          +---------------+
    +-------------------+
 
-      Figure 3: Abstract Representation of Measurement Unit Integrated
-                                   in AE
+                                  Figure 3
 
    Ex: Software logic (e.g., FIPS KAT)
 
@@ -522,7 +521,7 @@ Table of Contents
    |                         |
    +-------------------------+
 
-                       Figure 4: Measurement Journey
+                                  Figure 4
 
 6.  Inclusion in Conceptual Messages
 

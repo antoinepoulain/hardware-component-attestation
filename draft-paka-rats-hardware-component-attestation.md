@@ -192,10 +192,10 @@ In the following integration models, the Measurement Unit is external to the tar
 
 The Measurement Unit is a discrete component external to the target hardware component and to the Attesting Environment.
 
-<!-- ~~~~ aasvg
+~~~~ aasvg
 {::include diagrams/discrete-measurement-unit.asciio}
-~~~~ -->
-<!-- {: #discrete_meas_unit title="Abstract Representation of Discrete Measurement Unit"} -->
+~~~~
+{: #discrete_meas_unit}
 <!-- {: #discrete_meas_unit artwork-align="center" title="Abstract Representation of Discrete Measurement Unit"} -->
 
 Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC)
@@ -207,10 +207,10 @@ Using a discret component implies the existence of physical communication channe
 
 The Measurement Unit is physically integrated in the Attesting Environment. It can take the form of hardware circuitry or be a software component. As the Measurement Unit is integrated in the Attesting Environment, the Trigger and Export interfaces are not represented in {{integrated_meas_unit}}.
 
-<!-- ~~~~ aasvg
+~~~~ aasvg
 {::include diagrams/external-integrated-measurement-unit.asciio}
 ~~~~
-{: #integrated_meas_unit title="Abstract Representation of Measurement Unit Integrated in AE"} -->
+{: #integrated_meas_unit}
 <!-- {: #integrated_meas_unit artwork-align="center" title="Abstract Representation of Measurement Unit Integrated in AE"} -->
 
 Ex: Software logic (e.g., FIPS KAT)
@@ -278,10 +278,10 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event 
 
 {{meas_journey}} represents the steps of the measurement journey described above.
 
-<!-- ~~~~ aasvg
+~~~~ aasvg
 {::include diagrams/measurement-journey.asciio}
-~~~~ -->
-<!-- {: #meas_journey title="Measurement Journey"} -->
+~~~~
+{: #meas_journey}
 <!-- {: #meas_journey artwork-align="center" title="Measurement Journey"} -->
 
 # Inclusion in Conceptual Messages {#conceptual-messages}
