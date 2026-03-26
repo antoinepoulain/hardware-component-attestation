@@ -89,6 +89,8 @@ Table of Contents
        6.3.2.  X.509 Certificate
    7.  CDDL Definitions
      7.1.  Measured Hardware Component Claim
+       7.1.1.  Measurement Value: Self-Test
+       7.1.2.  Measurement Valut: Physical Property
      7.2.  Inclusion in EAT Measurement Claim
    8.  Practical Examples
      8.1.  Monitoring Physical Properties
@@ -652,14 +654,33 @@ Table of Contents
    Additional information on the operational context of the component.
    These can be used by the Verifier to appraise measurements.
 
-   For instance, the measurement may be subject to variations depending
-   on environmental context such as temperature.  A measurement value
-   might acceptable when computed in extreme cold but not if computed at
-   room temperature.  The Verifier must therefore be aware of the
-   temperature surrounding the component to decide if the measurement
-   corresponds to good behavior or not.  The Verifier will therefore
-   base its appraisal on the environmental context reported in
-   Operational Context.
+   By being placed at this level of the Measured Hardware Component
+   claim, the operational context is shared by every measurement of the
+   target hardware component.  It is important that the operational
+   context sampled corresponds to the actual operational context at the
+   time of measurement computations (i.e., sampling of the operational
+   context and computation of the measurements must be executed
+   simultaneously (approximately).  Otherwise, TOCTOU attcks would be
+   possible).
+
+             +============+=============+===================+
+             | Field Name | Description | Requirement Level |
+             +============+=============+===================+
+             +------------+-------------+-------------------+
+
+                Table 2: Fields of the Operational Context
+
+   Use case example: the measurement may be subject to variations
+   depending on environmental context such as temperature.  A
+   measurement value might acceptable when computed in a context of
+   extreme cold but not if computed at room temperature.  The Verifier
+   must therefore be aware of the temperature surrounding the component
+   to decide if the measurement corresponds to good behavior or not.
+   The Verifier will therefore base its appraisal on the environmental
+   context reported in Operational Context.
+
+   Note: The content of the operational context is sensitive and must
+   have the same level of protection as the measurements.
 
 6.3.1.4.1.3.  Measurement List
 
@@ -679,7 +700,7 @@ Table of Contents
    |                 | depends on the Measurement Type. |             |
    +-----------------+----------------------------------+-------------+
 
-           Table 2: Content of Elements of the Measurement List
+           Table 3: Content of Elements of the Measurement List
 
    *  Measurement Unit Identifier:
 
@@ -752,6 +773,28 @@ Table of Contents
 
             Figure 5: CDDL of Measured Hardware Component Claim
 
+7.1.1.  Measurement Value: Self-Test
+
+   CDDL defintion of the structure of measurement-value when
+   measurement-type = mt-self-test.
+
+   mv-self-test = {
+      ; Measurement Value structure for selftests
+   }
+
+               Figure 6: CDDL of Self-Test Measurement Value
+
+7.1.2.  Measurement Valut: Physical Property
+
+   CDDL defintion of the structure of measurement-value when
+   measurement-type = mt-phys-prop.
+
+   mv-phys-prop = {
+      ; Measurement Value structure for physical properties
+   }
+
+           Figure 7: CDDL of Physical Property Measurement Value
+
 7.2.  Inclusion in EAT Measurement Claim
 
    The CDDL defined in Section 7.1 extends the $measurements-body-cbor
@@ -768,7 +811,7 @@ Table of Contents
    ; EAT JSON (`.feature "json"`)
    $measurements-body-json /= mhwc-json
 
-              Figure 6: CDDL Extension of EAT Measurement Body
+              Figure 8: CDDL Extension of EAT Measurement Body
 
 8.  Practical Examples
 

@@ -348,7 +348,16 @@ The information elements (IEs) that constitute a "measured hardware component" a
 
 Additional information on the operational context of the component. These can be used by the Verifier to appraise measurements.
 
-For instance, the measurement may be subject to variations depending on environmental context such as temperature. A measurement value might acceptable when computed in extreme cold but not if computed at room temperature. The Verifier must therefore be aware of the temperature surrounding the component to decide if the measurement corresponds to good behavior or not. The Verifier will therefore base its appraisal on the environmental context reported in Operational Context.
+By being placed at this level of the Measured Hardware Component claim, the operational context is shared by every measurement of the target hardware component. It is important that the operational context sampled corresponds to the actual operational context at the time of measurement computations (i.e., sampling of the operational context and computation of the measurements must be executed simultaneously (approximately). Otherwise, TOCTOU attcks would be possible).
+
+| Field Name | Description | Requirement Level |
+|------------|-------------|-------------------|
+| | | |
+{: #tab-op-ctx-fields title="Fields of the Operational Context"}
+
+Use case example: the measurement may be subject to variations depending on environmental context such as temperature. A measurement value might acceptable when computed in a context of extreme cold but not if computed at room temperature. The Verifier must therefore be aware of the temperature surrounding the component to decide if the measurement corresponds to good behavior or not. The Verifier will therefore base its appraisal on the environmental context reported in Operational Context.
+
+Note: The content of the operational context is sensitive and must have the same level of protection as the measurements.
 
 ###### Measurement List
 
@@ -393,6 +402,24 @@ This sections presents CDDL definitions for the Measured Hardware Component clai
 {::include cddl/meas-hw-comp.cddl}
 ~~~
 {: #meas_hw_comp title="CDDL of Measured Hardware Component Claim"}
+
+### Measurement Value: Self-Test
+
+CDDL defintion of the structure of measurement-value when measurement-type = mt-self-test.
+
+~~~ cddl
+{::include cddl/mv-self-test.cddl}
+~~~
+{: #mv_self_test title="CDDL of Self-Test Measurement Value"}
+
+### Measurement Valut: Physical Property
+
+CDDL defintion of the structure of measurement-value when measurement-type = mt-phys-prop.
+
+~~~ cddl
+{::include cddl/mv-phys-prop.cddl}
+~~~
+{: #mv_phys_prop title="CDDL of Physical Property Measurement Value"}
 
 ## Inclusion in EAT Measurement Claim
 
