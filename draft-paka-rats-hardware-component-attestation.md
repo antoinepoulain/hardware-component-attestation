@@ -178,8 +178,7 @@ In this integration model, the Measurement Unit is part of the target hardware c
 ~~~~ aasbbvg
 {::include diagrams/embed-measurement-unit.asciio}
 ~~~~
-{: #embed_meas_unit title="Abstract Representation of Embedded Measurement Unit"}
-<!-- {: #embed_meas_unit artwork-align="center" title="Abstract Representation of Embedded Measurement Unit"} -->
+{: #embed_meas_unit artwork-align="center" title="Abstract Representation of Embedded Measurement Unit"}
 
 Ex: Different types of BIST, KAT
 
@@ -193,10 +192,10 @@ In the following integration models, the Measurement Unit is external to the tar
 
 The Measurement Unit is a discrete component external to the target hardware component and to the Attesting Environment.
 
-~~~~ aasvg
+<!-- ~~~~ aasvg
 {::include diagrams/discrete-measurement-unit.asciio}
-~~~~
-{: #discrete_meas_unit title="Abstract Representation of Discrete Measurement Unit"}
+~~~~ -->
+<!-- {: #discrete_meas_unit title="Abstract Representation of Discrete Measurement Unit"} -->
 <!-- {: #discrete_meas_unit artwork-align="center" title="Abstract Representation of Discrete Measurement Unit"} -->
 
 Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC)
@@ -208,10 +207,10 @@ Using a discret component implies the existence of physical communication channe
 
 The Measurement Unit is physically integrated in the Attesting Environment. It can take the form of hardware circuitry or be a software component. As the Measurement Unit is integrated in the Attesting Environment, the Trigger and Export interfaces are not represented in {{integrated_meas_unit}}.
 
-~~~~ aasvg
+<!-- ~~~~ aasvg
 {::include diagrams/external-integrated-measurement-unit.asciio}
 ~~~~
-{: #integrated_meas_unit title="Abstract Representation of Measurement Unit Integrated in AE"}
+{: #integrated_meas_unit title="Abstract Representation of Measurement Unit Integrated in AE"} -->
 <!-- {: #integrated_meas_unit artwork-align="center" title="Abstract Representation of Measurement Unit Integrated in AE"} -->
 
 Ex: Software logic (e.g., FIPS KAT)
@@ -224,7 +223,7 @@ A single Attesting Environment can be responsible for one or more target hardwar
 
 In addition to that, there may be multiple Attesting Environments. That case is discussed in {{-composite-attest}}.
 
-Of course, both embedded and external Measurement Units can be found in the same system and possibly, a combination of embedded and external can be used to measure a single Target Envrionment.
+Of course, both embedded and external Measurement Units can be found in the same system and possibly, a combination of embedded and external can be used to measure a single Target Envrionment (see the practical example in {{ex-dual-mu}}).
 TODO this implies that a TE can have multiple measurement fields in claim and reference values (already supported in RATS standar data models ?)
 
 ## Measurement Journey
@@ -279,10 +278,10 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event 
 
 {{meas_journey}} represents the steps of the measurement journey described above.
 
-~~~~ aasvg
+<!-- ~~~~ aasvg
 {::include diagrams/measurement-journey.asciio}
-~~~~
-{: #meas_journey title="Measurement Journey"}
+~~~~ -->
+<!-- {: #meas_journey title="Measurement Journey"} -->
 <!-- {: #meas_journey artwork-align="center" title="Measurement Journey"} -->
 
 # Inclusion in Conceptual Messages {#conceptual-messages}
@@ -525,7 +524,7 @@ During appraisal, the Verifier first evaluates the integrity of the Measurement 
 
 This model introduces a dependency between the trustworthiness of the Measurement Unit and the validity of the measurements it produces. This dependency is always present but the trustworthiness of the MU is not always quantifiable (e.g., the MU cannot be measured), see {{rot-comp}}.
 
-### TRNG Entropy Cross-Validation by Dual Measurement Units
+### TRNG Entropy Cross-Validation by Dual Measurement Units {#ex-dual-mu}
 
 This scenario is a mix of the two previous ones. The Target Environment is the TRNG, while two Measurement Units operate concurrently: a hardware Measurement Unit embedded in the component and a software Measurement Unit integrated within the Attesting Environment. This corresponds to a combination of the integration models described in {{embedded-mu}} and {{integrated-mu}}.
 

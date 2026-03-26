@@ -399,10 +399,10 @@ Table of Contents
 
    Of course, both embedded and external Measurement Units can be found
    in the same system and possibly, a combination of embedded and
-   external can be used to measure a single Target Envrionment.  TODO
-   this implies that a TE can have multiple measurement fields in claim
-   and reference values (already supported in RATS standar data models
-   ?)
+   external can be used to measure a single Target Envrionment (see the
+   practical example in Section 8.2.4).  TODO this implies that a TE can
+   have multiple measurement fields in claim and reference values
+   (already supported in RATS standar data models ?)
 
 5.3.  Measurement Journey
 
