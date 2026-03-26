@@ -254,6 +254,12 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event 
 
     The measurement must be securely stored in the boundary of the Attesting Environment. An attacker must not be able of tampering with the measurement while it is at rest.
 
+1. \[optional\] Process measurement
+
+    It is possible that the measurement will not be directly included in Evidence as is but instead needs to be processed first before being effectively included in Evidence by the Attesting Envrionment..
+
+    The processing of the measurement must be securely operated in the boundary of the Attesting Environment. An attacker must not be able of tampering with the processing logic.
+
 1. Include measurment in Evidence
 
     The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.
@@ -449,22 +455,6 @@ Mapping to BIST, KAT, Sensors and Traces
 
 ## Monitoring Physical Properties
 
-Usage of sensors
-External or Embedded ?
-Examples of existing technologies
-action of Endorser, RVP (compute refrence values, compute range, prepare behavioral model (ML) in secure environment)
-action Verifier appraise (can Verifier use behavioral model prepared by RVP ?)
-
-
-on-die sensors (integrated in silicon)
--> Embedded Measurement Unit
-TODO Existing technologies: sensors present in CPUs
-Security Sensors (tamper detection)
-light, EM, voltage sensors
-
-on-board sensors (external components)
--> external Measurement Unit
-
 ### Using a Discrete Component Sensor
 
 In this scenario, the Measurement Unit is implemented as a discrete external sensor, such as a temperature sensor or a Power Monitoring Integrated Circuit (PMIC). The Target Environment is the hardware component under observation, for example a CPU. This corresponds to the integration model described in {{discrete-mu}}.
@@ -496,12 +486,6 @@ Note: Compared to external sensors, this model reduces the attack surface by eli
 ## Detection by Self-Testing
 
 This section provides practical examples that demonstrate how self-tests can be leveraged to measure a hardware component.
-
-TODO
-Usage of BIST or KAT or tamper detection sensors (active mesh, digital sensor)
-External or Embedded ?
-Examples of existing technologies
-action of Endorser (type of test, its properties etc.., identifier, certif ?), RVP and Verifier
 
 ### Using Built-In-Self-Tests (BIST)
 
@@ -560,6 +544,18 @@ The Attesting Environment collects the status of these detectors and includes th
 During appraisal, the Verifier interprets these signals according to a Appraisal Policy, typically treating any indication of tampering as a critical failure condition. Unlike other measurements, the absence of an alert does not guarantee the absence of an attack, but the presence of an alert provides strong evidence of compromise.
 
 These mechanisms complement other measurement types by providing direct detection of active physical attacks and environmental anomalies.
+
+## Detection Using Traces
+
+In this generic scenario, the Measurement Unit consists of hardware trace logic integrated within the Target Environment, such as Arm CoreSight, Intel Processor Trace, or Nexus trace modules.
+
+These mechanisms observe the execution of the Target Environment and produce trace data reflecting instruction flow, memory accesses, or system events. Due to the high volume of trace data, the Attesting Environment typically processes or summarizes this information before including it in Evidence.
+
+The resulting measurements may consist of aggregated statistics, cryptographic digests of trace segments, or derived indicators of anomalous behavior.
+
+During appraisal, the Verifier evaluates these measurements against behavioral models describing expected execution patterns. These models may be expressed as statistical profiles or more advanced classifiers in the Appraisal Policy for Evidence.
+
+Trace-based measurements provide insight into the runtime behavior of the Target Environment and can reveal anomalies that are not detectable through static measurements or physical sensors. However, they require careful processing and interpretation and may introduce additional considerations related to data volume, confidentiality, and trust in the trace collection infrastructure.
 
 # Security Considerations {#seccons}
 
