@@ -1,14 +1,14 @@
 +-------------------------+ Trigger                               
 |  Attesting Environment  | Measurement +------------------------+
-|                         +------------->  Measurement Circuitry |
+|                         +------------->    Measurement Unit    |
 |                         |             |                 |      |
-|                         |             |      Compute    |      |
-| +---------------------+ |             |      Measurement|      |
+| +---------------------+ |             |      Compute    |      |
+| |      [Optional]     | |             |      Measurement|      |
 | | Measurement Storage <-+-------------+    +------------v-+    |
 | +----------+----------+ | Export      |    |    Target    |    |
 |            |            | Measurement |    |   Hardware   |    |
 | +----------v----------+ |             |    |   Component  |    |
-| |      Processing     | |             |    +--------------+    |
+| |[Optional] Processing| |             |    +--------------+    |
 | +----------+----------+ |             +------------------------+
 |            |            |                                       
 | +----------+----------+ |                                       

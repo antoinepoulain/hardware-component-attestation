@@ -102,6 +102,7 @@ Table of Contents
        8.2.3.  TRNG Entropy Evaluation by a Software Measurement Unit
        8.2.4.  TRNG Entropy Cross-Validation by Dual Measurement Units
      8.3.  Detection of Active Tampering
+     8.4.  Detection Using Traces
    9.  Security Considerations
      9.1.  Root of Trust Components
      9.2.  Multiple Attesting Environments
@@ -456,7 +457,18 @@ Table of Contents
        Attesting Environment.  An attacker must not be able of tampering
        with the measurement while it is at rest.
 
-   5.  Include measurment in Evidence
+   5.  [optional] Process measurement
+
+       It is possible that the measurement will not be directly included
+       in Evidence as is but instead needs to be processed first before
+       being effectively included in Evidence by the Attesting
+       Envrionment..
+
+       The processing of the measurement must be securely operated in
+       the boundary of the Attesting Environment.  An attacker must not
+       be able of tampering with the processing logic.
+
+   6.  Include measurment in Evidence
 
        The Attesting Environment is responsible for including the
        measurement data in Evidence.  This operation must be carried out
@@ -467,7 +479,7 @@ Table of Contents
        still be tampered by an attacker, possibly without being
        detected.
 
-   6.  Sign Evidence
+   7.  Sign Evidence
 
        The signature operation must be carried out securely.  An
        attacker must not be able of modifying the content of the
@@ -487,16 +499,19 @@ Table of Contents
 
     +-------------------------+ Trigger
     |  Attesting Environment  | Measurement +------------------------+
-    |                         +------------->   Measurement Source   |
+    |                         +------------->    Measurement Unit    |
     |                         |             |                 |      |
-    |                         |             |      Compute    |      |
-    | +---------------------+ |             |      Measurement|      |
+    | +---------------------+ |             |      Compute    |      |
+    | |      [Optional]     | |             |      Measurement|      |
     | | Measurement Storage <-+-------------+    +------------v-+    |
     | +----------+----------+ | Export      |    |    Target    |    |
     |            |            | Measurement |    |   Hardware   |    |
-    |            |            |             |    |   Component  |    |
-    | +----------+----------+ |             |    +--------------+    |
-    | | +--------v--------+ | |             +------------------------+
+    | +----------v----------+ |             |    |   Component  |    |
+    | |[Optional] Processing| |             |    +--------------+    |
+    | +----------+----------+ |             +------------------------+
+    |            |            |
+    | +----------+----------+ |
+    | | +--------v--------+ | |
     | | |     Include     | | |
     | | |  measurement in | | |
     | | |     Evidence    | | |
@@ -671,6 +686,8 @@ Table of Contents
    simultaneously (approximately).  Otherwise, TOCTOU attcks would be
    possible).
 
+   TODO fill table
+
              +============+=============+===================+
              | Field Name | Description | Requirement Level |
              +============+=============+===================+
@@ -825,26 +842,10 @@ Table of Contents
 
    This section is for informational purposes only.
 
-   TODO Practical Examples
-
-   Some may be only usable at Boot time, other could be usable during
-   runtime.
-
-   Mapping to BIST, KAT, Sensors and Traces
+   TODO Some may be only usable at Boot time, other could be usable
+   during runtime.
 
 8.1.  Monitoring Physical Properties
-
-   Usage of sensors External or Embedded ? Examples of existing
-   technologies action of Endorser, RVP (compute refrence values,
-   compute range, prepare behavioral model (ML) in secure environment)
-   action Verifier appraise (can Verifier use behavioral model prepared
-   by RVP ?)
-
-   on-die sensors (integrated in silicon) -> Embedded Measurement Unit
-   TODO Existing technologies: sensors present in CPUs Security Sensors
-   (tamper detection) light, EM, voltage sensors
-
-   on-board sensors (external components) -> external Measurement Unit
 
 8.1.1.  Using a Discrete Component Sensor
 
@@ -926,11 +927,6 @@ Table of Contents
 
    This section provides practical examples that demonstrate how self-
    tests can be leveraged to measure a hardware component.
-
-   TODO Usage of BIST or KAT or tamper detection sensors (active mesh,
-   digital sensor) External or Embedded ? Examples of existing
-   technologies action of Endorser (type of test, its properties etc..,
-   identifier, certif ?), RVP and Verifier
 
 8.2.1.  Using Built-In-Self-Tests (BIST)
 
@@ -1076,6 +1072,34 @@ Table of Contents
    These mechanisms complement other measurement types by providing
    direct detection of active physical attacks and environmental
    anomalies.
+
+8.4.  Detection Using Traces
+
+   In this generic scenario, the Measurement Unit consists of hardware
+   trace logic integrated within the Target Environment, such as Arm
+   CoreSight, Intel Processor Trace, or Nexus trace modules.
+
+   These mechanisms observe the execution of the Target Environment and
+   produce trace data reflecting instruction flow, memory accesses, or
+   system events.  Due to the high volume of trace data, the Attesting
+   Environment typically processes or summarizes this information before
+   including it in Evidence.
+
+   The resulting measurements may consist of aggregated statistics,
+   cryptographic digests of trace segments, or derived indicators of
+   anomalous behavior.
+
+   During appraisal, the Verifier evaluates these measurements against
+   behavioral models describing expected execution patterns.  These
+   models may be expressed as statistical profiles or more advanced
+   classifiers in the Appraisal Policy for Evidence.
+
+   Trace-based measurements provide insight into the runtime behavior of
+   the Target Environment and can reveal anomalies that are not
+   detectable through static measurements or physical sensors.  However,
+   they require careful processing and interpretation and may introduce
+   additional considerations related to data volume, confidentiality,
+   and trust in the trace collection infrastructure.
 
 9.  Security Considerations
 
@@ -1318,20 +1342,37 @@ Appendix A.  Collected CDDL
 
    ; EAT JSON (`.feature "json"`)
    $measurements-body-json /= mhwc-json
-
    measured-hw-component = {
          component-id-label => component-id
+         ? operational-ctx-label => operational-ctx
          measurement-list-label => [ + hw-measurement ]
       }
 
+   operational-ctx = {
+      ; structure for operational context
+   }
+
    hw-measurement = {
          measurement-unit-id => tstr
-         measurement-type        ;a choice
-         measurement-value-label ; depends of type
+         measurement-type => measurement-type         ; a choice
+         measurement-value-label => measurement-value ; depends of type
       }
 
-   measurement-value-label = {
-      ; structure that depends of type
+   measurement-type =
+      mt-self-test /
+      mt-phys-prop /
+      mt-other ; profile
+
+   measurement-value = ; structure that depends of type
+      mv-self-test /
+      mv-phys-prop /
+      mv-other ; profile
+
+   mv-phys-prop = {
+      ; Measurement Value structure for physical properties
+   }
+   mv-self-test = {
+      ; Measurement Value structure for selftests
    }
 
 Acknowledgments

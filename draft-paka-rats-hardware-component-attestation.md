@@ -363,6 +363,8 @@ Additional information on the operational context of the component. These can be
 
 By being placed at this level of the Measured Hardware Component claim, the operational context is shared by every measurement of the target hardware component. It is important that the operational context sampled corresponds to the actual operational context at the time of measurement computations (i.e., sampling of the operational context and computation of the measurements must be executed simultaneously (approximately). Otherwise, TOCTOU attcks would be possible).
 
+TODO fill table
+
 | Field Name | Description | Requirement Level |
 |------------|-------------|-------------------|
 | | | |
@@ -447,11 +449,7 @@ The CDDL defined in {{meas-hw-comp-claim}} extends the $measurements-body-cbor a
 
 This section is for informational purposes only.
 
-TODO Practical Examples
-
-Some may be only usable at Boot time, other could be usable during runtime.
-
-Mapping to BIST, KAT, Sensors and Traces
+TODO Some may be only usable at Boot time, other could be usable during runtime.
 
 ## Monitoring Physical Properties
 

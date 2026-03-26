@@ -6,19 +6,35 @@ $measurements-body-cbor /= mhwc-cbor
 
 ; EAT JSON (`.feature "json"`)
 $measurements-body-json /= mhwc-json
-
 measured-hw-component = {
       component-id-label => component-id
+      ? operational-ctx-label => operational-ctx
       measurement-list-label => [ + hw-measurement ]
    }
 
-hw-measurement = {
-      measurement-unit-id => tstr
-      measurement-type        ;a choice
-      measurement-value-label ; depends of type
-   }
-
-measurement-value-label = {
-   ; structure that depends of type
+operational-ctx = {
+   ; structure for operational context
 }
 
+hw-measurement = {
+      measurement-unit-id => tstr
+      measurement-type => measurement-type         ; a choice
+      measurement-value-label => measurement-value ; depends of type
+   }
+
+measurement-type =
+   mt-self-test /
+   mt-phys-prop /
+   mt-other ; profile
+
+measurement-value = ; structure that depends of type
+   mv-self-test /
+   mv-phys-prop /
+   mv-other ; profile
+
+mv-phys-prop = {
+   ; Measurement Value structure for physical properties
+}
+mv-self-test = {
+   ; Measurement Value structure for selftests
+}

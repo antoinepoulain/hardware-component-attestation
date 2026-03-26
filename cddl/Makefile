@@ -4,6 +4,8 @@ CDDL := collected.cddl
 
 CDDL_FRAGS := mhwc-claims.cddl
 CDDL_FRAGS += meas-hw-comp.cddl
+CDDL_FRAGS += mv-phys-prop.cddl
+CDDL_FRAGS += mv-self-test.cddl
 
 all: $(CDDL)
 
