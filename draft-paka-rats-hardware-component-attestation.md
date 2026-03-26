@@ -78,8 +78,7 @@ informative:
 
 --- abstract
 
-TODO Abstract
-
+Hardware components constitute the foundation of all computations and therefore play a critical role in system integrity and reliability. Existing attestation mechanisms primarily rely on manufacturer endorsements, which provide limited visibility into the runtime behavior of hardware. This document extends the Remote ATtestation procedureS (RATS) architecture by defining a data model and guidelines for including measurements of hardware components in attestation Evidence. These measurements may represent physical properties, results of self-tests, or behavioral observations. The document considers a threat model that includes both adversarial actions and physical phenomena such as environmental variations and aging. It proposes abstract interfaces for collecting measurements, enabling interoperability while remaining agnostic to implementation mechanisms, and outlines a security model for their use in appraisal.
 
 --- middle
 
@@ -108,7 +107,6 @@ TODO Add references to sections of this document
 The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from RATS specifications are refined here to fit the context presented in this document.
 
 + Measurement Unit: can be a hardware mechanism (a circuit) or software logic (e.g., FIPS KAT). Software logic used to trigger a measurement is not considered a Measurement Unit but rather the Attesting Environment end-point of the Trigger interface. See {{abstract-representation}} for details on the Trigger interface.
-TODO rename Measurement Unit
 
 + Measurement: Term introduced by RATS (quote document). here it can mean a representation of a physical property (an encoded value), the result of a test etc.
 
@@ -167,9 +165,6 @@ The measurement mechanism needs to have physical access on the property that it 
 ## Integration Models
 
 The following subsections present possible layouts for integrating a Measurement Unit between the Attesting Environment and the target hardware component.
-
-TODO add MU in AE
-TODO the measurement unit is in Attesting Environment ?
 
 ### Embedded Measurement Unit {#embedded-mu}
 

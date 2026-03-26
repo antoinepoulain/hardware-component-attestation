@@ -182,8 +182,7 @@ Table of Contents
       software logic (e.g., FIPS KAT).  Software logic used to trigger a
       measurement is not considered a Measurement Unit but rather the
       Attesting Environment end-point of the Trigger interface.  See
-      Section 5.1 for details on the Trigger interface.  TODO rename
-      Measurement Unit
+      Section 5.1 for details on the Trigger interface.
 
    *  Measurement: Term introduced by RATS (quote document). here it can
       mean a representation of a physical property (an encoded value),
@@ -290,9 +289,6 @@ Table of Contents
    The following subsections present possible layouts for integrating a
    Measurement Unit between the Attesting Environment and the target
    hardware component.
-
-   TODO add MU in AE TODO the measurement unit is in Attesting
-   Environment ?
 
 5.2.1.  Embedded Measurement Unit
 
