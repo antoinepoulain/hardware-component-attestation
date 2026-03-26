@@ -549,7 +549,7 @@ This model enables cross-validation of measurements and allows the detection of 
 
 The Evidence, in this case, contains multiple measurements for the same target hardware component, originating from distinct Measurement Units.
 
-## Detection of Active Tampering  
+## Detection of Active Tampering
 
 In this generic scenario, the Measurement Unit consists of tamper detection circuitry, such as an active mesh, voltage glitch detector, or light sensor, integrated within the hardware component.
 
