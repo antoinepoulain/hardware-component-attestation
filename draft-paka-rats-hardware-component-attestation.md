@@ -27,7 +27,7 @@ venue:
   mail: "rats@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/rats/"
   github: "antoinepoulain/hardware-component-attestation"
-  latest: "https://antoinepoulain.github.io/hardware-component-attestation/draft-paka-rats-hardware-component-attestation.html"
+  latest: "https://antoinepoulain.github.io/hardware-component-attestation/draft-paka-rats-hardware-component-attestation.txt"
 
 author:
   - ins: A. Poulain

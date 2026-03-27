@@ -34,7 +34,7 @@ About This Document
 
    The latest revision of this draft can be found at
    https://antoinepoulain.github.io/hardware-component-attestation/
-   draft-paka-rats-hardware-component-attestation.html.  Status
+   draft-paka-rats-hardware-component-attestation.txt.  Status
    information for this document may be found at
    https://datatracker.ietf.org/doc/draft-paka-rats-hardware-component-
    attestation/.
