@@ -2199,8 +2199,9 @@ The oscillator frequency depends on physical and electrical properties of the ha
       </h2>
 <p id="section-9-1">The security considerations of RATS architecture apply (<span><a href="https://rfc-editor.org/rfc/rfc9334#section-12" class="relref">Section 12</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromission. Aging and action of environment on the system are also considered threats.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <p id="section-9-2">The security considerations of EAT Measured Component apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-rats-eat-measured-component" class="cite xref">I-D.ietf-rats-eat-measured-component</a>]</span>) when using EAT Measured Component claim or Measured Hardware Component Claim.<a href="#section-9-2" class="pilcrow">¶</a></p>
-<p id="section-9-3">Security considerations of CoRIM apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-11" class="relref">Section 11</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>) when using CORIM for Endorsements and Reference Values.<a href="#section-9-3" class="pilcrow">¶</a></p>
-<p id="section-9-4">The following subsections are mainly focused on security considerations regarding the Attester.<a href="#section-9-4" class="pilcrow">¶</a></p>
+<p id="section-9-3">The security considerations related to X.509 certificates apply (<span><a href="https://rfc-editor.org/rfc/rfc5280#section-8" class="relref">Section 8</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>) when using X.509 certificates to carry Evidence.<a href="#section-9-3" class="pilcrow">¶</a></p>
+<p id="section-9-4">Security considerations of CoRIM apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-11" class="relref">Section 11</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>) when using CORIM for Endorsements and Reference Values.<a href="#section-9-4" class="pilcrow">¶</a></p>
+<p id="section-9-5">The following subsections are mainly focused on security considerations regarding the Attester.<a href="#section-9-5" class="pilcrow">¶</a></p>
 <div id="rot-comp">
 <section id="section-9.1">
         <h3 id="name-root-of-trust-components">
@@ -2370,6 +2371,10 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-12
 <dt id="NIST-SP-800-90B">[NIST-SP-800-90B]</dt>
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Recommendation for the Entropy Sources Used for Random Bit Generation"</span>, <time datetime="2018-01" class="refDate">January 2018</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/nist.sp.800-90b.pdf">https://nvlpubs.nist.gov/nistpubs/SpecialPublications/nist.sp.800-90b.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5280">[RFC5280]</dt>
+        <dd>
+<span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9711">[RFC9711]</dt>
         <dd>

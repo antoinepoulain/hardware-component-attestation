@@ -1163,6 +1163,10 @@ Table of Contents
    (Section 5 of [I-D.ietf-rats-eat-measured-component]) when using EAT
    Measured Component claim or Measured Hardware Component Claim.
 
+   The security considerations related to X.509 certificates apply
+   (Section 8 of [RFC5280]) when using X.509 certificates to carry
+   Evidence.
+
    Security considerations of CoRIM apply (Section 11 of
    [I-D.ietf-rats-corim]) when using CORIM for Endorsements and
    Reference Values.
@@ -1371,6 +1375,12 @@ Table of Contents
               Bit Generation", January 2018,
               <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
               nist.sp.800-90b.pdf>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/rfc/rfc5280>.
 
    [RFC9711]  Lundblade, L., Mandyam, G., O'Donoghue, J., and C.
               Wallace, "The Entity Attestation Token (EAT)", RFC 9711,
