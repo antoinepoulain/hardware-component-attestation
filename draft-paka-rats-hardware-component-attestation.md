@@ -387,7 +387,7 @@ For instance there may be multiple sensors used to measure a single propertie of
 
 Specifier for the type of the measurement.
 
-For example, the type can be used to specify if the measurement is the result of a self-test or the sampling of a physical property.
+For example, the type can be used to specify if the measurement is the result of a self-test, the sampling of a physical property, a trace or an event (see {{cddl-meas-val}}).
 
 * Measurement Value:
 
@@ -410,7 +410,9 @@ This sections presents CDDL definitions for the Measured Hardware Component clai
 ~~~
 {: #meas_hw_comp title="CDDL of Measured Hardware Component Claim"}
 
-### Measurement Value: Physical Property
+### Measurement Value {#cddl-meas-val}
+
+#### Physical Property
 
 CDDL defintion of the structure of measurement-value when measurement-type = mt-phys-prop.
 
@@ -419,7 +421,7 @@ CDDL defintion of the structure of measurement-value when measurement-type = mt-
 ~~~
 {: #mv_phys_prop title="CDDL of Physical Property Measurement Value"}
 
-### Measurement Value: Self-Test
+#### Self-Test
 
 CDDL defintion of the structure of measurement-value when measurement-type = mt-self-test.
 
@@ -428,7 +430,7 @@ CDDL defintion of the structure of measurement-value when measurement-type = mt-
 ~~~
 {: #mv_self_test title="CDDL of Self-Test Measurement Value"}
 
-### Measurement Value: Event
+#### Event
 
 CDDL defintion of the structure of measurement-value when measurement-type = mt-event.
 
@@ -437,7 +439,7 @@ CDDL defintion of the structure of measurement-value when measurement-type = mt-
 ~~~
 {: #mv_event title="CDDL of Event Measurement Value"}
 
-### Measurement Value: Trace
+#### Trace
 
 CDDL defintion of the structure of measurement-value when measurement-type = mt-trace.
 
@@ -446,7 +448,7 @@ CDDL defintion of the structure of measurement-value when measurement-type = mt-
 ~~~
 {: #mv_trace title="CDDL of Trace Measurement Value"}
 
-### Measurement Value: Other
+#### Other
 
 CDDL defintion of the structure of measurement-value when measurement-type = mt-other.
 
