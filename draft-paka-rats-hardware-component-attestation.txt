@@ -102,8 +102,11 @@ Table of Contents
        6.3.2.  X.509 Certificate
    7.  CDDL Definitions
      7.1.  Measured Hardware Component Claim
-       7.1.1.  Measurement Value: Self-Test
-       7.1.2.  Measurement Value: Physical Property
+       7.1.1.  Measurement Value: Physical Property
+       7.1.2.  Measurement Value: Self-Test
+       7.1.3.  Measurement Value: Event
+       7.1.4.  Measurement Value: Trace
+       7.1.5.  Measurement Value: Other
      7.2.  Inclusion in EAT Measurement Claim
    8.  Practical Examples
      8.1.  Monitoring Physical Properties
@@ -558,12 +561,17 @@ Table of Contents
 
    These may include environmental robustness properties (e.g.,
    operating temperature range, resistance to environmental conditions),
-   measurement performance characteristics (e.g., accuracy, precision,
-   uncertainty, sampling rate), calibration data (e.g., calibration
-   coefficients and drift models over operational context), semantics of
-   measurements (e.g., unit, scale, interpretation) and where
-   applicable, the characteristics of reference or behavioral models to
-   be used by the Verifier during appraisal.
+   Measurement Unit characteristics (e.g., accuracy, precision,
+   uncertainty, sampling rate, sample count, method), calibration data
+   (e.g., calibration coefficients and drift models over operational
+   context), semantics of measurements (e.g., unit, scale,
+   interpretation) and where applicable, the characteristics of
+   reference or behavioral models to be used by the Verifier during
+   appraisal.
+
+   TODO: if unit of the measurement is specified in here, is it possible
+   to reuse IANA numbers for Sensor Measurement Lists:
+   https://www.iana.org/assignments/senml/senml.xhtml
 
 6.1.1.  Concice Reference Integrity Manifest (CoRIM)
 
@@ -706,8 +714,14 @@ Table of Contents
    simultaneously (approximately).  Otherwise, TOCTOU attacks would be
    possible).
 
+   A lot of data can be included in Operational Context such as
+   environmental (e.g., temperature, humidity, radiation), electrical
+   (e.g., voltage, clock frequency, power state), workload (e.g.,
+   workload level, type), temporal (timestamp, uptime), system operation
+   (degraded mode, thermal throttling) contexts.
+
    TODO fill table.  Operational Context is highly dependent on what is
-   needed by Verifier which depends on what is measured and also whar
+   needed by Verifier which depends on what is measured and also what
    are the available sensors etc.. so it will either contain a lot of
    optional fields or be profile-specific.
 
@@ -772,10 +786,6 @@ Table of Contents
    The structure that holds the actual measurement.  The structure of
    the Measurement Value depends on the Measurement Type.
 
-   TODO additional structures could be defined in a profile.  Simply,
-   the Measurement Value could be raw bytes that the Verifier would
-   understand (based on a profile).
-
 6.3.2.  X.509 Certificate
 
    Appendix C.3 of [RFC9711] describes methods to encode EAT claims in
@@ -806,47 +816,103 @@ Table of Contents
 
    hw-measurement = {
          measurement-unit-id => tstr
-         measurement-type => measurement-type         ; a choice
+         measurement-type-label => measurement-type         ; a choice
          measurement-value-label => measurement-value ; depends of type
       }
 
    measurement-type =
       mt-self-test /
       mt-phys-prop /
+      mt-event /
       mt-other ; profile
 
    measurement-value = ; structure that depends of type
       mv-self-test /
       mv-phys-prop /
+      mv-event /
       mv-other ; profile
 
             Figure 5: CDDL of Measured Hardware Component Claim
 
-7.1.1.  Measurement Value: Self-Test
-
-   CDDL defintion of the structure of measurement-value when
-   measurement-type = mt-self-test.
-
-   mv-self-test = {
-      ; Measurement Value structure for selftests
-   }
-
-               Figure 6: CDDL of Self-Test Measurement Value
-
-7.1.2.  Measurement Value: Physical Property
+7.1.1.  Measurement Value: Physical Property
 
    CDDL defintion of the structure of measurement-value when
    measurement-type = mt-phys-prop.
 
    mv-phys-prop = {
-      ; Measurement Value structure for physical properties
+      physical-property-id-label => tstr,
+      value => number / bstr / tstr,
+      ; unit, precision, scale, uncertainty,
+      ; are already specified in Endrorsements
    }
 
-           Figure 7: CDDL of Physical Property Measurement Value
+           Figure 6: CDDL of Physical Property Measurement Value
 
-   TODO: if unit of the measurement is specified in here, is it possible
-   to reuse IANA numbers for Sensor Measurement Lists:
-   https://www.iana.org/assignments/senml/senml.xhtml
+7.1.2.  Measurement Value: Self-Test
+
+   CDDL defintion of the structure of measurement-value when
+   measurement-type = mt-self-test.
+
+   mv-self-test = {
+      test-id => tstr,
+      test-result-label => self-test-result,
+   }
+
+   self-test-result =
+       st-pass /
+       st-fail /
+       st-degraded /
+       st-not-run /
+       st-unknown
+
+               Figure 7: CDDL of Self-Test Measurement Value
+
+7.1.3.  Measurement Value: Event
+
+   CDDL defintion of the structure of measurement-value when
+   measurement-type = mt-event.
+
+   mv-event = {
+     event-id-label => tstr,
+     event-status-label => event-status,
+     ? event-count => uint,
+     ? event-time => int / uint
+   }
+
+   event-status =
+       e-detected /
+       e-not-detected /
+       e-active /
+       e-inactive /
+       e-unknown
+
+                 Figure 8: CDDL of Event Measurement Value
+
+7.1.4.  Measurement Value: Trace
+
+   CDDL defintion of the structure of measurement-value when
+   measurement-type = mt-trace.
+
+   mv-trace = {
+     trace-type-label => trace-type,
+     trace-data => bstr / tstr
+   }
+
+   trace-type =
+       digest /
+       summary /
+       counter
+
+                 Figure 9: CDDL of Trace Measurement Value
+
+7.1.5.  Measurement Value: Other
+
+   CDDL defintion of the structure of measurement-value when
+   measurement-type = mt-other.
+
+   TODO additional structures could be defined in a profile.  Simply,
+   the Measurement Value could be raw bytes that the Verifier would
+   understand (based on a profile).
 
 7.2.  Inclusion in EAT Measurement Claim
 
@@ -864,7 +930,7 @@ Table of Contents
    ; EAT JSON (`.feature "json"`)
    $measurements-body-json /= mhwc-json
 
-              Figure 8: CDDL Extension of EAT Measurement Body
+             Figure 10: CDDL Extension of EAT Measurement Body
 
 8.  Practical Examples
 
@@ -1427,26 +1493,64 @@ Appendix A.  Collected CDDL
 
    hw-measurement = {
          measurement-unit-id => tstr
-         measurement-type => measurement-type         ; a choice
+         measurement-type-label => measurement-type         ; a choice
          measurement-value-label => measurement-value ; depends of type
       }
 
    measurement-type =
       mt-self-test /
       mt-phys-prop /
+      mt-event /
       mt-other ; profile
 
    measurement-value = ; structure that depends of type
       mv-self-test /
       mv-phys-prop /
+      mv-event /
       mv-other ; profile
 
    mv-phys-prop = {
-      ; Measurement Value structure for physical properties
+      physical-property-id-label => tstr,
+      value => number / bstr / tstr,
+      ; unit, precision, scale, uncertainty,
+      ; are already specified in Endrorsements
    }
+
    mv-self-test = {
-      ; Measurement Value structure for selftests
+      test-id => tstr,
+      test-result-label => self-test-result,
    }
+
+   self-test-result =
+       st-pass /
+       st-fail /
+       st-degraded /
+       st-not-run /
+       st-unknown
+
+   mv-event = {
+     event-id-label => tstr,
+     event-status-label => event-status,
+     ? event-count => uint,
+     ? event-time => int / uint
+   }
+
+   event-status =
+       e-detected /
+       e-not-detected /
+       e-active /
+       e-inactive /
+       e-unknown
+
+   mv-trace = {
+     trace-type-label => trace-type,
+     trace-data => bstr / tstr
+   }
+
+   trace-type =
+       digest /
+       summary /
+       counter
 
 Acknowledgments
 

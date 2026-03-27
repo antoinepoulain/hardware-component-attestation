@@ -278,7 +278,9 @@ To promote interoperability, the following sections showcase how to use the CoRI
 
 Endorsements in the scope of this document contain metadata describing the characteristics of Measurement Units and target hardware components that are necessary for the Verifier to correctly appraise Evidence.
 
-These may include environmental robustness properties (e.g., operating temperature range, resistance to environmental conditions), measurement performance characteristics (e.g., accuracy, precision, uncertainty, sampling rate), calibration data (e.g., calibration coefficients and drift models over operational context), semantics of measurements (e.g., unit, scale, interpretation) and where applicable, the characteristics of reference or behavioral models to be used by the Verifier during appraisal.
+These may include environmental robustness properties (e.g., operating temperature range, resistance to environmental conditions), Measurement Unit characteristics (e.g., accuracy, precision, uncertainty, sampling rate, sample count, method), calibration data (e.g., calibration coefficients and drift models over operational context), semantics of measurements (e.g., unit, scale, interpretation) and where applicable, the characteristics of reference or behavioral models to be used by the Verifier during appraisal.
+
+TODO: if unit of the measurement is specified in here, is it possible to reuse IANA numbers for Sensor Measurement Lists: https://www.iana.org/assignments/senml/senml.xhtml
 
 ### Concice Reference Integrity Manifest (CoRIM)
 
@@ -353,7 +355,9 @@ Additional information on the operational context of the component. These can be
 
 By being placed at this level of the Measured Hardware Component claim, the operational context is shared by every measurement of the target hardware component. It is important that the operational context sampled corresponds to the actual operational context at the time of measurement computations (i.e., sampling of the operational context and computation of the measurements must be executed simultaneously (approximately). Otherwise, TOCTOU attacks would be possible).
 
-TODO fill table. Operational Context is highly dependent on what is needed by Verifier which depends on what is measured and also whar are the available sensors etc.. so it will either contain a lot of optional fields or be profile-specific.
+A lot of data can be included in Operational Context such as environmental (e.g., temperature, humidity, radiation), electrical (e.g., voltage, clock frequency, power state), workload (e.g., workload level, type), temporal (timestamp, uptime), system operation (degraded mode, thermal throttling) contexts.
+
+TODO fill table. Operational Context is highly dependent on what is needed by Verifier which depends on what is measured and also what are the available sensors etc.. so it will either contain a lot of optional fields or be profile-specific.
 
 | Field Name | Description | Requirement Level |
 |------------|-------------|-------------------|
@@ -389,8 +393,6 @@ For example, the type can be used to specify if the measurement is the result of
 
 The structure that holds the actual measurement. The structure of the Measurement Value depends on the Measurement Type.
 
-TODO additional structures could be defined in a profile. Simply, the Measurement Value could be raw bytes that the Verifier would understand (based on a profile).
-
 ### X.509 Certificate
 
 {{Appendix C.3 of RFC9711}} describes methods to encode EAT claims in an X.509 certificate. These methods can be used for the claims presented in {{eat-claims}}.
@@ -408,15 +410,6 @@ This sections presents CDDL definitions for the Measured Hardware Component clai
 ~~~
 {: #meas_hw_comp title="CDDL of Measured Hardware Component Claim"}
 
-### Measurement Value: Self-Test
-
-CDDL defintion of the structure of measurement-value when measurement-type = mt-self-test.
-
-~~~ cddl
-{::include cddl/mv-self-test.cddl}
-~~~
-{: #mv_self_test title="CDDL of Self-Test Measurement Value"}
-
 ### Measurement Value: Physical Property
 
 CDDL defintion of the structure of measurement-value when measurement-type = mt-phys-prop.
@@ -426,7 +419,38 @@ CDDL defintion of the structure of measurement-value when measurement-type = mt-
 ~~~
 {: #mv_phys_prop title="CDDL of Physical Property Measurement Value"}
 
-TODO: if unit of the measurement is specified in here, is it possible to reuse IANA numbers for Sensor Measurement Lists: https://www.iana.org/assignments/senml/senml.xhtml
+### Measurement Value: Self-Test
+
+CDDL defintion of the structure of measurement-value when measurement-type = mt-self-test.
+
+~~~ cddl
+{::include cddl/mv-self-test.cddl}
+~~~
+{: #mv_self_test title="CDDL of Self-Test Measurement Value"}
+
+### Measurement Value: Event
+
+CDDL defintion of the structure of measurement-value when measurement-type = mt-event.
+
+~~~ cddl
+{::include cddl/mv-event.cddl}
+~~~
+{: #mv_event title="CDDL of Event Measurement Value"}
+
+### Measurement Value: Trace
+
+CDDL defintion of the structure of measurement-value when measurement-type = mt-trace.
+
+~~~ cddl
+{::include cddl/mv-trace.cddl}
+~~~
+{: #mv_trace title="CDDL of Trace Measurement Value"}
+
+### Measurement Value: Other
+
+CDDL defintion of the structure of measurement-value when measurement-type = mt-other.
+
+TODO additional structures could be defined in a profile. Simply, the Measurement Value could be raw bytes that the Verifier would understand (based on a profile).
 
 ## Inclusion in EAT Measurement Claim
 

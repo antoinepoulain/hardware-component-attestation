@@ -1,3 +1,7 @@
+
 mv-phys-prop = {
-   ; Measurement Value structure for physical properties
+   physical-property-id-label => tstr,
+   value => number / bstr / tstr,
+   ; unit, precision, scale, uncertainty,
+   ; are already specified in Endrorsements
 }

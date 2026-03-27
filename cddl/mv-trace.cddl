@@ -1,0 +1,11 @@
+
+mv-trace = {
+  trace-type-label => trace-type,
+  trace-data => bstr / tstr
+}
+
+trace-type =
+    digest /
+    summary /
+    counter
+

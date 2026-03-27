@@ -1,3 +1,4 @@
+
 mhwc-cbor = bytes .cbor measured-hw-component
 mhhwc-json = text .json measured-hw-component
 

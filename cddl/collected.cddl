@@ -1,3 +1,4 @@
+
 mhwc-cbor = bytes .cbor measured-hw-component
 mhhwc-json = text .json measured-hw-component
 
@@ -18,23 +19,62 @@ operational-ctx = {
 
 hw-measurement = {
       measurement-unit-id => tstr
-      measurement-type => measurement-type         ; a choice
+      measurement-type-label => measurement-type         ; a choice
       measurement-value-label => measurement-value ; depends of type
    }
 
 measurement-type =
    mt-self-test /
    mt-phys-prop /
+   mt-event /
    mt-other ; profile
 
 measurement-value = ; structure that depends of type
    mv-self-test /
    mv-phys-prop /
+   mv-event /
    mv-other ; profile
 
 mv-phys-prop = {
-   ; Measurement Value structure for physical properties
+   physical-property-id-label => tstr,
+   value => number / bstr / tstr,
+   ; unit, precision, scale, uncertainty,
+   ; are already specified in Endrorsements
 }
+
 mv-self-test = {
-   ; Measurement Value structure for selftests
+   test-id => tstr,
+   test-result-label => self-test-result,
 }
+
+self-test-result =
+    st-pass /
+    st-fail /
+    st-degraded /
+    st-not-run /
+    st-unknown
+
+mv-event = {
+  event-id-label => tstr,
+  event-status-label => event-status,
+  ? event-count => uint,
+  ? event-time => int / uint
+}
+
+event-status =
+    e-detected /
+    e-not-detected /
+    e-active /
+    e-inactive /
+    e-unknown
+
+mv-trace = {
+  trace-type-label => trace-type,
+  trace-data => bstr / tstr
+}
+
+trace-type =
+    digest /
+    summary /
+    counter
+

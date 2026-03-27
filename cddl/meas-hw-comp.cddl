@@ -1,3 +1,4 @@
+
 measured-hw-component = {
       component-id-label => component-id
       ? operational-ctx-label => operational-ctx
@@ -10,17 +11,19 @@ operational-ctx = {
 
 hw-measurement = {
       measurement-unit-id => tstr
-      measurement-type => measurement-type         ; a choice
+      measurement-type-label => measurement-type         ; a choice
       measurement-value-label => measurement-value ; depends of type
    }
 
 measurement-type =
    mt-self-test /
    mt-phys-prop /
+   mt-event /
    mt-other ; profile
 
 measurement-value = ; structure that depends of type
    mv-self-test /
    mv-phys-prop /
+   mv-event /
    mv-other ; profile
 

@@ -1,0 +1,14 @@
+
+mv-event = {
+  event-id-label => tstr,
+  event-status-label => event-status,
+  ? event-count => uint,
+  ? event-time => int / uint
+}
+
+event-status =
+    e-detected /
+    e-not-detected /
+    e-active /
+    e-inactive /
+    e-unknown

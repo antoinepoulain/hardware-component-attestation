@@ -6,6 +6,9 @@ CDDL_FRAGS := mhwc-claims.cddl
 CDDL_FRAGS += meas-hw-comp.cddl
 CDDL_FRAGS += mv-phys-prop.cddl
 CDDL_FRAGS += mv-self-test.cddl
+CDDL_FRAGS += mv-event.cddl
+CDDL_FRAGS += mv-trace.cddl
+
 
 all: $(CDDL)
 

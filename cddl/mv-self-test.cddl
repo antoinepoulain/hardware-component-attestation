@@ -1,3 +1,13 @@
+
 mv-self-test = {
-   ; Measurement Value structure for selftests
+   test-id => tstr,
+   test-result-label => self-test-result,
 }
+
+self-test-result =
+    st-pass /
+    st-fail /
+    st-degraded /
+    st-not-run /
+    st-unknown
+
