@@ -28,12 +28,14 @@ measurement-type =
    mt-self-test /
    mt-phys-prop /
    mt-event /
+   mt-trace /
    mt-other ; profile
 
 measurement-value = ; structure that depends of type
    mv-self-test /
    mv-phys-prop /
    mv-event /
+   mv-trace /
    mv-other ; profile
 
 mv-phys-prop = {
