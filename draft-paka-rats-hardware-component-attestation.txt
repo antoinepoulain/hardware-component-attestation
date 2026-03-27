@@ -93,9 +93,9 @@ Table of Contents
      4.3.  Measurement Journey
    5.  Inclusion in Conceptual Messages
      5.1.  Endorsement
-       5.1.1.  Concice Reference Integrity Manifest (CoRIM)
+       5.1.1.  Concise Reference Integrity Manifest (CoRIM)
      5.2.  Reference Value
-       5.2.1.  Concice Reference Integrity Manifest (CoRIM)
+       5.2.1.  Concise Reference Integrity Manifest (CoRIM)
      5.3.  Evidence
        5.3.1.  Entity Attestation Token (EAT)
        5.3.2.  X.509 Certificate
@@ -185,8 +185,8 @@ Table of Contents
 2.2.  Definitions
 
    The terminology defined in [RFC9334] is reused throughout this
-   document.  Some of the definitions from RATS specifications are
-   refined here to fit the context presented in this document.
+   document.  Some definitions from RATS specifications are refined here
+   to fit the context presented in this document.
 
    *  Measurement Unit: A hardware mechanism (a circuit) or software
       logic with the ability to measure a hardware component.  Software
@@ -196,8 +196,8 @@ Table of Contents
       interface.
 
    *  Measurement: Term introduced by RATS.  In the context of this
-      document it can mean a representation of a physical property, the
-      result of a test etc.
+      document, it can mean a representation of a physical property, the
+      result of a test, the detection of an event, etc.
 
    *  Target Hardware Component: A hardware component which is a Target
       Environment for an Attesting Environment.
@@ -219,10 +219,10 @@ Table of Contents
 
    Gaining control of the hardware of a system is particularly
    interesting for an attacker as it allows to tamper with the correct
-   functioning of the system at a priviledged level.  Such control can
-   be obtained by abusing software mechanisms or by having physical
-   access to the system (particularly relevant for embedded systems) and
-   using physical attack techniques.
+   functioning of the system at a privileged level.  Such control can be
+   obtained by abusing software mechanisms or by having physical access
+   to the system (particularly relevant for embedded systems) and using
+   physical attack techniques.
 
    Security and Safety note: Undetected hardware defects can compromise
    the integrity of cryptographic operations, attestation chains, or
@@ -282,8 +282,8 @@ Table of Contents
    receives a signal to start the computation of a measurement through
    the "Trigger" interface.
 
-   This interface is optionnal.  For instance, it may not be used in
-   case of continous monitoring.
+   This interface is optional.  For instance, it may not be used in case
+   of continuous monitoring.
 
    *  Export interface
 
@@ -297,7 +297,8 @@ Table of Contents
    property that it is in charge of measuring.  The flow of data
    exchanged between the Measurement Unit and the target hardware
    component is represented by the "Data Exchange" channel.  This
-   channel is not accessible by the Attesting Environment.
+   channel is not accessible by the Attesting Environment excepted by
+   the Measurement Unit.
 
 4.2.  Integration Models
 
@@ -328,7 +329,8 @@ Table of Contents
 
        Figure 1: Abstract Representation of Embedded Measurement Unit
 
-   Ex: Different types of BIST, KAT
+   Ex: Different types of Built-In-Self-Tests (BIST) or Known Answer
+   Tests (KAT).
 
    Note: As shown in Figure 1, the Measurement Unit and target hardware
    component share the same die.  Therefore, they are in the same
@@ -368,8 +370,8 @@ Table of Contents
    In this integration model, the target hardware component and
    Measurement Unit can come from different sources (e.g., foundries).
    That can be leveraged to draw trust boundaries between the AE, TE and
-   Measurement Unit.  Using a discret component implies the existence of
-   physical communication channels between the AE, TE and Measurement
+   Measurement Unit.  Using a discrete component implies the existence
+   of physical communication channels between the AE, TE and Measurement
    Unit on which data such as measurement will transit.  This introduces
    attack vectors.  Refer to Section 8.
 
@@ -467,7 +469,7 @@ Table of Contents
        It is possible that the measurement will not be directly included
        in Evidence as is but instead needs to be processed first before
        being effectively included in Evidence by the Attesting
-       Envrionment..
+       Environment.
 
        The processing of the measurement must be securely operated in
        the boundary of the Attesting Environment.  An attacker must not
@@ -534,7 +536,7 @@ Table of Contents
    This section introduces standard claims to be included in RATS
    Conceptual Messages.  Conceptual Messages are defined in Section 8 of
    [RFC9334].  The RATS architecture does not mandate the usage of
-   standard data formats for Conceputal Messages but protocols may
+   standard data formats for Conceptual Messages but protocols may
    require specific formats.  Nonetheless, RATS proposed CoRIM for
    Endorsements and Reference Values and EAT for Evidence as standard
    data models.  The CoRIM is defined in [I-D.ietf-rats-corim] and the
@@ -564,7 +566,7 @@ Table of Contents
    possible to reuse IANA numbers for Sensor Measurement Lists:
    https://www.iana.org/assignments/senml/senml.xhtml
 
-5.1.1.  Concice Reference Integrity Manifest (CoRIM)
+5.1.1.  Concise Reference Integrity Manifest (CoRIM)
 
    Endorsements can be written inside a CoMID Endorsed Values triple of
    a CoRIM (see Section 5.1.6 of [I-D.ietf-rats-corim]).  The Endorsed
@@ -584,22 +586,22 @@ Table of Contents
    parameters cannot be foreseen, it is possible to include additional
    data in Evidence to give details about the context in which the
    measurement has been computed (see Section 5.3.1.4.1.2).  The
-   Verifier will then use these additionnal data to select the Reference
+   Verifier will then use these additional data to select the Reference
    Value that should be used in the context described by the additional
    data (kind of conditional Reference Values).  This implies that
    attacker cannot modify these additional data otherwise, an attacker
    would be able to fool a Verifier into choosing Reference Values that
-   don't ocrrespond to the actual context of the system.
+   don't correspond to the actual context of the system.
 
    Depending on the type of measurement and target hardware component,
    the Reference Value can be a value or a range or a function* of the
    operational context of the system and can correspond to a class, a
    group or an instance of target hardware component.
 
-   *even a ML model to detect abnormal physical properties depending on
-   operational context of the system.
+   *could even be a ML model to detect abnormal physical properties
+   depending on operational context of the system.
 
-5.2.1.  Concice Reference Integrity Manifest (CoRIM)
+5.2.1.  Concise Reference Integrity Manifest (CoRIM)
 
    Reference Values can be written inside a CoMID Reference Values
    triple of a CoRIM (see Section 5.1.5 of [I-D.ietf-rats-corim]).  The
@@ -642,9 +644,9 @@ Table of Contents
 
 5.3.1.3.  Using EAT Submodule Claim
 
-   TODO it seems EAT Submodule can be used to embed hardware components
-   claims (maybe only more complete subsystems not simple hardware
-   components).  Research if it could be extended to include
+   TODO it seems that the EAT Submodule can be used to embed hardware
+   components claims (maybe only more complete subsystems not simple
+   hardware components).  Research if it could be extended to include
    measurements.  Especially relevant if the submodule does not have its
    own Attesting Environment (Section 4.2.18 of [RFC9711]).
 
@@ -653,7 +655,7 @@ Table of Contents
    This section proposes a new claim, the "Measured Hardware Component",
    to represent what is described in this document.  This claim is
    presented in case the already existing claims mentioned above are not
-   sufficent to correctly report measurements of hardware components.
+   sufficient to correctly report measurements of hardware components.
 
    The "measured hardware component" claim is inspired from the
    "measured component" claim introduced in
@@ -702,8 +704,8 @@ Table of Contents
    context sampled corresponds to the actual operational context at the
    time of measurement computations (i.e., sampling of the operational
    context and computation of the measurements must be executed
-   simultaneously (approximately).  Otherwise, TOCTOU attacks would be
-   possible).
+   simultaneously (approximately).  Otherwise, Time-Of-Check to Time-Of-
+   Use (TOCTOU) attacks would be possible).
 
    A lot of data can be included in Operational Context such as
    environmental (e.g., temperature, humidity, radiation), electrical
@@ -713,7 +715,7 @@ Table of Contents
 
    TODO fill table.  Operational Context is highly dependent on what is
    needed by Verifier which depends on what is measured and also what
-   are the available sensors etc.. so it will either contain a lot of
+   are the available sensors etc. so it will either contain a lot of
    optional fields or be profile-specific.
 
              +============+=============+===================+
@@ -761,7 +763,7 @@ Table of Contents
    Identifier for the Measurement Unit used to compute the measurement.
 
    For instance there may be multiple sensors used to measure a single
-   propertie of the target hadrware component. in that case, the
+   property of the target hardware component.  In that case, the
    Measurement Unit Identifier allows to identify the Measurement Unit
    that was used.
 
@@ -786,12 +788,12 @@ Table of Contents
 
    Ex: DICE uses X.509 certificates with a custom extension to carry
    Evidence [TCG-DICE].  TLS and DTLS extended with remote attestation
-   also use X.509 certificates with an attestion extension
+   also use X.509 certificates with an attestation extension
    [I-D.fossati-tls-attestation].
 
 6.  CDDL Definitions
 
-   This sections presents CDDL definitions for the Measured Hardware
+   This section presents CDDL definitions for the Measured Hardware
    Component claim to be included in EAT Measurement claim.
 
 6.1.  Measured Hardware Component Claim
@@ -816,12 +818,14 @@ Table of Contents
       mt-self-test /
       mt-phys-prop /
       mt-event /
+      mt-trace /
       mt-other ; profile
 
    measurement-value = ; structure that depends of type
       mv-self-test /
       mv-phys-prop /
       mv-event /
+      mv-trace /
       mv-other ; profile
 
             Figure 5: CDDL of Measured Hardware Component Claim
@@ -844,7 +848,7 @@ Table of Contents
 
 6.1.1.2.  Self-Test
 
-   CDDL defintion of the structure of measurement-value when
+   CDDL definition of the structure of measurement-value when
    measurement-type = mt-self-test.
 
    mv-self-test = {
@@ -863,7 +867,7 @@ Table of Contents
 
 6.1.1.3.  Event
 
-   CDDL defintion of the structure of measurement-value when
+   CDDL definition of the structure of measurement-value when
    measurement-type = mt-event.
 
    mv-event = {
@@ -884,7 +888,7 @@ Table of Contents
 
 6.1.1.4.  Trace
 
-   CDDL defintion of the structure of measurement-value when
+   CDDL definition of the structure of measurement-value when
    measurement-type = mt-trace.
 
    mv-trace = {
@@ -901,7 +905,7 @@ Table of Contents
 
 6.1.1.5.  Other
 
-   CDDL defintion of the structure of measurement-value when
+   CDDL definition of the structure of measurement-value when
    measurement-type = mt-other.
 
    TODO additional structures could be defined in a profile.  Simply,
@@ -967,7 +971,7 @@ Table of Contents
    Reference Values may be expressed as fixed ranges, condition-
    dependent functions, or behavioral models.  The Verifier could use
    advanced models, including statistical or machine learning-based
-   approaches, to detect anomalies (but such models owuld be part of the
+   approaches, to detect anomalies (but such models would be part of the
    Appraisal Policy for Evidence and are not encoded in Evidence).
 
    Note: compared to embedded Measurement Units, this model introduces
@@ -1226,8 +1230,8 @@ Table of Contents
    [RFC9334]).  This section also mentions protection against physical
    attacks.  These attacks are particularly relevant for this draft as
    collecting claims about hardware components implies a risk of
-   physical compromission.  Aging and action of environment on the
-   system are also considered threats.
+   physical compromise.  Aging and action of environment on the system
+   are also considered threats.
 
    The security considerations of EAT Measured Component apply
    (Section 5 of [I-D.ietf-rats-eat-measured-component]) when using EAT
@@ -1254,7 +1258,7 @@ Table of Contents
    functioning cannot be proved through attestation.
 
    These are to be put in contrast with other components that are not
-   critical for attestation (altough they can be critical for the
+   critical for attestation (although they can be critical for the
    security of the system itself !).
 
 8.2.  Multiple Attesting Environments
@@ -1283,7 +1287,7 @@ Table of Contents
 
    Ex: Software-induced Denial-of-Service (DoS).
 
-   Ex: Manipulation of priviledged power control interface.
+   Ex: Manipulation of privileged power control interface.
 
 8.4.2.  Physical Attacks
 
@@ -1369,7 +1373,7 @@ Table of Contents
 10.  Operational Considerations
 
    It is possible that some measurement mechanisms may not be fully
-   deterministic or may fail on rare occurences or raise false
+   deterministic or may fail on rare occurrences or raise false
    positives.
 
    It is also possible that aging or environmental context affect
@@ -1498,12 +1502,14 @@ Appendix A.  Collected CDDL
       mt-self-test /
       mt-phys-prop /
       mt-event /
+      mt-trace /
       mt-other ; profile
 
    measurement-value = ; structure that depends of type
       mv-self-test /
       mv-phys-prop /
       mv-event /
+      mv-trace /
       mv-other ; profile
 
    mv-phys-prop = {
