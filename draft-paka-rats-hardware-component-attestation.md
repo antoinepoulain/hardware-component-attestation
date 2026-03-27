@@ -345,22 +345,24 @@ The information elements (IEs) that constitute a "measured hardware component" a
 
 ###### Component Name
 
+Component Name is used to identify the target hardware component.
+
 ###### Operational Context {#operational-context}
 
 Additional information on the operational context of the component. These can be used by the Verifier to appraise measurements.
 
-By being placed at this level of the Measured Hardware Component claim, the operational context is shared by every measurement of the target hardware component. It is important that the operational context sampled corresponds to the actual operational context at the time of measurement computations (i.e., sampling of the operational context and computation of the measurements must be executed simultaneously (approximately). Otherwise, TOCTOU attcks would be possible).
+By being placed at this level of the Measured Hardware Component claim, the operational context is shared by every measurement of the target hardware component. It is important that the operational context sampled corresponds to the actual operational context at the time of measurement computations (i.e., sampling of the operational context and computation of the measurements must be executed simultaneously (approximately). Otherwise, TOCTOU attacks would be possible).
 
-TODO fill table
+TODO fill table. Operational Context is highly dependent on what is needed by Verifier which depends on what is measured and also whar are the available sensors etc.. so it will either contain a lot of optional fields or be profile-specific.
 
 | Field Name | Description | Requirement Level |
 |------------|-------------|-------------------|
 | | | |
 {: #tab-op-ctx-fields title="Fields of the Operational Context"}
 
-Use case example: the measurement may be subject to variations depending on environmental context such as temperature. A measurement value might acceptable when computed in a context of extreme cold but not if computed at room temperature. The Verifier must therefore be aware of the temperature surrounding the component to decide if the measurement corresponds to good behavior or not. The Verifier will therefore base its appraisal on the environmental context reported in Operational Context.
+Use case example: the measurement may be subject to variations depending on environmental context such as temperature (ideally specified in Endorsements, see {{endorsements}}). A measurement value might be acceptable when computed in a context of extreme cold but not if computed at room temperature. The Verifier must therefore be aware of the temperature surrounding the component to decide if the measurement corresponds to good behavior or not. The Verifier will therefore base its appraisal on the environmental context reported in Operational Context.
 
-Note: The content of the operational context is sensitive and must have the same level of protection as the measurements.
+Note: Information in Operational Context is sensitive and must have the same level of protection as the measurements.
 
 ###### Measurement List
 
