@@ -103,7 +103,7 @@ Table of Contents
    7.  CDDL Definitions
      7.1.  Measured Hardware Component Claim
        7.1.1.  Measurement Value: Self-Test
-       7.1.2.  Measurement Valut: Physical Property
+       7.1.2.  Measurement Value: Physical Property
      7.2.  Inclusion in EAT Measurement Claim
    8.  Practical Examples
      8.1.  Monitoring Physical Properties
@@ -827,7 +827,7 @@ Table of Contents
 
                Figure 6: CDDL of Self-Test Measurement Value
 
-7.1.2.  Measurement Valut: Physical Property
+7.1.2.  Measurement Value: Physical Property
 
    CDDL defintion of the structure of measurement-value when
    measurement-type = mt-phys-prop.
@@ -837,6 +837,10 @@ Table of Contents
    }
 
            Figure 7: CDDL of Physical Property Measurement Value
+
+   TODO: if unit of the measurement is specified in here, is it possible
+   to reuse IANA numbers for Sensor Measurement Lists:
+   https://www.iana.org/assignments/senml/senml.xhtml
 
 7.2.  Inclusion in EAT Measurement Claim
 
