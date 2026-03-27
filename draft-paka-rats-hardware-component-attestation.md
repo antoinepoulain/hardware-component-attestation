@@ -111,10 +111,6 @@ The terminology defined in {{RFC9334}} is reused throughout this document. Some 
 
 + Target Hardware Component: A hardware component which is a Target Environment for an Attesting Environment.
 
-# Scope and Limitations
-
-TODO Scope and Limitations
-
 # Use Cases
 
 The solution presented in this document aims at mitigating two threats on hardware.
@@ -215,7 +211,7 @@ A single Attesting Environment can be responsible for one or more target hardwar
 
 In addition to that, there may be multiple Attesting Environments. That case is discussed in {{-composite-attest}}.
 
-## Measurement Journey
+## Measurement Journey {#measurement-journey}
 
 Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).
 
@@ -247,7 +243,7 @@ Below are the identified steps of the journey of a measurement at the hardware l
 
     The processing of the measurement must be securely operated in the boundary of the Attesting Environment. An attacker must not be able of tampering with the processing logic.
 
-1. Include measurment in Evidence
+1. Include measurement in Evidence
 
     The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.
 
@@ -280,7 +276,7 @@ Endorsements in the scope of this document contain metadata describing the chara
 
 These may include environmental robustness properties (e.g., operating temperature range, resistance to environmental conditions), Measurement Unit characteristics (e.g., accuracy, precision, uncertainty, sampling rate, sample count, method), calibration data (e.g., calibration coefficients and drift models over operational context), semantics of measurements (e.g., unit, scale, interpretation) and where applicable, the characteristics of reference or behavioral models to be used by the Verifier during appraisal.
 
-TODO: if unit of the measurement is specified in here, is it possible to reuse IANA numbers for Sensor Measurement Lists: https://www.iana.org/assignments/senml/senml.xhtml
+TODO: if the unit of the measurement is specified in here, is it possible to reuse IANA numbers for Sensor Measurement Lists: https://www.iana.org/assignments/senml/senml.xhtml
 
 ### Concice Reference Integrity Manifest (CoRIM)
 
@@ -452,7 +448,7 @@ CDDL defintion of the structure of measurement-value when measurement-type = mt-
 
 CDDL defintion of the structure of measurement-value when measurement-type = mt-other.
 
-TODO additional structures could be defined in a profile. Simply, the Measurement Value could be raw bytes that the Verifier would understand (based on a profile).
+TODO additional structures could be defined in a profile. Simply, the Measurement Value could be raw bytes that the Verifier would understand (by using a profile).
 
 ## Inclusion in EAT Measurement Claim
 
@@ -596,7 +592,7 @@ The security considerations related to X.509 certificates apply ({{Section 8 of 
 
 Security considerations of CoRIM apply ({{Section 11 of -rats-corim}}) when using CORIM for Endorsements and Reference Values.
 
-The following subsections are mainly focused on security considerations regarding the Attester.
+The following subsections are mainly focused on security considerations regarding the Attester during the steps of the Measurement Journey (see {{measurement-journey}}).
 
 ## Root of Trust Components {#rot-comp}
 
@@ -610,7 +606,7 @@ In case of multiple Attesting Environments, distribution of freshness and bindin
 
 ## Invasive Accesses
 
-The Measurement Unit must not allow an attacker to access protected assets. For instance, access to protected assets can happen when computing measurements by using internal debug mechanisms (e.g., TAP controllers).
+An attacker must not be able to leverage a Measurement Unit to access protected assets. For instance, access to protected assets can happen when computing measurements by using internal debug mechanisms (e.g., TAP controllers).
 
 ## Threat Model
 
@@ -644,7 +640,7 @@ Ex: Glitching, fault injections to induce malicious behavior. May tamper with th
 
 Ex: Memory tampering attacks to modify stored measurements.
 
-Some techniques to mitigate physical attacks are usage of a TPM or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.
+Some techniques to mitigate physical attacks are usage of a Trusted Platform Module (TPM) or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.
 
 ### Supply Chain Attacks {#supply-chain-attacks}
 

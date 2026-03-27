@@ -7,6 +7,7 @@ $measurements-body-cbor /= mhwc-cbor
 
 ; EAT JSON (`.feature "json"`)
 $measurements-body-json /= mhwc-json
+
 measured-hw-component = {
       component-id-label => component-id
       ? operational-ctx-label => operational-ctx
@@ -36,7 +37,7 @@ measurement-value = ; structure that depends of type
    mv-other ; profile
 
 mv-phys-prop = {
-   physical-property-id-label => tstr,
+   physical-property-id => tstr,
    value => number / bstr / tstr,
    ; unit, precision, scale, uncertainty,
    ; are already specified in Endrorsements
