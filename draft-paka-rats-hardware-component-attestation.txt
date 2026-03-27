@@ -690,6 +690,8 @@ Table of Contents
 
 6.3.1.4.1.1.  Component Name
 
+   Component Name is used to identify the target hardware component.
+
 6.3.1.4.1.2.  Operational Context
 
    Additional information on the operational context of the component.
@@ -701,10 +703,13 @@ Table of Contents
    context sampled corresponds to the actual operational context at the
    time of measurement computations (i.e., sampling of the operational
    context and computation of the measurements must be executed
-   simultaneously (approximately).  Otherwise, TOCTOU attcks would be
+   simultaneously (approximately).  Otherwise, TOCTOU attacks would be
    possible).
 
-   TODO fill table
+   TODO fill table.  Operational Context is highly dependent on what is
+   needed by Verifier which depends on what is measured and also whar
+   are the available sensors etc.. so it will either contain a lot of
+   optional fields or be profile-specific.
 
              +============+=============+===================+
              | Field Name | Description | Requirement Level |
@@ -714,16 +719,17 @@ Table of Contents
                 Table 2: Fields of the Operational Context
 
    Use case example: the measurement may be subject to variations
-   depending on environmental context such as temperature.  A
-   measurement value might acceptable when computed in a context of
-   extreme cold but not if computed at room temperature.  The Verifier
-   must therefore be aware of the temperature surrounding the component
-   to decide if the measurement corresponds to good behavior or not.
-   The Verifier will therefore base its appraisal on the environmental
-   context reported in Operational Context.
+   depending on environmental context such as temperature (ideally
+   specified in Endorsements, see Section 6.1).  A measurement value
+   might be acceptable when computed in a context of extreme cold but
+   not if computed at room temperature.  The Verifier must therefore be
+   aware of the temperature surrounding the component to decide if the
+   measurement corresponds to good behavior or not.  The Verifier will
+   therefore base its appraisal on the environmental context reported in
+   Operational Context.
 
-   Note: The content of the operational context is sensitive and must
-   have the same level of protection as the measurements.
+   Note: Information in Operational Context is sensitive and must have
+   the same level of protection as the measurements.
 
 6.3.1.4.1.3.  Measurement List
 
