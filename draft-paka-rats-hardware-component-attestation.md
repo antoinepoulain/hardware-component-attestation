@@ -415,7 +415,7 @@ CDDL defintion of the structure of measurement-value when measurement-type = mt-
 ~~~
 {: #mv_self_test title="CDDL of Self-Test Measurement Value"}
 
-### Measurement Valut: Physical Property
+### Measurement Value: Physical Property
 
 CDDL defintion of the structure of measurement-value when measurement-type = mt-phys-prop.
 
@@ -423,6 +423,8 @@ CDDL defintion of the structure of measurement-value when measurement-type = mt-
 {::include cddl/mv-phys-prop.cddl}
 ~~~
 {: #mv_phys_prop title="CDDL of Physical Property Measurement Value"}
+
+TODO: if unit of the measurement is specified in here, is it possible to reuse IANA numbers for Sensor Measurement Lists: https://www.iana.org/assignments/senml/senml.xhtml
 
 ## Inclusion in EAT Measurement Claim
 
