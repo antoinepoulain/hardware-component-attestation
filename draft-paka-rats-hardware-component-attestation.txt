@@ -84,51 +84,50 @@ Table of Contents
    2.  Terminology
      2.1.  Requirements Notation
      2.2.  Definitions
-   3.  Scope and Limitations
-   4.  Use Cases
-   5.  Attester Model
-     5.1.  Abstract Representation
-     5.2.  Integration Models
-       5.2.1.  Embedded Measurement Unit
-       5.2.2.  External Measurement Unit
-     5.3.  Measurement Journey
-   6.  Inclusion in Conceptual Messages
-     6.1.  Endorsement
-       6.1.1.  Concice Reference Integrity Manifest (CoRIM)
-     6.2.  Reference Value
-       6.2.1.  Concice Reference Integrity Manifest (CoRIM)
-     6.3.  Evidence
-       6.3.1.  Entity Attestation Token (EAT)
-       6.3.2.  X.509 Certificate
-   7.  CDDL Definitions
-     7.1.  Measured Hardware Component Claim
-       7.1.1.  Measurement Value
-     7.2.  Inclusion in EAT Measurement Claim
-   8.  Practical Examples
-     8.1.  Monitoring Physical Properties
-       8.1.1.  Using a Discrete Component Sensor
-       8.1.2.  Using an Embedded Sensor
-     8.2.  Detection by Self-Testing
-       8.2.1.  Using Built-In-Self-Tests (BIST)
-       8.2.2.  TRNG Entropy Evaluation by an Embedded Measurement Unit
-       8.2.3.  TRNG Entropy Evaluation by a Software Measurement Unit
-       8.2.4.  TRNG Entropy Cross-Validation by Dual Measurement Units
-     8.3.  Detection of Active Tampering
-     8.4.  Detection Using Traces
-   9.  Security Considerations
-     9.1.  Root of Trust Components
-     9.2.  Multiple Attesting Environments
-     9.3.  Invasive Accesses
-     9.4.  Threat Model
-       9.4.1.  Software Attacks
-       9.4.2.  Physical Attacks
-       9.4.3.  Supply Chain Attacks
-   10. Privacy Considerations
-   11. Operational Considerations
-   12. IANA Considerations
-   13. References
-     13.1.  Normative References
-     13.2.  Informative References
+   3.  Use Cases
+   4.  Attester Model
+     4.1.  Abstract Representation
+     4.2.  Integration Models
+       4.2.1.  Embedded Measurement Unit
+       4.2.2.  External Measurement Unit
+     4.3.  Measurement Journey
+   5.  Inclusion in Conceptual Messages
+     5.1.  Endorsement
+       5.1.1.  Concice Reference Integrity Manifest (CoRIM)
+     5.2.  Reference Value
+       5.2.1.  Concice Reference Integrity Manifest (CoRIM)
+     5.3.  Evidence
+       5.3.1.  Entity Attestation Token (EAT)
+       5.3.2.  X.509 Certificate
+   6.  CDDL Definitions
+     6.1.  Measured Hardware Component Claim
+       6.1.1.  Measurement Value
+     6.2.  Inclusion in EAT Measurement Claim
+   7.  Practical Examples
+     7.1.  Monitoring Physical Properties
+       7.1.1.  Using a Discrete Component Sensor
+       7.1.2.  Using an Embedded Sensor
+     7.2.  Detection by Self-Testing
+       7.2.1.  Using Built-In-Self-Tests (BIST)
+       7.2.2.  TRNG Entropy Evaluation by an Embedded Measurement Unit
+       7.2.3.  TRNG Entropy Evaluation by a Software Measurement Unit
+       7.2.4.  TRNG Entropy Cross-Validation by Dual Measurement Units
+     7.3.  Detection of Active Tampering
+     7.4.  Detection Using Traces
+   8.  Security Considerations
+     8.1.  Root of Trust Components
+     8.2.  Multiple Attesting Environments
+     8.3.  Invasive Accesses
+     8.4.  Threat Model
+       8.4.1.  Software Attacks
+       8.4.2.  Physical Attacks
+       8.4.3.  Supply Chain Attacks
+   9.  Privacy Considerations
+   10. Operational Considerations
+   11. IANA Considerations
+   12. References
+     12.1.  Normative References
+     12.2.  Informative References
    Appendix A.  Collected CDDL
    Acknowledgments
    Authors' Addresses
@@ -161,16 +160,16 @@ Table of Contents
 
    To address these limitations, this document defines a data model and
    provides guidelines for including hardware component measurements in
-   attestation Evidence (Section 6.3), as described in the RATS
+   attestation Evidence (Section 5.3), as described in the RATS
    architecture [RFC9334].  By incorporating runtime hardware
    measurements, attestation can provide improved visibility into the
    integrity and reliability of systems.  This document also outlines a
    security model for such measurements and provides examples of
    existing technologies that can be leveraged to obtain them
-   (Section 8).  These examples are informational only and do not
+   (Section 7).  These examples are informational only and do not
    mandate specific implementations.  Instead, this document remains
    agnostic to the underlying measurement mechanisms and focuses on
-   defining abstract interfaces (Section 5.1) and a data model for
+   defining abstract interfaces (Section 4.1) and a data model for
    obtaining and representing such measurements.
 
 2.  Terminology
@@ -193,7 +192,7 @@ Table of Contents
       logic with the ability to measure a hardware component.  Software
       logic used to trigger a measurement is not considered a
       Measurement Unit but rather the Attesting Environment end-point of
-      the Trigger interface.  See Section 5.1 for details on the Trigger
+      the Trigger interface.  See Section 4.1 for details on the Trigger
       interface.
 
    *  Measurement: Term introduced by RATS.  In the context of this
@@ -203,11 +202,7 @@ Table of Contents
    *  Target Hardware Component: A hardware component which is a Target
       Environment for an Attesting Environment.
 
-3.  Scope and Limitations
-
-   TODO Scope and Limitations
-
-4.  Use Cases
+3.  Use Cases
 
    The solution presented in this document aims at mitigating two
    threats on hardware.
@@ -239,7 +234,7 @@ Table of Contents
    therefore critical for maintaining both operational safety and the
    trustworthiness of any attestation claim issued by a system.
 
-5.  Attester Model
+4.  Attester Model
 
    The RATS architecture presented in [RFC9334] introduces two types of
    environments in an Attester.  The Attesting Environment (AE) and the
@@ -260,7 +255,7 @@ Table of Contents
    Environments and Target Environments in different integration models
    of measurement mechanisms.
 
-5.1.  Abstract Representation
+4.1.  Abstract Representation
 
    Mechanisms for collecting measurements of hardware components may
    highly depend of the type of hardware component and on the desired
@@ -304,13 +299,13 @@ Table of Contents
    component is represented by the "Data Exchange" channel.  This
    channel is not accessible by the Attesting Environment.
 
-5.2.  Integration Models
+4.2.  Integration Models
 
    The following subsections present possible layouts for integrating a
    Measurement Unit between the Attesting Environment and the target
    hardware component.
 
-5.2.1.  Embedded Measurement Unit
+4.2.1.  Embedded Measurement Unit
 
    In this integration model, the Measurement Unit is part of the target
    hardware component.  The separation between Measurement Unit (part of
@@ -338,14 +333,14 @@ Table of Contents
    Note: As shown in Figure 1, the Measurement Unit and target hardware
    component share the same die.  Therefore, they are in the same
    physical security perimeter.  This may have an impact on the trust
-   model (see Section 9.4.3).
+   model (see Section 8.4.3).
 
-5.2.2.  External Measurement Unit
+4.2.2.  External Measurement Unit
 
    In the following integration models, the Measurement Unit is external
    to the target hardware component.
 
-5.2.2.1.  Discrete Component
+4.2.2.1.  Discrete Component
 
    The Measurement Unit is a discrete component external to the target
    hardware component and to the Attesting Environment.
@@ -376,9 +371,9 @@ Table of Contents
    Measurement Unit.  Using a discret component implies the existence of
    physical communication channels between the AE, TE and Measurement
    Unit on which data such as measurement will transit.  This introduces
-   attack vectors.  Refer to Section 9.
+   attack vectors.  Refer to Section 8.
 
-5.2.2.2.  Integrated in Attesting Environment
+4.2.2.2.  Integrated in Attesting Environment
 
    The Measurement Unit is physically integrated in the Attesting
    Environment.  It can take the form of hardware circuitry or be a
@@ -408,7 +403,7 @@ Table of Contents
    Of course, both embedded and external Measurement Units can be found
    in the same system and possibly, a combination of embedded and
    external can be used to measure a single Target Environment (see the
-   practical example in Section 8.2.4).
+   practical example in Section 7.2.4).
 
    A single Attesting Environment can be responsible for one or more
    target hardware components.  The Attesting Environment is therefore
@@ -418,7 +413,7 @@ Table of Contents
    In addition to that, there may be multiple Attesting Environments.
    That case is discussed in [I-D.richardson-rats-composite-attesters].
 
-5.3.  Measurement Journey
+4.3.  Measurement Journey
 
    Measurements of hardware components must be included in the Evidence
    to be sent to a Verifier.  This implies that the Attesting
@@ -478,7 +473,7 @@ Table of Contents
        the boundary of the Attesting Environment.  An attacker must not
        be able of tampering with the processing logic.
 
-   6.  Include measurment in Evidence
+   6.  Include measurement in Evidence
 
        The Attesting Environment is responsible for including the
        measurement data in Evidence.  This operation must be carried out
@@ -534,7 +529,7 @@ Table of Contents
 
                        Figure 4: Measurement Journey
 
-6.  Inclusion in Conceptual Messages
+5.  Inclusion in Conceptual Messages
 
    This section introduces standard claims to be included in RATS
    Conceptual Messages.  Conceptual Messages are defined in Section 8 of
@@ -548,7 +543,7 @@ Table of Contents
    To promote interoperability, the following sections showcase how to
    use the CoRIM and EAT data models in the context of this document.
 
-6.1.  Endorsement
+5.1.  Endorsement
 
    Endorsements in the scope of this document contain metadata
    describing the characteristics of Measurement Units and target
@@ -565,18 +560,18 @@ Table of Contents
    reference or behavioral models to be used by the Verifier during
    appraisal.
 
-   TODO: if unit of the measurement is specified in here, is it possible
-   to reuse IANA numbers for Sensor Measurement Lists:
+   TODO: if the unit of the measurement is specified in here, is it
+   possible to reuse IANA numbers for Sensor Measurement Lists:
    https://www.iana.org/assignments/senml/senml.xhtml
 
-6.1.1.  Concice Reference Integrity Manifest (CoRIM)
+5.1.1.  Concice Reference Integrity Manifest (CoRIM)
 
    Endorsements can be written inside a CoMID Endorsed Values triple of
    a CoRIM (see Section 5.1.6 of [I-D.ietf-rats-corim]).  The Endorsed
    Values triple holds one or more measurement-map that are used to
    write the Endorsements.
 
-6.2.  Reference Value
+5.2.  Reference Value
 
    Reference Values must be computed in a secure environment.
 
@@ -588,7 +583,7 @@ Table of Contents
    not necessarily mean bad behavior.  If such context-dependent
    parameters cannot be foreseen, it is possible to include additional
    data in Evidence to give details about the context in which the
-   measurement has been computed (see Section 6.3.1.4.1.2).  The
+   measurement has been computed (see Section 5.3.1.4.1.2).  The
    Verifier will then use these additionnal data to select the Reference
    Value that should be used in the context described by the additional
    data (kind of conditional Reference Values).  This implies that
@@ -604,23 +599,23 @@ Table of Contents
    *even a ML model to detect abnormal physical properties depending on
    operational context of the system.
 
-6.2.1.  Concice Reference Integrity Manifest (CoRIM)
+5.2.1.  Concice Reference Integrity Manifest (CoRIM)
 
    Reference Values can be written inside a CoMID Reference Values
    triple of a CoRIM (see Section 5.1.5 of [I-D.ietf-rats-corim]).  The
    Reference Values triple holds one or more measurement-map that are
    used to write the Reference Values.
 
-6.3.  Evidence
+5.3.  Evidence
 
    The current version of this document proposes several approaches for
    including hardware component measurements in Evidence.  For now,
    these options are present as brainstorming, to explore the different
    possibilities and may be removed in future versions of this document.
 
-6.3.1.  Entity Attestation Token (EAT)
+5.3.1.  Entity Attestation Token (EAT)
 
-6.3.1.1.  Using EAT Measured Component Claim
+5.3.1.1.  Using EAT Measured Component Claim
 
    It is possible for some measurements to be represented in an already
    existing EAT Measured Component.  The EAT Measured Component is
@@ -633,7 +628,7 @@ Table of Contents
    used to extend the measured-component base type with profile-defined
    semantics.
 
-6.3.1.2.  Using EAT Measurement Result Claim
+5.3.1.2.  Using EAT Measurement Result Claim
 
    It is possible for some measurements to be represented in an already
    existing EAT Measurement Result.  The EAT Measurement Result is
@@ -645,7 +640,7 @@ Table of Contents
    expected value and output results such as "success" or "failure".  In
    that case, a Measurement Result claim can be used.
 
-6.3.1.3.  Using EAT Submodule Claim
+5.3.1.3.  Using EAT Submodule Claim
 
    TODO it seems EAT Submodule can be used to embed hardware components
    claims (maybe only more complete subsystems not simple hardware
@@ -653,7 +648,7 @@ Table of Contents
    measurements.  Especially relevant if the submodule does not have its
    own Attesting Environment (Section 4.2.18 of [RFC9711]).
 
-6.3.1.4.  Using Measured Hardware Component Claims
+5.3.1.4.  Using Measured Hardware Component Claims
 
    This section proposes a new claim, the "Measured Hardware Component",
    to represent what is described in this document.  This claim is
@@ -664,7 +659,7 @@ Table of Contents
    "measured component" claim introduced in
    [I-D.ietf-rats-eat-measured-component].
 
-6.3.1.4.1.  Information Model
+5.3.1.4.1.  Information Model
 
    This section presents the information model of a "measured hardware
    component".
@@ -692,11 +687,11 @@ Table of Contents
 
          Table 1: Measured Hardware Component Information Elements
 
-6.3.1.4.1.1.  Component Name
+5.3.1.4.1.1.  Component Name
 
    Component Name is used to identify the target hardware component.
 
-6.3.1.4.1.2.  Operational Context
+5.3.1.4.1.2.  Operational Context
 
    Additional information on the operational context of the component.
    These can be used by the Verifier to appraise measurements.
@@ -730,7 +725,7 @@ Table of Contents
 
    Use case example: the measurement may be subject to variations
    depending on environmental context such as temperature (ideally
-   specified in Endorsements, see Section 6.1).  A measurement value
+   specified in Endorsements, see Section 5.1).  A measurement value
    might be acceptable when computed in a context of extreme cold but
    not if computed at room temperature.  The Verifier must therefore be
    aware of the temperature surrounding the component to decide if the
@@ -741,7 +736,7 @@ Table of Contents
    Note: Information in Operational Context is sensitive and must have
    the same level of protection as the measurements.
 
-6.3.1.4.1.3.  Measurement List
+5.3.1.4.1.3.  Measurement List
 
    +=================+==================================+=============+
    | Field Name      | Description                      | Requirement |
@@ -776,30 +771,30 @@ Table of Contents
 
    For example, the type can be used to specify if the measurement is
    the result of a self-test, the sampling of a physical property, a
-   trace or an event (see Section 7.1.1).
+   trace or an event (see Section 6.1.1).
 
    *  Measurement Value:
 
    The structure that holds the actual measurement.  The structure of
    the Measurement Value depends on the Measurement Type.
 
-6.3.2.  X.509 Certificate
+5.3.2.  X.509 Certificate
 
    Appendix C.3 of [RFC9711] describes methods to encode EAT claims in
    an X.509 certificate.  These methods can be used for the claims
-   presented in Section 6.3.1.
+   presented in Section 5.3.1.
 
    Ex: DICE uses X.509 certificates with a custom extension to carry
    Evidence [TCG-DICE].  TLS and DTLS extended with remote attestation
    also use X.509 certificates with an attestion extension
    [I-D.fossati-tls-attestation].
 
-7.  CDDL Definitions
+6.  CDDL Definitions
 
    This sections presents CDDL definitions for the Measured Hardware
    Component claim to be included in EAT Measurement claim.
 
-7.1.  Measured Hardware Component Claim
+6.1.  Measured Hardware Component Claim
 
    measured-hw-component = {
          component-id-label => component-id
@@ -831,15 +826,15 @@ Table of Contents
 
             Figure 5: CDDL of Measured Hardware Component Claim
 
-7.1.1.  Measurement Value
+6.1.1.  Measurement Value
 
-7.1.1.1.  Physical Property
+6.1.1.1.  Physical Property
 
    CDDL defintion of the structure of measurement-value when
    measurement-type = mt-phys-prop.
 
    mv-phys-prop = {
-      physical-property-id-label => tstr,
+      physical-property-id => tstr,
       value => number / bstr / tstr,
       ; unit, precision, scale, uncertainty,
       ; are already specified in Endrorsements
@@ -847,7 +842,7 @@ Table of Contents
 
            Figure 6: CDDL of Physical Property Measurement Value
 
-7.1.1.2.  Self-Test
+6.1.1.2.  Self-Test
 
    CDDL defintion of the structure of measurement-value when
    measurement-type = mt-self-test.
@@ -866,7 +861,7 @@ Table of Contents
 
                Figure 7: CDDL of Self-Test Measurement Value
 
-7.1.1.3.  Event
+6.1.1.3.  Event
 
    CDDL defintion of the structure of measurement-value when
    measurement-type = mt-event.
@@ -887,7 +882,7 @@ Table of Contents
 
                  Figure 8: CDDL of Event Measurement Value
 
-7.1.1.4.  Trace
+6.1.1.4.  Trace
 
    CDDL defintion of the structure of measurement-value when
    measurement-type = mt-trace.
@@ -904,18 +899,18 @@ Table of Contents
 
                  Figure 9: CDDL of Trace Measurement Value
 
-7.1.1.5.  Other
+6.1.1.5.  Other
 
    CDDL defintion of the structure of measurement-value when
    measurement-type = mt-other.
 
    TODO additional structures could be defined in a profile.  Simply,
    the Measurement Value could be raw bytes that the Verifier would
-   understand (based on a profile).
+   understand (by using a profile).
 
-7.2.  Inclusion in EAT Measurement Claim
+6.2.  Inclusion in EAT Measurement Claim
 
-   The CDDL defined in Section 7.1 extends the $measurements-body-cbor
+   The CDDL defined in Section 6.1 extends the $measurements-body-cbor
    and $measurements-body-json EAT sockets to add support for the
    measured-hw-component to the Measurements claim (Section 4.2.16 of
    [RFC9711]).
@@ -931,7 +926,7 @@ Table of Contents
 
              Figure 10: CDDL Extension of EAT Measurement Body
 
-8.  Practical Examples
+7.  Practical Examples
 
    This section is for informational purposes only.
 
@@ -939,15 +934,15 @@ Table of Contents
    [ISO5891] that are not covered here but fall in the scope of this
    document.
 
-8.1.  Monitoring Physical Properties
+7.1.  Monitoring Physical Properties
 
-8.1.1.  Using a Discrete Component Sensor
+7.1.1.  Using a Discrete Component Sensor
 
    In this scenario, the Measurement Unit is implemented as a discrete
    external sensor, such as a temperature sensor or a Power Monitoring
    Integrated Circuit (PMIC).  The Target Environment is the hardware
    component under observation, for example a CPU.  This corresponds to
-   the integration model described in Section 5.2.2.1.
+   the integration model described in Section 4.2.2.1.
 
    The Measurement Unit observes physical properties of the Target
    Environment through a physical coupling, such as thermal conduction
@@ -965,7 +960,7 @@ Table of Contents
    result, the trustworthiness of the measurements depends on the
    integrity and characteristics of the sensor, which can be established
    through Endorsements describing its properties such as precision,
-   calibration, and operating conditions (refer to Section 6.1).
+   calibration, and operating conditions (refer to Section 5.1).
 
    During appraisal, the Verifier evaluates the measurements against
    Reference Values that may depend on the operational context.  These
@@ -979,16 +974,16 @@ Table of Contents
    additional attack surfaces, including sensor spoofing, manipulation
    of communication channels, and environmental interference.  These
    risks must be considered in the system design and threat model (see
-   Section 9).
+   Section 8).
 
-8.1.2.  Using an Embedded Sensor
+7.1.2.  Using an Embedded Sensor
 
-8.1.2.1.  Generic Example
+7.1.2.1.  Generic Example
 
    In this scenario, the Measurement Unit is implemented as an on-die
    sensor integrated within the target hardware component.  This
    corresponds to the embedded Measurement Unit model described
-   Section 5.2.1.
+   Section 4.2.1.
 
    The Measurement Unit observes physical properties of the Target
    Environment, such as temperature, voltage, or timing behavior,
@@ -1017,14 +1012,14 @@ Table of Contents
    the binding between the measurement and the component.  However, it
    also reduces independence, as both the Target Environment and the
    Measurement Unit may be affected by the same faults or compromises.
-   For instance, refer to Section 9.4.3.
+   For instance, refer to Section 8.4.3.
 
-8.1.2.2.  Using a Ring Oscillator
+7.1.2.2.  Using a Ring Oscillator
 
    In this scenario, the Measurement Unit is implemented as a ring
    oscillator integrated within the Target Environment.  This
    corresponds to the embedded Measurement Unit model described
-   Section 5.2.1.  The oscillator frequency depends on physical and
+   Section 4.2.1.  The oscillator frequency depends on physical and
    electrical properties of the hardware, including voltage,
    temperature, and process variations.
 
@@ -1047,18 +1042,18 @@ Table of Contents
    measurement types by providing continuous monitoring of the hardware
    physical and electrical behavior.
 
-8.2.  Detection by Self-Testing
+7.2.  Detection by Self-Testing
 
    This section provides practical examples that demonstrate how self-
    tests can be leveraged to measure a hardware component.
 
-8.2.1.  Using Built-In-Self-Tests (BIST)
+7.2.1.  Using Built-In-Self-Tests (BIST)
 
    In this scenario, the Measurement Unit is implemented as Built-In
    Self-Test (BIST) circuitry integrated within the Target Environment,
    for example within a memory subsystem or a cryptographic accelerator.
    This corresponding to the embedded Measurement Unit integration model
-   described in Section 5.2.1.
+   described in Section 4.2.1.
 
    The BIST logic executes predefined test patterns and compares the
    observed behavior of the component against expected results,
@@ -1069,7 +1064,7 @@ Table of Contents
    in Evidence as measurements associated with the corresponding target
    hardware component structured according to a Measurement Result or a
    Measured Hardware Component claim defined respectively in
-   Section 6.3.1.2 and Section 6.3.1.4.
+   Section 5.3.1.2 and Section 5.3.1.4.
 
    During appraisal, the Verifier compares the reported test results
    against Reference Values, typically expecting a successful outcome.
@@ -1082,13 +1077,13 @@ Table of Contents
    measurements by detecting faults that may not be observable through
    sensors.
 
-8.2.2.  TRNG Entropy Evaluation by an Embedded Measurement Unit
+7.2.2.  TRNG Entropy Evaluation by an Embedded Measurement Unit
 
    In this scenario, the Target Environment is the TRNG hardware
    component, whose entropy source constitutes the subject of the
    measurement.  The Measurement Unit is implemented as on-die hardware
    logic tightly coupled to the TRNG, corresponding to the embedded
-   Measurement Unit integration model described in Section 5.2.1.
+   Measurement Unit integration model described in Section 4.2.1.
 
    The Measurement Unit continuously or periodically evaluates the
    entropy source by executing health tests and entropy estimators
@@ -1102,8 +1097,8 @@ Table of Contents
    certificate).  The Evidence includes multiple measurements for the
    TRNG component, such as health test results and minimum entropy
    values, structured according to the Measurement Result or Measured
-   Hardware Component claim defined respectively in Section 6.3.1.2 and
-   Section 6.3.1.4.
+   Hardware Component claim defined respectively in Section 5.3.1.2 and
+   Section 5.3.1.4.
 
    During appraisal, the Verifier validates the signature using the
    manufacturer’s endorsement chain, then evaluates the measurements
@@ -1116,12 +1111,12 @@ Table of Contents
    the integrity of the Measurement Unit is not independently verified
    at runtime but is instead covered by manufacturer endorsements.
 
-8.2.3.  TRNG Entropy Evaluation by a Software Measurement Unit
+7.2.3.  TRNG Entropy Evaluation by a Software Measurement Unit
 
    In this scenario, the Target Environment is the TRNG, while the
    Measurement Unit is implemented as a software component executing
    within the Attesting Environment.  This corresponds to the
-   integration model described in Section 5.2.2.2.
+   integration model described in Section 4.2.2.2.
 
    The Measurement Unit obtains raw samples from the TRNG via a software
    interface and computes entropy-related measurements.  As the
@@ -1143,16 +1138,16 @@ Table of Contents
    Measurement Unit and the validity of the measurements it produces.
    This dependency is always present but the trustworthiness of the MU
    is not always quantifiable (e.g., the MU cannot be measured), see
-   Section 9.1.
+   Section 8.1.
 
-8.2.4.  TRNG Entropy Cross-Validation by Dual Measurement Units
+7.2.4.  TRNG Entropy Cross-Validation by Dual Measurement Units
 
    This scenario is a mix of the two previous ones.  The Target
    Environment is the TRNG, while two Measurement Units operate
    concurrently: a hardware Measurement Unit embedded in the component
    and a software Measurement Unit integrated within the Attesting
    Environment.  This corresponds to a combination of the integration
-   models described in Section 5.2.1 and Section 5.2.2.2.
+   models described in Section 4.2.1 and Section 4.2.2.2.
 
    Each Measurement Unit independently computes entropy-related
    measurements based on the same underlying noise source.  The
@@ -1171,7 +1166,7 @@ Table of Contents
    same target hardware component, originating from distinct Measurement
    Units.
 
-8.3.  Detection of Active Tampering
+7.3.  Detection of Active Tampering
 
    In this generic scenario, the Measurement Unit consists of tamper
    detection circuitry, such as an active mesh, voltage glitch detector,
@@ -1197,7 +1192,7 @@ Table of Contents
    direct detection of active physical attacks and environmental
    anomalies.
 
-8.4.  Detection Using Traces
+7.4.  Detection Using Traces
 
    In this generic scenario, the Measurement Unit consists of hardware
    trace logic integrated within the Target Environment, such as Arm
@@ -1225,7 +1220,7 @@ Table of Contents
    additional considerations related to data volume, confidentiality,
    and trust in the trace collection infrastructure.
 
-9.  Security Considerations
+8.  Security Considerations
 
    The security considerations of RATS architecture apply (Section 12 of
    [RFC9334]).  This section also mentions protection against physical
@@ -1247,9 +1242,10 @@ Table of Contents
    Reference Values.
 
    The following subsections are mainly focused on security
-   considerations regarding the Attester.
+   considerations regarding the Attester during the steps of the
+   Measurement Journey (see Section 4.3).
 
-9.1.  Root of Trust Components
+8.1.  Root of Trust Components
 
    Some components are essential for attestation (storage of attestation
    key, hardware Measurement Unit, etc.), if these are tampered with,
@@ -1261,22 +1257,22 @@ Table of Contents
    critical for attestation (altough they can be critical for the
    security of the system itself !).
 
-9.2.  Multiple Attesting Environments
+8.2.  Multiple Attesting Environments
 
    In case of multiple Attesting Environments, distribution of freshness
    and binding of Evidence are discussed in
    [I-D.richardson-rats-composite-attesters].
 
-9.3.  Invasive Accesses
+8.3.  Invasive Accesses
 
-   The Measurement Unit must not allow an attacker to access protected
-   assets.  For instance, access to protected assets can happen when
-   computing measurements by using internal debug mechanisms (e.g., TAP
-   controllers).
+   An attacker must not be able to leverage a Measurement Unit to access
+   protected assets.  For instance, access to protected assets can
+   happen when computing measurements by using internal debug mechanisms
+   (e.g., TAP controllers).
 
-9.4.  Threat Model
+8.4.  Threat Model
 
-9.4.1.  Software Attacks
+8.4.1.  Software Attacks
 
    There exist software attacks that can have a direct impact on
    hardware components’ behavior.  These are ideally mitigated by good
@@ -1289,13 +1285,13 @@ Table of Contents
 
    Ex: Manipulation of priviledged power control interface.
 
-9.4.2.  Physical Attacks
+8.4.2.  Physical Attacks
 
    Physical attacks target the hardware of the system.  They imply
    physical access to the system during its mission mode or while it is
    in the supply chain.
 
-9.4.2.1.  Passive Attacks
+8.4.2.1.  Passive Attacks
 
    Passive physical attacks are used by attackers to leak information
    through analysis of system physical properties.  Passive attacks, by
@@ -1310,7 +1306,7 @@ Table of Contents
    Evidence, which can be used for impersonation and Evidence forgery.
    This is already tackled in Section 12.1.1 of [RFC9334].
 
-9.4.2.2.  Active Attacks
+8.4.2.2.  Active Attacks
 
    Active physical attacks are the main problem since they allow an
    attacker (or a “natural” physical event) to tamper with the integrity
@@ -1329,13 +1325,14 @@ Table of Contents
 
    Ex: Memory tampering attacks to modify stored measurements.
 
-   Some techniques to mitigate physical attacks are usage of a TPM or
-   secure element for storage and correct execution of protected logic,
-   bus protections, redundancy, sensors, active meshes, nose injection,
-   etc.  Note that some of these mitigations cannot directly prevent
-   attacks but can be used for detection.
+   Some techniques to mitigate physical attacks are usage of a Trusted
+   Platform Module (TPM) or secure element for storage and correct
+   execution of protected logic, bus protections, redundancy, sensors,
+   active meshes, nose injection, etc.  Note that some of these
+   mitigations cannot directly prevent attacks but can be used for
+   detection.
 
-9.4.3.  Supply Chain Attacks
+8.4.3.  Supply Chain Attacks
 
    Each stage of the supply chain introduces a new opportunity for an
    attacker to tamper with the produced system.
@@ -1350,7 +1347,7 @@ Table of Contents
    part of the component itself, which means that it has been integrated
    by the foundry that introduced the Trojan, then it cannot be trusted.
 
-10.  Privacy Considerations
+9.  Privacy Considerations
 
    The privacy considerations of RATS architecture apply (Section 11 of
    [RFC9334]).
@@ -1369,7 +1366,7 @@ Table of Contents
    TODO In new claims, some fields may be dangerous for privacy.  Some
    fields may enable tracking.
 
-11.  Operational Considerations
+10.  Operational Considerations
 
    It is possible that some measurement mechanisms may not be fully
    deterministic or may fail on rare occurences or raise false
@@ -1381,14 +1378,14 @@ Table of Contents
    These considerations must be taken into account and mitigated to an
    acceptable level by the designer.
 
-12.  IANA Considerations
+11.  IANA Considerations
 
    This document has no IANA actions.  TODO need IANA actions for claims
    defined in this document ?
 
-13.  References
+12.  References
 
-13.1.  Normative References
+12.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1404,7 +1401,7 @@ Table of Contents
               Architecture", RFC 9334, DOI 10.17487/RFC9334, January
               2023, <https://www.rfc-editor.org/rfc/rfc9334>.
 
-13.2.  Informative References
+12.2.  Informative References
 
    [I-D.fossati-tls-attestation]
               Tschofenig, H., Sheffer, Y., Howard, P., Mihalcea, I.,
@@ -1480,6 +1477,7 @@ Appendix A.  Collected CDDL
 
    ; EAT JSON (`.feature "json"`)
    $measurements-body-json /= mhwc-json
+
    measured-hw-component = {
          component-id-label => component-id
          ? operational-ctx-label => operational-ctx
@@ -1509,7 +1507,7 @@ Appendix A.  Collected CDDL
       mv-other ; profile
 
    mv-phys-prop = {
-      physical-property-id-label => tstr,
+      physical-property-id => tstr,
       value => number / bstr / tstr,
       ; unit, precision, scale, uncertainty,
       ; are already specified in Endrorsements
