@@ -44,6 +44,7 @@ normative:
 
 informative:
   RFC9711:
+  RFC5280:
 
   I-D.ietf-rats-eat-measured-component: eat-mc
 
@@ -560,6 +561,8 @@ Trace-based measurements provide insight into the runtime behavior of the Target
 The security considerations of RATS architecture apply ({{Section 12 of RFC9334}}). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromission. Aging and action of environment on the system are also considered threats.
 
 The security considerations of EAT Measured Component apply ({{Section 5 of -eat-mc}}) when using EAT Measured Component claim or Measured Hardware Component Claim.
+
+The security considerations related to X.509 certificates apply ({{Section 8 of RFC5280}}) when using X.509 certificates to carry Evidence.
 
 Security considerations of CoRIM apply ({{Section 11 of -rats-corim}}) when using CORIM for Endorsements and Reference Values.
 
