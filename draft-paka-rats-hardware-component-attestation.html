@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Poulain &amp; Kaci</td>
-<td class="center">Expires 27 September 2026</td>
+<td class="center">Expires 28 September 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-paka-rats-hardware-component-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-03-26" class="published">26 March 2026</time>
+<time datetime="2026-03-27" class="published">27 March 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-09-27">27 September 2026</time></dd>
+<dd class="expires"><time datetime="2026-09-28">28 September 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1124,7 +1124,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1355,8 +1355,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-1-2">Modern systems increasingly adopt disaggregated architectures, such as chiplet-based designs and large-scale heterogeneous platforms. These systems integrate hardware components from multiple sources, introducing new attack surfaces.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">At the same time, zero trust principles encourage reducing reliance on static trust anchors in favor of evidence reflecting the actual runtime state of components. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">This document considers a threat model in which hardware components may be affected not only by adversarial actions, but also by physical phenomena such as environmental variations, aging, and natural degradation. These aspects are particularly important in systems with strong safety requirements.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence, as described in the RATS architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them. These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces and a data model for obtaining and representing such measurements.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">TODO Add references to sections of this document<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-5">To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence (<a href="#evidence" class="auto internal xref">Section 6.3</a>), as described in the RATS architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them (<a href="#practical-examples" class="auto internal xref">Section 8</a>). These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces (<a href="#abstract-representation" class="auto internal xref">Section 5.1</a>) and a data model for obtaining and representing such measurements.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1383,10 +1382,10 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <p id="section-2.2-1">The terminology defined in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> is reused throughout this document. Some of the definitions from RATS specifications are refined here to fit the context presented in this document.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2-2.1">
-            <p id="section-2.2-2.1.1">Measurement Unit: can be a hardware mechanism (a circuit) or software logic (e.g., FIPS KAT). Software logic used to trigger a measurement is not considered a Measurement Unit but rather the Attesting Environment end-point of the Trigger interface. See <a href="#abstract-representation" class="auto internal xref">Section 5.1</a> for details on the Trigger interface.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.1.1">Measurement Unit: A hardware mechanism (a circuit) or software logic with the ability to measure a hardware component. Software logic used to trigger a measurement is not considered a Measurement Unit but rather the Attesting Environment end-point of the Trigger interface. See <a href="#abstract-representation" class="auto internal xref">Section 5.1</a> for details on the Trigger interface.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.2">
-            <p id="section-2.2-2.2.1">Measurement: Term introduced by RATS (quote document). here it can mean a representation of a physical property (an encoded value), the result of a test etc.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.2.1">Measurement: Term introduced by RATS. In the context of this document it can mean a representation of a physical property, the result of a test etc.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.3">
             <p id="section-2.2-2.3.1">Target Hardware Component: A hardware component which is a Target Environment for an Attesting Environment.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
@@ -1422,7 +1421,8 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 </li>
       </ul>
 <p id="section-4-5">Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access to the system (particularly relevant for embedded systems) and using physical attack techniques.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<p id="section-4-6">TODO small summary on why this is important for security and safety<a href="#section-4-6" class="pilcrow">¶</a></p>
+<p id="section-4-6">Security and Safety Relevance: Undetected hardware defects can compromise the integrity of cryptographic operations, attestation chains, or safety-critical controls, turning a physical fault into a security vulnerability or a life-threatening failure. In adversarial contexts, hardware degradation may also be leveraged to bypass attestation mechanisms or force a system into an exploitable state. Timely and verifiable detection of hardware component malfunctions is therefore critical for maintaining both operational safety and the trustworthiness of any attestation claim issued by a system.<a href="#section-4-6" class="pilcrow">¶</a></p>
+<p id="section-4-7">TODO this fits with the goal of attestation and help widening coverage of integrity<a href="#section-4-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="attester-model">
@@ -1572,10 +1572,9 @@ Using a discret component implies the existence of physical communication channe
 </div>
 <p id="section-5.2.2.2-3">Ex: Software logic (e.g., FIPS KAT)<a href="#section-5.2.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.2-4">Note: This integration model can be limiting in terms of what it is possible to measure.<a href="#section-5.2.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2.2.2-5">A single Attesting Environment can be responsible for one or more target hardware components. The Attesting Environment is therefore responsible for building Evidence for all of its target hardware components.<a href="#section-5.2.2.2-5" class="pilcrow">¶</a></p>
-<p id="section-5.2.2.2-6">In addition to that, there may be multiple Attesting Environments. That case is discussed in <span>[<a href="#I-D.richardson-rats-composite-attesters" class="cite xref">I-D.richardson-rats-composite-attesters</a>]</span>.<a href="#section-5.2.2.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.2.2.2-7">Of course, both embedded and external Measurement Units can be found in the same system and possibly, a combination of embedded and external can be used to measure a single Target Envrionment (see the practical example in <a href="#ex-dual-mu" class="auto internal xref">Section 8.2.4</a>).
-TODO this implies that a TE can have multiple measurement fields in claim and reference values (already supported in RATS standar data models ?)<a href="#section-5.2.2.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.2-5">Of course, both embedded and external Measurement Units can be found in the same system and possibly, a combination of embedded and external can be used to measure a single Target Environment (see the practical example in <a href="#ex-dual-mu" class="auto internal xref">Section 8.2.4</a>).<a href="#section-5.2.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.2-6">A single Attesting Environment can be responsible for one or more target hardware components. The Attesting Environment is therefore responsible for building Evidence for all of its target hardware components.<a href="#section-5.2.2.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.2-7">In addition to that, there may be multiple Attesting Environments. That case is discussed in <span>[<a href="#I-D.richardson-rats-composite-attesters" class="cite xref">I-D.richardson-rats-composite-attesters</a>]</span>.<a href="#section-5.2.2.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1587,63 +1586,62 @@ TODO this implies that a TE can have multiple measurement fields in claim and re
         <h3 id="name-measurement-journey">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-measurement-journey" class="section-name selfRef">Measurement Journey</a>
         </h3>
-<p id="section-5.3-1">TODO should this section be moved before Embedded and External Measurement Unit ?<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).<a href="#section-5.3-2" class="pilcrow">¶</a></p>
-<p id="section-5.3-3">Below are the identified steps of the journey of a measurement at the hardware level. These are important as this document implies a security model in which the attacker can tamper with hardware.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
-<p id="section-5.3-4">TODO at each step describe attacker opportunity (attacker may be phsycial event i.e., not malicious) goal is to include in Evidence a measurement that is trusted.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.3-5">
-<li id="section-5.3-5.1">
-            <p id="section-5.3-5.1.1">Trigger computation<a href="#section-5.3-5.1.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.1.2">
-Measurement computation is triggered by an event (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the Trigger interface.<a href="#section-5.3-5.1.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">Below are the identified steps of the journey of a measurement at the hardware level. These are important as this document implies a security model in which the attacker can tamper with hardware.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3">TODO at each step describe attacker opportunity (attacker may be phsycial event i.e., not malicious) goal is to include in Evidence a measurement that is trusted.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.3-4">
+<li id="section-5.3-4.1">
+            <p id="section-5.3-4.1.1">Trigger computation<a href="#section-5.3-4.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.1.2">
+Measurement computation is triggered by an event (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the Trigger interface.<a href="#section-5.3-4.1.2" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-5.2">
-            <p id="section-5.3-5.2.1">Compute measurement<a href="#section-5.3-5.2.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.2.2">
-The measurement of the target hardware component is computed by the Measurement Unit.<a href="#section-5.3-5.2.2" class="pilcrow">¶</a></p>
+          <li id="section-5.3-4.2">
+            <p id="section-5.3-4.2.1">Compute measurement<a href="#section-5.3-4.2.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.2.2">
+The measurement of the target hardware component is computed by the Measurement Unit.<a href="#section-5.3-4.2.2" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-5.3">
-            <p id="section-5.3-5.3.1">Export measurement<a href="#section-5.3-5.3.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.3.2">
-Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transits from the Measurement Unit to the Attesting Environment through the export interface.<a href="#section-5.3-5.3.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.3.3">
-TODO measurement in transit can be tampered etc.<a href="#section-5.3-5.3.3" class="pilcrow">¶</a></p>
+          <li id="section-5.3-4.3">
+            <p id="section-5.3-4.3.1">Export measurement<a href="#section-5.3-4.3.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.3.2">
+Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transits from the Measurement Unit to the Attesting Environment through the export interface.<a href="#section-5.3-4.3.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.3.3">
+TODO measurement in transit can be tampered etc.<a href="#section-5.3-4.3.3" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-5.4">
-            <p id="section-5.3-5.4.1">[optional] Store measurement<a href="#section-5.3-5.4.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.4.2">
-It is possible that the measurement will not be directly included in Evidence but instead stored until it is effectively included in Evidence by the Attesting Environment.<a href="#section-5.3-5.4.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.4.3">
-The measurement must be securely stored in the boundary of the Attesting Environment. An attacker must not be able of tampering with the measurement while it is at rest.<a href="#section-5.3-5.4.3" class="pilcrow">¶</a></p>
+          <li id="section-5.3-4.4">
+            <p id="section-5.3-4.4.1">[optional] Store measurement<a href="#section-5.3-4.4.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.4.2">
+It is possible that the measurement will not be directly included in Evidence but instead stored until it is effectively included in Evidence by the Attesting Environment.<a href="#section-5.3-4.4.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.4.3">
+The measurement must be securely stored in the boundary of the Attesting Environment. An attacker must not be able of tampering with the measurement while it is at rest.<a href="#section-5.3-4.4.3" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-5.5">
-            <p id="section-5.3-5.5.1">[optional] Process measurement<a href="#section-5.3-5.5.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.5.2">
-It is possible that the measurement will not be directly included in Evidence as is but instead needs to be processed first before being effectively included in Evidence by the Attesting Envrionment..<a href="#section-5.3-5.5.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.5.3">
-The processing of the measurement must be securely operated in the boundary of the Attesting Environment. An attacker must not be able of tampering with the processing logic.<a href="#section-5.3-5.5.3" class="pilcrow">¶</a></p>
+          <li id="section-5.3-4.5">
+            <p id="section-5.3-4.5.1">[optional] Process measurement<a href="#section-5.3-4.5.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.5.2">
+It is possible that the measurement will not be directly included in Evidence as is but instead needs to be processed first before being effectively included in Evidence by the Attesting Envrionment..<a href="#section-5.3-4.5.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.5.3">
+The processing of the measurement must be securely operated in the boundary of the Attesting Environment. An attacker must not be able of tampering with the processing logic.<a href="#section-5.3-4.5.3" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-5.6">
-            <p id="section-5.3-5.6.1">Include measurment in Evidence<a href="#section-5.3-5.6.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.6.2">
-The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.<a href="#section-5.3-5.6.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.6.3">
-Note: At that point, the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.<a href="#section-5.3-5.6.3" class="pilcrow">¶</a></p>
+          <li id="section-5.3-4.6">
+            <p id="section-5.3-4.6.1">Include measurment in Evidence<a href="#section-5.3-4.6.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.6.2">
+The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.<a href="#section-5.3-4.6.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.6.3">
+Note: At that point, the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.<a href="#section-5.3-4.6.3" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-5.7">
-            <p id="section-5.3-5.7.1">Sign Evidence<a href="#section-5.3-5.7.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.7.2">
-The signature operation must be carried out securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.<a href="#section-5.3-5.7.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.7.3">
-For instance, if the signature operation is offloaded to a remote hardware component and Evidence content must transit on a bus to reach this component, the bus must be protected.<a href="#section-5.3-5.7.3" class="pilcrow">¶</a></p>
-<p id="section-5.3-5.7.4">
-Once stored in signed Evidence, the measurement is considered safe from unauthorized modification. This is because the cryptographic signature of the Evidence ensures integrity protection.<a href="#section-5.3-5.7.4" class="pilcrow">¶</a></p>
+          <li id="section-5.3-4.7">
+            <p id="section-5.3-4.7.1">Sign Evidence<a href="#section-5.3-4.7.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.7.2">
+The signature operation must be carried out securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.<a href="#section-5.3-4.7.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.7.3">
+For instance, if the signature operation is offloaded to a remote hardware component and Evidence content must transit on a bus to reach this component, the bus must be protected.<a href="#section-5.3-4.7.3" class="pilcrow">¶</a></p>
+<p id="section-5.3-4.7.4">
+Once stored in signed Evidence, the measurement is considered safe from unauthorized modification. This is because the cryptographic signature of the Evidence ensures integrity protection.<a href="#section-5.3-4.7.4" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-5.3-6"><a href="#meas_journey" class="auto internal xref">Figure 4</a> represents the steps of the measurement journey described above.<a href="#section-5.3-6" class="pilcrow">¶</a></p>
+<p id="section-5.3-5"><a href="#meas_journey" class="auto internal xref">Figure 4</a> represents the steps of the measurement journey described above.<a href="#section-5.3-5" class="pilcrow">¶</a></p>
 <span id="name-measurement-journey-2"></span><div id="meas_journey">
 <figure id="figure-4">
-          <div class="alignCenter art-text artwork" id="section-5.3-7.1">
+          <div class="alignCenter art-text artwork" id="section-5.3-6.1">
 <pre>
 +-------------------------+ Trigger
 |  Attesting Environment  | Measurement +------------------------+
@@ -1691,7 +1689,8 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
         <h3 id="name-endorsement">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-endorsement" class="section-name selfRef">Endorsement</a>
         </h3>
-<p id="section-6.1-1">TODO use case for endorsements in the scope of this document. Ex: endorsmeent for sensor that take measurement: (environment resistance (extremely cold and hot temperatures), measurement precision and incertitude, etc..), any system-specific characteristics that have an impact on how the Evidence appraisal.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">Endorsements in the scope of this document contain metadata describing the characteristics of Measurement Units and target hardware components that are necessary for the Verifier to correctly appraise Evidence.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">These may include environmental robustness properties (e.g., operating temperature range, resistance to environmental conditions), measurement performance characteristics (e.g., accuracy, precision, uncertainty, sampling rate), calibration data (e.g., calibration coefficients and drift models over operational context), semantics of measurements (e.g., unit, scale, interpretation) and where applicable, the characteristics of reference or behavioral models to be used by the Verifier during appraisal.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 <div id="concice-reference-integrity-manifest-corim">
 <section id="section-6.1.1">
           <h4 id="name-concice-reference-integrity">
@@ -1708,7 +1707,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-reference-value" class="section-name selfRef">Reference Value</a>
         </h3>
 <p id="section-6.2-1">Reference Values must be computed in a secure environment.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed. The Verifier will then use these additionnal data to select the Reference Value that should be used in the context described by the additional data. (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't ocrrespond to the actual context of the system.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed (see <a href="#operational-context" class="auto internal xref">Section 6.3.1.4.1.2</a>). The Verifier will then use these additionnal data to select the Reference Value that should be used in the context described by the additional data (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't ocrrespond to the actual context of the system.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
 <p id="section-6.2-3">Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range or a function* of the operational context of the system and can correspond to a class, a group or an instance of target hardware component.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 <p id="section-6.2-4">*even a ML model to detect abnormal physical properties depending on operational context of the system.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
 <div id="concice-reference-integrity-manifest-corim-1">
@@ -1716,8 +1715,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
           <h4 id="name-concice-reference-integrity-">
 <a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-concice-reference-integrity-" class="section-name selfRef">Concice Reference Integrity Manifest (CoRIM)</a>
           </h4>
-<p id="section-6.2.1-1">TODO one CoMID tag per hardware component ?
-Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-5.1.5" class="relref">Section 5.1.5</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-1">Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-5.1.5" class="relref">Section 5.1.5</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2062,7 +2060,7 @@ $measurements-body-json /= mhwc-json
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-practical-examples" class="section-name selfRef">Practical Examples</a>
       </h2>
 <p id="section-8-1">This section is for informational purposes only.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">TODO Some may be only usable at Boot time, other could be usable during runtime.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-2">Note: There are many interesting examples of hardware monitoring in <span>[<a href="#ISO5891" class="cite xref">ISO5891</a>]</span> that are not covered here but fall in the scope of this document.<a href="#section-8-2" class="pilcrow">¶</a></p>
 <div id="monitoring-physical-properties">
 <section id="section-8.1">
         <h3 id="name-monitoring-physical-propert">
@@ -2086,12 +2084,31 @@ $measurements-body-json /= mhwc-json
           <h4 id="name-using-an-embedded-sensor">
 <a href="#section-8.1.2" class="section-number selfRef">8.1.2. </a><a href="#name-using-an-embedded-sensor" class="section-name selfRef">Using an Embedded Sensor</a>
           </h4>
-<p id="section-8.1.2-1">In this scenario, the Measurement Unit is implemented as an on-die sensor integrated within the target hardware component. This corresponds to the embedded Measurement Unit model described <a href="#embedded-mu" class="auto internal xref">Section 5.2.1</a>.<a href="#section-8.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.1.2-2">The Measurement Unit observes physical properties of the Target Environment, such as temperature, voltage, or timing behavior, through direct internal coupling. Measurements are computed and made available to the Attesting Environment through internal interfaces, such as memory-mapped registers, without traversing external communication channels.<a href="#section-8.1.2-2" class="pilcrow">¶</a></p>
-<p id="section-8.1.2-3">The Attesting Environment collects these measurements and includes them in Evidence, optionally along with operational context information to support appraisal.<a href="#section-8.1.2-3" class="pilcrow">¶</a></p>
-<p id="section-8.1.2-4">As the Measurement Unit is physically integrated within the Target Environment, both share the same trust domain and physical security perimeter. The integrity of the Measurement Unit is typically established through Endorsements rather than through runtime measurement.<a href="#section-8.1.2-4" class="pilcrow">¶</a></p>
-<p id="section-8.1.2-5">During appraisal, the Verifier evaluates the measurements against Reference Values that may depend on the operational context. As with other physical measurements, these Reference Values may be expressed as ranges, condition-dependent functions, or behavioral models.<a href="#section-8.1.2-5" class="pilcrow">¶</a></p>
-<p id="section-8.1.2-6">Note: Compared to external sensors, this model reduces the attack surface by eliminating external communication channels and increasing the binding between the measurement and the component. However, it also reduces independence, as both the Target Environment and the Measurement Unit may be affected by the same faults or compromises. For instance, refer to <a href="#supply-chain-attacks" class="auto internal xref">Section 9.4.3</a>.<a href="#section-8.1.2-6" class="pilcrow">¶</a></p>
+<div id="generic-example">
+<section id="section-8.1.2.1">
+            <h5 id="name-generic-example">
+<a href="#section-8.1.2.1" class="section-number selfRef">8.1.2.1. </a><a href="#name-generic-example" class="section-name selfRef">Generic Example</a>
+            </h5>
+<p id="section-8.1.2.1-1">In this scenario, the Measurement Unit is implemented as an on-die sensor integrated within the target hardware component. This corresponds to the embedded Measurement Unit model described <a href="#embedded-mu" class="auto internal xref">Section 5.2.1</a>.<a href="#section-8.1.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.2.1-2">The Measurement Unit observes physical properties of the Target Environment, such as temperature, voltage, or timing behavior, through direct internal coupling. Measurements are computed and made available to the Attesting Environment through internal interfaces, such as memory-mapped registers, without traversing external communication channels.<a href="#section-8.1.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-8.1.2.1-3">The Attesting Environment collects these measurements and includes them in Evidence, optionally along with operational context information to support appraisal.<a href="#section-8.1.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.1.2.1-4">As the Measurement Unit is physically integrated within the Target Environment, both share the same trust domain and physical security perimeter. The integrity of the Measurement Unit is typically established through Endorsements rather than through runtime measurement.<a href="#section-8.1.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-8.1.2.1-5">During appraisal, the Verifier evaluates the measurements against Reference Values that may depend on the operational context. As with other physical measurements, these Reference Values may be expressed as ranges, condition-dependent functions, or behavioral models.<a href="#section-8.1.2.1-5" class="pilcrow">¶</a></p>
+<p id="section-8.1.2.1-6">Note: Compared to external sensors, this model reduces the attack surface by eliminating external communication channels and increasing the binding between the measurement and the component. However, it also reduces independence, as both the Target Environment and the Measurement Unit may be affected by the same faults or compromises. For instance, refer to <a href="#supply-chain-attacks" class="auto internal xref">Section 9.4.3</a>.<a href="#section-8.1.2.1-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="using-a-ring-oscillator">
+<section id="section-8.1.2.2">
+            <h5 id="name-using-a-ring-oscillator">
+<a href="#section-8.1.2.2" class="section-number selfRef">8.1.2.2. </a><a href="#name-using-a-ring-oscillator" class="section-name selfRef">Using a Ring Oscillator</a>
+            </h5>
+<p id="section-8.1.2.2-1">In this scenario, the Measurement Unit is implemented as a ring oscillator integrated within the Target Environment. This corresponds to the embedded Measurement Unit model described <a href="#embedded-mu" class="auto internal xref">Section 5.2.1</a>.
+The oscillator frequency depends on physical and electrical properties of the hardware, including voltage, temperature, and process variations.<a href="#section-8.1.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.2.2-2">The Measurement Unit produces a digital representation of its oscillation frequency, which is collected by the Attesting Environment through an embodiment of the Export interface, then included in Evidence. These measurements provide an indirect observation of the physical state of the component and can be used to detect anomalies such as voltage glitches, thermal variations, or aging effects.<a href="#section-8.1.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.1.2.2-3">During appraisal, the Verifier evaluates the reported frequency against Reference Values that depend on the operational context and calibration data provided through Endorsements.<a href="#section-8.1.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-8.1.2.2-4">Note: As this model is very sensitive to physical perturbations, deviations may have multiple possible causes. Therefore, the interpretation of measurements requires operational context. Ring oscillator measurements can then be used to complement other measurement types by providing continuous monitoring of the hardware physical and electrical behavior.<a href="#section-8.1.2.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 </section>
@@ -2183,8 +2200,8 @@ $measurements-body-json /= mhwc-json
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-9-1">The security considerations of RATS architecture apply (<span><a href="https://rfc-editor.org/rfc/rfc9334#section-12" class="relref">Section 12</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromission. Aging and action of environment on the system are also considered threats.<a href="#section-9-1" class="pilcrow">¶</a></p>
-<p id="section-9-2">TODO The security considerations of EAT Measured Component apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-rats-eat-measured-component" class="cite xref">I-D.ietf-rats-eat-measured-component</a>]</span>) when using EAT Measured Component claim or Measured Hardware Component Claim.<a href="#section-9-2" class="pilcrow">¶</a></p>
-<p id="section-9-3">TODO security considerations of CoRIM when using CORIM ?<a href="#section-9-3" class="pilcrow">¶</a></p>
+<p id="section-9-2">The security considerations of EAT Measured Component apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-rats-eat-measured-component" class="cite xref">I-D.ietf-rats-eat-measured-component</a>]</span>) when using EAT Measured Component claim or Measured Hardware Component Claim.<a href="#section-9-2" class="pilcrow">¶</a></p>
+<p id="section-9-3">Security considerations of CoRIM apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-11" class="relref">Section 11</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>) when using CORIM for Endorsements and Reference Values.<a href="#section-9-3" class="pilcrow">¶</a></p>
 <p id="section-9-4">The following subsections are mainly focused on security considerations regarding the Attester.<a href="#section-9-4" class="pilcrow">¶</a></p>
 <div id="rot-comp">
 <section id="section-9.1">
@@ -2275,8 +2292,8 @@ $measurements-body-json /= mhwc-json
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
 <p id="section-10-1">The privacy considerations of RATS architecture apply (<span><a href="https://rfc-editor.org/rfc/rfc9334#section-11" class="relref">Section 11</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>).<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">TODO The privacy considerations of EAT Measured Component apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-eat-measured-component" class="cite xref">I-D.ietf-rats-eat-measured-component</a>]</span>) when using EAT Measured Component claim or Measured Hardware Component Claim.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">TODO privacy considerations of CoRIM when using CORIM ?<a href="#section-10-3" class="pilcrow">¶</a></p>
+<p id="section-10-2">The privacy considerations of EAT Measured Component apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-eat-measured-component" class="cite xref">I-D.ietf-rats-eat-measured-component</a>]</span>) when using EAT Measured Component claim or Measured Hardware Component Claim.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">Privacy considerations of CoRIM apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-11" class="relref">Section 11</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>) when using CORIM for Endorsements and Reference Values.<a href="#section-10-3" class="pilcrow">¶</a></p>
 <p id="section-10-4">TODO for reused claims privacy considerations are probably specified in other documents so refer to them<a href="#section-10-4" class="pilcrow">¶</a></p>
 <p id="section-10-5">TODO In new claims, some fields may be dangerous for privacy. Some fields may enable tracking.<a href="#section-10-5" class="pilcrow">¶</a></p>
 </section>
