@@ -92,9 +92,7 @@ At the same time, zero trust principles encourage reducing reliance on static tr
 
 This document considers a threat model in which hardware components may be affected not only by adversarial actions, but also by physical phenomena such as environmental variations, aging, and natural degradation. These aspects are particularly important in systems with strong safety requirements.
 
-To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence, as described in the RATS architecture {{RFC9334}}. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them. These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces and a data model for obtaining and representing such measurements.
-
-TODO Add references to sections of this document
+To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence ({{evidence}}), as described in the RATS architecture {{RFC9334}}. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them ({{practical-examples}}). These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces ({{abstract-representation}}) and a data model for obtaining and representing such measurements.
 
 # Terminology
 
@@ -106,9 +104,9 @@ TODO Add references to sections of this document
 
 The terminology defined in {{RFC9334}} is reused throughout this document. Some of the definitions from RATS specifications are refined here to fit the context presented in this document.
 
-+ Measurement Unit: can be a hardware mechanism (a circuit) or software logic (e.g., FIPS KAT). Software logic used to trigger a measurement is not considered a Measurement Unit but rather the Attesting Environment end-point of the Trigger interface. See {{abstract-representation}} for details on the Trigger interface.
++ Measurement Unit: A hardware mechanism (a circuit) or software logic with the ability to measure a hardware component. Software logic used to trigger a measurement is not considered a Measurement Unit but rather the Attesting Environment end-point of the Trigger interface. See {{abstract-representation}} for details on the Trigger interface.
 
-+ Measurement: Term introduced by RATS (quote document). here it can mean a representation of a physical property (an encoded value), the result of a test etc.
++ Measurement: Term introduced by RATS. In the context of this document it can mean a representation of a physical property, the result of a test etc.
 
 + Target Hardware Component: A hardware component which is a Target Environment for an Attesting Environment.
 
@@ -128,7 +126,9 @@ Malfunctions of hardware components may be caused by environment and/or aging. D
 
 Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access to the system (particularly relevant for embedded systems) and using physical attack techniques.
 
-TODO small summary on why this is important for security and safety
+Security and Safety Relevance: Undetected hardware defects can compromise the integrity of cryptographic operations, attestation chains, or safety-critical controls, turning a physical fault into a security vulnerability or a life-threatening failure. In adversarial contexts, hardware degradation may also be leveraged to bypass attestation mechanisms or force a system into an exploitable state. Timely and verifiable detection of hardware component malfunctions is therefore critical for maintaining both operational safety and the trustworthiness of any attestation claim issued by a system.
+
+TODO this fits with the goal of attestation and help widening coverage of integrity
 
 # Attester Model
 
@@ -210,18 +210,13 @@ Ex: Software logic (e.g., FIPS KAT)
 
 Note: This integration model can be limiting in terms of what it is possible to measure.
 
-
+Of course, both embedded and external Measurement Units can be found in the same system and possibly, a combination of embedded and external can be used to measure a single Target Environment (see the practical example in {{ex-dual-mu}}).
 
 A single Attesting Environment can be responsible for one or more target hardware components. The Attesting Environment is therefore responsible for building Evidence for all of its target hardware components.
 
 In addition to that, there may be multiple Attesting Environments. That case is discussed in {{-composite-attest}}.
 
-Of course, both embedded and external Measurement Units can be found in the same system and possibly, a combination of embedded and external can be used to measure a single Target Envrionment (see the practical example in {{ex-dual-mu}}).
-TODO this implies that a TE can have multiple measurement fields in claim and reference values (already supported in RATS standar data models ?)
-
 ## Measurement Journey
-
-TODO should this section be moved before Embedded and External Measurement Unit ?
 
 Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).
 
@@ -284,7 +279,9 @@ To promote interoperability, the following sections showcase how to use the CoRI
 
 ## Endorsement {#endorsements}
 
-TODO use case for endorsements in the scope of this document. Ex: endorsmeent for sensor that take measurement: (environment resistance (extremely cold and hot temperatures), measurement precision and incertitude, etc..), any system-specific characteristics that have an impact on how the Evidence appraisal.
+Endorsements in the scope of this document contain metadata describing the characteristics of Measurement Units and target hardware components that are necessary for the Verifier to correctly appraise Evidence.
+
+These may include environmental robustness properties (e.g., operating temperature range, resistance to environmental conditions), measurement performance characteristics (e.g., accuracy, precision, uncertainty, sampling rate), calibration data (e.g., calibration coefficients and drift models over operational context), semantics of measurements (e.g., unit, scale, interpretation) and where applicable, the characteristics of reference or behavioral models to be used by the Verifier during appraisal.
 
 ### Concice Reference Integrity Manifest (CoRIM)
 
@@ -294,7 +291,7 @@ Endorsements can be written inside a CoMID Endorsed Values triple of a CoRIM (se
 
 Reference Values must be computed in a secure environment.
 
-The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed. The Verifier will then use these additionnal data to select the Reference Value that should be used in the context described by the additional data. (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't ocrrespond to the actual context of the system.
+The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed (see {{operational-context}}). The Verifier will then use these additionnal data to select the Reference Value that should be used in the context described by the additional data (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't ocrrespond to the actual context of the system.
 
 Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range or a function* of the operational context of the system and can correspond to a class, a group or an instance of target hardware component.
 
@@ -302,10 +299,9 @@ Depending on the type of measurement and target hardware component, the Referenc
 
 ### Concice Reference Integrity Manifest (CoRIM)
 
-TODO one CoMID tag per hardware component ?
 Reference Values can be written inside a CoMID Reference Values triple of a CoRIM (see {{Section 5.1.5 of -rats-corim}}). The Reference Values triple holds one or more measurement-map that are used to write the Reference Values.
 
-## Evidence
+## Evidence {#evidence}
 
 The current version of this document proposes several approaches for including hardware component measurements in Evidence. For now, these options are present as brainstorming, to explore the different possibilities and may be removed in future versions of this document.
 
@@ -352,7 +348,7 @@ The information elements (IEs) that constitute a "measured hardware component" a
 
 ###### Component Name
 
-###### Operational Context
+###### Operational Context {#operational-context}
 
 Additional information on the operational context of the component. These can be used by the Verifier to appraise measurements.
 
@@ -440,11 +436,11 @@ The CDDL defined in {{meas-hw-comp-claim}} extends the $measurements-body-cbor a
 ~~~
 {: #mhwc_claims title="CDDL Extension of EAT Measurement Body"}
 
-# Practical Examples
+# Practical Examples {#practical-examples}
 
 This section is for informational purposes only.
 
-TODO Some may be only usable at Boot time, other could be usable during runtime.
+Note: There are many interesting examples of hardware monitoring in {{ISO5891}} that are not covered here but fall in the scope of this document.
 
 ## Monitoring Physical Properties
 
@@ -464,6 +460,8 @@ Note: compared to embedded Measurement Units, this model introduces additional a
 
 ### Using an Embedded Sensor
 
+#### Generic Example
+
 In this scenario, the Measurement Unit is implemented as an on-die sensor integrated within the target hardware component. This corresponds to the embedded Measurement Unit model described {{embedded-mu}}.
 
 The Measurement Unit observes physical properties of the Target Environment, such as temperature, voltage, or timing behavior, through direct internal coupling. Measurements are computed and made available to the Attesting Environment through internal interfaces, such as memory-mapped registers, without traversing external communication channels.
@@ -475,6 +473,17 @@ As the Measurement Unit is physically integrated within the Target Environment, 
 During appraisal, the Verifier evaluates the measurements against Reference Values that may depend on the operational context. As with other physical measurements, these Reference Values may be expressed as ranges, condition-dependent functions, or behavioral models.
 
 Note: Compared to external sensors, this model reduces the attack surface by eliminating external communication channels and increasing the binding between the measurement and the component. However, it also reduces independence, as both the Target Environment and the Measurement Unit may be affected by the same faults or compromises. For instance, refer to {{supply-chain-attacks}}.
+
+#### Using a Ring Oscillator
+
+In this scenario, the Measurement Unit is implemented as a ring oscillator integrated within the Target Environment. This corresponds to the embedded Measurement Unit model described {{embedded-mu}}.
+The oscillator frequency depends on physical and electrical properties of the hardware, including voltage, temperature, and process variations.
+
+The Measurement Unit produces a digital representation of its oscillation frequency, which is collected by the Attesting Environment through an embodiment of the Export interface, then included in Evidence. These measurements provide an indirect observation of the physical state of the component and can be used to detect anomalies such as voltage glitches, thermal variations, or aging effects.
+
+During appraisal, the Verifier evaluates the reported frequency against Reference Values that depend on the operational context and calibration data provided through Endorsements.
+
+Note: As this model is very sensitive to physical perturbations, deviations may have multiple possible causes. Therefore, the interpretation of measurements requires operational context. Ring oscillator measurements can then be used to complement other measurement types by providing continuous monitoring of the hardware physical and electrical behavior.
 
 ## Detection by Self-Testing
 
@@ -554,9 +563,9 @@ Trace-based measurements provide insight into the runtime behavior of the Target
 
 The security considerations of RATS architecture apply ({{Section 12 of RFC9334}}). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromission. Aging and action of environment on the system are also considered threats.
 
-TODO The security considerations of EAT Measured Component apply ({{Section 5 of -eat-mc}}) when using EAT Measured Component claim or Measured Hardware Component Claim.
+The security considerations of EAT Measured Component apply ({{Section 5 of -eat-mc}}) when using EAT Measured Component claim or Measured Hardware Component Claim.
 
-TODO security considerations of CoRIM when using CORIM ?
+Security considerations of CoRIM apply ({{Section 11 of -rats-corim}}) when using CORIM for Endorsements and Reference Values.
 
 The following subsections are mainly focused on security considerations regarding the Attester.
 
@@ -618,9 +627,9 @@ Supply chains attacks may lead to the injection of Trojans. Once a Trojan has be
 
 The privacy considerations of RATS architecture apply ({{Section 11 of RFC9334}}).
 
-TODO The privacy considerations of EAT Measured Component apply ({{Section 6 of -eat-mc}}) when using EAT Measured Component claim or Measured Hardware Component Claim.
+The privacy considerations of EAT Measured Component apply ({{Section 6 of -eat-mc}}) when using EAT Measured Component claim or Measured Hardware Component Claim.
 
-TODO privacy considerations of CoRIM when using CORIM ?
+Privacy considerations of CoRIM apply ({{Section 11 of -rats-corim}}) when using CORIM for Endorsements and Reference Values.
 
 TODO for reused claims privacy considerations are probably specified in other documents so refer to them
 
