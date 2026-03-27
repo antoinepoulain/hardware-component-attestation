@@ -1421,8 +1421,7 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 </li>
       </ul>
 <p id="section-4-5">Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access to the system (particularly relevant for embedded systems) and using physical attack techniques.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<p id="section-4-6">Security and Safety Relevance: Undetected hardware defects can compromise the integrity of cryptographic operations, attestation chains, or safety-critical controls, turning a physical fault into a security vulnerability or a life-threatening failure. In adversarial contexts, hardware degradation may also be leveraged to bypass attestation mechanisms or force a system into an exploitable state. Timely and verifiable detection of hardware component malfunctions is therefore critical for maintaining both operational safety and the trustworthiness of any attestation claim issued by a system.<a href="#section-4-6" class="pilcrow">¶</a></p>
-<p id="section-4-7">TODO this fits with the goal of attestation and help widening coverage of integrity<a href="#section-4-7" class="pilcrow">¶</a></p>
+<p id="section-4-6">Security and Safety note: Undetected hardware defects can compromise the integrity of cryptographic operations, attestation chains, or safety-critical controls, turning a physical fault into a security vulnerability or a life-threatening failure. In adversarial contexts, hardware degradation may also be leveraged to bypass attestation mechanisms or force a system into an exploitable state. Timely and verifiable detection of hardware component malfunctions is therefore critical for maintaining both operational safety and the trustworthiness of any attestation claim issued by a system.<a href="#section-4-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="attester-model">
@@ -1588,60 +1587,59 @@ Using a discret component implies the existence of physical communication channe
         </h3>
 <p id="section-5.3-1">Measurements of hardware components must be included in the Evidence to be sent to a Verifier. This implies that the Attesting Environment possesses a way to start the computation of the measurement (trigger), to securely retrieve the measurement (collection) and to securely embed the measurement in Evidence. During the completion of all these steps, the attacker has many opportunities to tamper with the integrity of the measurement or the execution logic (hardware or software).<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3-2">Below are the identified steps of the journey of a measurement at the hardware level. These are important as this document implies a security model in which the attacker can tamper with hardware.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
-<p id="section-5.3-3">TODO at each step describe attacker opportunity (attacker may be phsycial event i.e., not malicious) goal is to include in Evidence a measurement that is trusted.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.3-4">
-<li id="section-5.3-4.1">
-            <p id="section-5.3-4.1.1">Trigger computation<a href="#section-5.3-4.1.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.1.2">
-Measurement computation is triggered by an event (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the Trigger interface.<a href="#section-5.3-4.1.2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.3-3">
+<li id="section-5.3-3.1">
+            <p id="section-5.3-3.1.1">Trigger computation<a href="#section-5.3-3.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.1.2">
+Measurement computation is triggered by an event (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the Trigger interface.<a href="#section-5.3-3.1.2" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-4.2">
-            <p id="section-5.3-4.2.1">Compute measurement<a href="#section-5.3-4.2.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.2.2">
-The measurement of the target hardware component is computed by the Measurement Unit.<a href="#section-5.3-4.2.2" class="pilcrow">¶</a></p>
+          <li id="section-5.3-3.2">
+            <p id="section-5.3-3.2.1">Compute measurement<a href="#section-5.3-3.2.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.2.2">
+The measurement of the target hardware component is computed by the Measurement Unit.<a href="#section-5.3-3.2.2" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-4.3">
-            <p id="section-5.3-4.3.1">Export measurement<a href="#section-5.3-4.3.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.3.2">
-Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transits from the Measurement Unit to the Attesting Environment through the export interface.<a href="#section-5.3-4.3.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.3.3">
-TODO measurement in transit can be tampered etc.<a href="#section-5.3-4.3.3" class="pilcrow">¶</a></p>
+          <li id="section-5.3-3.3">
+            <p id="section-5.3-3.3.1">Export measurement<a href="#section-5.3-3.3.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.3.2">
+Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transits from the Measurement Unit to the Attesting Environment through the export interface.<a href="#section-5.3-3.3.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.3.3">
+Protection of the measurement in transit against tampering is critical for its trustworthiness. An attacker must not be able of tampering with the measurement in transit. This can be achieved by using bus protection techniques.<a href="#section-5.3-3.3.3" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-4.4">
-            <p id="section-5.3-4.4.1">[optional] Store measurement<a href="#section-5.3-4.4.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.4.2">
-It is possible that the measurement will not be directly included in Evidence but instead stored until it is effectively included in Evidence by the Attesting Environment.<a href="#section-5.3-4.4.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.4.3">
-The measurement must be securely stored in the boundary of the Attesting Environment. An attacker must not be able of tampering with the measurement while it is at rest.<a href="#section-5.3-4.4.3" class="pilcrow">¶</a></p>
+          <li id="section-5.3-3.4">
+            <p id="section-5.3-3.4.1">[optional] Store measurement<a href="#section-5.3-3.4.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.4.2">
+It is possible that the measurement will not be directly included in Evidence but instead stored until it is effectively included in Evidence by the Attesting Environment.<a href="#section-5.3-3.4.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.4.3">
+The measurement must be securely stored in the boundary of the Attesting Environment. An attacker must not be able of tampering with the measurement while it is at rest.<a href="#section-5.3-3.4.3" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-4.5">
-            <p id="section-5.3-4.5.1">[optional] Process measurement<a href="#section-5.3-4.5.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.5.2">
-It is possible that the measurement will not be directly included in Evidence as is but instead needs to be processed first before being effectively included in Evidence by the Attesting Envrionment..<a href="#section-5.3-4.5.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.5.3">
-The processing of the measurement must be securely operated in the boundary of the Attesting Environment. An attacker must not be able of tampering with the processing logic.<a href="#section-5.3-4.5.3" class="pilcrow">¶</a></p>
+          <li id="section-5.3-3.5">
+            <p id="section-5.3-3.5.1">[optional] Process measurement<a href="#section-5.3-3.5.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.5.2">
+It is possible that the measurement will not be directly included in Evidence as is but instead needs to be processed first before being effectively included in Evidence by the Attesting Envrionment..<a href="#section-5.3-3.5.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.5.3">
+The processing of the measurement must be securely operated in the boundary of the Attesting Environment. An attacker must not be able of tampering with the processing logic.<a href="#section-5.3-3.5.3" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-4.6">
-            <p id="section-5.3-4.6.1">Include measurment in Evidence<a href="#section-5.3-4.6.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.6.2">
-The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.<a href="#section-5.3-4.6.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.6.3">
-Note: At that point, the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.<a href="#section-5.3-4.6.3" class="pilcrow">¶</a></p>
+          <li id="section-5.3-3.6">
+            <p id="section-5.3-3.6.1">Include measurment in Evidence<a href="#section-5.3-3.6.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.6.2">
+The Attesting Environment is responsible for including the measurement data in Evidence. This operation must be carried out securely. An attacker must not be able to tamper with this logic.<a href="#section-5.3-3.6.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.6.3">
+Note: At that point, the Evidence is not signed yet and could still be tampered by an attacker, possibly without being detected.<a href="#section-5.3-3.6.3" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-5.3-4.7">
-            <p id="section-5.3-4.7.1">Sign Evidence<a href="#section-5.3-4.7.1" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.7.2">
-The signature operation must be carried out securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.<a href="#section-5.3-4.7.2" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.7.3">
-For instance, if the signature operation is offloaded to a remote hardware component and Evidence content must transit on a bus to reach this component, the bus must be protected.<a href="#section-5.3-4.7.3" class="pilcrow">¶</a></p>
-<p id="section-5.3-4.7.4">
-Once stored in signed Evidence, the measurement is considered safe from unauthorized modification. This is because the cryptographic signature of the Evidence ensures integrity protection.<a href="#section-5.3-4.7.4" class="pilcrow">¶</a></p>
+          <li id="section-5.3-3.7">
+            <p id="section-5.3-3.7.1">Sign Evidence<a href="#section-5.3-3.7.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.7.2">
+The signature operation must be carried out securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.<a href="#section-5.3-3.7.2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.7.3">
+For instance, if the signature operation is offloaded to a remote hardware component and Evidence content must transit on a bus to reach this component, the bus must be protected.<a href="#section-5.3-3.7.3" class="pilcrow">¶</a></p>
+<p id="section-5.3-3.7.4">
+Once stored in signed Evidence, the measurement is considered safe from unauthorized modification. This is because the cryptographic signature of the Evidence ensures integrity protection.<a href="#section-5.3-3.7.4" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-5.3-5"><a href="#meas_journey" class="auto internal xref">Figure 4</a> represents the steps of the measurement journey described above.<a href="#section-5.3-5" class="pilcrow">¶</a></p>
+<p id="section-5.3-4"><a href="#meas_journey" class="auto internal xref">Figure 4</a> represents the steps of the measurement journey described above.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <span id="name-measurement-journey-2"></span><div id="meas_journey">
 <figure id="figure-4">
-          <div class="alignCenter art-text artwork" id="section-5.3-6.1">
+          <div class="alignCenter art-text artwork" id="section-5.3-5.1">
 <pre>
 +-------------------------+ Trigger
 |  Attesting Environment  | Measurement +------------------------+
@@ -2294,7 +2292,7 @@ The oscillator frequency depends on physical and electrical properties of the ha
 <p id="section-10-1">The privacy considerations of RATS architecture apply (<span><a href="https://rfc-editor.org/rfc/rfc9334#section-11" class="relref">Section 11</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>).<a href="#section-10-1" class="pilcrow">¶</a></p>
 <p id="section-10-2">The privacy considerations of EAT Measured Component apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-eat-measured-component-12#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-eat-measured-component" class="cite xref">I-D.ietf-rats-eat-measured-component</a>]</span>) when using EAT Measured Component claim or Measured Hardware Component Claim.<a href="#section-10-2" class="pilcrow">¶</a></p>
 <p id="section-10-3">Privacy considerations of CoRIM apply (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-10#section-11" class="relref">Section 11</a> of [<a href="#I-D.ietf-rats-corim" class="cite xref">I-D.ietf-rats-corim</a>]</span>) when using CORIM for Endorsements and Reference Values.<a href="#section-10-3" class="pilcrow">¶</a></p>
-<p id="section-10-4">TODO for reused claims privacy considerations are probably specified in other documents so refer to them<a href="#section-10-4" class="pilcrow">¶</a></p>
+<p id="section-10-4">TODO for reused claims privacy considerations are probably specified in other documents so refer to them.<a href="#section-10-4" class="pilcrow">¶</a></p>
 <p id="section-10-5">TODO In new claims, some fields may be dangerous for privacy. Some fields may enable tracking.<a href="#section-10-5" class="pilcrow">¶</a></p>
 </section>
 </div>
