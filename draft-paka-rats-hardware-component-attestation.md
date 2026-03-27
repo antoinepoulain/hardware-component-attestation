@@ -126,9 +126,7 @@ Malfunctions of hardware components may be caused by environment and/or aging. D
 
 Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a priviledged level. Such control can be obtained by abusing software mechanisms or by having physical access to the system (particularly relevant for embedded systems) and using physical attack techniques.
 
-Security and Safety Relevance: Undetected hardware defects can compromise the integrity of cryptographic operations, attestation chains, or safety-critical controls, turning a physical fault into a security vulnerability or a life-threatening failure. In adversarial contexts, hardware degradation may also be leveraged to bypass attestation mechanisms or force a system into an exploitable state. Timely and verifiable detection of hardware component malfunctions is therefore critical for maintaining both operational safety and the trustworthiness of any attestation claim issued by a system.
-
-TODO this fits with the goal of attestation and help widening coverage of integrity
+Security and Safety note: Undetected hardware defects can compromise the integrity of cryptographic operations, attestation chains, or safety-critical controls, turning a physical fault into a security vulnerability or a life-threatening failure. In adversarial contexts, hardware degradation may also be leveraged to bypass attestation mechanisms or force a system into an exploitable state. Timely and verifiable detection of hardware component malfunctions is therefore critical for maintaining both operational safety and the trustworthiness of any attestation claim issued by a system.
 
 # Attester Model
 
@@ -222,8 +220,6 @@ Measurements of hardware components must be included in the Evidence to be sent 
 
 Below are the identified steps of the journey of a measurement at the hardware level. These are important as this document implies a security model in which the attacker can tamper with hardware.
 
-TODO at each step describe attacker opportunity (attacker may be phsycial event i.e., not malicious) goal is to include in Evidence a measurement that is trusted.
-
 1. Trigger computation
 
     Measurement computation is triggered by an event (boot, external request, watchdog) or continuous. The Attesting Environment is able to trigger the computation of the measurement through the Trigger interface.
@@ -236,7 +232,7 @@ TODO at each step describe attacker opportunity (attacker may be phsycial event 
 
     Once the measurement has been computed, it must be exported in order to be accessible by the Attesting Environment. The measurement transits from the Measurement Unit to the Attesting Environment through the export interface.
 
-    TODO measurement in transit can be tampered etc.
+    Protection of the measurement in transit against tampering is critical for its trustworthiness. An attacker must not be able of tampering with the measurement in transit. This can be achieved by using bus protection techniques.
 
 1. \[optional\] Store measurement
 
@@ -631,7 +627,7 @@ The privacy considerations of EAT Measured Component apply ({{Section 6 of -eat-
 
 Privacy considerations of CoRIM apply ({{Section 11 of -rats-corim}}) when using CORIM for Endorsements and Reference Values.
 
-TODO for reused claims privacy considerations are probably specified in other documents so refer to them
+TODO for reused claims privacy considerations are probably specified in other documents so refer to them.
 
 TODO In new claims, some fields may be dangerous for privacy. Some fields may enable tracking.
 
