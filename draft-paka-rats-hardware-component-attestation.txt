@@ -145,19 +145,25 @@ Table of Contents
    introducing new attack surfaces.
 
    At the same time, zero trust principles encourage reducing reliance
-   on static trust anchors in favor of evidence reflecting the actual
-   runtime state of components, consequently enabling more dependable
-   assessment of both security and safety properties.  However, current
-   attestation mechanisms for hardware components primarily rely on
-   manufacturer-issued endorsements, which capture properties
-   established prior to deployment but provide limited visibility into
-   runtime hardware behavior.
+   on static trust anchors and Endorsements in favor of Evidence
+   reflecting the actual runtime state of components, consequently
+   enabling more dependable assessment of both security and safety
+   properties.  However, current attestation mechanisms for hardware
+   components primarily rely on manufacturer-issued Endorsements, which
+   capture properties established prior to deployment but provide
+   limited visibility into runtime hardware behavior.
 
    This document considers a threat model in which hardware components
    may be affected not only by adversarial actions, but also by physical
    phenomena such as environmental variations, aging, and natural
-   degradation.  These aspects are particularly important in systems
-   with strong safety requirements.
+   degradation (see Section 8).  This wider scope is motivated by the
+   fact that hardware components, are directly influenced by physical
+   conditions that can alter their behavior over time or under stress.
+   Therefore, assessing the runtime state of hardware requires taking
+   into account both intentional attacks and non-adversarial effects
+   that may lead to faults or degraded operation.  These aspects are
+   particularly important in systems with strong safety and reliability
+   requirements.
 
    To address these limitations, this document defines a data model and
    provides guidelines for including hardware component measurements in
@@ -817,7 +823,7 @@ Table of Contents
 
    hw-measurement = {
          measurement-unit-id => tstr
-         measurement-type-label => measurement-type         ; a choice
+         measurement-type-label => measurement-type   ; a choice
          measurement-value-label => measurement-value ; depends of type
       }
 
@@ -878,7 +884,7 @@ Table of Contents
    measurement-type = mt-event.
 
    mv-event = {
-     event-id-label => tstr,
+     event-id => tstr,
      event-status-label => event-status,
      ? event-count => uint,
      ? event-time => int / uint
@@ -1501,7 +1507,7 @@ Appendix A.  Collected CDDL
 
    hw-measurement = {
          measurement-unit-id => tstr
-         measurement-type-label => measurement-type         ; a choice
+         measurement-type-label => measurement-type   ; a choice
          measurement-value-label => measurement-value ; depends of type
       }
 
@@ -1539,7 +1545,7 @@ Appendix A.  Collected CDDL
        st-unknown
 
    mv-event = {
-     event-id-label => tstr,
+     event-id => tstr,
      event-status-label => event-status,
      ? event-count => uint,
      ? event-time => int / uint

@@ -1,6 +1,6 @@
 
 mv-event = {
-  event-id-label => tstr,
+  event-id => tstr,
   event-status-label => event-status,
   ? event-count => uint,
   ? event-time => int / uint
