@@ -1347,8 +1347,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-1-1">Hardware components form the foundation upon which all computations rely. Therefore, the correctness and integrity of software execution depend on the proper functioning of the underlying hardware, which can be considered a root of trust for computation.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Modern systems increasingly adopt disaggregated architectures, such as chiplet-based designs and large-scale heterogeneous platforms. These systems integrate hardware components from multiple sources, introducing new attack surfaces.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">At the same time, zero trust principles encourage reducing reliance on static trust anchors in favor of evidence reflecting the actual runtime state of components, consequently enabling more dependable assessment of both security and safety properties. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">This document considers a threat model in which hardware components may be affected not only by adversarial actions, but also by physical phenomena such as environmental variations, aging, and natural degradation. These aspects are particularly important in systems with strong safety requirements.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-3">At the same time, zero trust principles encourage reducing reliance on static trust anchors and Endorsements in favor of Evidence reflecting the actual runtime state of components, consequently enabling more dependable assessment of both security and safety properties. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued Endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This document considers a threat model in which hardware components may be affected not only by adversarial actions, but also by physical phenomena such as environmental variations, aging, and natural degradation (see <a href="#seccons" class="auto internal xref">Section 8</a>). This wider scope is motivated by the fact that hardware components, are directly influenced by physical conditions that can alter their behavior over time or under stress. Therefore, assessing the runtime state of hardware requires taking into account both intentional attacks and non-adversarial effects that may lead to faults or degraded operation. These aspects are particularly important in systems with strong safety and reliability requirements.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence (<a href="#evidence" class="auto internal xref">Section 5.3</a>), as described in the RATS architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them (<a href="#practical-examples" class="auto internal xref">Section 7</a>). These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces (<a href="#abstract-representation" class="auto internal xref">Section 4.1</a>) and a data model for obtaining and representing such measurements.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1949,7 +1949,7 @@ operational-ctx = {
 
 hw-measurement = {
       measurement-unit-id =&gt; tstr
-      measurement-type-label =&gt; measurement-type         ; a choice
+      measurement-type-label =&gt; measurement-type   ; a choice
       measurement-value-label =&gt; measurement-value ; depends of type
    }
 
@@ -2043,7 +2043,7 @@ self-test-result =
               <div class="lang-cddl sourcecode" id="section-6.1.1.3-2.1">
 <pre>
 mv-event = {
-  event-id-label =&gt; tstr,
+  event-id =&gt; tstr,
   event-status-label =&gt; event-status,
   ? event-count =&gt; uint,
   ? event-time =&gt; int / uint
@@ -2498,7 +2498,7 @@ operational-ctx = {
 
 hw-measurement = {
       measurement-unit-id =&gt; tstr
-      measurement-type-label =&gt; measurement-type         ; a choice
+      measurement-type-label =&gt; measurement-type   ; a choice
       measurement-value-label =&gt; measurement-value ; depends of type
    }
 
@@ -2536,7 +2536,7 @@ self-test-result =
     st-unknown
 
 mv-event = {
-  event-id-label =&gt; tstr,
+  event-id =&gt; tstr,
   event-status-label =&gt; event-status,
   ? event-count =&gt; uint,
   ? event-time =&gt; int / uint
