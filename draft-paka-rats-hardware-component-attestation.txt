@@ -33,11 +33,11 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://antoinepoulain.github.io/hardware-component-attestation/
-   draft-paka-rats-hardware-component-attestation.txt.  Status
-   information for this document may be found at
-   https://datatracker.ietf.org/doc/draft-paka-rats-hardware-component-
-   attestation/.
+   https://github.com/antoinepoulain/hardware-component-
+   attestation/blob/main/draft-paka-rats-hardware-component-
+   attestation.txt.  Status information for this document may be found
+   at https://datatracker.ietf.org/doc/draft-paka-rats-hardware-
+   component-attestation/.
 
    Discussion of this document takes place on the Remote ATtestation
    ProcedureS Working Group mailing list (mailto:rats@ietf.org), which
@@ -847,14 +847,14 @@ Table of Contents
 
 6.1.1.1.  Physical Property
 
-   CDDL defintion of the structure of measurement-value when
+   CDDL definition of the structure of measurement-value when
    measurement-type = mt-phys-prop.
 
    mv-phys-prop = {
       physical-property-id => tstr,
       value => number / bstr / tstr,
       ; unit, precision, scale, uncertainty,
-      ; are already specified in Endrorsements
+      ; are already specified in Endorsements
    }
 
            Figure 6: CDDL of Physical Property Measurement Value
@@ -1529,7 +1529,7 @@ Appendix A.  Collected CDDL
       physical-property-id => tstr,
       value => number / bstr / tstr,
       ; unit, precision, scale, uncertainty,
-      ; are already specified in Endrorsements
+      ; are already specified in Endorsements
    }
 
    mv-self-test = {
