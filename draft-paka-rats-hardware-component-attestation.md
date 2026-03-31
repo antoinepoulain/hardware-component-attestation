@@ -27,7 +27,7 @@ venue:
   mail: "rats@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/rats/"
   github: "antoinepoulain/hardware-component-attestation"
-  latest: "https://antoinepoulain.github.io/hardware-component-attestation/draft-paka-rats-hardware-component-attestation.txt"
+  latest: "https://github.com/antoinepoulain/hardware-component-attestation/blob/main/draft-paka-rats-hardware-component-attestation.txt"
 
 author:
   - ins: A. Poulain
@@ -412,7 +412,7 @@ This section presents CDDL definitions for the Measured Hardware Component claim
 
 #### Physical Property
 
-CDDL defintion of the structure of measurement-value when measurement-type = mt-phys-prop.
+CDDL definition of the structure of measurement-value when measurement-type = mt-phys-prop.
 
 ~~~ cddl
 {::include cddl/mv-phys-prop.cddl}

@@ -42,7 +42,7 @@ mv-phys-prop = {
    physical-property-id => tstr,
    value => number / bstr / tstr,
    ; unit, precision, scale, uncertainty,
-   ; are already specified in Endrorsements
+   ; are already specified in Endorsements
 }
 
 mv-self-test = {
@@ -70,7 +70,7 @@ event-status =
     e-active /
     e-inactive /
     e-unknown
-
+    
 mv-trace = {
   trace-type-label => trace-type,
   trace-data => bstr / tstr

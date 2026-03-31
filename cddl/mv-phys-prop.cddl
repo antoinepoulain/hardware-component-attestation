@@ -3,5 +3,5 @@ mv-phys-prop = {
    physical-property-id => tstr,
    value => number / bstr / tstr,
    ; unit, precision, scale, uncertainty,
-   ; are already specified in Endrorsements
+   ; are already specified in Endorsements
 }
