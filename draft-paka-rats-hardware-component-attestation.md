@@ -7,7 +7,7 @@ stand_alone: yes
 smart_quotes: no
 pi: [toc, sortrefs, symrefs]
 
-# ipr: trust200902 # ? todo: check with legal team
+ipr: trust200902
 
 docname: draft-paka-rats-hardware-component-attestation-latest
 submissiontype: IETF
@@ -89,7 +89,7 @@ Hardware components form the foundation upon which all computations rely. Theref
 
 Modern systems increasingly adopt disaggregated architectures, such as chiplet-based designs and large-scale heterogeneous platforms. These systems integrate hardware components from multiple sources, introducing new attack surfaces.
 
-At the same time, zero trust principles encourage reducing reliance on static trust anchors in favor of evidence reflecting the actual runtime state of components. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.
+At the same time, zero trust principles encourage reducing reliance on static trust anchors in favor of evidence reflecting the actual runtime state of components, consequently enabling more dependable assessment of both security and safety properties. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.
 
 This document considers a threat model in which hardware components may be affected not only by adversarial actions, but also by physical phenomena such as environmental variations, aging, and natural degradation. These aspects are particularly important in systems with strong safety requirements.
 
@@ -117,13 +117,15 @@ The solution presented in this document aims at mitigating two threats on hardwa
 
 + Defective hardware components
 
-Malfunctions of hardware components may be caused by environment and/or aging. Detection of such malfunctions is critical when relying on systems evolving in hazardous environments such as high pressure, extreme temperatures, contact with water or chemical substances or space radiations.
+Malfunctions of hardware components may be caused by environment and/or aging. Detection of such malfunctions is critical when relying on systems evolving in hazardous environments such as high pressure, extreme temperatures, contact with water, chemical substances or space radiations.
 
 + Attacks on hardware components
 
 Gaining control of the hardware of a system is particularly interesting for an attacker as it allows to tamper with the correct functioning of the system at a privileged level. Such control can be obtained by abusing software mechanisms or by having physical access to the system (particularly relevant for embedded systems) and using physical attack techniques.
 
 Security and Safety note: Undetected hardware defects can compromise the integrity of cryptographic operations, attestation chains, or safety-critical controls, turning a physical fault into a security vulnerability or a life-threatening failure. In adversarial contexts, hardware degradation may also be leveraged to bypass attestation mechanisms or force a system into an exploitable state. Timely and verifiable detection of hardware component malfunctions is therefore critical for maintaining both operational safety and the trustworthiness of any attestation claim issued by a system.
+
+For instance, environmental conditions and aging can alter the physical noise source of a TRNG, potentially reducing entropy and compromising the unpredictability required for security and safety. This TRNG example is extended in {{ex-self-test}}.
 
 # Attester Model
 
@@ -187,7 +189,7 @@ The Measurement Unit is a discrete component external to the target hardware com
 ~~~~
 {: #discrete_meas_unit artwork-align="center" title="Abstract Representation of Discrete Measurement Unit"}
 
-Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC)
+Ex: Sensors added on top of hardware component, Power Management IC (PMIC), Baseboard Management Controller (BMC).
 
 In this integration model, the target hardware component and Measurement Unit can come from different sources (e.g., foundries). That can be leveraged to draw trust boundaries between the AE, TE and Measurement Unit.
 Using a discrete component implies the existence of physical communication channels between the AE, TE and Measurement Unit on which data such as measurement will transit. This introduces attack vectors. Refer to {{seccons}}.
@@ -251,9 +253,9 @@ Below are the identified steps of the journey of a measurement at the hardware l
 
 1. Sign Evidence
 
-    The signature operation must be carried out securely. An attacker must not be able of modifying the content of the Evidence or forging signature for compromised data.
+    The signature operation must be carried out securely. An attacker must not be able to modify the content of the Evidence or forging signature for compromised data.
 
-    For instance, if the signature operation is offloaded to a remote hardware component and Evidence content must transit on a bus to reach this component, the bus must be protected.
+    For instance, if the signature operation is offloaded to a remote hardware component and thus Evidence content must transit on a bus to reach this component, the attacker must not be able to manipulate data in transit (measurement, outputted signature).
 
     Once stored in signed Evidence, the measurement is considered safe from unauthorized modification. This is because the cryptographic signature of the Evidence ensures integrity protection.
 
@@ -508,7 +510,7 @@ During appraisal, the Verifier evaluates the reported frequency against Referenc
 
 Note: As this model is very sensitive to physical perturbations, deviations may have multiple possible causes. Therefore, the interpretation of measurements requires operational context. Ring oscillator measurements can then be used to complement other measurement types by providing continuous monitoring of the hardware physical and electrical behavior.
 
-## Detection by Self-Testing
+## Detection by Self-Testing {#ex-self-test}
 
 This section provides practical examples that demonstrate how self-tests can be leveraged to measure a hardware component.
 
@@ -566,7 +568,7 @@ These mechanisms do not produce measurements of physical properties but instead 
 
 The Attesting Environment collects the status of these detectors and includes them in Evidence as security-relevant events or status indicators.
 
-During appraisal, the Verifier interprets these signals according to a Appraisal Policy, typically treating any indication of tampering as a critical failure condition. Unlike other measurements, the absence of an alert does not guarantee the absence of an attack, but the presence of an alert provides strong evidence of compromise.
+During appraisal, the Verifier interprets these signals according to an Appraisal Policy, typically treating any indication of tampering as a critical failure condition. Unlike other measurements, the absence of an alert does not guarantee the absence of an attack, but the presence of an alert provides strong evidence of compromise.
 
 These mechanisms complement other measurement types by providing direct detection of active physical attacks and environmental anomalies.
 
@@ -686,4 +688,4 @@ This appendix contains all the CDDL definitions included in this document.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+Many thanks to Sylvain Guilley for reviewing the document and providing valuable comments.
