@@ -5,7 +5,7 @@
 Remote ATtestation ProcedureS                                 A. Poulain
 Internet-Draft                                                   A. Kaci
 Intended status: Standards Track                               Secure-IC
-Expires: 28 September 2026                                 27 March 2026
+Expires: 2 October 2026                                    31 March 2026
 
 
                    Attestation of Hardware Components
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 September 2026.
+   This Internet-Draft will expire on 2 October 2026.
 
 Copyright Notice
 
@@ -146,11 +146,12 @@ Table of Contents
 
    At the same time, zero trust principles encourage reducing reliance
    on static trust anchors in favor of evidence reflecting the actual
-   runtime state of components.  However, current attestation mechanisms
-   for hardware components primarily rely on manufacturer-issued
-   endorsements, which capture properties established prior to
-   deployment but provide limited visibility into runtime hardware
-   behavior.
+   runtime state of components, consequently enabling more dependable
+   assessment of both security and safety properties.  However, current
+   attestation mechanisms for hardware components primarily rely on
+   manufacturer-issued endorsements, which capture properties
+   established prior to deployment but provide limited visibility into
+   runtime hardware behavior.
 
    This document considers a threat model in which hardware components
    may be affected not only by adversarial actions, but also by physical
@@ -212,7 +213,7 @@ Table of Contents
    Malfunctions of hardware components may be caused by environment and/
    or aging.  Detection of such malfunctions is critical when relying on
    systems evolving in hazardous environments such as high pressure,
-   extreme temperatures, contact with water or chemical substances or
+   extreme temperatures, contact with water, chemical substances or
    space radiations.
 
    *  Attacks on hardware components
@@ -233,6 +234,11 @@ Table of Contents
    Timely and verifiable detection of hardware component malfunctions is
    therefore critical for maintaining both operational safety and the
    trustworthiness of any attestation claim issued by a system.
+
+   For instance, environmental conditions and aging can alter the
+   physical noise source of a TRNG, potentially reducing entropy and
+   compromising the unpredictability required for security and safety.
+   This TRNG example is extended in Section 7.2.
 
 4.  Attester Model
 
@@ -365,7 +371,7 @@ Table of Contents
        Figure 2: Abstract Representation of Discrete Measurement Unit
 
    Ex: Sensors added on top of hardware component, Power Management IC
-   (PMIC), Baseboard Management Controller (BMC)
+   (PMIC), Baseboard Management Controller (BMC).
 
    In this integration model, the target hardware component and
    Measurement Unit can come from different sources (e.g., foundries).
@@ -489,12 +495,13 @@ Table of Contents
    7.  Sign Evidence
 
        The signature operation must be carried out securely.  An
-       attacker must not be able of modifying the content of the
-       Evidence or forging signature for compromised data.
+       attacker must not be able to modify the content of the Evidence
+       or forging signature for compromised data.
 
        For instance, if the signature operation is offloaded to a remote
-       hardware component and Evidence content must transit on a bus to
-       reach this component, the bus must be protected.
+       hardware component and thus Evidence content must transit on a
+       bus to reach this component, the attacker must not be able to
+       manipulate data in transit (measurement, outputted signature).
 
        Once stored in signed Evidence, the measurement is considered
        safe from unauthorized modification.  This is because the
@@ -1187,10 +1194,10 @@ Table of Contents
    indicators.
 
    During appraisal, the Verifier interprets these signals according to
-   a Appraisal Policy, typically treating any indication of tampering as
-   a critical failure condition.  Unlike other measurements, the absence
-   of an alert does not guarantee the absence of an attack, but the
-   presence of an alert provides strong evidence of compromise.
+   an Appraisal Policy, typically treating any indication of tampering
+   as a critical failure condition.  Unlike other measurements, the
+   absence of an alert does not guarantee the absence of an attack, but
+   the presence of an alert provides strong evidence of compromise.
 
    These mechanisms complement other measurement types by providing
    direct detection of active physical attacks and environmental
@@ -1557,7 +1564,8 @@ Appendix A.  Collected CDDL
 
 Acknowledgments
 
-   TODO acknowledge.
+   Many thanks to Sylvain Guilley for reviewing the document and
+   providing valuable comments.
 
 Authors' Addresses
 
