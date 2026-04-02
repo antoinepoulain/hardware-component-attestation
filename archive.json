@@ -1,0 +1,71 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2026-04-02T01:08:04.744051+00:00",
+  "repo": "antoinepoulain/hardware-component-attestation",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDORmH4mc75mhHI",
+      "title": "Comments from Muhammad Usama Sardar",
+      "url": "https://github.com/antoinepoulain/hardware-component-attestation/issues/1",
+      "state": "OPEN",
+      "author": "antoinepoulain",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Original mail at [0].\n\nCould you please expand the discussion in sections 8.4.2.2 and 8.4.3 in security considerations? See some suggestions below. Once this is done, I believe the security considerations are in good shape and we should adopt this.\n\nin #8.4.2.2\nLike, you give three examples in 8.4.2.2 which are all genuine, but it would be good to add a little more context to those, and add some references showing where they were actually exploited.\n\nAlso, in 8.4.2.2, draft says:\n  -> Note that some of these mitigations cannot directly prevent attacks but can be used for detection.\nI am curious which ones are for prevention? I believe remote attestation can only do detection and not prevention.\n\nin # 8.4.3\nIt is not clear to me what you consider as \"supply chain\" in the context of remote attestation, like is it:\n1.\tEndorsements and Reference Values? or\n2.\tthe code running in the Attester? or \n3.\tsupply chain of hardware components? or\n4.\tsome combination of the above 3?\n\nTrojan seems to indicate #3, is it? Draft uses Trojan with capital \"T\" but does not define it. Is it hardware trojan?\nSupply chain attacks can be on the software too (#2), no?\n\n\n[0]: https://mailarchive.ietf.org/arch/msg/rats/m0iWplL942mJV5QPKsHWWftGe1c/",
+      "createdAt": "2026-04-01T14:59:13Z",
+      "updatedAt": "2026-04-01T14:59:25Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": []
+}
