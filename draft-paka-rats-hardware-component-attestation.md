@@ -56,10 +56,17 @@ informative:
 
   ISO5891:
     target: "https://www.iso.org/fr/standard/81806.html"
-    title: "ISO/IEC TR 5891:2024, Information security, cybersecurity and privacy protection — Hardware monitoring technology for hardware security assessment"
+    title: "ISO/IEC TR 5891:2024, Information security, cybersecurity and privacy protection - Hardware monitoring technology for hardware security assessment"
     date: 2024-04
     author:
        org: "International Standards Organization"
+
+  ISO20897:
+    target: "https://www.iso.org/standard/76353.html"
+    title: "ISO/IEC 20897-1:2020, Information security, cybersecurity and privacy protection - Physically unclonable functions - Part 1: Security requirements"
+    date: 2020-12
+    author:
+      org: "International Standards Organization"
 
   TCG-DICE:
     target: "https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-r23-final.pdf"
@@ -559,6 +566,18 @@ Each Measurement Unit independently computes entropy-related measurements based 
 This model enables cross-validation of measurements and allows the detection of silent failures affecting either one of the Measurement Units. A significant divergence between the two measurements may indicate faults, degradation, or inconsistencies in the measurement process, even when individual measurements satisfy their respective thresholds.
 
 The Evidence, in this case, contains multiple measurements for the same target hardware component, originating from distinct Measurement Units.
+
+### PUF Steadiness Evaluation with BIST
+
+In this scenario, the Target Environment is a Physical Unclonable Function (PUF) integrated within a hardware component and used for device identity or key derivation. The objective is to evaluate PUF steadiness (see {{ISO20897}}). The Measurement Unit is implemented as a BIST that performs runtime checks of the PUF behavior. This corresponds to the embedded Measurement Unit integration model described in {{embedded-mu}}.
+
+The Measurement Unit periodically or on-demand applies one or more selected challenges (or triggers a no-challenge PUF such as an SRAM PUF) and collects multiple responses under the current operational conditions. It then computes metrics that reflect the steadiness of the PUF, such as intra-device variation (e.g., Hamming distance between two responses), error correction activity, or decoding success rate. These computations aim at verifying that the PUF remains usable and stable enough for its purpose.
+
+The Attesting Environment collects the resulting metrics and includes them in Evidence with operational context.
+
+During appraisal, the Verifier evaluates the reported metrics against Reference Values or policy thresholds. For example, the Verifier may require that the intra-device variation remains below a given threshold, that error correction remains within acceptable range, or that response reconstruction succeeds under a fixed set of conditions. A deviation from these expectations may indicate abnormal behavior.
+
+Note: Environmental variations, aging, and physical attacks may affect PUF stability. Thus, interpreting the measurements requires consideration of operational context.
 
 ## Detection of Active Tampering
 
