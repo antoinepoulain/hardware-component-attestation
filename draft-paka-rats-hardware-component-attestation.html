@@ -1269,6 +1269,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2.2.4">
                     <p id="section-toc.1-1.7.2.2.2.4.1"><a href="#section-7.2.4" class="auto internal xref">7.2.4</a>.  <a href="#name-trng-entropy-cross-validati" class="internal xref">TRNG Entropy Cross-Validation by Dual Measurement Units</a></p>
 </li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2.2.5">
+                    <p id="section-toc.1-1.7.2.2.2.5.1"><a href="#section-7.2.5" class="auto internal xref">7.2.5</a>.  <a href="#name-puf-steadiness-evaluation-w" class="internal xref">PUF Steadiness Evaluation with BIST</a></p>
+</li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
@@ -2244,6 +2247,18 @@ The oscillator frequency depends on physical and electrical properties of the ha
 <p id="section-7.2.4-4">The Evidence, in this case, contains multiple measurements for the same target hardware component, originating from distinct Measurement Units.<a href="#section-7.2.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="puf-steadiness-evaluation-with-bist">
+<section id="section-7.2.5">
+          <h4 id="name-puf-steadiness-evaluation-w">
+<a href="#section-7.2.5" class="section-number selfRef">7.2.5. </a><a href="#name-puf-steadiness-evaluation-w" class="section-name selfRef">PUF Steadiness Evaluation with BIST</a>
+          </h4>
+<p id="section-7.2.5-1">In this scenario, the Target Environment is a Physical Unclonable Function (PUF) integrated within a hardware component and used for device identity or key derivation. The objective is to evaluate PUF steadiness (see <span>[<a href="#ISO20897" class="cite xref">ISO20897</a>]</span>). The Measurement Unit is implemented as a BIST that performs runtime checks of the PUF behavior. This corresponds to the embedded Measurement Unit integration model described in <a href="#embedded-mu" class="auto internal xref">Section 4.2.1</a>.<a href="#section-7.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-7.2.5-2">The Measurement Unit periodically or on-demand applies one or more selected challenges (or triggers a no-challenge PUF such as an SRAM PUF) and collects multiple responses under the current operational conditions. It then computes metrics that reflect the steadiness of the PUF, such as intra-device variation (e.g., Hamming distance between two responses), error correction activity, or decoding success rate. These computations aim at verifying that the PUF remains usable and stable enough for its purpose.<a href="#section-7.2.5-2" class="pilcrow">¶</a></p>
+<p id="section-7.2.5-3">The Attesting Environment collects the resulting metrics and includes them in Evidence with operational context.<a href="#section-7.2.5-3" class="pilcrow">¶</a></p>
+<p id="section-7.2.5-4">During appraisal, the Verifier evaluates the reported metrics against Reference Values or policy thresholds. For example, the Verifier may require that the intra-device variation remains below a given threshold, that error correction remains within acceptable range, or that response reconstruction succeeds under a fixed set of conditions. A deviation from these expectations may indicate abnormal behavior.<a href="#section-7.2.5-4" class="pilcrow">¶</a></p>
+<p id="section-7.2.5-5">Note: Environmental variations, aging, and physical attacks may affect PUF stability. Thus, interpreting the measurements requires consideration of operational context.<a href="#section-7.2.5-5" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="detection-of-active-tampering">
@@ -2444,9 +2459,13 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-11
         <dd>
 <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Deshpande, Y.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Taxonomy of Composite Attesters"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-richardson-rats-composite-attesters-04</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-richardson-rats-composite-attesters-04">https://datatracker.ietf.org/doc/html/draft-richardson-rats-composite-attesters-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="ISO20897">[ISO20897]</dt>
+        <dd>
+<span class="refAuthor">International Standards Organization</span>, <span class="refTitle">"ISO/IEC 20897-1:2020, Information security, cybersecurity and privacy protection - Physically unclonable functions - Part 1: Security requirements"</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.iso.org/standard/76353.html">https://www.iso.org/standard/76353.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="ISO5891">[ISO5891]</dt>
         <dd>
-<span class="refAuthor">International Standards Organization</span>, <span class="refTitle">"ISO/IEC TR 5891:2024, Information security, cybersecurity and privacy protection — Hardware monitoring technology for hardware security assessment"</span>, <time datetime="2024-04" class="refDate">April 2024</time>, <span>&lt;<a href="https://www.iso.org/fr/standard/81806.html">https://www.iso.org/fr/standard/81806.html</a>&gt;</span>. </dd>
+<span class="refAuthor">International Standards Organization</span>, <span class="refTitle">"ISO/IEC TR 5891:2024, Information security, cybersecurity and privacy protection - Hardware monitoring technology for hardware security assessment"</span>, <time datetime="2024-04" class="refDate">April 2024</time>, <span>&lt;<a href="https://www.iso.org/fr/standard/81806.html">https://www.iso.org/fr/standard/81806.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NIST-SP-800-90B">[NIST-SP-800-90B]</dt>
         <dd>
