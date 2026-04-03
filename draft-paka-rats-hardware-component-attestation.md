@@ -642,13 +642,13 @@ Ex: Glitching, fault injections to induce malicious behavior. May tamper with th
 
 Ex: Memory tampering attacks to modify stored measurements.
 
-Some techniques to mitigate physical attacks are usage of a Trusted Platform Module (TPM) or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, nose injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.
+Some techniques to mitigate physical attacks are usage of a Trusted Platform Module (TPM) or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, passive shield, coating, noise injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.
 
 ### Supply Chain Attacks {#supply-chain-attacks}
 
 Each stage of the supply chain introduces a new opportunity for an attacker to tamper with the produced system.
 
-Supply chains attacks may lead to the injection of Trojans. Once a Trojan has been triggered, its activity may be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active Trojan by comparing the physical properties of the component when the Trojan is active against the reference physical properties of the component. Note that, if the Measurement Unit is part of the component itself, which means that it has been integrated by the foundry that introduced the Trojan, then it cannot be trusted.
+Supply chain attacks may lead to the injection of hardware trojans. Once the payload of a hardware trojan has been triggered, its activity may be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active hardware trojan by comparing the physical properties of the component when the trojan is active against the reference physical properties of the component. Note that, if the Measurement Unit is part of the component itself, which means that it has been integrated by the foundry that introduced the hardware trojan, then it cannot be trusted.
 
 # Privacy Considerations
 
