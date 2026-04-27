@@ -8,22 +8,22 @@
 <meta content="Antoine Poulain" name="author">
 <meta content="Abdellah Kaci" name="author">
 <meta content="
-       Hardware components constitute the foundation of all computations and therefore play a critical role in system integrity and reliability. Existing attestation mechanisms primarily rely on manufacturer endorsements, which provide limited visibility into the runtime behavior of hardware. This document extends the Remote ATtestation procedureS (RATS) architecture by defining a data model and guidelines for including measurements of hardware components in attestation Evidence. These measurements may represent physical properties, results of self-tests, or behavioral observations. The document considers a threat model that includes both adversarial actions and physical phenomena such as environmental variations and aging. It proposes abstract interfaces for collecting measurements, enabling interoperability while remaining agnostic to implementation mechanisms, and outlines a security model for their use in appraisal. 
+       Hardware components constitute the foundation of all computations and therefore play a critical role in system integrity and reliability. Existing attestation mechanisms primarily rely on manufacturer Endorsements, which provide limited visibility into the runtime behavior of hardware. This document extends the Remote ATtestation procedureS (RATS) architecture by defining a data model and guidelines for including measurements of hardware components in attestation Evidence. These measurements may represent physical properties, results of self-tests, or behavioral observations. The document considers a threat model that includes both adversarial actions and physical phenomena such as environmental variations and aging. It proposes abstract interfaces for collecting measurements, enabling interoperability while remaining agnostic to implementation mechanisms, and outlines a security model for their use in appraisal. 
     " name="description">
-<meta content="xml2rfc 3.32.0" name="generator">
+<meta content="xml2rfc 3.33.0" name="generator">
 <meta content="attestation" name="keyword">
 <meta content="hardware" name="keyword">
 <meta content="root of trust" name="keyword">
 <meta content="draft-paka-rats-hardware-component-attestation-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.32.0
-    Python 3.12.12
+  xml2rfc 3.33.0
+    Python 3.12.13
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.0.2
-    platformdirs 4.9.4
+    platformdirs 4.9.6
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.32.5
@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Poulain &amp; Kaci</td>
-<td class="center">Expires 5 October 2026</td>
+<td class="center">Expires 29 October 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-paka-rats-hardware-component-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-04-03" class="published">3 April 2026</time>
+<time datetime="2026-04-27" class="published">27 April 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-10-05">5 October 2026</time></dd>
+<dd class="expires"><time datetime="2026-10-29">29 October 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1087,7 +1087,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Attestation of Hardware Components</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Hardware components constitute the foundation of all computations and therefore play a critical role in system integrity and reliability. Existing attestation mechanisms primarily rely on manufacturer endorsements, which provide limited visibility into the runtime behavior of hardware. This document extends the Remote ATtestation procedureS (RATS) architecture by defining a data model and guidelines for including measurements of hardware components in attestation Evidence. These measurements may represent physical properties, results of self-tests, or behavioral observations. The document considers a threat model that includes both adversarial actions and physical phenomena such as environmental variations and aging. It proposes abstract interfaces for collecting measurements, enabling interoperability while remaining agnostic to implementation mechanisms, and outlines a security model for their use in appraisal.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Hardware components constitute the foundation of all computations and therefore play a critical role in system integrity and reliability. Existing attestation mechanisms primarily rely on manufacturer Endorsements, which provide limited visibility into the runtime behavior of hardware. This document extends the Remote ATtestation procedureS (RATS) architecture by defining a data model and guidelines for including measurements of hardware components in attestation Evidence. These measurements may represent physical properties, results of self-tests, or behavioral observations. The document considers a threat model that includes both adversarial actions and physical phenomena such as environmental variations and aging. It proposes abstract interfaces for collecting measurements, enabling interoperability while remaining agnostic to implementation mechanisms, and outlines a security model for their use in appraisal.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1124,7 +1124,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 5 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1350,7 +1350,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-1-1">Hardware components form the foundation upon which all computations rely. Therefore, the correctness and integrity of software execution depend on the proper functioning of the underlying hardware, which can be considered a root of trust for computation.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Modern systems increasingly adopt disaggregated architectures, such as chiplet-based designs and large-scale heterogeneous platforms. These systems integrate hardware components from multiple sources, introducing new attack surfaces.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">At the same time, zero trust principles encourage reducing reliance on static trust anchors and Endorsements in favor of Evidence reflecting the actual runtime state of components, consequently enabling more dependable assessment of both security and safety properties. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued Endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-3">At the same time, zero trust principles encourage reducing reliance on static data such as Endorsements in favor of Evidence reflecting the actual runtime state of components, consequently enabling more dependable assessment of both security and safety properties. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued Endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">This document considers a threat model in which hardware components may be affected not only by adversarial actions, but also by physical phenomena such as environmental variations, aging, and natural degradation (see <a href="#seccons" class="auto internal xref">Section 8</a>). This wider scope is motivated by the fact that hardware components, are directly influenced by physical conditions that can alter their behavior over time or under stress. Therefore, assessing the runtime state of hardware requires taking into account both intentional attacks and non-adversarial effects that may lead to faults or degraded operation. These aspects are particularly important in systems with strong safety and reliability requirements.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence (<a href="#evidence" class="auto internal xref">Section 5.3</a>), as described in the RATS architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them (<a href="#practical-examples" class="auto internal xref">Section 7</a>). These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces (<a href="#abstract-representation" class="auto internal xref">Section 4.1</a>) and a data model for obtaining and representing such measurements.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
@@ -2358,11 +2358,11 @@ The oscillator frequency depends on physical and electrical properties of the ha
             <h5 id="name-active-attacks">
 <a href="#section-8.4.2.2" class="section-number selfRef">8.4.2.2. </a><a href="#name-active-attacks" class="section-name selfRef">Active Attacks</a>
             </h5>
-<p id="section-8.4.2.2-1">Active physical attacks are the main problem since they allow an attacker (or a “natural” physical event) to tamper with the integrity of assets and execution flows of the system. These may therefore modify measurements in transit or at rest, inject arbitrary data in Evidence or bypass sensitive operations.<a href="#section-8.4.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.4.2.2-2">Ex: Attacks on bus (Active man-in-the-middle (MITM), injection, probing) or anywhere measurements are in transit before being integrated in a structure that cannot be tampered or spoofed (signed Evidence).<a href="#section-8.4.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-8.4.2.2-3">Ex: Glitching, fault injections to induce malicious behavior. May tamper with the target hardware component itself or the Measurement Unit or the logic used to build Evidence.<a href="#section-8.4.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-8.4.2.2-4">Ex: Memory tampering attacks to modify stored measurements.<a href="#section-8.4.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-8.4.2.2-5">Some techniques to mitigate physical attacks are usage of a Trusted Platform Module (TPM) or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, passive shield, coating, noise injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.<a href="#section-8.4.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-8.4.2.2-1">Active physical attacks are the main problem since they allow an attacker (or a “natural” physical event) to tamper with the integrity of assets and execution flows of the system. These may therefore modify measurements in transit or at rest, inject arbitrary data in Evidence or modify the behavior of sensitive operations.<a href="#section-8.4.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.4.2.2-2">Ex: Attacks on bus (Active man-in-the-middle (MITM), injection, probing) or anywhere measurements are in transit before being integrated in a structure that cannot be tampered or spoofed (signed Evidence). An example of an active bus attack is presented in <span>[<a href="#Trustzone-Bus-Attack" class="cite xref">Trustzone-Bus-Attack</a>]</span>.<a href="#section-8.4.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.4.2.2-3">Ex: Glitching or fault injections to induce malicious behavior. May tamper with the target hardware component itself, the Measurement Unit or the logic used to build Evidence. See for example <span>[<a href="#Flash-FIA" class="cite xref">Flash-FIA</a>]</span>.<a href="#section-8.4.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-8.4.2.2-4">Ex: Memory tampering attacks to modify stored measurements or execution logic. See for instance <span>[<a href="#Thunderclap" class="cite xref">Thunderclap</a>]</span> and <span>[<a href="#RowHammer" class="cite xref">RowHammer</a>]</span>.<a href="#section-8.4.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-8.4.2.2-5">Some techniques to mitigate physical attacks are usage of a Trusted Platform Module (TPM) or secure element for storage and correct execution of protected logic, bus protections, implemented redundancy, sensors, active meshes, passive shields such as EMC shields (<span>[<a href="#EMC-Shield" class="cite xref">EMC-Shield</a>]</span>) and PCB potting (<span>[<a href="#PCB-Potting" class="cite xref">PCB-Potting</a>]</span>), noise injection, etc. Note that some of these techniques are made to directly prevent attacks (e.g., passive shields) while others can only be used for detection (e.g., sensors, active meshes).<a href="#section-8.4.2.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2443,6 +2443,14 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-11
 <a href="#section-12.2" class="section-number selfRef">12.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="EMC-Shield">[EMC-Shield]</dt>
+        <dd>
+<span class="refAuthor">Robinson, M. P.</span>, <span class="refAuthor">Thomas, D. W. P.</span>, <span class="refAuthor">Dawson, J. F.</span>, <span class="refAuthor">Porter, S. J.</span>, and <span class="refAuthor">C. Christopoulos</span>, <span class="refTitle">"Design of EMC Shielding"</span>, <time datetime="1997" class="refDate">1997</time>, <span>&lt;<a href="https://digital-library.theiet.org/doi/abs/10.1049/ic%3A19970597">https://digital-library.theiet.org/doi/abs/10.1049/ic%3A19970597</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="Flash-FIA">[Flash-FIA]</dt>
+        <dd>
+<span class="refAuthor">Jean-Max Dutertre</span>, <span class="refAuthor">Rodrigo Silva Lima</span>, <span class="refAuthor">Matthieu Pommies</span>, <span class="refAuthor">Anthony Bertrand</span>, and <span class="refAuthor">Raphael A Camponogara Viera</span>, <span class="refTitle">"Tampering with the flash memory of microcontrollers: permanent fault injection via laser illumination during read operations"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://hal.science/hal-04667604">https://hal.science/hal-04667604</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.fossati-tls-attestation">[I-D.fossati-tls-attestation]</dt>
         <dd>
 <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Howard, P.</span>, <span class="refAuthor">Mihalcea, I.</span>, <span class="refAuthor">Deshpande, Y.</span>, <span class="refAuthor">Niemi, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Using Attestation in Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-fossati-tls-attestation-09</span>, <time datetime="2025-04-30" class="refDate">30 April 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-fossati-tls-attestation-09">https://datatracker.ietf.org/doc/html/draft-fossati-tls-attestation-09</a>&gt;</span>. </dd>
@@ -2471,6 +2479,10 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-11
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Recommendation for the Entropy Sources Used for Random Bit Generation"</span>, <time datetime="2018-01" class="refDate">January 2018</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/nist.sp.800-90b.pdf">https://nvlpubs.nist.gov/nistpubs/SpecialPublications/nist.sp.800-90b.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="PCB-Potting">[PCB-Potting]</dt>
+        <dd>
+<span class="refAuthor">Meguid, S. A.</span>, <span class="refAuthor">Chen Zhuo</span>, and <span class="refAuthor">Fan Yang</span>, <span class="refTitle">"Effective Mitigation of Shock Loads in Embedded Electronic Packaging Using Bilayered Potting Materials"</span>, <time datetime="2014-12" class="refDate">December 2014</time>, <span>&lt;<a href="https://asmedigitalcollection.asme.org/electronicpackaging/article-abstract/136/4/041010/372656/Effective-Mitigation-of-Shock-Loads-in-Embedded">https://asmedigitalcollection.asme.org/electronicpackaging/article-abstract/136/4/041010/372656/Effective-Mitigation-of-Shock-Loads-in-Embedded</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5280">[RFC5280]</dt>
         <dd>
 <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>&gt;</span>. </dd>
@@ -2479,9 +2491,21 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-11
         <dd>
 <span class="refAuthor">Lundblade, L.</span>, <span class="refAuthor">Mandyam, G.</span>, <span class="refAuthor">O'Donoghue, J.</span>, and <span class="refAuthor">C. Wallace</span>, <span class="refTitle">"The Entity Attestation Token (EAT)"</span>, <span class="seriesInfo">RFC 9711</span>, <span class="seriesInfo">DOI 10.17487/RFC9711</span>, <time datetime="2025-04" class="refDate">April 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9711">https://www.rfc-editor.org/rfc/rfc9711</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RowHammer">[RowHammer]</dt>
+        <dd>
+<span class="refAuthor">Yoongu Kim</span>, <span class="refAuthor">Ross Daly</span>, <span class="refAuthor">Jeremie Kim</span>, <span class="refAuthor">Chris Fallin</span>, <span class="refAuthor">Ji Hye Lee</span>, <span class="refAuthor">Donghyuk Lee</span>, <span class="refAuthor">Chris Wilkerson</span>, <span class="refAuthor">Konrad Lai</span>, and <span class="refAuthor">Onur Mutlu</span>, <span class="refTitle">"Flipping Bits in Memory Without Accessing Them: An Experimental Study of DRAM Disturbance Errors"</span>, <time datetime="2014" class="refDate">2014</time>, <span>&lt;<a href="https://users.ece.cmu.edu/~yoonguk/papers/kim-isca14.pdf">https://users.ece.cmu.edu/~yoonguk/papers/kim-isca14.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="TCG-DICE">[TCG-DICE]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Trusted Computing Group</span>, <span class="refTitle">"DICE Attestation Architecture, Version 1.00, Revision 0.23"</span>, <time datetime="2021-03" class="refDate">March 2021</time>, <span>&lt;<a href="https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-r23-final.pdf">https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-r23-final.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="Thunderclap">[Thunderclap]</dt>
+        <dd>
+<span class="refAuthor">Theodore Markettos, A.</span>, <span class="refAuthor">Colin Rothwell</span>, <span class="refAuthor">Brett F Gutstein</span>, and <span class="refAuthor">Allison Pearce</span>, <span class="refTitle">"Thunderclap: Exploring Vulnerabilities in Operating System IOMMU Protection via DMA from Untrustworthy Peripherals"</span>, <time datetime="2019-01" class="refDate">January 2019</time>, <span>&lt;<a href="https://www.researchgate.net/publication/348915392_Thunderclap_Exploring_Vulnerabilities_in_Operating_System_IOMMU_Protection_via_DMA_from_Untrustworthy_Peripherals">https://www.researchgate.net/publication/348915392_Thunderclap_Exploring_Vulnerabilities_in_Operating_System_IOMMU_Protection_via_DMA_from_Untrustworthy_Peripherals</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="Trustzone-Bus-Attack">[Trustzone-Bus-Attack]</dt>
+      <dd>
+<span class="refAuthor">Nimish Mishra</span>, <span class="refAuthor">Anirban Chakraborty</span>, and <span class="refAuthor">Debdeep Mukhopadhyay</span>, <span class="refTitle">"Faults in Our Bus: Novel Bus Fault Attack to Break ARM TrustZone"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://www.ndss-symposium.org/wp-content/uploads/2024-499-paper.pdf">https://www.ndss-symposium.org/wp-content/uploads/2024-499-paper.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

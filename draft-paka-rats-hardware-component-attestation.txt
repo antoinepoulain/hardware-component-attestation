@@ -5,7 +5,7 @@
 Remote ATtestation ProcedureS                                 A. Poulain
 Internet-Draft                                                   A. Kaci
 Intended status: Standards Track                               Secure-IC
-Expires: 5 October 2026                                     3 April 2026
+Expires: 29 October 2026                                   27 April 2026
 
 
                    Attestation of Hardware Components
@@ -16,7 +16,7 @@ Abstract
    Hardware components constitute the foundation of all computations and
    therefore play a critical role in system integrity and reliability.
    Existing attestation mechanisms primarily rely on manufacturer
-   endorsements, which provide limited visibility into the runtime
+   Endorsements, which provide limited visibility into the runtime
    behavior of hardware.  This document extends the Remote ATtestation
    procedureS (RATS) architecture by defining a data model and
    guidelines for including measurements of hardware components in
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 October 2026.
+   This Internet-Draft will expire on 29 October 2026.
 
 Copyright Notice
 
@@ -146,13 +146,13 @@ Table of Contents
    introducing new attack surfaces.
 
    At the same time, zero trust principles encourage reducing reliance
-   on static trust anchors and Endorsements in favor of Evidence
-   reflecting the actual runtime state of components, consequently
-   enabling more dependable assessment of both security and safety
-   properties.  However, current attestation mechanisms for hardware
-   components primarily rely on manufacturer-issued Endorsements, which
-   capture properties established prior to deployment but provide
-   limited visibility into runtime hardware behavior.
+   on static data such as Endorsements in favor of Evidence reflecting
+   the actual runtime state of components, consequently enabling more
+   dependable assessment of both security and safety properties.
+   However, current attestation mechanisms for hardware components
+   primarily rely on manufacturer-issued Endorsements, which capture
+   properties established prior to deployment but provide limited
+   visibility into runtime hardware behavior.
 
    This document considers a threat model in which hardware components
    may be affected not only by adversarial actions, but also by physical
@@ -1364,25 +1364,30 @@ Table of Contents
    attacker (or a “natural” physical event) to tamper with the integrity
    of assets and execution flows of the system.  These may therefore
    modify measurements in transit or at rest, inject arbitrary data in
-   Evidence or bypass sensitive operations.
+   Evidence or modify the behavior of sensitive operations.
 
    Ex: Attacks on bus (Active man-in-the-middle (MITM), injection,
    probing) or anywhere measurements are in transit before being
    integrated in a structure that cannot be tampered or spoofed (signed
-   Evidence).
+   Evidence).  An example of an active bus attack is presented in
+   [Trustzone-Bus-Attack].
 
-   Ex: Glitching, fault injections to induce malicious behavior.  May
-   tamper with the target hardware component itself or the Measurement
-   Unit or the logic used to build Evidence.
+   Ex: Glitching or fault injections to induce malicious behavior.  May
+   tamper with the target hardware component itself, the Measurement
+   Unit or the logic used to build Evidence.  See for example
+   [Flash-FIA].
 
-   Ex: Memory tampering attacks to modify stored measurements.
+   Ex: Memory tampering attacks to modify stored measurements or
+   execution logic.  See for instance [Thunderclap] and [RowHammer].
 
    Some techniques to mitigate physical attacks are usage of a Trusted
    Platform Module (TPM) or secure element for storage and correct
-   execution of protected logic, bus protections, redundancy, sensors,
-   active meshes, passive shield, coating, noise injection, etc.  Note
-   that some of these mitigations cannot directly prevent attacks but
-   can be used for detection.
+   execution of protected logic, bus protections, implemented
+   redundancy, sensors, active meshes, passive shields such as EMC
+   shields ([EMC-Shield]) and PCB potting ([PCB-Potting]), noise
+   injection, etc.  Note that some of these techniques are made to
+   directly prevent attacks (e.g., passive shields) while others can
+   only be used for detection (e.g., sensors, active meshes).
 
 8.4.3.  Supply Chain Attacks
 
@@ -1456,6 +1461,20 @@ Table of Contents
 
 12.2.  Informative References
 
+   [EMC-Shield]
+              Robinson, M. P., Thomas, D. W. P., Dawson, J. F., Porter,
+              S. J., and C. Christopoulos, "Design of EMC Shielding",
+              1997, <https://digital-library.theiet.org/doi/abs/10.1049/
+              ic%3A19970597>.
+
+   [Flash-FIA]
+              Jean-Max Dutertre, Rodrigo Silva Lima, Matthieu Pommies,
+              Anthony Bertrand, and Raphael A Camponogara Viera,
+              "Tampering with the flash memory of microcontrollers:
+              permanent fault injection via laser illumination during
+              read operations", 2023,
+              <https://hal.science/hal-04667604>.
+
    [I-D.fossati-tls-attestation]
               Tschofenig, H., Sheffer, Y., Howard, P., Mihalcea, I.,
               Deshpande, Y., Niemi, A., and T. Fossati, "Using
@@ -1507,6 +1526,14 @@ Table of Contents
               <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
               nist.sp.800-90b.pdf>.
 
+   [PCB-Potting]
+              Meguid, S. A., Chen Zhuo, and Fan Yang, "Effective
+              Mitigation of Shock Loads in Embedded Electronic Packaging
+              Using Bilayered Potting Materials", December 2014,
+              <https://asmedigitalcollection.asme.org/
+              electronicpackaging/article-abstract/136/4/041010/372656/
+              Effective-Mitigation-of-Shock-Loads-in-Embedded>.
+
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
@@ -1518,10 +1545,32 @@ Table of Contents
               DOI 10.17487/RFC9711, April 2025,
               <https://www.rfc-editor.org/rfc/rfc9711>.
 
+   [RowHammer]
+              Yoongu Kim, Ross Daly, Jeremie Kim, Chris Fallin, Ji Hye
+              Lee, Donghyuk Lee, Chris Wilkerson, Konrad Lai, and Onur
+              Mutlu, "Flipping Bits in Memory Without Accessing Them: An
+              Experimental Study of DRAM Disturbance Errors", 2014,
+              <https://users.ece.cmu.edu/~yoonguk/papers/kim-
+              isca14.pdf>.
+
    [TCG-DICE] Trusted Computing Group, "DICE Attestation Architecture,
               Version 1.00, Revision 0.23", March 2021,
               <https://trustedcomputinggroup.org/wp-content/uploads/
               DICE-Attestation-Architecture-r23-final.pdf>.
+
+   [Thunderclap]
+              Theodore Markettos, A., Colin Rothwell, Brett F Gutstein,
+              and Allison Pearce, "Thunderclap: Exploring
+              Vulnerabilities in Operating System IOMMU Protection via
+              DMA from Untrustworthy Peripherals", January 2019,
+              <https://www.researchgate.net/
+              publication/348915392_Thunderclap_Exploring_Vulnerabilities_in_Operating_System_IOMMU_Protection_via_DMA_from_Untrustworthy_Peripherals>.
+
+   [Trustzone-Bus-Attack]
+              Nimish Mishra, Anirban Chakraborty, and Debdeep
+              Mukhopadhyay, "Faults in Our Bus: Novel Bus Fault Attack
+              to Break ARM TrustZone", 2024, <https://www.ndss-
+              symposium.org/wp-content/uploads/2024-499-paper.pdf>.
 
 Appendix A.  Collected CDDL
 
