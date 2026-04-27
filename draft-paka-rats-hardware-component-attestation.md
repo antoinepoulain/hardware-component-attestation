@@ -82,11 +82,76 @@ informative:
     author:
        org: "National Institute of Standards and Technology"
 
+  EMC-Shield:
+    target: "https://digital-library.theiet.org/doi/abs/10.1049/ic%3A19970597"
+    title: "Design of EMC Shielding"
+    date: 1997
+    author:
+       - ins: "M.P. Robinson"
+       - ins: "D.W.P. Thomas"
+       - ins: "J.F. Dawson"
+       - ins: "S.J. Porter"
+       - ins: "C. Christopoulos"
+
+  PCB-Potting:
+    target: "https://asmedigitalcollection.asme.org/electronicpackaging/article-abstract/136/4/041010/372656/Effective-Mitigation-of-Shock-Loads-in-Embedded"
+    title: "Effective Mitigation of Shock Loads in Embedded Electronic Packaging Using Bilayered Potting Materials"
+    date: 2014-12
+    author:
+       - ins: "S. A. Meguid"
+       - ins: "Chen Zhuo"
+       - ins: "Fan Yang"
+
+  Thunderclap:
+    target: "https://www.researchgate.net/publication/348915392_Thunderclap_Exploring_Vulnerabilities_in_Operating_System_IOMMU_Protection_via_DMA_from_Untrustworthy_Peripherals"
+    title: "Thunderclap: Exploring Vulnerabilities in Operating System IOMMU Protection via DMA from Untrustworthy Peripherals"
+    date: 2019-01
+    author:
+      - ins: "A. Theodore Markettos"
+      - ins: "Colin Rothwell"
+      - ins: "Brett F. Gutstein"
+      - ins: "Allison Pearce"
+
+  RowHammer:
+    target: "https://users.ece.cmu.edu/~yoonguk/papers/kim-isca14.pdf"
+    title: "Flipping Bits in Memory Without Accessing Them: An Experimental Study of DRAM Disturbance Errors"
+    date: 2014
+    author:
+      - ins: "Yoongu Kim"
+      - ins: "Ross Daly"
+      - ins: "Jeremie Kim"
+      - ins: "Chris Fallin"
+      - ins: "Ji Hye Lee"
+      - ins: "Donghyuk Lee"
+      - ins: "Chris Wilkerson"
+      - ins: "Konrad Lai"
+      - ins: "Onur Mutlu"
+
+  Flash-FIA:
+    target: "https://hal.science/hal-04667604"
+    title: "Tampering with the flash memory of microcontrollers: permanent fault injection via laser illumination during read operations"
+    date: 2023
+    author:
+      - ins: "Jean-Max Dutertre"
+      - ins: "Rodrigo Silva Lima"
+      - ins: "Matthieu Pommies"
+      - ins: "Anthony Bertrand"
+      - ins: "Raphael A. Camponogara Viera"
+
+  Trustzone-Bus-Attack:
+    target: "https://www.ndss-symposium.org/wp-content/uploads/2024-499-paper.pdf"
+    title: "Faults in Our Bus: Novel Bus Fault Attack to Break ARM TrustZone"
+    date: 2024
+    author:
+      - ins: "Nimish Mishra"
+      - ins: "Anirban Chakraborty"
+      - ins: "Debdeep Mukhopadhyay"
+
 ...
 
 --- abstract
 
-Hardware components constitute the foundation of all computations and therefore play a critical role in system integrity and reliability. Existing attestation mechanisms primarily rely on manufacturer endorsements, which provide limited visibility into the runtime behavior of hardware. This document extends the Remote ATtestation procedureS (RATS) architecture by defining a data model and guidelines for including measurements of hardware components in attestation Evidence. These measurements may represent physical properties, results of self-tests, or behavioral observations. The document considers a threat model that includes both adversarial actions and physical phenomena such as environmental variations and aging. It proposes abstract interfaces for collecting measurements, enabling interoperability while remaining agnostic to implementation mechanisms, and outlines a security model for their use in appraisal.
+Hardware components constitute the foundation of all computations and therefore play a critical role in system integrity and reliability. Existing attestation mechanisms primarily rely on manufacturer Endorsements, which provide limited visibility into the runtime behavior of hardware. This document extends the Remote ATtestation procedureS (RATS) architecture by defining a data model and guidelines for including measurements of hardware components in attestation Evidence. These measurements may represent physical properties, results of self-tests, or behavioral observations. The document considers a threat model that includes both adversarial actions and physical phenomena such as environmental variations and aging. It proposes abstract interfaces for collecting measurements, enabling interoperability while remaining agnostic to implementation mechanisms, and outlines a security model for their use in appraisal.
 
 --- middle
 
@@ -96,7 +161,7 @@ Hardware components form the foundation upon which all computations rely. Theref
 
 Modern systems increasingly adopt disaggregated architectures, such as chiplet-based designs and large-scale heterogeneous platforms. These systems integrate hardware components from multiple sources, introducing new attack surfaces.
 
-At the same time, zero trust principles encourage reducing reliance on static trust anchors and Endorsements in favor of Evidence reflecting the actual runtime state of components, consequently enabling more dependable assessment of both security and safety properties. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued Endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.
+At the same time, zero trust principles encourage reducing reliance on static data such as Endorsements in favor of Evidence reflecting the actual runtime state of components, consequently enabling more dependable assessment of both security and safety properties. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued Endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.
 
 This document considers a threat model in which hardware components may be affected not only by adversarial actions, but also by physical phenomena such as environmental variations, aging, and natural degradation (see {{seccons}}). This wider scope is motivated by the fact that hardware components, are directly influenced by physical conditions that can alter their behavior over time or under stress. Therefore, assessing the runtime state of hardware requires taking into account both intentional attacks and non-adversarial effects that may lead to faults or degraded operation. These aspects are particularly important in systems with strong safety and reliability requirements.
 
@@ -653,15 +718,15 @@ The danger with passive attacks resides in the extraction of sensitive assets an
 
 #### Active Attacks
 
-Active physical attacks are the main problem since they allow an attacker (or a “natural” physical event) to tamper with the integrity of assets and execution flows of the system. These may therefore modify measurements in transit or at rest, inject arbitrary data in Evidence or bypass sensitive operations.
+Active physical attacks are the main problem since they allow an attacker (or a “natural” physical event) to tamper with the integrity of assets and execution flows of the system. These may therefore modify measurements in transit or at rest, inject arbitrary data in Evidence or modify the behavior of sensitive operations.
 
-Ex: Attacks on bus (Active man-in-the-middle (MITM), injection, probing) or anywhere measurements are in transit before being integrated in a structure that cannot be tampered or spoofed (signed Evidence).
+Ex: Attacks on bus (Active man-in-the-middle (MITM), injection, probing) or anywhere measurements are in transit before being integrated in a structure that cannot be tampered or spoofed (signed Evidence). An example of an active bus attack is presented in {{Trustzone-Bus-Attack}}.
 
-Ex: Glitching, fault injections to induce malicious behavior. May tamper with the target hardware component itself or the Measurement Unit or the logic used to build Evidence.
+Ex: Glitching or fault injections to induce malicious behavior. May tamper with the target hardware component itself, the Measurement Unit or the logic used to build Evidence. See for example {{Flash-FIA}}.
 
-Ex: Memory tampering attacks to modify stored measurements.
+Ex: Memory tampering attacks to modify stored measurements or execution logic. See for instance {{Thunderclap}} and {{RowHammer}}.
 
-Some techniques to mitigate physical attacks are usage of a Trusted Platform Module (TPM) or secure element for storage and correct execution of protected logic, bus protections, redundancy, sensors, active meshes, passive shield, coating, noise injection, etc. Note that some of these mitigations cannot directly prevent attacks but can be used for detection.
+Some techniques to mitigate physical attacks are usage of a Trusted Platform Module (TPM) or secure element for storage and correct execution of protected logic, bus protections, implemented redundancy, sensors, active meshes, passive shields such as EMC shields ({{EMC-Shield}}) and PCB potting ({{PCB-Potting}}), noise injection, etc. Note that some of these techniques are made to directly prevent attacks (e.g., passive shields) while others can only be used for detection (e.g., sensors, active meshes).
 
 ### Supply Chain Attacks {#supply-chain-attacks}
 
