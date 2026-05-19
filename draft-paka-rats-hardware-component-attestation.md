@@ -734,6 +734,8 @@ Each stage of the supply chain introduces a new opportunity for an attacker to t
 
 Supply chain attacks may lead to the injection of hardware trojans. Once the payload of a hardware trojan has been triggered, its activity may be reflected on the physical properties of the component (modified timing, different power consumption). It is therefore possible, in some cases, to detect an active hardware trojan by comparing the physical properties of the component when the trojan is active against the reference physical properties of the component. Note that, if the Measurement Unit is part of the component itself, which means that it has been integrated by the foundry that introduced the hardware trojan, then it cannot be trusted.
 
+Supply chain attacks can also lead to the generation of compromised Endorsements and Reference Values, especially if there are many hardware components coming from many sources. For instance, the attacker may be able to inject malicious behavioral models in Endorsements or relax the constraints specific to some operational contexts in Reference Value. In that case, the attestation cannot be trustworthy. Note that this security consideration is not specific to the subject of this document.
+
 # Privacy Considerations
 
 The privacy considerations of RATS architecture apply ({{Section 11 of RFC9334}}).
@@ -772,4 +774,4 @@ This appendix contains all the CDDL definitions included in this document.
 # Acknowledgments
 {:numbered="false"}
 
-Many thanks to Sylvain Guilley for reviewing the document and providing valuable comments.
+Many thanks to Sylvain Guilley and Muhammad Usama Sardar for reviewing the document and providing valuable comments.
