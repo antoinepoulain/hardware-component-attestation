@@ -1678,8 +1678,27 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-endorsement" class="section-name selfRef">Endorsement</a>
         </h3>
 <p id="section-5.1-1">Endorsements in the scope of this document contain metadata describing the characteristics of Measurement Units and target hardware components that are necessary for the Verifier to correctly appraise Evidence.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">These may include environmental robustness properties (e.g., operating temperature range, resistance to environmental conditions), Measurement Unit characteristics (e.g., accuracy, precision, uncertainty, sampling rate, sample count, method), calibration data (e.g., calibration coefficients and drift models over operational context), semantics of measurements (e.g., unit, scale, interpretation) and where applicable, the characteristics of reference or behavioral models to be used by the Verifier during appraisal.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">TODO: if the unit of the measurement is specified in here, is it possible to reuse IANA numbers for Sensor Measurement Lists: https://www.iana.org/assignments/senml/senml.xhtml<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">These may include:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1-3.1">
+            <p id="section-5.1-3.1.1">Measurement Unit characteristics (e.g., accuracy, precision, uncertainty, sampling rate, sample count, method),<a href="#section-5.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-3.2">
+            <p id="section-5.1-3.2.1">Measurement Unit identification data (e.g., product identifier, implementation version),<a href="#section-5.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-3.3">
+            <p id="section-5.1-3.3.1">Environmental robustness properties (e.g., operating temperature range, resistance to environmental conditions),<a href="#section-5.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-3.4">
+            <p id="section-5.1-3.4.1">Calibration data (e.g., calibration coefficients and drift models over operational context),<a href="#section-5.1-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-3.5">
+            <p id="section-5.1-3.5.1">Semantics of measurements (e.g., unit, scale, interpretation) and where applicable, the characteristics of reference or behavioral models to be used by the Verifier during appraisal.<a href="#section-5.1-3.5.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.1-4">The exact set of endorsed data to be included in Endorsement depends on the type of measurement as well as the characteristics and operational constraints of the Measurement Unit and of the target environment.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">Endorsements must be generated in a secure environment.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.1-6">TODO: if the unit of the measurement is specified in here, is it possible to reuse IANA numbers for Sensor Measurement Lists: https://www.iana.org/assignments/senml/senml.xhtml<a href="#section-5.1-6" class="pilcrow">¶</a></p>
 <div id="concise-reference-integrity-manifest-corim">
 <section id="section-5.1.1">
           <h4 id="name-concise-reference-integrity">
@@ -1695,10 +1714,33 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
         <h3 id="name-reference-value">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-reference-value" class="section-name selfRef">Reference Value</a>
         </h3>
-<p id="section-5.2-1">Reference Values must be computed in a secure environment.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed (see <a href="#operational-context" class="auto internal xref">Section 5.3.1.4.1.2</a>). The Verifier will then use these additional data to select the Reference Value that should be used in the context described by the additional data (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't correspond to the actual context of the system.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range or a function* of the operational context of the system and can correspond to a class, a group or an instance of target hardware component.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2-4">*could even be a ML model to detect abnormal physical properties depending on operational context of the system.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">Reference Values represent expected measurement results or acceptable ranges under specific operational context of the system in mission.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed (see <a href="#operational-context" class="auto internal xref">Section 5.3.1.4.1.2</a>). The Verifier will then use these additional data to select the Reference Value that should be used in the context described by the additional data (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't correspond to the actual context of the system.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Depending on the type of measurement and target hardware component, the Reference Value may be:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-4.1">
+            <p id="section-5.2-4.1.1">a single value,<a href="#section-5.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-4.2">
+            <p id="section-5.2-4.2.1">a range of values,<a href="#section-5.2-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-4.3">
+            <p id="section-5.2-4.3.1">or a function of the operational context of the system (e.g, a mapping, a statistical distribution, an ML model)<a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-5">Also, the Reference Value may apply to:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-6.1">
+            <p id="section-5.2-6.1.1">a class of hardware components,<a href="#section-5.2-6.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-6.2">
+            <p id="section-5.2-6.2.1">a group of hardware components,<a href="#section-5.2-6.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-6.3">
+            <p id="section-5.2-6.3.1">or a single hardware component instance.<a href="#section-5.2-6.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-7">Reference Values must be computed in a secure environment.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 <div id="concise-reference-integrity-manifest-corim-1">
 <section id="section-5.2.1">
           <h4 id="name-concise-reference-integrity-">
@@ -2399,7 +2441,7 @@ The oscillator frequency depends on physical and electrical properties of the ha
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
 <p id="section-10-1">It is possible that some measurement mechanisms may not be fully deterministic or may fail on rare occurrences or raise false positives.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">It is also possible that aging or environmental context affect sensors.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-2">It is also possible and expected that aging or environmental context affect sensors.<a href="#section-10-2" class="pilcrow">¶</a></p>
 <p id="section-10-3">These considerations must be taken into account and mitigated to an acceptable level by the designer.<a href="#section-10-3" class="pilcrow">¶</a></p>
 </section>
 </div>
