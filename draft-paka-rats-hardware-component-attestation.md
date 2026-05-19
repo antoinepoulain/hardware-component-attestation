@@ -348,7 +348,17 @@ To promote interoperability, the following sections showcase how to use the CoRI
 
 Endorsements in the scope of this document contain metadata describing the characteristics of Measurement Units and target hardware components that are necessary for the Verifier to correctly appraise Evidence.
 
-These may include environmental robustness properties (e.g., operating temperature range, resistance to environmental conditions), Measurement Unit characteristics (e.g., accuracy, precision, uncertainty, sampling rate, sample count, method), calibration data (e.g., calibration coefficients and drift models over operational context), semantics of measurements (e.g., unit, scale, interpretation) and where applicable, the characteristics of reference or behavioral models to be used by the Verifier during appraisal.
+These may include:
+
+* Measurement Unit characteristics (e.g., accuracy, precision, uncertainty, sampling rate, sample count, method),
+* Measurement Unit identification data (e.g., product identifier, implementation version),
+* Environmental robustness properties (e.g., operating temperature range, resistance to environmental conditions),
+* Calibration data (e.g., calibration coefficients and drift models over operational context),
+* Semantics of measurements (e.g., unit, scale, interpretation) and where applicable, the characteristics of reference or behavioral models to be used by the Verifier during appraisal.
+
+The exact set of endorsed data to be included in Endorsement depends on the type of measurement as well as the characteristics and operational constraints of the Measurement Unit and of the target environment.
+
+Endorsements must be generated in a secure environment.
 
 TODO: if the unit of the measurement is specified in here, is it possible to reuse IANA numbers for Sensor Measurement Lists: https://www.iana.org/assignments/senml/senml.xhtml
 
@@ -356,15 +366,26 @@ TODO: if the unit of the measurement is specified in here, is it possible to reu
 
 Endorsements can be written inside a CoMID Endorsed Values triple of a CoRIM (see {{Section 5.1.6 of -rats-corim}}). The Endorsed Values triple holds one or more measurement-map that are used to write the Endorsements.
 
+
 ## Reference Value
 
+Reference Values represent expected measurement results or acceptable ranges under specific operational context of the system in mission.
+
+For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed (see {{operational-context}}). The Verifier will then use these additional data to select the Reference Value that should be used in the context described by the additional data (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't correspond to the actual context of the system.
+
+Depending on the type of measurement and target hardware component, the Reference Value may be:
+
+* a single value,
+* a range of values,
+* or a function of the operational context of the system (e.g, a mapping, a statistical distribution, an ML model)
+
+Also, the Reference Value may apply to:
+
+* a class of hardware components,
+* a group of hardware components,
+* or a single hardware component instance.
+
 Reference Values must be computed in a secure environment.
-
-The Reference Value computed must correspond to the value that will be outputted in the expected environment of the system once in mission. For instance, a measurement might be dependent of the environmental conditions surrounding the system. This must be taken into account as a measurement different from the Reference Value does not necessarily mean bad behavior. If such context-dependent parameters cannot be foreseen, it is possible to include additional data in Evidence to give details about the context in which the measurement has been computed (see {{operational-context}}). The Verifier will then use these additional data to select the Reference Value that should be used in the context described by the additional data (kind of conditional Reference Values). This implies that attacker cannot modify these additional data otherwise, an attacker would be able to fool a Verifier into choosing Reference Values that don't correspond to the actual context of the system.
-
-Depending on the type of measurement and target hardware component, the Reference Value can be a value or a range or a function* of the operational context of the system and can correspond to a class, a group or an instance of target hardware component.
-
-*could even be a ML model to detect abnormal physical properties depending on operational context of the system.
 
 ### Concise Reference Integrity Manifest (CoRIM)
 
@@ -752,7 +773,7 @@ TODO In new claims, some fields may be dangerous for privacy. Some fields may en
 
 It is possible that some measurement mechanisms may not be fully deterministic or may fail on rare occurrences or raise false positives.
 
-It is also possible that aging or environmental context affect sensors.
+It is also possible and expected that aging or environmental context affect sensors.
 
 These considerations must be taken into account and mitigated to an acceptable level by the designer.
 
