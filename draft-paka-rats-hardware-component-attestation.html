@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Poulain &amp; Kaci</td>
-<td class="center">Expires 20 November 2026</td>
+<td class="center">Expires 21 November 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-paka-rats-hardware-component-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-05-19" class="published">19 May 2026</time>
+<time datetime="2026-05-20" class="published">20 May 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-11-20">20 November 2026</time></dd>
+<dd class="expires"><time datetime="2026-11-21">21 November 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1124,7 +1124,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1352,7 +1352,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-1-2">Modern systems increasingly adopt disaggregated architectures, such as chiplet-based designs and large-scale heterogeneous platforms. These systems integrate hardware components from multiple sources, introducing new attack surfaces.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">At the same time, zero trust principles encourage reducing reliance on static data such as Endorsements in favor of Evidence reflecting the actual runtime state of components, consequently enabling more dependable assessment of both security and safety properties. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued Endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">This document considers a threat model in which hardware components may be affected not only by adversarial actions, but also by physical phenomena such as environmental variations, aging, and natural degradation (see <a href="#seccons" class="auto internal xref">Section 8</a>). This wider scope is motivated by the fact that hardware components, are directly influenced by physical conditions that can alter their behavior over time or under stress. Therefore, assessing the runtime state of hardware requires taking into account both intentional attacks and non-adversarial effects that may lead to faults or degraded operation. These aspects are particularly important in systems with strong safety and reliability requirements.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence (<a href="#evidence" class="auto internal xref">Section 5.3</a>), as described in the RATS architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them (<a href="#practical-examples" class="auto internal xref">Section 7</a>). These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces (<a href="#abstract-representation" class="auto internal xref">Section 4.1</a>) and a data model for obtaining and representing such measurements.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-5">To bridge this gap between static certification and dynamic threats across decentralized ecosystems, frameworks like <span>[<a href="#AttestaChain" class="cite xref">AttestaChain</a>]</span> propose continuous, hardware-backed attestation that aligns with zero-trust principles and international regulations (e.g., the EU Cyber Resilience Act and US Executive Order 14028). By leveraging both cryptographic measurements and Physical IP attestation of the Root of Trust (RoT), such architectures allow component trustworthiness and physical integrity to be queried on demand throughout the product's lifetime. This continuous verification approach is designed to scale across both SoC and modern disaggregated SiP platforms, extending traditional acceptance testing into the runtime lifecycle.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence (<a href="#evidence" class="auto internal xref">Section 5.3</a>), as described in the RATS architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them (<a href="#practical-examples" class="auto internal xref">Section 7</a>). These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces (<a href="#abstract-representation" class="auto internal xref">Section 4.1</a>) and a data model for obtaining and representing such measurements.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1725,7 +1726,7 @@ Once stored in signed Evidence, the measurement is considered safe from unauthor
             <p id="section-5.2-4.2.1">a range of values,<a href="#section-5.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-4.3">
-            <p id="section-5.2-4.3.1">or a function of the operational context of the system (e.g, a mapping, a statistical distribution, an ML model)<a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-4.3.1">or a function of the operational context of the system (e.g, a mapping, a statistical distribution, an ML model).<a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-5.2-5">Also, the Reference Value may apply to:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
@@ -2486,6 +2487,10 @@ TODO need IANA actions for claims defined in this document ?<a href="#section-11
 <a href="#section-12.2" class="section-number selfRef">12.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="AttestaChain">[AttestaChain]</dt>
+        <dd>
+<span class="refAuthor">Abdellah Kaci</span> and <span class="refAuthor">Sylvain Guilley</span>, <span class="refTitle">"AttestaChain: A Chiplet-aware attestation system based on Blockchain and Zero-Trust Architecture"</span>, <time datetime="2026" class="refDate">2026</time>, <span>&lt;<a href="https://ieeexplore.ieee.org/document/11366346">https://ieeexplore.ieee.org/document/11366346</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="EMC-Shield">[EMC-Shield]</dt>
         <dd>
 <span class="refAuthor">Robinson, M. P.</span>, <span class="refAuthor">Thomas, D. W. P.</span>, <span class="refAuthor">Dawson, J. F.</span>, <span class="refAuthor">Porter, S. J.</span>, and <span class="refAuthor">C. Christopoulos</span>, <span class="refTitle">"Design of EMC Shielding"</span>, <time datetime="1997" class="refDate">1997</time>, <span>&lt;<a href="https://digital-library.theiet.org/doi/abs/10.1049/ic%3A19970597">https://digital-library.theiet.org/doi/abs/10.1049/ic%3A19970597</a>&gt;</span>. </dd>
