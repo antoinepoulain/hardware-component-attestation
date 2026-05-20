@@ -147,6 +147,14 @@ informative:
       - ins: "Anirban Chakraborty"
       - ins: "Debdeep Mukhopadhyay"
 
+  AttestaChain:
+    target: "https://ieeexplore.ieee.org/document/11366346"
+    title: "AttestaChain: A Chiplet-aware attestation system based on Blockchain and Zero-Trust Architecture"
+    date: 2026
+    author:
+      - ins: "Abdellah Kaci"
+      - ins: "Sylvain Guilley"
+
 ...
 
 --- abstract
@@ -164,6 +172,8 @@ Modern systems increasingly adopt disaggregated architectures, such as chiplet-b
 At the same time, zero trust principles encourage reducing reliance on static data such as Endorsements in favor of Evidence reflecting the actual runtime state of components, consequently enabling more dependable assessment of both security and safety properties. However, current attestation mechanisms for hardware components primarily rely on manufacturer-issued Endorsements, which capture properties established prior to deployment but provide limited visibility into runtime hardware behavior.
 
 This document considers a threat model in which hardware components may be affected not only by adversarial actions, but also by physical phenomena such as environmental variations, aging, and natural degradation (see {{seccons}}). This wider scope is motivated by the fact that hardware components, are directly influenced by physical conditions that can alter their behavior over time or under stress. Therefore, assessing the runtime state of hardware requires taking into account both intentional attacks and non-adversarial effects that may lead to faults or degraded operation. These aspects are particularly important in systems with strong safety and reliability requirements.
+
+To bridge this gap between static certification and dynamic threats across decentralized ecosystems, frameworks like {{AttestaChain}} propose continuous, hardware-backed attestation that aligns with zero-trust principles and international regulations (e.g., the EU Cyber Resilience Act and US Executive Order 14028). By leveraging both cryptographic measurements and Physical IP attestation of the Root of Trust (RoT), such architectures allow component trustworthiness and physical integrity to be queried on demand throughout the product's lifetime. This continuous verification approach is designed to scale across both SoC and modern disaggregated SiP platforms, extending traditional acceptance testing into the runtime lifecycle.
 
 To address these limitations, this document defines a data model and provides guidelines for including hardware component measurements in attestation Evidence ({{evidence}}), as described in the RATS architecture {{RFC9334}}. By incorporating runtime hardware measurements, attestation can provide improved visibility into the integrity and reliability of systems. This document also outlines a security model for such measurements and provides examples of existing technologies that can be leveraged to obtain them ({{practical-examples}}). These examples are informational only and do not mandate specific implementations. Instead, this document remains agnostic to the underlying measurement mechanisms and focuses on defining abstract interfaces ({{abstract-representation}}) and a data model for obtaining and representing such measurements.
 
@@ -377,7 +387,7 @@ Depending on the type of measurement and target hardware component, the Referenc
 
 * a single value,
 * a range of values,
-* or a function of the operational context of the system (e.g, a mapping, a statistical distribution, an ML model)
+* or a function of the operational context of the system (e.g, a mapping, a statistical distribution, an ML model).
 
 Also, the Reference Value may apply to:
 
