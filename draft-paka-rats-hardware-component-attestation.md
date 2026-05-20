@@ -691,6 +691,11 @@ During appraisal, the Verifier evaluates these measurements against behavioral m
 
 Trace-based measurements provide insight into the runtime behavior of the Target Environment and can reveal anomalies that are not detectable through static measurements or physical sensors. However, they require careful processing and interpretation and may introduce additional considerations related to data volume, confidentiality, and trust in the trace collection infrastructure.
 
+## Continuous Hardware Lifecycle Attestation
+...using AttestaChain
+@KACI
+Response "to We will demonstrate the usage of the data structures (our EAT measured HW component + newly defined CoMID) defined in the draft in the Practical Examples (section 7) in the next version"
+
 # Security Considerations {#seccons}
 
 The security considerations of RATS architecture apply ({{Section 12 of RFC9334}}). This section also mentions protection against physical attacks. These attacks are particularly relevant for this draft as collecting claims about hardware components implies a risk of physical compromise. Aging and action of environment on the system are also considered threats.
