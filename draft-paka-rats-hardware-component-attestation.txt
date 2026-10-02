@@ -5,7 +5,7 @@
 Remote ATtestation ProcedureS                                 A. Poulain
 Internet-Draft                                                   A. Kaci
 Intended status: Standards Track                               Secure-IC
-Expires: 21 November 2026                                    20 May 2026
+Expires: 5 April 2027                                     2 October 2026
 
 
                    Attestation of Hardware Components
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 November 2026.
+   This Internet-Draft will expire on 5 April 2027.
 
 Copyright Notice
 
@@ -1534,16 +1534,16 @@ Table of Contents
               Deshpande, Y., Niemi, A., and T. Fossati, "Using
               Attestation in Transport Layer Security (TLS) and Datagram
               Transport Layer Security (DTLS)", Work in Progress,
-              Internet-Draft, draft-fossati-tls-attestation-09, 30 April
-              2025, <https://datatracker.ietf.org/doc/html/draft-
-              fossati-tls-attestation-09>.
+              Internet-Draft, draft-fossati-tls-attestation-10, 23 July
+              2026, <https://datatracker.ietf.org/doc/html/draft-
+              fossati-tls-attestation-10>.
 
    [I-D.ietf-rats-corim]
               Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
-              Progress, Internet-Draft, draft-ietf-rats-corim-10, 2
-              March 2026, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-rats-corim-10>.
+              Progress, Internet-Draft, draft-ietf-rats-corim-11, 6 July
+              2026, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              rats-corim-11>.
 
    [I-D.ietf-rats-eat-measured-component]
               Frost, S., Fossati, T., Tschofenig, H., and H. Birkholz,
@@ -1557,9 +1557,9 @@ Table of Contents
               Richardson, M., Birkholz, H., Deshpande, Y., and T.
               Fossati, "Taxonomy of Composite Attesters", Work in
               Progress, Internet-Draft, draft-richardson-rats-composite-
-              attesters-04, 2 March 2026,
+              attesters-05, 31 August 2026,
               <https://datatracker.ietf.org/doc/html/draft-richardson-
-              rats-composite-attesters-04>.
+              rats-composite-attesters-05>.
 
    [ISO20897] International Standards Organization, "ISO/IEC
               20897-1:2020, Information security, cybersecurity and
